@@ -135,7 +135,13 @@ export function searchExpert(searchText){
 }
 
 
-//传入data body 
+/**
+ * This method used for signUp, same as request body 
+ * Post method is implemented
+ *
+ * @param {Object} data: Check SignUp ApI, request Body 
+ * @return {Object} check Signup Api
+ */
 export function signUp(data){
     const configObj = {
         method: 'POST',
@@ -144,8 +150,27 @@ export function signUp(data){
     console.log(data);
     alert("Sign-up successful")
     return getDataFromServer(apiUrl.SIGNUP, configObj);
-
 }
+
+
+/**
+ * This method used for Login
+ * Post method is implemented
+ *
+ * @param {Object} data:{"email": String, "password": String}
+ * @return {Object} check Signup Api
+ */
+export function Login(data){
+    const configObj = {
+        method: 'POST',
+        data,
+    }
+    console.log(data);
+    alert("Sign-up successful")
+    return getDataFromServer(apiUrl.SIGNUP, configObj);
+}
+
+
 
 
 

@@ -37,6 +37,10 @@ export const recieveScholorInformation = (scholarProfileList) => ({
     language:language
   })
 
+  export const logIn = () => ({
+    type:'LOG_IN',
+  })
+
 
   // export const searchPhd_ScholarInformationClear = ()  => ({
   //   type: 'SEARCH_PHD_RECEIVE_SCHOLAR_INFORMATION',
