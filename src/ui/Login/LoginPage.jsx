@@ -1,5 +1,9 @@
+//redundancy
 import React, { Component } from 'react'
+import cookie from 'react-cookies';
 import PropTypes from 'prop-types';
+
+//@materail design
 import { Paper,Typography,Collapse, Button, withStyles,ToolBar, Modal,FormControl,NativeSelect,InputBase  } from '@material-ui/core';
 import Icon from '@material-ui/core/Icon';
 import { Plus, Close, ConsoleNetwork } from 'mdi-material-ui';
@@ -8,7 +12,11 @@ import { Plus, Close, ConsoleNetwork } from 'mdi-material-ui';
 import BootstrapStyleSearchBox from '../reusableComponents/BootstrapStyleSearchBox'
 
 //api
-import {signUp} from '../../api/api.js'
+import {Login} from '../../api/api.js'
+
+//redux
+import { connect } from 'react-redux'
+import {loginSuccess} from '../../redux/actions/index'
 
 
 const styles = theme => ({
@@ -38,13 +46,6 @@ class LoginPage extends Component {
             open: this.props.open,
             email: "",
             password: "",
-            firstName:"",
-            lastName:"",
-            phoneNumber:"",
-            description:"",
-            country:"",
-            city:""
-
         };
         this.emailInput = this.emailInput.bind(this);
     }
@@ -70,12 +71,42 @@ class LoginPage extends Component {
 
       handleChange = field => input => {
         this.setState({[field]:input})
-        console.log(this.state.email)
       }
 
       submit = () =>{
+          if(this.emailValidate() && this.passswordValidate()){
+            const data = {
+                email:this.state.email,
+                password: this.state.password
+            }
+            const loginSuccessful =() => this.props.loginSuccess();
+
+            //method from login API, if succcusss, then store cookie, otherwise don't  
+            Login(data)
+                .then(function(data){
+                    cookie.save('userId', data.content.id);
+                    cookie.save('token', data.content.token);
+                    console.log(this)
+                    loginSuccessful();
+                    alert("login successful")
+                },function(err){
+                    alert("login failed")
+                    console.log(err);
+                })
+                this.handleClose();
+          }else{
+            alert("email address or password incorrect")
+          }
+      }
+      
+      emailValidate = () =>{
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(this.state.email).toLowerCase());
+      }
 
 
+      passswordValidate = () =>{
+          return this.state.password !== "" && this.state.password.length > 5
       }
 
 
@@ -136,5 +167,9 @@ class LoginPage extends Component {
     
 }
 
+const mapDispatchToProps = dispatch => ({
+    loginSuccess: ()=> dispatch(loginSuccess()),
+    dispatch
+});
 
-export default withStyles(styles)(LoginPage);
+export default connect(null,mapDispatchToProps)(withStyles(styles)(LoginPage));

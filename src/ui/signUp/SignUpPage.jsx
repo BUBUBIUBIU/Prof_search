@@ -124,7 +124,7 @@ class SignUpPage extends Component {
 
 
       passswordValidate = () =>{
-          return this.state.password !== "" && this.state.password.length >6 && this.state.password[0] === this.state.password[0].toUpperCase()
+          return this.state.password !== "" && this.state.password.length >= 6
       }
 
 

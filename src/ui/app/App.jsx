@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 //Redux Dependencies
 import { createStore } from 'redux'
 import { Provider } from "react-redux";
-import {rootReducer} from '../../redux/reducer/index.js'
+import {rootReducer} from '../../redux/reducer/index.js';
 
 
 //UI
 import RenderRouter from './renderRouter'
+import {loginSuccess} from '../../redux/actions/index'
 
 
 
@@ -19,9 +20,14 @@ class App extends Component {
       this.state = {
       };
     }
-    render(){
 
-  
+    componentDidMount(){
+
+      
+    }
+
+
+    render(){
       return(
         <Provider store={store}>
             <RenderRouter/>
@@ -29,6 +35,6 @@ class App extends Component {
         )
     }
   }
-  
-  export default App;
 
+
+export default App;

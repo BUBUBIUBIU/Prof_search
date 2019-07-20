@@ -7,4 +7,5 @@ import {publicIp} from './apiIp';
 // export const SEARCHEXPERTS = `${publicIp}/api/search/experts`;
 export const SEARCHEXPERTS = '/api/search/experts';
 export const SIGNUP = '/api/student/signup';
-export const LOGIN ='';
+export const LOGIN ='/api/student/signin';
+export const CHECKLOGIN ='/api/student/checksignin';

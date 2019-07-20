@@ -37,8 +37,12 @@ export const recieveScholorInformation = (scholarProfileList) => ({
     language:language
   })
 
-  export const logIn = () => ({
-    type:'LOG_IN',
+  export const loginSuccess = () => ({
+    type:'LOGIN_SUCCESS',
+  })
+
+  export const loginFail = () => ({
+    type:'LOGIN_Fail',
   })
 
 

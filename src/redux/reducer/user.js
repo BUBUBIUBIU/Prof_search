@@ -11,8 +11,12 @@ const initialState = 0
 
 const user = (state = initialState, action) => {
     switch (action.type) {
-        case "LOG_IN": {
+        case "LOGIN_SUCCESS": {
+            console.log("redux login success")
             return 1
+        }
+        case "LOGIN_FAIL": {
+            return 0
         }
         default: {
             return state

@@ -7,6 +7,7 @@ import createBrowserHistory from 'history/createBrowserHistory';
 
 //Redux Dependencies
 import { connect } from 'react-redux'
+import {loginSuccess} from '../../redux/actions/index'
 // import { createStore } from 'redux'
 // import { Provider } from "react-redux";
 // import {rootReducer} from '../../redux/reducer/index.js'
@@ -31,6 +32,8 @@ import AdvancedSearchPhdPage from '../advanceSearchPhdPage/AdvancedSearchPhdPage
 import PersonalProfilePage from '../personalProfilePage/PersonalProfilePage'
 import ContactListPage from '../contactList/ContactListPage'
 
+//api
+import {LoginCheck} from '../../api/api'
 
 
 const theme = createMuiTheme({
@@ -112,14 +115,27 @@ addLocaleData([...en, ...zh]);
 const browserHistory = createBrowserHistory();
 
 
-
-
 class RenderRouter extends Component {
   constructor(props) {
     super(props);
     this.state = {
         language: 'zh'
     };
+  }
+
+  componentDidMount(){
+    // Check Login status
+    const loginSuccessful =() => this.props.loginSuccess();
+    LoginCheck()
+      .then(function(data){
+        loginSuccessful();
+        alert("login succes")
+      },function(err){
+        console.log("not logged in")
+
+      }
+      )
+
   }
 
   componentDidUpdate(){
@@ -167,9 +183,15 @@ class RenderRouter extends Component {
 }
 
 
+
 const mapStateToProps = state => ({
   language: state.language,
-
 })
 
-export default connect(mapStateToProps,null)(RenderRouter);
+const mapDispatchToProps = dispatch => ({
+  loginSuccess: ()=> dispatch(loginSuccess()),
+  dispatch
+});
+
+
+export default connect(mapStateToProps,mapDispatchToProps)(RenderRouter);
