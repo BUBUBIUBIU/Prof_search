@@ -135,13 +135,21 @@ class HeadNavigator extends Component {
                   <Typography variant="h4" color="inherit" className={classes.grow}>
                   PROFSEARCH 
                   </Typography>
+
+                  {this.props.userInfo.status === 0 &&
                   <Button variant="outlined" color="secondary" className={classes.button} size="small" onClick = {this.signUp}> 
                   <FormattedMessage id="navigator_sign_up" defaultMessage="Sign up" />
-                  </Button>
+                  </Button>}
+
+                  {this.props.userInfo.status === 0 &&
                   <Button variant="outlined" color="secondary" className={classes.button} size="small" onClick = {this.login}>
                   <FormattedMessage id="navigator_log_in" defaultMessage="Log in" />
-                  </Button>
+                  </Button>}
 
+                  {this.props.userInfo.status === 1 &&
+                  <Button variant="outlined" color="secondary" className={classes.button} size="small">
+                  {this.props.userInfo.name}
+                  </Button>}
 
                   <Button variant="outlined" color="secondary" className={classes.button} size="small" 
                     aria-owns={anchorEl ? 'simple-menu' : undefined} aria-haspopup="true"
@@ -166,6 +174,9 @@ class HeadNavigator extends Component {
     }
 }
 
+const mapStateToProps = state => ({
+  userInfo: state.userInfo,
+})
 
 const mapDispatchToProps = dispatch => ({
     backHome: () => dispatch(backToHomePage()),
@@ -176,4 +187,4 @@ const mapDispatchToProps = dispatch => ({
 
 
 
-export default connect(null, mapDispatchToProps)(injectIntl(withStyles(styles)(HeadNavigator)));
+export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(withStyles(styles)(HeadNavigator)));

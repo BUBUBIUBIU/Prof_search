@@ -37,8 +37,9 @@ export const recieveScholorInformation = (scholarProfileList) => ({
     language:language
   })
 
-  export const loginSuccess = () => ({
+  export const loginSuccess = (name) => ({
     type:'LOGIN_SUCCESS',
+    name:name,
   })
 
   export const loginFail = () => ({

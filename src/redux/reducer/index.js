@@ -4,7 +4,7 @@ import scholarProfileListOrder from './scholarProfileListOrder';
 import scholarProfileListVisibility from './scholarProfileListVisibility';
 import scholarProfileSearchInfo from './scholarProfileSearchInfo'
 import language from './language'
-import user from './user'
+import userInfo from './userInfo'
 
 
 
@@ -14,7 +14,7 @@ export const rootReducer = combineReducers({
     scholarProfileListVisibility,
     scholarProfileSearchInfo,
     language,
-    user
+    userInfo
 });
 
 

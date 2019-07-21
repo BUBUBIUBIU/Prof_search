@@ -79,15 +79,15 @@ class LoginPage extends Component {
                 email:this.state.email,
                 password: this.state.password
             }
-            const loginSuccessful =() => this.props.loginSuccess();
+            const loginSuccessful =(name) => this.props.loginSuccess(name);
 
             //method from login API, if succcusss, then store cookie, otherwise don't  
             Login(data)
-                .then(function(data){
-                    cookie.save('userId', data.content.id);
-                    cookie.save('token', data.content.token);
-                    console.log(this)
-                    loginSuccessful();
+                .then(function(response){
+                    cookie.save('userId', response.content.id);
+                    cookie.save('token', response.content.token);
+                    let name = response.content.FirstName + response.content.LastName
+                    loginSuccessful(name);
                     alert("login successful")
                 },function(err){
                     alert("login failed")
@@ -168,7 +168,7 @@ class LoginPage extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-    loginSuccess: ()=> dispatch(loginSuccess()),
+    loginSuccess: (name)=> dispatch(loginSuccess(name)),
     dispatch
 });
 

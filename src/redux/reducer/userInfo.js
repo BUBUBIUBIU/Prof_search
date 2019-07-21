@@ -7,16 +7,19 @@
                 status == 0: not logged in       
  */
 
-const initialState = 0
+const initialState = {status:0, name:""}
 
-const user = (state = initialState, action) => {
+const userInfo = (state = initialState, action) => {
     switch (action.type) {
         case "LOGIN_SUCCESS": {
-            console.log("redux login success")
-            return 1
-        }
+            console.log("redux login success" + action.name)
+            return Object.assign({},state,{
+                status:1,
+                name:action.name,
+              })
+            }
         case "LOGIN_FAIL": {
-            return 0
+            return initialState
         }
         default: {
             return state
@@ -24,4 +27,4 @@ const user = (state = initialState, action) => {
     }
 }
   
-export default user;
+export default userInfo;

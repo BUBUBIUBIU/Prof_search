@@ -125,14 +125,16 @@ class RenderRouter extends Component {
 
   componentDidMount(){
     // Check Login status
-    const loginSuccessful =() => this.props.loginSuccess();
+    const loginSuccessful =(name) => this.props.loginSuccess(name);
     LoginCheck()
-      .then(function(data){
-        loginSuccessful();
+      .then(function(response){
+        let name = response.content.FirstName +" " + response.content.LastName;
+        console.log(response)
+        console.log(name)
+        loginSuccessful(name);
         alert("login succes")
       },function(err){
         console.log("not logged in")
-
       }
       )
 
@@ -189,7 +191,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  loginSuccess: ()=> dispatch(loginSuccess()),
+  loginSuccess: (name)=> dispatch(loginSuccess(name)),
   dispatch
 });
 
