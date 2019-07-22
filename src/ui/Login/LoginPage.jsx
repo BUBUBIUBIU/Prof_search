@@ -135,7 +135,7 @@ class LoginPage extends Component {
                 </div>
             </Paper>
 
-            <Paper className ={classes.paper} style ={{padding:"20px 30px"}}>
+            <Paper className ={classes.paper} style ={{padding:"50px 30px"}}>
                 <BootstrapStyleSearchBox
                     label = "Email Adress"
                     placeHolder = "xxx@gmail.com"
