@@ -68,10 +68,34 @@ class ProfileCard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            expand: false
-
+            expand: false,
+            universityName:undefined,
+            degree:undefined,
+            major:undefined,
+            fromYear:undefined,
+            toYear:undefined,
+            gpa:undefined,
+            gpaType:undefined,
+            description:""
         };
     }
+
+    handleSubmit = () =>{
+        const data = {
+            UniversityID:this.state.email,
+            Degree: this.state.password,
+            Major:"test",
+            FromYear: 2013,
+            ToYear: 2017,
+            Description:"test",
+            GPA:"test",
+            GPAType:"test"
+        }
+    }
+
+    handleChange = field => input => {
+        this.setState({[field]:input})
+      }
 
     handleOpen = () => {
         this.setState({ open: true });
@@ -124,17 +148,20 @@ class ProfileCard extends Component {
                 <BootstrapStyleSearchBox
                     label = "School"
                     placeHolder = "University Name"
+                    onChangeInput = {this.handleChange("universityName")}
                     compusory = {true}
                     />
 
                 <BootstrapStyleSearchBox    
                     label = "Degree"
                     placeHolder = "Ex. Bachelor's"
+                    onChangeInput = {this.handleChange("degree")}
                     compusory = {true}
                     />
                 <BootstrapStyleSearchBox    
                     label = "Major"
                     placeHolder = "Ex. Design"
+                    onChangeInput = {this.handleChange("major")}
                     compusory = {true}
                     />
                 <Typography variant="h3" color="inherit">

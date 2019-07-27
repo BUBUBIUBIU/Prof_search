@@ -33,7 +33,7 @@ import PersonalProfilePage from '../personalProfilePage/PersonalProfilePage'
 import ContactListPage from '../contactList/ContactListPage'
 
 //api
-import {LoginCheck} from '../../api/api'
+import {LoginCheck} from '../../api/authApi'
 
 
 const theme = createMuiTheme({

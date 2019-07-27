@@ -12,7 +12,7 @@ import { Plus, Close, ConsoleNetwork } from 'mdi-material-ui';
 import BootstrapStyleSearchBox from '../reusableComponents/BootstrapStyleSearchBox'
 
 //api
-import {Login} from '../../api/api.js'
+import {Login} from '../../api/authApi.js'
 
 //redux
 import { connect } from 'react-redux'

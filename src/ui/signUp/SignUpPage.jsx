@@ -8,7 +8,7 @@ import { Plus, Close, ConsoleNetwork } from 'mdi-material-ui';
 import BootstrapStyleSearchBox from '../reusableComponents/BootstrapStyleSearchBox'
 
 //api
-import {signUp} from '../../api/api.js'
+import {signUp} from '../../api/authApi.js'
 
 
 const PASSWORD_INCORRECT= "PassWord must be at least 6 characters, and must contain one upperCase character and one number"
@@ -75,7 +75,6 @@ class SignUpPage extends Component {
 
       handleChange = field => input => {
         this.setState({[field]:input})
-        console.log(this.state.email)
       }
 
       submit = () =>{
