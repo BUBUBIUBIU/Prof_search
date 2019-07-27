@@ -12,7 +12,7 @@ const styles = theme => ({
         backgroundColor: theme.palette.common.white,
         marginTop:"20px",
         borderRadius: "4px",
-        height:"40px",
+        height:"200px",
         padding:"20px 0px 0 30px",
         boxShadow: "0 2px 4px 0 rgba(215, 215, 215, 0.5)",
         // width:"100%"
@@ -93,12 +93,13 @@ class Publication extends Component {
                 </div>
                 <Button style= {{float: "right",verticalAlign:"middle", color:"#000000"}} size="small" onClick = {this.handleClose}>
                 <Close/>
+                update
                 </Button>
                 </Typography >       
                 </div>
             </Paper>
 
-            <Paper className ={classes.paper} style ={{padding:"20px 30px"}}>
+            <Paper className ={classes.paper} style ={{padding:"20px 40px"}}>
                 <BootstrapStyleSearchBox
                     label = "Brief Description"
                     compusory = {true}
