@@ -31,6 +31,8 @@ import AdvancedSearchExpertPage from '../advanceSearchExpertPage/AdvancedSearchE
 import AdvancedSearchPhdPage from '../advanceSearchPhdPage/AdvancedSearchPhdPage'
 import PersonalProfilePage from '../personalProfilePage/PersonalProfilePage'
 import ContactListPage from '../contactList/ContactListPage'
+import LoginPage from '../page/LoginPage'
+import SignupPage from '../page/SignupPage'
 
 //api
 import {LoginCheck} from '../../api/authApi'
@@ -174,6 +176,8 @@ class RenderRouter extends Component {
                 <Route exact path="/SearchPhdPosition/advancedSearchPhd" component={AdvancedSearchPhdPage} />
                 <Route exact path="/personalProfile" component={PersonalProfilePage} />
                 <Route exact path="/contactList" component={ContactListPage} />
+                <Route exact path="/login" component={LoginPage} />
+                <Route exact path="/signup" component={SignupPage} />
                 <Route path="*" component={NotFoundPage} />
               </Switch>
             </BrowserRouter>
