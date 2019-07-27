@@ -1,7 +1,7 @@
 import axios from 'axios';
 import cookie from 'react-cookies';
 import * as apiUrl from './apiURL';
-import getDataFromServer from './api';
+import {getDataFromServer} from './api';
 
 
 
