@@ -9,3 +9,4 @@ export const SEARCHEXPERTS = '/api/search/experts';
 export const SIGNUP = '/api/student/signup';
 export const LOGIN ='/api/student/signin';
 export const CHECKLOGIN ='/api/student/checksignin';
+export const ADDUNIVERSITY ='/api/student/university';

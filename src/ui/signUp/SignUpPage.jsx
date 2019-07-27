@@ -73,8 +73,8 @@ class SignUpPage extends Component {
           console.log(text)
       }
 
-      handleChange = field => input => {
-        this.setState({[field]:input})
+      handleChange = field => event => {
+        this.setState({[field]:event.target.value})
       }
 
       submit = () =>{

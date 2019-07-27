@@ -9,7 +9,7 @@ import {getDataFromServer} from './api';
  * This method used for signUp, same as request body 
  * Post method is implemented
  *
- * @param {Object} data: Check SignUp ApI, request Body 
+ * @param {Object} data: detail in SignUp ApI, request Body 
  * @return {Object} check Signup Api
  */
 export function signUp(data){
