@@ -146,7 +146,7 @@ class LoginPage extends Component {
                 {/* todo */}
                 <BootstrapStyleSearchBox    
                     label = "Password"
-                    placeHolder = "Please enter yout password"
+                    placeHolder = "Please enter your password"
                     compusory = {true}
                     onChangeInput = {this.handleChange("password")}
                     />

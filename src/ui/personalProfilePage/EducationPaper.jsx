@@ -26,7 +26,7 @@ const styles = theme => ({
         outline: 'none',
         top:"20px"  ,
         left:"300px",
-        borderRadius: "4px"
+        borderRadius: "4px",
       },
       inputLabel:{
         margin: "28px 0 6px 0",
@@ -120,7 +120,7 @@ class ProfileCard extends Component {
                 </div>
             </Paper>
 
-            <Paper className ={classes.paper} style ={{padding:"20px 30px"}}>
+            <Paper className ={classes.paper} style ={{padding:"50px 30px"}}>
                 <BootstrapStyleSearchBox
                     label = "School"
                     placeHolder = "University Name"
