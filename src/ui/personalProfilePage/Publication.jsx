@@ -89,11 +89,11 @@ class Publication extends Component {
                 <div>
                 <Typography variant ="h1">
                 <div style ={{verticalAlign:"middle",height:"100%", float: "left"}}>
-                 Update Publication
+                 Add Publication
                 </div>
                 <Button style= {{float: "right",verticalAlign:"middle", color:"#000000"}} size="small" onClick = {this.handleClose}>
                 <Close/>
-                update
+              
                 </Button>
                 </Typography >       
                 </div>
@@ -109,7 +109,18 @@ class Publication extends Component {
                     label = "URL"
                     compusory = {true}
                     />
-                
+
+                <div style= {{float: "left"}}>
+                <Button variant="text" color="primary" size="small" onClick ={this.handleSubmit} >
+                    Add File
+                </Button>
+                </div>
+                <div style= {{float: "right"}}>
+                <Button variant="contained" color="primary" size="small" onClick ={this.handleSubmit} >
+                    save
+                </Button>
+                </div>
+
             </Paper>
             </div>
             </Modal> 
