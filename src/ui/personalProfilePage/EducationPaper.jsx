@@ -86,8 +86,8 @@ class ProfileCard extends Component {
             major:'',
             fromYear:2013,
             toYear:2017,
-            gpa:'',
-            gpaType:'',
+            gpa:NaN,
+            gpaType:0,
             description:""
         };
     }
@@ -100,24 +100,25 @@ class ProfileCard extends Component {
         && this.state.major.replace(/(^s*)|(s*$)/g, "").length !== 0
         && this.state.fromYear !== NaN
         && this.state.toYear !== NaN
-        && this.state.gpa.replace(/(^s*)|(s*$)/g, "").length !== 0){
+        && this.state.gpa!== NaN
+        && this.state.gpaType!== 0){
         const data = {
-            UniversityID:this.state.email,
-            Degree: this.state.password,
+            UniversityName:this.state.universityName,
+            Degree: this.state.degree,
             Major:this.state.major,
             FromYear: 2013,
             ToYear: 2017,
             Description:this.state.description,
-            GPA:this.state.gpa,
-            GPAType:this.state.gpaType
+            GPA:parseFloat(this.state.gpa),
+            GPAType:parseInt(this.state.gpaType)
         }
+        console.log(data)
 
         addEducation(data)
         .then(function(response){
-            this.handleClose();
-            alert("Add Education successful")
+            alert(response.message);
         },function(err){
-            alert("login failed")
+            alert(err.message);
             console.log(err);
         })
     }else{
@@ -227,14 +228,14 @@ class ProfileCard extends Component {
                         <FormControl style={{margin:"0 15px 0 15px"}}>
                             <NativeSelect value={this.state.gpaType} onChange={this.handleChange("gpaType")}
                                 className={classes.typeSelectBox} variant="outlined" native>
-                                <option value="" />
-                                <option value={'GPA'}>
-                                    GPA
+                                <option value={0} />
+                                <option value={1}>
+                                   GPA
                                 </option>
-                                <option value={'WAM'}>
+                                <option value={2}>
                                     WAM
                                 </option>
-                                <option value={'Percentage'}>
+                                <option value={3}>
                                     Percentage
                                 </option>
                             </NativeSelect>
@@ -250,7 +251,7 @@ class ProfileCard extends Component {
 
                 <div style= {{float: "right"}}>
                 <Button variant="contained" color="primary" size="small" onClick= {this.handleSubmit} >
-                    Search
+                    Save
                 </Button>
                 </div>
                     

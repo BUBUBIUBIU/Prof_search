@@ -8,7 +8,7 @@ import {getDataFromServer} from './api';
  * Post method is implemented
  *
  * @param {Object} data: detail in AddUniversity ApI, request Body 
- * @return {Object} check Signup Api
+ * @return {Object} 
  */
 export function addEducation(data){
     const configObj = {
@@ -16,11 +16,5 @@ export function addEducation(data){
         data,
     }
     console.log(data);
-    getDataFromServer(apiUrl.ADDUNIVERSITY, configObj)
-        .then(function(data){
-            alert("add experience successful") 
-        },function(err){
-            alert("User already exit") 
-            console.log(err)
-        })
+    return getDataFromServer(apiUrl.ADDUNIVERSITY, configObj);
 }
