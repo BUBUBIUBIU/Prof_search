@@ -2,8 +2,8 @@
 import React, { Component } from 'react';
 
 //UI
-import HeadNavigator from '../reusableComponents/HeadNavigator.jsx'
-import SearchResearchProjectsSection from './SearchResearchProjectsSection.jsx'
+import HeadNavigator from '../../reusableComponents/HeadNavigator.jsx'
+import SearchResearchProjectsSection from './SearchResearchProjectsSection'
 
 class SearchPhdPage extends Component {
     constructor(props) {

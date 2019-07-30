@@ -6,11 +6,11 @@ import Sort from '@material-ui/icons/Sort'
 
 //redux Dependencies
 import { connect } from 'react-redux'
-import {setScholarProfileOrder} from '../../redux/actions/index'
+import {setScholarProfileOrder} from '../../../redux/actions/index'
 
 //ui
-import ScholarProfileContainer from '../reusableComponents/scholarProfileCard/ScholarProfileContainer'
-import LeftPannel from './LeftPannel.jsx'
+import ScholarProfileContainer from '../../reusableComponents/scholarProfileCard/ScholarProfileContainer'
+import LeftPannel from './LeftPannel'
 
 const styles = theme =>({
     root:{

@@ -10,13 +10,14 @@ import PropTypes from 'prop-types';
 import { Paper,Typography,Collapse, Button, withStyles,ToolBar, Modal,FormControl,NativeSelect,InputBase  } from '@material-ui/core';
 import Icon from '@material-ui/core/Icon';
 import { Plus, Close } from 'mdi-material-ui';
+import  CardHeader from '../../reusableComponents/personalProfileCard/CardHeader'
 
 //Ui
-import BootstrapStyleSearchBox from '../reusableComponents/BootstrapStyleSearchBox'
-
+import BootstrapStyleSearchBox from '../../reusableComponents/BootstrapStyleSearchBox'
+import PersonalProfileCard from '../../reusableComponents/personalProfileCard/PersonalProfileCard'
 
 //api
-import {addEducation} from '../../api/personalProfileApi'
+import {addEducation} from '../../../api/personalProfileApi'
 
 
 
@@ -145,7 +146,7 @@ class ProfileCard extends Component {
         const {classes, profile} = this.props
         return(
             <div>
-            <Paper className = {classes.paper} style ={{marginTop:"20px", padding:"20px 20px 0 30px", height:"40px",}}>
+            {/* <Paper className = {classes.paper} style ={{marginTop:"20px", padding:"20px 20px 0 30px", height:"40px",}}>
                 <div>
                 <Typography variant ="h1">
                 <div style ={{verticalAlign:"middle",height:"100%", float: "left"}}>
@@ -157,8 +158,9 @@ class ProfileCard extends Component {
                 <Plus/> Add Degree
                 </Button>   
                 </div>
-            </Paper>
-
+            </Paper> */}
+            <CardHeader title = {"Education"} handleOpen ={this.handleOpen} isCompulsory= {true} isEmpty = {true}/>
+            <PersonalProfileCard/>
 
             <Modal
             aria-labelledby="simple-modal-title"
@@ -179,6 +181,7 @@ class ProfileCard extends Component {
                 </Typography >       
                 </div>
             </Paper>
+
 
             <Paper className ={classes.paper} style ={{padding:"50px 30px"}}>
                 <BootstrapStyleSearchBox

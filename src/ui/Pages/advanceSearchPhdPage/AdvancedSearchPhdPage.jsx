@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 
 //UI
-import HeadNavigator from '../reusableComponents/HeadNavigator.jsx'
+import HeadNavigator from '../../reusableComponents/HeadNavigator'
 import AdvancedSearchPhdSection from './AdvancedSearchPhdSection'
 
 class AdvancedSearchPhdPage extends Component {

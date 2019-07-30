@@ -11,15 +11,15 @@ import { Redirect } from 'react-router'
 
 //Redux Dependencies  
 import { connect } from 'react-redux'
-import {recieveScholorInformation,setScholarProfileVisibility, setSearchInfo} from '../../redux/actions/index.js'
+import {recieveScholorInformation,setScholarProfileVisibility, setSearchInfo} from '../../../redux/actions/index.js'
 
 
 //UI component
-import SearchByExpertiseBox from '../reusableComponents/searchBoxComponents/SearchByExpertiseBox';
-import SearchLocationBox from '../reusableComponents/searchBoxComponents/SearchLocationBox';
+import SearchByExpertiseBox from '../../reusableComponents/searchBoxComponents/SearchByExpertiseBox';
+import SearchLocationBox from '../../reusableComponents/searchBoxComponents/SearchLocationBox';
 
 //API
-import {searchExpert} from '../../api/api.js'
+import {searchExpert} from '../../../api/api.js'
 
 
 const styles = theme =>({

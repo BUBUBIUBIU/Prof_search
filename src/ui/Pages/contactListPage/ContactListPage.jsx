@@ -4,8 +4,8 @@ import { Grid,Paper,Button,Menu,MenuItem,withStyles } from '@material-ui/core';
 import Sort from '@material-ui/icons/Sort'
 
 //UI
-import ScholarProfileFilter from '../reusableComponents/scholarProfileFilter/ScholarProfileFilter'
-import SecondHeader from "../reusableComponents/SecondHeader"
+import ScholarProfileFilter from '../../reusableComponents/scholarProfileFilter/ScholarProfileFilter'
+import SecondHeader from "../../reusableComponents/SecondHeader"
 import MiniCard from './MiniCard'
 import ContactCardContainer from './ContactCardContainer'
 

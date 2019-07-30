@@ -7,15 +7,15 @@ import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 
 //UI component
-import SearchByExpertiseBox from '../reusableComponents/searchBoxComponents/SearchByExpertiseBox.jsx';
-import SearchLocationBox from '../reusableComponents/searchBoxComponents/SearchLocationBox.jsx';
+import SearchByExpertiseBox from '../../reusableComponents/searchBoxComponents/SearchByExpertiseBox';
+import SearchLocationBox from '../../reusableComponents/searchBoxComponents/SearchLocationBox';
 
 //Redux Dependencies
 import { connect } from 'react-redux'
-import {recieveScholorInformation} from '../../redux/actions/index.js'
+import {recieveScholorInformation} from '../../../redux/actions/index.js'
 
 //API
-import {searchExpert} from '../../api/api.js'
+import {searchExpert} from '../../../api/api.js'
 
 
 const styles = theme =>({

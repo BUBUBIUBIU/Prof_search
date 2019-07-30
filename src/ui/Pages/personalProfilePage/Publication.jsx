@@ -4,7 +4,7 @@ import { Paper,Typography,Collapse, Button, withStyles,ToolBar, Modal,FormContro
 import Icon from '@material-ui/core/Icon';
 import { Plus, Close } from 'mdi-material-ui';
 
-import BootstrapStyleSearchBox from '../reusableComponents/BootstrapStyleSearchBox'
+import BootstrapStyleSearchBox from '../../reusableComponents/BootstrapStyleSearchBox'
 
 const styles = theme => ({
     paper:{

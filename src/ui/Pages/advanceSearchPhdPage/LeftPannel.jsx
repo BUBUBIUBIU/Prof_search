@@ -7,13 +7,13 @@ import CheckBoxIcon from '@material-ui/icons/CheckBox';
 
 //redux Dependencies
 import { connect } from 'react-redux' 
-import {recieveScholorInformation} from '../../redux/actions/index'
+import {recieveScholorInformation} from '../../../redux/actions/index'
 
 //UI
-import ScholarProfileFilter from '../reusableComponents/scholarProfileFilter/ScholarProfileFilter'
+import ScholarProfileFilter from '../../reusableComponents/scholarProfileFilter/ScholarProfileFilter'
 
 //API
-import {searchExpert} from '../../api/api.js'
+import {searchExpert} from '../../../api/api.js'
 
 const styles = theme => ({
     searchSectionPaper:{

@@ -4,4 +4,5 @@ The web will automaically check the login status using token and ID, It is in ui
 
 
 ## programming-standard
-State, Props, variables Should be camelCase
+1. State, Props, variables Should be camelCase
+2. include TypeCheck in each of the class, [Click Here for Guidance](https://reactjs.org/docs/typechecking-with-proptypes.html) 

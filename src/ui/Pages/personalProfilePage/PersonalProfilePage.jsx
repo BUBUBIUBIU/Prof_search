@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Grid } from '@material-ui/core';
 
 //UI
-import SecondHeader from "../reusableComponents/SecondHeader"
+import SecondHeader from "../../reusableComponents/SecondHeader"
 import ProfileCard from './ProfileCard'
 import EducationPaper from './EducationPaper'
 import WorkAndProjectExperience from './WorkAndProjectExperience'
