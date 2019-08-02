@@ -1,5 +1,5 @@
 /**
- * @file this file is for adding exduaction experience
+ * @file this file is for education modal
  * @author Chenyang Lu(clu3842@gmail.com)
  * @description 
  *       
@@ -7,17 +7,16 @@
 
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
-import { Paper,Typography,Collapse, Button, withStyles,ToolBar, Modal,FormControl,NativeSelect,InputBase  } from '@material-ui/core';
+import { Paper,Typography,Button, withStyles,FormControl,NativeSelect,InputBase  } from '@material-ui/core';
 import Icon from '@material-ui/core/Icon';
-import { Plus, Close } from 'mdi-material-ui';
-import  CardHeader from '../../reusableComponents/personalProfileCard/CardHeader'
+import {  Close } from 'mdi-material-ui';
+
 
 //Ui
-import BootstrapStyleSearchBox from '../../reusableComponents/BootstrapStyleSearchBox'
-import PersonalProfileCard from '../../reusableComponents/personalProfileCard/PersonalProfileCard'
+import BootstrapStyleSearchBox from '../../../reusableComponents/BootstrapStyleSearchBox'
 
 //api
-import {addEducation} from '../../../api/personalProfileApi'
+import {addEducation} from '../../../../api/personalProfileApi'
 
 
 
@@ -77,11 +76,10 @@ const styles = theme => ({
     },
   });
 
-class ProfileCard extends Component {
+class EducationModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            expand: false,
             universityName:'',
             degree:'',
             major:'',
@@ -134,40 +132,10 @@ class ProfileCard extends Component {
         this.setState({[field]:event.target.value})
       }
 
-    handleOpen = () => {
-        this.setState({ open: true });
-      };
-    
-      handleClose = () => {
-        this.setState({ open: false });
-      };
 
     render(){
-        const {classes, profile} = this.props
+        const {classes} = this.props
         return(
-            <div>
-            {/* <Paper className = {classes.paper} style ={{marginTop:"20px", padding:"20px 20px 0 30px", height:"40px",}}>
-                <div>
-                <Typography variant ="h1">
-                <div style ={{verticalAlign:"middle",height:"100%", float: "left"}}>
-                 <span style ={{color:"#E4554D"}}>* </span >Education
-                </div>
-                </Typography >    
-
-                <Button color="primary" style= {{marginRight: "20px",float: "right",verticalAlign:"middle"}} size="small" onClick = {this.handleOpen}>
-                <Plus/> Add Degree
-                </Button>   
-                </div>
-            </Paper> */}
-            <CardHeader title = {"Education"} handleOpen ={this.handleOpen} isCompulsory= {true} isEmpty = {true}/>
-            <PersonalProfileCard/>
-
-            <Modal
-            aria-labelledby="simple-modal-title"
-            aria-describedby="simple-modal-description"
-            open={this.state.open}
-            onClose={this.handleClose}
-            >
             <div className = {classes.modal}>
             <Paper className ={classes.paper} style ={{padding:"20px 30px 0px 30px", marginBottom:"3px",height:"40px"}} >
                 <div>
@@ -175,7 +143,7 @@ class ProfileCard extends Component {
                 <div style ={{verticalAlign:"middle",height:"100%", float: "left"}}>
                  Add Degree
                 </div>
-                <Button style= {{float: "right",verticalAlign:"middle", color:"#000000"}} size="small" onClick = {this.handleClose}>
+                <Button style= {{float: "right",verticalAlign:"middle", color:"#000000"}} size="small" onClick = {this.props.handleClose}>
                 <Close/>
                 </Button>
                 </Typography >       
@@ -260,12 +228,15 @@ class ProfileCard extends Component {
                     
             </Paper>
             </div>
-            </Modal>
-            </div>
+
         )
     }
     
 }
 
+EducationModal.propTypes = {
+    handleClose: PropTypes.object
+}
 
-export default withStyles(styles)(ProfileCard);
+
+export default withStyles(styles)(EducationModal);

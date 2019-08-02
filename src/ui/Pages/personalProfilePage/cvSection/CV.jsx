@@ -1,8 +1,18 @@
+/**
+ * @file this file is for adding CV
+ * @author Chenyang Lu(clu3842@gmail.com)
+ * @description 
+ *       
+ */
+
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import { Paper,Typography,Collapse, Button, withStyles,ToolBar } from '@material-ui/core';
 import Icon from '@material-ui/core/Icon';
 import { Plus } from 'mdi-material-ui'
+
+//UI
+import  CardHeader from '../CardHeader'
 
 const styles = theme => ({
     paper:{
@@ -38,25 +48,8 @@ class CV extends Component {
         const {classes, profile} = this.props
         return(
             <div>
-            <Paper className = {classes.paper}>
-                <div>
-                <Typography variant ="h1">
-                <div style ={{verticalAlign:"middle",height:"100%", float: "left"}}>
-                 C.V
-                </div>
-                </Typography >    
-
-                <Button color="primary" style= {{marginRight: "20px",float: "right",verticalAlign:"middle"}} size="small" onClick = {this.handleOnclick}>
-                <Plus/> Add C.V
-                </Button>   
-                </div>
-            </Paper>
-
-            <Collapse  in = {this.state.expand} timeout="auto" unmountOnExit>
-                <Paper>
-                    something
-                </Paper>
-            </Collapse>
+            <CardHeader title = {"CV"} handleOpen ={this.handleOpen} isCompulsory= {false} buttonName = {"Add CV"}/>
+            
             </div>
         )
     }

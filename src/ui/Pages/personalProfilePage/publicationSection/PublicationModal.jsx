@@ -1,10 +1,20 @@
+/**
+ * @file this file is for adding publications (publication Modal)
+ * @author Chenyang Lu(clu3842@gmail.com)
+ * @description 
+ *       
+ */
+
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import { Paper,Typography,Collapse, Button, withStyles,ToolBar, Modal,FormControl,NativeSelect,InputBase  } from '@material-ui/core';
 import Icon from '@material-ui/core/Icon';
 import { Plus, Close } from 'mdi-material-ui';
 
-import BootstrapStyleSearchBox from '../../reusableComponents/BootstrapStyleSearchBox'
+
+//UI
+import BootstrapStyleSearchBox from '../../../reusableComponents/BootstrapStyleSearchBox'
+import  CardHeader from '../CardHeader'
 
 const styles = theme => ({
     paper:{
@@ -38,60 +48,18 @@ class Publication extends Component {
         };
     }
 
-    handleOpen = () => {
-        this.setState({ open: true });
-      };
-    
-      handleClose = () => {
-        this.setState({ open: false });
-      };
-
-    handleOnclick = () =>{
-        if (this.state.expand == false){
-            this.setState({expand:true})
-        }else{
-            this.setState({expand:false})
-        }
-    }
 
     render(){
         const {classes, profile} = this.props
         return(
             <div>
-            <Paper className = {classes.paper}>
-                <div>
-                <Typography variant ="h1">
-                <div style ={{verticalAlign:"middle",height:"100%", float: "left"}}>
-                 Publication
-                </div>
-                </Typography >    
-
-                <Button color="primary" style= {{marginRight: "20px",float: "right",verticalAlign:"middle"}} size="small" onClick = {this.handleOpen}>
-                <Plus/> Add Publication
-                </Button>   
-                </div>
-            </Paper>
-
-{/*             <Collapse  in = {this.state.expand} timeout="auto" unmountOnExit>
-                <Paper>
-                    something
-                </Paper>
-            </Collapse> */}
-
- <Modal
-            aria-labelledby="simple-modal-title"
-            aria-describedby="simple-modal-description"
-            open={this.state.open}
-            onClose={this.handleClose}
-            >
-            <div className = {classes.modal}>
             <Paper className ={classes.paper} style ={{padding:"20px 30px 0px 30px", marginBottom:"3px",height:"40px"}} >
                 <div>
                 <Typography variant ="h1">
                 <div style ={{verticalAlign:"middle",height:"100%", float: "left"}}>
                  Add Publication
                 </div>
-                <Button style= {{float: "right",verticalAlign:"middle", color:"#000000"}} size="small" onClick = {this.handleClose}>
+                <Button style= {{float: "right",verticalAlign:"middle", color:"#000000"}} size="small" onClick = {this.props.handleClose}>
                 <Close/>
               
                 </Button>
@@ -123,13 +91,13 @@ class Publication extends Component {
 
             </Paper>
             </div>
-            </Modal> 
-            </div>
+
         )
     }
-    
-    
-
 }
+Publication.propTypes = {
+    handleClose: PropTypes.object
+}
+
 
 export default withStyles(styles)(Publication);

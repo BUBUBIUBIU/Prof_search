@@ -1,5 +1,3 @@
-
-
 /**
  * @file this redux state is for checking user login status
  * @author Chenyang Lu(clu3842@gmail.com)

@@ -5,11 +5,11 @@ import { Grid } from '@material-ui/core';
 //UI
 import SecondHeader from "../../reusableComponents/SecondHeader"
 import ProfileCard from './ProfileCard'
-import EducationPaper from './EducationPaper'
-import WorkAndProjectExperience from './WorkAndProjectExperience'
-import CV from './CV'
-import Publication from './Publication'
-import OtherMaterial from './OtherMaterial'
+import EducationPaper from './educationSection/EducationPaper'
+import WorkAndProjectExperience from './workAndProjectExperienceSection/WorkAndProjectExperience'
+import CV from './cvSection/CV'
+import Publication from './publicationSection/Publication'
+import OtherMaterial from './otherMaterialSection/OtherMaterial'
 
 
 
@@ -18,9 +18,20 @@ class PersonalProfilePage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            
+            hasEducation: false,
+            hasWordExperience:false,
+            hasCv: false,
+            hasWorkExperience: false,
+            hasPublication: false,
+            hasOtherMaterial:false
         };
     }
+
+    componentDidMount(){
+
+    }
+
+    
     render(){
         return(
             <div>

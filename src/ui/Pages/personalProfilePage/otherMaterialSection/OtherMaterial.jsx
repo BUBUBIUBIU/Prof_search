@@ -1,8 +1,17 @@
+/**
+ * @file this is otherMaterial section
+ * @author Chenyang Lu(clu3842@gmail.com)
+ * @description    
+ */
+
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import { Paper,Typography,Collapse, Button, withStyles,ToolBar } from '@material-ui/core';
 import Icon from '@material-ui/core/Icon';
 import { Plus } from 'mdi-material-ui'
+
+//UI 
+import  CardHeader from '../CardHeader'
 
 const styles = theme => ({
     paper:{
@@ -33,30 +42,14 @@ class OtherMaterial extends Component {
             this.setState({expand:false})
         }
     }
+    handleOpen = () => {
+        
+    }
 
     render(){
-        const {classes, profile} = this.props
         return(
             <div>
-            <Paper className = {classes.paper}>
-                <div>
-                <Typography variant ="h1">
-                <div style ={{verticalAlign:"middle",height:"100%", float: "left"}}>
-                 Other Material
-                </div>
-                </Typography >    
-
-                <Button color="primary" style= {{marginRight: "20px",float: "right",verticalAlign:"middle"}} size="small" onClick = {this.handleOnclick}>
-                <Plus/> Add Material
-                </Button>   
-                </div>
-            </Paper>
-
-            <Collapse  in = {this.state.expand} timeout="auto" unmountOnExit>
-                <Paper>
-                    something
-                </Paper>
-            </Collapse>
+            <CardHeader title = {"Other Material"} handleOpen ={this.handleOpen} isCompulsory= {false} buttonName = {"Add Material"}/>
             </div>
         )
     }

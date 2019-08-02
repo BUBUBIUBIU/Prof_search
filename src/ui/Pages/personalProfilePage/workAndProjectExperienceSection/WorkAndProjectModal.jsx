@@ -1,3 +1,10 @@
+/**
+ * @file this file is for adding work and project experience
+ * @author Chenyang Lu(clu3842@gmail.com)
+ * @description 
+ *       
+ */
+
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import { Paper,Typography,Collapse, Button, withStyles,ToolBa, Modal, Checkbox, NativeSelect,FormControl,InputBase,FormControlLabel } from '@material-ui/core';
@@ -5,7 +12,9 @@ import Icon from '@material-ui/core/Icon';
 import { Plus,Close } from 'mdi-material-ui'
 
 //Ui
-import BootstrapStyleSearchBox from '../../reusableComponents/BootstrapStyleSearchBox'
+import BootstrapStyleSearchBox from '../../../reusableComponents/BootstrapStyleSearchBox'
+import  CardHeader from '../CardHeader'
+
 
 const styles = theme => ({
     paper:{
@@ -64,7 +73,7 @@ const styles = theme => ({
     },
   });
 
-class WorkAndProjectExperience extends Component {
+class WorkAndProjectModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -91,21 +100,7 @@ class WorkAndProjectExperience extends Component {
         this.setState({[field]:input})
       }
 
-    handleOnclick = () =>{
-        if (this.state.expand == false){
-            this.setState({expand:true})
-        }else{
-            this.setState({expand:false})
-        }
-    }
 
-    handleOpen = () => {
-        this.setState({ open: true });
-      };
-    
-      handleClose = () => {
-        this.setState({ open: false });
-      };
 
       handleCheck = (event) =>{
         this.setState({currentWorking:event.target.checked})
@@ -115,29 +110,6 @@ class WorkAndProjectExperience extends Component {
     render(){
         const {classes, profile} = this.props
         return(
-            <div>
-            <Paper className = {classes.paper}>
-                <div>
-                <Typography variant ="h1">
-                <div style ={{verticalAlign:"middle",height:"100%", float: "left"}}>
-                 Work/ Project Experience
-                </div>
-                </Typography >    
-
-                <Button color="primary" style= {{marginRight: "20px",float: "right",verticalAlign:"middle"}} size="small" onClick = {this.handleOpen}>
-                <Plus/> Add Experience
-                </Button>   
-                </div>
-            </Paper>
-
-            
-            <Modal
-            aria-labelledby="simple-modal-title"
-            aria-describedby="simple-modal-description"
-            open={this.state.open}
-            currentWorking = {this.state.currentWorking}
-            onClose={this.handleClose}
-            >
             <div className = {classes.modal}>
             <Paper className ={classes.paper} style ={{padding:"20px 30px 0px 30px", marginBottom:"3px",height:"40px"}} >
                 <div>
@@ -145,7 +117,7 @@ class WorkAndProjectExperience extends Component {
                 <div style ={{verticalAlign:"middle",height:"100%", float: "left"}}>
                  Add Experience
                 </div>
-                <Button style= {{float: "right",verticalAlign:"middle", color:"#000000"}} size="small" onClick = {this.handleClose}>
+                <Button style= {{float: "right",verticalAlign:"middle", color:"#000000"}} size="small" onClick = {this.props.handleClose}>
                 <Close/>
                 </Button>
                 </Typography >       
@@ -197,14 +169,12 @@ class WorkAndProjectExperience extends Component {
                     
             </Paper>
             </div>
-            </Modal>
-
-            </div>
         )
     }
-    
-    
-
 }
 
-export default withStyles(styles)(WorkAndProjectExperience);
+WorkAndProjectModal.propTypes = {
+    handleClose: PropTypes.object
+}
+
+export default withStyles(styles)(WorkAndProjectModal);

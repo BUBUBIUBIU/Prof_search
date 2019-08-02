@@ -1,7 +1,14 @@
+/**
+ * @file this file is for show the list of education experience
+ * @author Chenyang Lu(clu3842@gmail.com)
+ * @description 
+ *       
+ */
+
 //Dependencies
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Grid,Paper,Typography, Button,withStyles, Avatar  } from '@material-ui/core';
+import { Grid,Paper,Typography, Button,withStyles, Avatar, List, ListItem, Divider } from '@material-ui/core';
 import { deepOrange, deepPurple } from '@material-ui/core/colors';
 import { Plus} from 'mdi-material-ui';
 
@@ -15,12 +22,12 @@ const styles = theme => ({
     },
     purpleAvatar: {
         margin: 10,
-        width: 100,
-        height:100,
+        width: 40,
+        height:40,
       },
 });
 
-class PersonalProfileCard extends Component {
+class EducationDetail extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -28,11 +35,14 @@ class PersonalProfileCard extends Component {
             
         };
     }
+
     render(){
-        const {classes,isCompulsory, title } = this.props
-        return(
-            <div>
-            <Paper className = {classes.paper} style ={{marginTop:"2px", padding:"25px 20px 50px 30px"}}>
+        const {classes,educationExperience} = this.props
+
+        // Note: Here we directly use this.props.educationExperience, It might result in bug(no data update), use state instead
+        const educationList = this.props.educationExperience.map((education, index) =>
+        <ListItem key={education._id} >
+            <div style ={{width: "100%"}}>
                 {/* title */}
                 <Grid container spacing={3}>
                     <Grid item xs={1}> 
@@ -43,14 +53,14 @@ class PersonalProfileCard extends Component {
                     {/* subtitle */}
                     <div style ={{margin:"10px"}}>
                     <Typography variant ="h2">
-                        Melbourne University
+                    {education.universityName}
                     </Typography>
                     </div>
 
                     {/* subtitle */}
                     <div style ={{margin:"10px"}}>
                     <Typography variant ="body2">
-                        4/4 - master Degree multi medium
+                    {education.degree}
                     </Typography>
                     </div>
 
@@ -58,30 +68,40 @@ class PersonalProfileCard extends Component {
                     {/* year and location */}
                     <div style ={{margin:"10px"}}>
                     <Typography variant ="body2">
-                        2014-1015
+                    {education.year}
                     </Typography>
                     </div>
 
                     <div style ={{margin:"25px 10px 25px 10px"}}>
                     {/* Describetion */}
                     <Typography variant ="body2">
-                        This is the describtion
+                    {education.description}
                     </Typography>
                     </div>
                     </Grid>
                 </Grid>
-
-            </Paper>
+                {this.props.educationExperience.length -1 !== index && <Divider variant = "inset"/>}
             </div>
+        </ListItem>
+        );
+        
+
+        return(
+            <Paper className = {classes.paper} style ={{marginTop:"2px", padding:"25px 20px 50px 30px"}}>
+            {/* title */}
+            <List>
+                    {educationList}
+            </List>
+            </Paper>
         )
 
     }
 };
 
 //Todo 
-PersonalProfileCard.propTypes = {
+EducationDetail.propTypes = {
     isCompulsory: PropTypes.bool,
     title: PropTypes.string,
 }
 
-export default withStyles(styles)(PersonalProfileCard);
+export default withStyles(styles)(EducationDetail);

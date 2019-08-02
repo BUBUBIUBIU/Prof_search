@@ -26,10 +26,10 @@ class CardHeader extends Component {
 
 
     render(){
-        const {classes, isCompulsory, title } = this.props
+        const {classes, isCompulsory, title,buttonName} = this.props
         return(
             <div>
-                <Paper className = {classes.paper} style ={{marginTop:"20px", padding:"20px 20px 0 30px", height:"40px"}}>
+                <Paper className = {classes.paper} style ={{marginTop:"20px", padding:"25px 20px 0 30px", height:"40px"}}>
                 <div>
                 <Typography variant ="h1">
                 <div style ={{verticalAlign:"middle",height:"100%", float: "left"}}>
@@ -37,10 +37,10 @@ class CardHeader extends Component {
                 </div>
                 </Typography >    
 
-                { this.props.isEmpty && 
+
                 <Button color="primary" style= {{marginRight: "20px",float: "right",verticalAlign:"middle"}} size="small" onClick = {this.props.handleOpen}>
-                <Plus/> Add Degree
-                </Button> }   
+                <Plus/> {buttonName}
+                </Button> 
                 </div>
             </Paper>
             </div>
@@ -51,10 +51,10 @@ class CardHeader extends Component {
 
 //Todo 
 CardHeader.propTypes = {
-    isCompulsory: PropTypes.bool,
-    title: PropTypes.string,
-    handleOpen:PropTypes.object,
-    isEmpty: PropTypes.bool
+    isCompulsory: PropTypes.bool, // with * or not 
+    title: PropTypes.string, // Header title
+    handleOpen:PropTypes.object, // Button action
+    buttonName:PropTypes.string // Name of the button
 
 }
 
