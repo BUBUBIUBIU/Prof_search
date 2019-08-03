@@ -88,7 +88,6 @@ class LoginPage extends Component {
                     cookie.save('token', response.content.token);
                     let name = response.content.FirstName + response.content.LastName
                     loginSuccessful(name);
-                    alert("login successful")
                 },function(err){
                     alert("login failed")
                     console.log(err);

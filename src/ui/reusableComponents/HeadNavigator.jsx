@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import {AppBar,Toolbar,Typography,Button,Tabs,Tab, withStyles,withTheme, spacing, Menu, ClickAwayListener, MenuItem, Paper} from '@material-ui/core';
+import {AppBar,Toolbar,Typography,Button,Tabs,Tab, withStyles,withTheme, spacing,Avatar, Menu, ClickAwayListener, Grid, MenuItem, Paper} from '@material-ui/core';
 import { FormattedMessage, injectIntl, intlShape, FormattedRelative } from 'react-intl';
 import PropTypes from 'prop-types';
 
 //UI
-import SignUpPage from '../signUp/SignUpPage'
-import LoginPage from '../Login/LoginPage'
+import SignUpPage from './SignUpPage'
+import LoginPage from './LoginPage'
 
 //redux Dependencies
 import { connect } from 'react-redux'
@@ -38,6 +38,12 @@ const styles = theme => ({
     paddingLeft:100,
     paddingRight:100,
     margin:0
+  },
+  smallAvatar:{
+    margin: 5,
+    width: 25,
+    height: 25,
+    borderRadius:"5px"
   }
 });
 
@@ -56,6 +62,7 @@ class HeadNavigator extends Component {
         this.state = {
             value: this.props.tabValue,
             anchorEl: null,
+            profileAnchorEl: null,
             toAnotherPage:"",
             openSignUpModal: false,
             openLoginModal: false           
@@ -89,9 +96,17 @@ class HeadNavigator extends Component {
     handleLanguageButtonClick = event => {
       this.setState({ anchorEl: event.currentTarget });
     };
+
+    handleProfileClick = event => {
+      this.setState({ profileAnchorEl: event.currentTarget });
+    };
   
     handleClose = () => {
       this.setState({ anchorEl: null });
+    };
+
+    handleProfileClose = () => {
+      this.setState({ profileAnchorEl: null });
     };
 
     signUp =() =>{
@@ -122,7 +137,7 @@ class HeadNavigator extends Component {
         }
   
 
-        const {value, anchorEl} = this.state;
+        const {value, anchorEl,profileAnchorEl} = this.state;
         const {classes, theme, intl} = this.props;
         const searchExperts = intl.formatMessage({id: 'navigator_search_experts'});
         const search_phd = intl.formatMessage({id: 'navigator_search_phd'});
@@ -147,12 +162,49 @@ class HeadNavigator extends Component {
                   </Button>}
 
                   {this.props.userInfo.status === 1 &&
-                  <Button variant="outlined" color="secondary" className={classes.button} size="small">
-                  {this.props.userInfo.name}
-                  </Button>}
+                  <Button variant="outlined" 
+                    color="secondary" 
+                    aria-controls="personal-profile" 
+                    aria-owns={anchorEl ? 'personal-profile' : undefined} 
+                    className={classes.button} 
+                    size="small"
+                    aria-haspopup="true"
+                    onClick={this.handleProfileClick}>
+                  {/* {this.props.userInfo.name} */}
+                  CL
+                  </Button>
+                }
+                <Menu id="personal-profile" 
+                      open={true}
+                      anchorEl = {profileAnchorEl}
+                      open={Boolean(profileAnchorEl)}
+                      onClose={this.handleClose}>
+                  <MenuItem onClick={this.handleProfileClose}>
+                  <Avatar className={classes.smallAvatar} 
+                      src = "https://scontent.fcbr1-1.fna.fbcdn.net/v/t1.0-0/p370x247/50229562_10157302245734739_2837044079051669504_n.jpg?_nc_cat=109&amp;_nc_ht=scontent.fcbr1-1.fna&amp;oh=9af7e41fe295e20bf12794a74726716b&amp;oe=5D53A962"> 
+                    </Avatar>
+                  <Typography variant="h3" >
+                    Chenyang Lu
+                  </Typography>
+                  </MenuItem>
+                  <MenuItem onClick={this.handleProfileClose}>
+                  <Typography variant="h3" >
+                    Setting and privacy
+                  </Typography>
+                  </MenuItem>
+                  <MenuItem onClick={this.handleProfileClose}>
+                  <Typography variant="h3" >
+                    Log out
+                  </Typography>
+                  </MenuItem>
+                </Menu>
 
-                  <Button variant="outlined" color="secondary" className={classes.button} size="small" 
-                    aria-owns={anchorEl ? 'simple-menu' : undefined} aria-haspopup="true"
+                  <Button variant="outlined" 
+                    color="secondary" 
+                    className={classes.button} 
+                    size="small" 
+                    aria-owns={anchorEl ? 'simple-menu' : undefined} 
+                    aria-haspopup="true"
                     onClick={this.handleLanguageButtonClick}>
                     <FormattedMessage id="navigator_changeLangugae" defaultMessage="English" />
                   </Button>

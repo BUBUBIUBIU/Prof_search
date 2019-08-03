@@ -46,7 +46,7 @@ class EducationDetail extends Component {
                 {/* title */}
                 <Grid container spacing={3}>
                     <Grid item xs={1}> 
-                    <Avatar className={classes.purpleAvatar}>M</Avatar>
+                    <Avatar className={classes.purpleAvatar}>ME</Avatar>
                     </Grid>
 
                     <Grid item xs={11}>

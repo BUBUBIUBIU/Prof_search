@@ -3,6 +3,22 @@ import cookie from 'react-cookies';
 import * as apiUrl from './apiURL';
 import {getDataFromServer} from './api';
 
+
+/**
+ * This method used for gte personal Profile
+ * Get method is implemented
+ *
+ * @param {Object} data: detail in profile ApI
+ * @return {Object} 
+ */
+export function getProfile(){
+    const configObj = {
+        method: 'get'
+    }
+    return getDataFromServer(apiUrl.PROFILE, configObj);
+}
+
+
 /**
  * This method used for add experience
  * Post method is implemented
@@ -18,3 +34,4 @@ export function addEducation(data){
     console.log(data);
     return getDataFromServer(apiUrl.ADDUNIVERSITY, configObj);
 }
+

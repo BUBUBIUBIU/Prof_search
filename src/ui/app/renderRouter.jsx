@@ -23,7 +23,7 @@ import en_US from '../../locale/en_US.js';
 
 //Ui
 // import HomePage from '../../ui/page/HomePage.jsx';
-import NotFoundPage from '../../ui/page/NotFoundPage.jsx';
+import NotFoundPage from '../Pages/notFoundPage/NotFoundPage';
 import SearchPhdPage from '../Pages/searchPhdPage/SearchPhdPage';
 import SearchResearchProjectsPage from '../Pages/searchResearchProjectsPage/SearchResearchProjectsPage'
 import SearchExpertPage from '../Pages/searchExpertPage/SearchExpertPage'
@@ -31,8 +31,8 @@ import AdvancedSearchExpertPage from '../Pages/advanceSearchExpertPage/AdvancedS
 import AdvancedSearchPhdPage from '../Pages/advanceSearchPhdPage/AdvancedSearchPhdPage'
 import PersonalProfilePage from '../Pages/personalProfilePage/PersonalProfilePage'
 import ContactListPage from '../Pages/contactListPage/ContactListPage'
-import LoginPage from '../page/LoginPage'
-import SignUpPage from '../page/SignUpPage'
+// import LoginPage from '../page/LoginPage'
+// import SignUpPage from '../page/SignUpPage'
 
 //api
 import {LoginCheck} from '../../api/authApi'
@@ -176,8 +176,8 @@ class RenderRouter extends Component {
                 <Route exact path="/SearchPhdPosition/advancedSearchPhd" component={AdvancedSearchPhdPage} />
                 <Route exact path="/personalProfile" component={PersonalProfilePage} />
                 <Route exact path="/contactList" component={ContactListPage} />
-                <Route exact path="/login" component={LoginPage} />
-                <Route exact path="/signup" component={SignUpPage} />
+                {/* <Route exact path="/login" component={LoginPage} />
+                <Route exact path="/signup" component={SignUpPage} /> */}
                 <Route path="*" component={NotFoundPage} />
               </Switch>
             </BrowserRouter>

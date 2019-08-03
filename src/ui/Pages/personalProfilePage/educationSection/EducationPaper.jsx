@@ -130,6 +130,7 @@ class ProfileCard extends Component {
             open={this.state.open}
             onClose={this.handleClose}
             >
+              
             <EducationModal handleClose ={this.handleClose}/>
             </Modal>
             </div>

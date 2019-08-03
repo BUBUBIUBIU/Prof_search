@@ -11,6 +11,8 @@ import CV from './cvSection/CV'
 import Publication from './publicationSection/Publication'
 import OtherMaterial from './otherMaterialSection/OtherMaterial'
 
+//api
+import {getProfile} from '../../../api/personalProfileApi'
 
 
 
@@ -28,7 +30,12 @@ class PersonalProfilePage extends Component {
     }
 
     componentDidMount(){
+        getProfile()
+        .then(function(response){
+            
+        },function(err){
 
+        })
     }
 
     
