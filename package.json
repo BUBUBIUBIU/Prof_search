@@ -12,6 +12,7 @@
     "fg-loadcss": "^2.1.0",
     "history": "^4.7.2",
     "http-proxy-middleware": "^0.19.1",
+    "icons": "^1.0.0",
     "mdi-material-ui": "^5.11.0",
     "mocha": "^6.0.2",
     "prop-types": "^15.7.2",

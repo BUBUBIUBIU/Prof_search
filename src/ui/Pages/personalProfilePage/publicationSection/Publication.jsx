@@ -90,12 +90,13 @@ class Publication extends Component {
             <CardHeader title = {"Publication"} handleOpen ={this.handleOpen} isCompulsory= {false} buttonName = {"Add Publication"}/>
             {/* Pop-up Modal */}
             <Modal
-            aria-labelledby="simple-modal-title"
-            aria-describedby="simple-modal-description"
-            open={this.state.open}
-            onClose={this.handleClose}
-            >
+              aria-labelledby="simple-modal-title"
+              aria-describedby="simple-modal-description"
+              open={this.state.open}
+              onClose={this.handleClose}
+              >
                 <PublicationModal handleClose = {this.handleClose}/>
+                
             </Modal>
 
             <PublicationDetail publications = {publications}/>

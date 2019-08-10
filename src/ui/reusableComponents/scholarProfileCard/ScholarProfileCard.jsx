@@ -29,7 +29,8 @@ const styles = theme => ({
         padding:10,
         borderRadius: 5,
 
-    },button:{
+    },
+    button:{
         textTransform: 'none',
         marginTop: "10",
         fontSize: 12,
@@ -40,12 +41,11 @@ const styles = theme => ({
         margin: 10,
         width: 90,
         height: 90,
-      },
-      header:{
+    },
+    header:{
         marginBottom:10
-      }
-
-  });
+    }
+});
 
 
 function TabContainer(props) {
@@ -70,13 +70,14 @@ class ScholarProfileCard extends Component {
         console.log("card mount")
         console.log(this.props.profile)
     }
+
     directToContectList = () =>{
         this.setState({toContactList:true})
     }
 
-        handleTab = (event,value) => {
-            this.setState({value});
-        }
+    handleTab = (event,value) => {
+        this.setState({value});
+    }
         // profile.publicationCount.toString() + 
         render(){ 
             if(this.state.toContactList){
@@ -118,6 +119,7 @@ class ScholarProfileCard extends Component {
                             </Typography>
                             </div>
                         }
+                        
                         subheader={ 
                             <Typography variant = "body1" color="inherit">
                             {profile.Position} <br/>{profileBriefInfo} 
