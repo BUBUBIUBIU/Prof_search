@@ -6,6 +6,8 @@ import PropTypes from 'prop-types';
 //UI
 import SignUpPage from './SignUpPage'
 import LoginPage from './LoginPage'
+import AuthSinglePage from "../Pages/authPage/AuthSinglePage"
+
 
 //redux Dependencies
 import { connect } from 'react-redux'
@@ -14,6 +16,7 @@ import {backToHomePage,changeLanguage} from '../../redux/actions/index.js'
 // RouterDependencies
 import { Redirect } from 'react-router-dom'
 
+import {LoginCheck} from '../../api/authApi'
 
 
 const styles = theme => ({
@@ -65,7 +68,9 @@ class HeadNavigator extends Component {
             profileAnchorEl: null,
             toAnotherPage:"",
             openSignUpModal: false,
-            openLoginModal: false           
+            openLoginModal: false,
+            authValue:""         
+           
         };
     this.handleChange = this.handleChange.bind(this);
     this.setEnglish = this.setEnglish.bind(this);
@@ -110,20 +115,14 @@ class HeadNavigator extends Component {
     };
 
     signUp =() =>{
-      this.setState({openSignUpModal:true})
-    }
+      this.setState({authValue:"signup"});
 
-    signUpClose = () => {
-      this.setState({openSignUpModal:false})
     }
 
     login = () =>{
-      this.setState({openLoginModal:true})
+      this.setState({authValue:"login"});
     }
 
-    loginClose = () => {
-      this.setState({openLoginModal:false})
-    }
     jumpToProfilePage = () => {
       this.handleClose()
       this.setState({toAnotherPage:"personalProfile"})
@@ -143,7 +142,14 @@ class HeadNavigator extends Component {
         if(this.state.toAnotherPage == "personalProfile"){
           return <Redirect to ="/personalProfile"/>
         }
+        if (this.state.authValue == "login") {
+          return <Redirect to='../login' />
+        }
 
+        if (this.state.authValue=="signup") {
+          return <Redirect to='../signup' />
+        }
+        
   
 
         const {value, anchorEl,profileAnchorEl} = this.state;
@@ -228,8 +234,7 @@ class HeadNavigator extends Component {
                   <Tab value="SearchResearchProjects" label={search_projects}  />
                 </Tabs>
               </AppBar>
-              <SignUpPage open ={this.state.openSignUpModal} close = {this.signUpClose}/>
-              <LoginPage open = {this.state.openLoginModal} close = {this.loginClose}/>
+
           </div>
         );
     }
