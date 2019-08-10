@@ -13,8 +13,12 @@ import { Plus, Close } from 'mdi-material-ui';
 
 
 //UI
-import BootstrapStyleSearchBox from '../../../reusableComponents/BootstrapStyleSearchBox'
+import BootstrapStyleSearchBox from '../../../reusableComponents/BootstrapStyleSearchBox';
+import P1 from './PublicationJournal';
 import  CardHeader from '../CardHeader'
+import PublicationJournal from './PublicationJournal';
+import PublicationConference from './PublicationConference';
+import PublicationBook from './PublicationBook';
 
 const styles = theme => ({
     paper:{
@@ -91,142 +95,11 @@ class Publication extends Component {
                     </div>
                 </Paper> 
 
-                {value === "Journal" && <Paper className ={classes.paper} style = {{ height:"600px", overflowY: "scroll"}}>
-                
-                    <BootstrapStyleSearchBox
-                        label = "Title"
-                        placeHolder = "Publication Name"
-                        compusory = {true}
-                    />
+                {value === "Journal" && <PublicationJournal/>}
 
-                    <BootstrapStyleSearchBox
-                        label = "Authors"
-                        placeHolder = "EX: John"
-                        compusory = {true}
-                    />
+                {value === "Conference" && <PublicationConference/>}
 
-                    <BootstrapStyleSearchBox
-                        label = "Publication date"
-                        placeHolder = "EX: 2013-3"
-                    />
-
-                    <BootstrapStyleSearchBox
-                        label = "Journal"
-                    />
-
-                    <BootstrapStyleSearchBox
-                        label = "Volumn"
-                    />
-
-                    <BootstrapStyleSearchBox
-                        label = "Issue"
-                    />
-
-                    <BootstrapStyleSearchBox
-                        label = "Pages"
-                    />
-
-                    <BootstrapStyleSearchBox
-                        label = "Publisher"
-                    />
-
-                    <BootstrapStyleSearchBox
-                        label = "URL"
-                    />
-
-                    <Button style = {{color: 'red'}}>Add file</Button>
-                    <br/>
-                    <Button style= {{float: "right", marginBottom:"10px"}} variant="contained" color="primary" size="small">
-                        Save
-                    </Button>
-
-                </Paper>
-                }
-
-                {value === "Conference" && <Paper className ={classes.paper} style = {{ height:"600px", overflowY: "scroll"}}>
-                
-                    <BootstrapStyleSearchBox
-                        label = "Title"
-                        placeHolder = "Publication Name"
-                        compusory = {true}
-                    />
-
-                    <BootstrapStyleSearchBox
-                        label = "Authors"
-                        placeHolder = "EX: John"
-                        compusory = {true}
-                    />
-
-                    <BootstrapStyleSearchBox
-                        label = "Publication date"
-                        placeHolder = "EX: 2013-3"
-                    />
-
-                    <BootstrapStyleSearchBox
-                        label = "Conference"
-                    />
-
-                    <BootstrapStyleSearchBox
-                        label = "Volumn"
-                    />
-
-                    <BootstrapStyleSearchBox
-                        label = "Issue"
-                    />
-
-                    <BootstrapStyleSearchBox
-                        label = "Pages"
-                    />
-
-                    <BootstrapStyleSearchBox
-                        label = "URL"
-                    />
-
-                    <Button style = {{color: 'red'}}>Add file</Button>
-                    <br/>
-                    <Button style= {{float: "right", marginBottom:"10px"}} variant="contained" color="primary" size="small">
-                        Save
-                    </Button>
-                </Paper>
-                }
-
-                {value === "Book" && <Paper className ={classes.paper} style = {{ height:"580px"}}>
-                
-                    <BootstrapStyleSearchBox
-                        label = "Title"
-                        placeHolder = "Publication Name"
-                        compusory = {true}
-                    />
-
-                    <BootstrapStyleSearchBox
-                        label = "Authors"
-                        placeHolder = "EX: John"
-                        compusory = {true}
-                    />
-
-                    <BootstrapStyleSearchBox
-                        label = "Publication date"
-                        placeHolder = "EX: 2013-3"
-                    />
-
-                    <BootstrapStyleSearchBox
-                        label = "Volumn"
-                    />
-
-                    <BootstrapStyleSearchBox
-                        label = "Pages"
-                    />
-
-                    <BootstrapStyleSearchBox
-                        label = "URL"
-                    />
-
-                    <Button style = {{color: 'red'}}>Add file</Button>
-                    <br/>
-                    <Button style= {{float: "right", marginBottom:"10px"}} variant="contained" color="primary" size="small">
-                        Save
-                    </Button>
-                </Paper>
+                {value === "Book" && <PublicationBook/>
                 }
                 
             </div>
