@@ -31,16 +31,16 @@ class EducationDetail extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
-            
         };
     }
 
+
+
     render(){
         const {classes,educationExperience} = this.props
-
+        console.log(educationExperience)
         // Note: Here we directly use this.props.educationExperience, It might result in bug(no data update), use state instead
-        const educationList = this.props.educationExperience.map((education, index) =>
+        const educationList = educationExperience.map((education, index) =>
         <ListItem key={education._id} >
             <div style ={{width: "100%"}}>
                 {/* title */}
@@ -53,14 +53,14 @@ class EducationDetail extends Component {
                     {/* subtitle */}
                     <div style ={{margin:"10px"}}>
                     <Typography variant ="h2">
-                    {education.universityName}
+                    {education.UniversityName}
                     </Typography>
                     </div>
 
                     {/* subtitle */}
                     <div style ={{margin:"10px"}}>
                     <Typography variant ="body2">
-                    {education.degree}
+                    {education.Degree}
                     </Typography>
                     </div>
 
@@ -68,14 +68,14 @@ class EducationDetail extends Component {
                     {/* year and location */}
                     <div style ={{margin:"10px"}}>
                     <Typography variant ="body2">
-                    {education.year}
+                    {education.FromYear} - {education.ToYear}
                     </Typography>
                     </div>
 
                     <div style ={{margin:"25px 10px 25px 10px"}}>
                     {/* Describetion */}
                     <Typography variant ="body2">
-                    {education.description}
+                    {education.Description}
                     </Typography>
                     </div>
                     </Grid>

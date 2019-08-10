@@ -93,19 +93,12 @@ const educationExperience = [
   }
 ]
 
-class ProfileCard extends Component {
+class EducationPaper extends Component {
     constructor(props) {
         super(props);
         this.state = {
             expand: false,
-            universityName:'',
-            degree:'',
-            major:'',
-            fromYear:2013,
-            toYear:2017,
-            gpa:NaN,
-            gpaType:0,
-            description:""
+            currentEducations: this.props.educations,
         };
     }
 
@@ -118,12 +111,24 @@ class ProfileCard extends Component {
         this.setState({ open: false });
       };
 
+      componentDidUpdate(){
+        if (this.props.educations != this.state.currentEducations){
+            this.setState({
+              currentEducations: this.props.educations,
+            })
+        }
+        console.log("Education Paper update")
+        console.log(this.state.currentEducations)
+      }
+
     render(){
-        const {classes, profile} = this.props
+        const {currentEducations} = this.state
         return(
             <div>
             <CardHeader title = {"Education"} handleOpen ={this.handleOpen} isCompulsory= {true} buttonName = {"Add Degree"}/>
-            <EducationDetail educationExperience = {educationExperience}/>
+            {currentEducations &&
+            <EducationDetail educationExperience = {currentEducations}/>
+            }
             <Modal
             aria-labelledby="simple-modal-title"
             aria-describedby="simple-modal-description"
@@ -141,4 +146,10 @@ class ProfileCard extends Component {
 }
 
 
-export default withStyles(styles)(ProfileCard);
+EducationPaper.propTypes = {
+  educations: PropTypes.object
+};
+
+
+
+export default withStyles(styles)(EducationPaper);

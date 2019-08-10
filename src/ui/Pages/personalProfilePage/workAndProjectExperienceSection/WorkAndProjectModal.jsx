@@ -22,7 +22,6 @@ const styles = theme => ({
         backgroundColor: theme.palette.common.white,
         marginTop:"20px",
         borderRadius: "4px",
-        height:"40px",
         padding:"20px 0px 0 30px",
         boxShadow: "0 2px 4px 0 rgba(215, 215, 215, 0.5)",
         // width:"100%"
@@ -124,7 +123,7 @@ class WorkAndProjectModal extends Component {
                 </div>
             </Paper>
 
-            <Paper className ={classes.paper} style ={{padding:"50px 30px"}}>
+            <Paper className ={classes.paper} style ={{padding:"10px 30px"}}>
                 <BootstrapStyleSearchBox
                     label = "Company"
                     placeHolder = "Company Name"

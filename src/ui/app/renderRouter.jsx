@@ -31,6 +31,7 @@ import AdvancedSearchExpertPage from '../Pages/advanceSearchExpertPage/AdvancedS
 import AdvancedSearchPhdPage from '../Pages/advanceSearchPhdPage/AdvancedSearchPhdPage'
 import PersonalProfilePage from '../Pages/personalProfilePage/PersonalProfilePage'
 import ContactListPage from '../Pages/contactListPage/ContactListPage'
+import MessagePage from '../Pages/messagePage/MessagePage'
 // import LoginPage from '../page/LoginPage'
 // import SignUpPage from '../page/SignUpPage'
 
@@ -131,10 +132,7 @@ class RenderRouter extends Component {
     LoginCheck()
       .then(function(response){
         let name = response.content.FirstName +" " + response.content.LastName;
-        console.log(response)
-        console.log(name)
         loginSuccessful(name);
-        alert("login succes")
       },function(err){
         console.log("not logged in")
       }
@@ -176,6 +174,7 @@ class RenderRouter extends Component {
                 <Route exact path="/SearchPhdPosition/advancedSearchPhd" component={AdvancedSearchPhdPage} />
                 <Route exact path="/personalProfile" component={PersonalProfilePage} />
                 <Route exact path="/contactList" component={ContactListPage} />
+                <Route exact path="/message" component={MessagePage} />
                 {/* <Route exact path="/login" component={LoginPage} />
                 <Route exact path="/signup" component={SignUpPage} /> */}
                 <Route path="*" component={NotFoundPage} />

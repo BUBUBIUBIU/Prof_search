@@ -88,7 +88,7 @@ class ProfileCard extends Component {
 
                     title = {
                         <Typography variant="h1">
-                        Chenyang Lu
+                        {this.props.FirstName} {" "} {this.props.LastName}
                         </Typography>
                     }
                     subheader={ 
@@ -121,7 +121,7 @@ class ProfileCard extends Component {
                     <div>
                     <Typography variant ="h1">
                     <div style ={{verticalAlign:"middle",height:"100%", float: "left"}}>
-                    Chenyang Lu
+                    {this.props.FirstName} {" "} {this.props.LastName}
                     </div>
                     <Button style= {{float: "right",verticalAlign:"middle", color:"#000000"}} size="small" onClick = {this.handleClose}>
                     <Close/>
@@ -134,9 +134,15 @@ class ProfileCard extends Component {
             </Card>
         )
     }
-    
-    
-
 }
+
+ProfileCard.propTypes = {
+    FirstName: PropTypes.string,
+    LastName: PropTypes.string,
+    Email:PropTypes.string,
+    Phone: PropTypes.string,
+};
+
+
 
 export default withStyles(styles)(ProfileCard);
