@@ -35,3 +35,18 @@ export function addEducation(data){
     return getDataFromServer(apiUrl.ADDUNIVERSITY, configObj);
 }
 
+
+/**
+ * This method used for add company
+ * Post method is implemented
+ *
+ * @param {Object} data: detail in AddUniversity ApI, request Body 
+ * @return {Object} 
+ */
+export function addcompany(data){
+    const configObj = {
+        method: 'POST',
+        data,
+    }
+    return getDataFromServer(apiUrl.COMPANY, configObj);
+}

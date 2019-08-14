@@ -101,6 +101,7 @@ class EducationModal extends Component {
         && this.state.toYear !== NaN
         && this.state.gpa!== NaN
         && this.state.gpaType!== 0){
+
         const data = {
             UniversityName:this.state.universityName,
             Degree: this.state.degree,
@@ -111,7 +112,7 @@ class EducationModal extends Component {
             GPA:parseFloat(this.state.gpa),
             GPAType:parseInt(this.state.gpaType)
         }
-        console.log(data)
+        // console.log(data)
 
         addEducation(data)
         .then(function(response){

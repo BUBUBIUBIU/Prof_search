@@ -6,7 +6,9 @@
 
 //Dependencies
 import React, { Component } from 'react';
-import { Paper, Typography,withStyles } from '@material-ui/core';
+import { Paper, Typography,withStyles,Button, AppBar, InputBase, IconButton,Tabs, Tab } from '@material-ui/core';
+import {Edit} from '@material-ui/icons/';
+import SearchIcon from '@material-ui/icons/Search';
 
 //UI
 import MessageSnippet from './MessageSnippet'
@@ -22,6 +24,24 @@ const styles = theme => ({
       width:"340px",
       // width:"100%"
     },
+    modalButton: {
+        float: "right",
+        verticalAlign:"middle", 
+        color:"#000000",
+    },
+    input: {
+        marginLeft: 8,
+        flex: 1,
+        verticalAlign: "center"
+      },
+      iconButton: {
+        padding: 10,
+      },
+      divider: {
+        width: 1,
+        height: 28,
+        margin: 4,
+      },
 })
 
 
@@ -32,6 +52,7 @@ class LeftPannel extends Component {
             profile: {
 
             },
+            value: "all"
         };
     }
 
@@ -39,19 +60,45 @@ class LeftPannel extends Component {
 
     }
 
+    handleTab = (event, value) =>{
+        this.setState({event, value})
+    }
+
     
     render(){
-        const {classes, profile,educations} = this.props
+        const {classes} = this.props
+        const {value} = this.state
         return(
             <div>
-            <Paper className ={classes.paper} style = {{height:"60px",marginBottom:"5px"}}>
+            <Paper className ={classes.paper} style = {{height:"95px",marginBottom:"5px"}}>
                 <Typography variant= "h1">
-                    <div style ={{padding:"15px 20px 10px 20px"}}>
+                    <div style ={{padding:"15px 5px 10px 15px"}}>
                     Message
+                    <IconButton className = {classes.modalButton}>
+                        <Edit/>
+                    </IconButton>
                     </div>
                 </Typography>
+                <Tabs variant="fullWidth" value={value} onChange={this.handleTab} indicatorColor="primary">
+                    <Tab value="all" label="All" />
+                    <Tab value="star" label="Star"/>
+                </Tabs>
+
             </Paper >
-            <Paper className ={classes.paper}>
+
+            <Paper className ={classes.paper} style = {{paddingTop:20}}>
+            
+            {/* search box */}
+            <Paper style ={{marginLeft: 10,backgroundColor: "white", display:"flex"}}>
+            <InputBase
+              className={classes.input}
+              placeholder="Search message"
+              inputProps={{ 'aria-label': 'search google maps' }}
+            />
+            <IconButton className={classes.iconButton} aria-label="search">
+              <SearchIcon />
+            </IconButton>
+          </Paper>
             <MessageSnippet/>
             </Paper>
             </div>

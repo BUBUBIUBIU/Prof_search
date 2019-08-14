@@ -32,7 +32,8 @@ class PersonalProfilePage extends Component {
 
     componentDidMount(){
         const temp = this;
-        const profile = getProfile()
+
+        getProfile()
         .then(function(response){
             // return new Promise(function(resolve, reject) {
             //       resolve(response.content);

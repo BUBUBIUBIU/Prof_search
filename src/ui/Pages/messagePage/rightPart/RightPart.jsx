@@ -6,7 +6,9 @@
 
 //Dependencies
 import React, { Component } from 'react';
-import { Paper, Typography,withStyles,Avatar} from '@material-ui/core';
+import { Paper, Typography,withStyles,Avatar, IconButton} from '@material-ui/core';
+import Icon from '@material-ui/core/Icon';
+import {StarRate, MoreHoriz} from '@material-ui/icons';
 
 //UI
 import MessageDetail from './MessageDetail'
@@ -22,6 +24,12 @@ const styles = theme => ({
       width:"800px",
       // width:"100%"
     },
+    iconButton:{
+        float:"right", 
+        margin:"20 5 10 3", 
+        display:"inline-block"
+
+    }
 })
 
 
@@ -41,25 +49,32 @@ class RightPart extends Component {
 
     
     render(){
-        const {classes, profile ,educations} = this.props
+        const {classes} = this.props
         return(
             <div>
-            <Paper className ={classes.paper} style = {{height:"60px",marginBottom:"5px"}}>
+            <Paper className ={classes.paper} style = {{height:"60px",marginBottom:"5px", position:"sticky"}}>
                 <Typography variant= "h1">
                 <div style ={{padding:"10px",float:"left"}}>
                             <Avatar style={{width:"40px", height:"40px", borderRadius:'5px'}}
-                                src="https://scontent.fcbr1-1.fna.fbcdn.net/v/t1.0-0/p370x247/50229562_10157302245734739_2837044079051669504_n.jpg?_nc_cat=109&amp;_nc_ht=scontent.fcbr1-1.fna&amp;oh=9af7e41fe295e20bf12794a74726716b&amp;oe=5D53A962" />
+                                src="https://pic2.zhimg.com/80/v2-d888ae1c0639ddcf1a7fdabf199a36a3_hd.jpg" />
                 </div>
                 <div style ={{padding:"10px", float:"left"}}>
                     <Typography variant ="h2">
                     Artem 
                     </Typography>
                     <Typography variant ="h3">
-                    professor
+                    professor | Melbourne University
                     </Typography>
-
-                    </div>
+                </div>
                 </Typography>
+                {/* <div style ={{float:"right", margin:"20 5 10 3", display:"inline-block"}}> */}
+                <IconButton className ={classes.iconButton}>
+                <MoreHoriz />
+                </IconButton>
+                <IconButton className ={classes.iconButton}>
+                <StarRate />
+                </IconButton>
+                {/* </div> */}
             </Paper >
             <MessageDetail/>
             </div>
