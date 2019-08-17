@@ -9,7 +9,7 @@ import React, { Component } from 'react';
 import { Paper, Typography,withStyles,Avatar} from '@material-ui/core';
 
 //UI
-
+import MessageDetail from './MessageDetail'
 
 
 
@@ -61,9 +61,7 @@ class RightPart extends Component {
                     </div>
                 </Typography>
             </Paper >
-            <Paper className ={classes.paper}>
-
-            </Paper>
+            <MessageDetail/>
             </div>
         )
 
