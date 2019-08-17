@@ -6,7 +6,7 @@
 
 //Dependencies
 import React, { Component } from 'react';
-import { Paper, Typography,withStyles,Avatar, IconButton} from '@material-ui/core';
+import { Paper, Typography,withStyles,Avatar, IconButton, Button} from '@material-ui/core';
 import Icon from '@material-ui/core/Icon';
 import {StarRate, MoreHoriz} from '@material-ui/icons';
 

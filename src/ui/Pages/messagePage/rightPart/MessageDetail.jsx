@@ -6,8 +6,8 @@
 
 //Dependencies
 import React, { Component } from 'react';
-import { Paper, Typography,withStyles,Avatar, InputBase} from '@material-ui/core';
-import {KeyboardArrowUp} from '@material-ui/icons'
+import { Paper, Typography,withStyles,Avatar, InputBase, Button, IconButton} from '@material-ui/core';
+import {KeyboardArrowUp, Attachment, PersonOutline} from '@material-ui/icons'
 
 //UI
 
@@ -58,26 +58,47 @@ class MessageDetail extends Component {
         const {classes} = this.props
         return(
             <div>
+            
+            {/* message body */}
             <Paper className ={classes.paper} style ={{overflow:"auto", height:"500px"}}>
-            s
+            test
             </Paper>
 
-            <Paper className ={classes.paper} style ={{overflow:"auto", height:"200px", marginTop: '5px'}}>
-            <div style ={{marginBottom:"15px"}}>
+
+
+            {/* writting message part */}
+            <Paper className ={classes.paper} style ={{overflow:"auto", height:"240px", marginTop: '5px'}}>
+
+            {/* subject */}
+            <div style ={{marginBottom:"15px", postion:"fixed"}}>
                 <Typography variant ="body2">
                     Subject
                     <KeyboardArrowUp style ={{float:"right"}}/>
                 </Typography>
             </div>
-            <div style ={{height:"80%", width:"80%"}}>
-                {/* <InputBase  className={classes.input}/>
-             */}
+
+            {/* testarea */}
+            <div style ={{height:"60%", width:"40%"}}>
              <textarea name="message" id="message"style = {{borderWidth: 0, width:"80%", height:"80%"}}>
 
              </textarea>
             </div>
-            <div>
-             
+
+            {/* bottom part */}
+            <div style ={{position:"sticky"}}>
+            <IconButton>
+                <PersonOutline />
+            </IconButton>
+            <IconButton>
+                <Attachment />
+            </IconButton>
+            <Button variant="outlined"  color ="black" size="small">
+                    profile
+                </Button>
+
+                <Button variant="contained" color="primary" size="small" style = {{float:"right"}}>
+                    send
+                </Button>
             </div>
             </Paper>
             </div>

@@ -1,7 +1,7 @@
 //Dependencies
 import React, { Component } from 'react';
 import { Grid } from '@material-ui/core';
-
+import { Typography} from '@material-ui/core';
 //UI
 import SecondHeader from "../../reusableComponents/SecondHeader"
 import LeftPannel from './leftPannel/LeftPannel'
@@ -35,7 +35,10 @@ class MessagePage extends Component {
         return(
         <div>
             <SecondHeader/>
-            <div style = {{width:"1500px" }}>
+            <div style = {{width:"1500" }}>
+            <Typography style ={{padding:"30px 10px 10px 100px"}}>
+                Home >  Message
+            </Typography>
             <div style ={{padding:"20px 10px 50px 100px",float:"left"}}>
             <LeftPannel/>
             </div>

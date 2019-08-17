@@ -70,6 +70,7 @@ class LeftPannel extends Component {
         const {value} = this.state
         return(
             <div>
+            {/* upper part */}
             <Paper className ={classes.paper} style = {{height:"95px",marginBottom:"5px"}}>
                 <Typography variant= "h1">
                     <div style ={{padding:"15px 5px 10px 15px"}}>
@@ -83,11 +84,11 @@ class LeftPannel extends Component {
                     <Tab value="all" label="All" />
                     <Tab value="star" label="Star"/>
                 </Tabs>
-
             </Paper >
 
-            <Paper className ={classes.paper} style = {{paddingTop:20}}>
-            
+
+            {/* bottom part */}
+            <Paper className ={classes.paper} style = {{paddingTop:20}}>     
             {/* search box */}
             <Paper style ={{marginLeft: 10,backgroundColor: "white", display:"flex"}}>
             <InputBase
@@ -99,6 +100,8 @@ class LeftPannel extends Component {
               <SearchIcon />
             </IconButton>
           </Paper>
+
+          {/* message snippet */}
             <MessageSnippet/>
             </Paper>
             </div>

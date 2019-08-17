@@ -11,6 +11,29 @@ import SearchIcon from '@material-ui/icons/Search';
 
 
 const styles = theme => ({
+    root:{
+        '&$focusVisible': {
+            backgroundColor: 'rgba(251, 175, 59, 0.13)',
+          },
+        '&$selected, &$selected:hover': {
+            backgroundColor: 'rgba(251, 175, 59, 0.13)',
+          },
+    },
+    listButton: {
+        transition: theme.transitions.create('background-color', {
+          duration: theme.transitions.duration.shortest,
+        }),
+        '&:hover': {
+          textDecoration: 'none',
+          backgroundColor: 'rgba(251, 175, 59, 0.13)',
+          // Reset on touch devices, it doesn't add specificity
+          '@media (hover: none)': {
+            backgroundColor: 'transparent',
+          },
+        },
+      },
+      selected: {backgroundColor: 'rgba(251, 175, 59, 0.13)'},
+      focusVisible: {},
     paper:{
       ...theme.mixins.gutters(),
       backgroundColor: theme.palette.common.white,
@@ -31,6 +54,9 @@ const styles = theme => ({
         height: 28,
         margin: 4,
       },
+      itemSelected:{
+          backgroundColor: "red"
+      }
 })
 
 
@@ -75,36 +101,41 @@ class MessageSnippet extends Component {
         const {messageList} = this.state
                 // Note: Here we directly use this.props.educationExperience, It might result in bug(no data update), use state instead
                 const Messages = messageList.map((message, index) =>
-                <ListItem key={message._id} onClick = {this.pop} style ={{paddingLeft:12}}>
-                    <div style={{width:"100%"}}>
+                <ListItem key={message._id}  button   classes={{
+                    root: classes.root, //  override root style
+                    button:classes.listButton, // overried button style
+                  }}>
+                    <div style={{width:"100%", marginBottom:"20px"}}>
                         <div style={{float:"left", width:"30%"}}>
                             <Avatar style={{width:"70px", height:"70px", borderRadius:15}}
                                 src="https://pic2.zhimg.com/80/v2-d888ae1c0639ddcf1a7fdabf199a36a3_hd.jpg" />
                         </div>
 
                         <div style={{width:"100%", height:"100%", margin:"5px"}}>
-                            <Typography variant="h3" display ='block' style ={{marginBottom: "5px"}} gutterBottom>
+                            <Typography variant="h3" display='block' style={{marginBottom: "5px"}} gutterBottom>
                                 <div>
                                     <span style={{fontWeight:"bold"}}>
-                                    {message.name}
+                                        {message.name}
                                     </span>
-                                    <Typography variant="subtitle2" display ='block' style = {{float:"right"}} gutterBottom>
+                                    <Typography variant="subtitle2" display='block' style={{float:"right"}}
+                                        gutterBottom>
                                         Yesterday
                                     </Typography>
                                 </div>
                             </Typography>
 
-                            <Typography variant="subtitle2" noWrap={true} display ='block'>
-                                    {message.place}
+                            <Typography variant="subtitle2" noWrap={true} display='block'>
+                                {message.place}
                             </Typography>
 
-                            <Typography variant="subtitle2" noWrap={true} display ='block' style={{fontWeight:"bold"}} gutterBottom>
-                                
-                                    {message.messageSnippet}
-                                
+                            <Typography variant="subtitle2" noWrap={true} display='block' style={{fontWeight:"bold"}}
+                                gutterBottom>
+                                {message.messageSnippet}
                             </Typography>
                         </div>
+                        <Divider />
                     </div>
+                    <Divider />
                 </ListItem>
                 );
 
