@@ -12,3 +12,8 @@ export const CHECKLOGIN ='/api/student/checksignin';
 export const ADDUNIVERSITY ='/api/student/university';
 export const PROFILE ='/api/student/profile';
 export const COMPANY = './api/student/company'
+export const EXPERIENCE  = '/api/student/company';
+export const PUBlICATION  = '/api/student/publication';
+export const AWARD  = '/api/student/award';
+export const OTHERMATERIAL  = '/api/student/othermaterial';
+// export const 

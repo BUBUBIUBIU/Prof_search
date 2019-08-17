@@ -32,8 +32,10 @@ import AdvancedSearchPhdPage from '../Pages/advanceSearchPhdPage/AdvancedSearchP
 import PersonalProfilePage from '../Pages/personalProfilePage/PersonalProfilePage'
 import ContactListPage from '../Pages/contactListPage/ContactListPage'
 import MessagePage from '../Pages/messagePage/MessagePage'
-// import LoginPage from '../page/LoginPage'
-// import SignUpPage from '../page/SignUpPage'
+
+import AuthSinglePage from '../Pages/authPage/AuthSinglePage'
+import LoginPage from '../Pages/authPage/LoginPage'
+import SignUpPage from '../Pages/authPage/SignUpPage'
 
 //api
 import {LoginCheck} from '../../api/authApi'
@@ -175,8 +177,9 @@ class RenderRouter extends Component {
                 <Route exact path="/personalProfile" component={PersonalProfilePage} />
                 <Route exact path="/contactList" component={ContactListPage} />
                 <Route exact path="/message" component={MessagePage} />
-                {/* <Route exact path="/login" component={LoginPage} />
-                <Route exact path="/signup" component={SignUpPage} /> */}
+                <Route exact path="/login" component={ props => <AuthSinglePage authValue = "login"/>} />
+                <Route exact path="/signup" component={ props => <AuthSinglePage authValue = "signup"/>} />
+                {/* <Route exact path="/authsingle" component={AuthSinglePage} /> */}
                 <Route path="*" component={NotFoundPage} />
               </Switch>
             </BrowserRouter>

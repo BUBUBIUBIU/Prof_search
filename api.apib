@@ -1,0 +1,916 @@
+FORMAT: 1A
+HOST: http://test.testing/api
+
+# comp90005
+
+APIs descriptions
+
+## Search [/search/experts/{?q}]
+
++ Parameters
+    + q - The search query
+
+### Search experts [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "ID": 1088,
+                "CreatedAt": "2019-07-19T09:36:08Z",
+                "UpdatedAt": "2019-07-19T09:36:08Z",
+                "DeletedAt": null,
+                "PersonID": "143481",
+                "Name": "PROF Rui Zhang",
+                "FirstName": "Rui",
+                "LastName": "Zhang",
+                "Phone": "+61 3 83441345",
+                "Fax": "",
+                "Email": "rui.zhang@unimelb.edu.au",
+                "LocationUri": "location50344588A45E884DAA315FEDAF7C571B9E3312EB",
+                "LocationLabel": "Level: 07 Room: 7.05",
+                "Biography": "Rui Zhang is a Professor&nbsp;and Reader in the Department of Computing and Information Systems at The University of Melbourne. He&nbsp;has been&nbsp;an&nbsp;Australian Research Council Future Fellow (<a href=\"http://www.arc.gov.au/ncgp/futurefel/future_default.htm\">http://www.arc.gov.au/ncgp/futurefel/future_default.htm</a>).<br /> <br /> He obtained&nbsp;his Bachelor Degree from Tsinghua University and PhD from National University of Singapore. He has been a visiting scientist at AT&amp;T labs-research New Jersey, Microsoft Research Redmond, and Microsoft Research Asia.<br /> <br /> His research interest&nbsp;includes big data, cloud computing,&nbsp;database, data mining, artificial intelligence, deep learning&nbsp;and information management in general, particularly in areas of indexing techniques, moving object management, web services, data streams and sequence databases.<br /> <br /> If you are looking for a PhD supervisor, please visit my personal website (<a href=\"http://www.ruizhang.info\">http://www.ruizhang.info</a>) before sending me an email.",
+                "Biography2": "",
+                "ResearchOverview": "Big Data\nCloud Computing\nData Mining\nData analysis Data analytics\nDatabase systems\nManagement of Data and Information\nartificial intelligence (AI)",
+                "SupervisorText": "I'm recruiting PhD students who will be working in areas of data mining, artificial intelligence (AI), deep learning and information management in general. I'm also interested in high-performance computing including using cloud computing, distributed computing (such as map-reduce) and modern hardware. Students are preferred who have strong study records, especially in mathematics or algorithms, and of course, who are hardworking. If you are interested in being my student, please read the message on my homepage&nbsp;(<a href=\"http://people.eng.unimelb.edu.au/zr/\"></a><a href=\"http://www.ruizhang.info\">http://www.ruizhang.info</a>)&nbsp;carefully and then&nbsp;send me an email with the requested information.",
+                "SupervisorText2": "",
+                "SupervisorAvailability": "Y",
+                "SubjectArea": "http://purl.org/asc/1297.0/2008/for/080604\nhttp://purl.org/asc/1297.0/2008/seo/890202",
+                "Media": "",
+                "Video": "",
+                "Awards": "Research Excellence Award, Department of Computer Science and Sofware Engineering, University of Melbourne\nFirst prize for advanced maths competition, Maths Association of Beijing",
+                "Position": "Academic",
+                "Organization": "Computing and Information Systems",
+                "Status": 2,
+                "Publications": [
+                    {
+                        "ID": 4532,
+                        "Title": "Load Balancing for Moving Object Management in a P2P Network"
+                    }
+                ],
+                "Grants": [
+                    {
+                        "ID": 4780,
+                        "GrantID": "35515",
+                        "Title": "Mining User Profile and Ordering Data for Dish Recommendation"
+                    }
+                ]
+            }
+        ]
+        
+## Query Completion [/search/qc]
+
+### Query Completion [GET /search/qc/{?q}]
+
++ Parameters
+    + q - The query to complete
+
++ Response 200 (application/json)
+
+        [
+            "machine code",
+            "machine ethics",
+            "machine heads",
+            "machine intelligence",
+            "machine language",
+            "machine learning research",
+            "machine learning researchers",
+            "machine model",
+            "machine precision",
+            "machine word"
+        ]
+
+## General [/general]
+
+## Get universities list [GET /universities]
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "message": "Success!",
+                "content": [
+                    {
+                        "ID": 1,
+                        "Name": "University of Melbourne"
+                    },
+                    {
+                        "ID": 2,
+                        "Name": "Monash University"
+                    },
+                    {
+                        "ID": 3,
+                        "Name": "Royal Melbourne Institute of Technology"
+                    },
+                    {
+                        "ID": 4,
+                        "Name": "Tsinghua University"
+                    },
+                    {
+                        "ID": 5,
+                        "Name": "Peking University"
+                    },
+                    {
+                        "ID": 6,
+                        "Name": "Zhejiang University"
+                    }
+                ]
+            }
+
+## Students [/student]
+
+### Sign up  [POST /student/signup]
+
++ Request (application/json)
+
+    + Body
+
+            {
+                "Email": "peterparker@gmail.com",
+                "Password": "123456",   `length=6-16`
+                "Phone": "0412345678",
+                "FirstName": "Peter",
+                "LastName": "Parker",
+                "Description": "hello world"    `optional`
+                "Country": "China"  `optional`
+                "City": "Hangzhou"  `optional`
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "message": "Success!"
+            }
+
++ Response 400 (application/json)
+
+    + Body
+
+            {
+                "message": "error message"
+            }
+
+### Verify [GET /student/verify/{token}]
+
++ Parameters
+
+    + token - the token to verify
+
++ Response 200 (application/json)
+
+    + Body
+    
+            {
+                "message": "Success!"
+            }
+
++ Response 400 (application/json)
+
+    + Body
+    
+            {
+                "message": "expired"
+            }
+
++ Response 404 (application/json)
+
+    + Body
+
+            {
+                "message": "record not found"
+            }
+
+### Sign in [POST /student/signin]
+
++ Request (application/json)
+
+            {
+                "Email": "peterparker@gmail.com",
+                "Password": "123456"
+            }
+            
++ Response 200 (application/json)
+
+    + Body
+    
+            {
+                "message": "Success!",
+                "content": {
+                    "id": 15,
+                    "token": "mZqalNkEjkLYyXqkHJcDMaDeLxdloEhJSIIObYnsRQZPoOhMOKsCEJdHstzeDTvK",
+                    "FirstName": "Peter",
+                    "LastName": "Parker"
+                }
+            }
+
++ Response 403 (application/json)
+
+    + Body
+    
+            {
+                "message": "wrong email or password"
+            }
+
+### Check Sign in status [POST /student/checksignin]
+
++ Request
+
+    + Headers
+            
+            id: user id
+            token: user token
+    
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "message": "Success"
+                "content": {
+                    "id": 15,
+                    "FirstName": "Peter",
+                    "LastName": "Parker"
+                }
+            }
+
++ Response 401 (application/json)
+
+    + Body
+    
+            {
+                "message": "unauthorized"
+            }
+
+### Sign out [POST /student/signout]
+
++ Request
+
+    + Headers
+            
+            id: user id
+            token: user token
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "message": "Success"
+            }
+
++ Response 401 (application/json)
+
+    + Body
+    
+            {
+                "message": "unauthorized"
+            }            
+
+### Get profile [GET /student/profile]
+
++ Request
+
+    + Headers
+            
+            id: user id
+            token: user token
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "message": "Success!",
+                "content": {
+                    "ID": 15,
+                    "Email": "peterparker@gmail.com",
+                    "Phone": "0412345678",
+                    "FirstName": "Peter",
+                    "LastName": "Parker",
+                    "Description": "hello world",
+                    "Universities": [
+                        {
+                            "ID": 3,
+                            "StudentID": 15,
+                            "UniversityID": 1,
+                            "Degree": "B.S",
+                            "Major": "Electrical Engineering",
+                            "FromYear": 2013,
+                            "ToYear": 2017,
+                            "Description": "some descriptions, optional",
+                            "GPA": 3.7,
+                            "GPAType": 1
+                        },
+                        {
+                            "ID": 12,
+                            "StudentID": 15,
+                            "UniversityName": "Unimelb",
+                            "Degree": "B.S",
+                            "Major": "Electrical Engineering",
+                            "FromYear": 2013,
+                            "ToYear": 2017,
+                            "Description": "",
+                            "GPA": 3.7,
+                            "GPAType": 1
+                        }
+                    ]
+                }
+            }
+
++ Response 401 (application/json)
+
+    + Body
+    
+            {
+                "message": "unauthorized"
+            }
+
+### Edit profile [PUT /student/profile]
+
++ Request (application/json)
+
+    + Headers
+            
+            id: user id
+            token: user token
+    
+    + Body
+    
+            {
+                "Phone": "0412345678",
+                "FirstName": "Peter",
+                "LastName": "Parker",
+                "Description": "hello world"    `optional, set it to null if want to delete it`
+                "Country": "China"  `optional, set it to null if want to delete it`
+                "City": "Hangzhou"  `optional, set it to null if want to delete it`
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "message": "Success!"
+            }
+
++ Response 400 (application/json)
+
+    + Body
+    
+            {
+                "message": "Key: 'Edit.FirstName' Error:Field validation for 'FirstName' failed on the 'required' tag"
+            }
+
++ Response 401 (application/json)
+
+    + Body
+    
+            {
+                "message": "unauthorized"
+            }
+
+### Change Password [POST /student/password] 
+
++ Request (application/json)
+
+    + Headers
+            
+            id: user id
+            token: user token
+    
+    + Body
+    
+            {
+                "old": "old password",
+                "new": "new password"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+    
+            {
+                "message": "Success!"
+            }
+
++ Response 401 (application/json)
+
+    + Body
+    
+            {
+                "message": "unauthorized"
+            }
+
++ Response 403 (application/json)
+
+    + Body
+    
+            {
+                "message": "wrong password"
+            }
+
++ Response 406 (application/json)
+
+    + Body
+    
+            {
+                "message": "password length must between 6 and 16"
+            }       
+
+### Request Password Reset [POST /student/password/forget]
+
++ Request (application/json)
+    
+    + Body
+    
+            {
+                "email": "peterparker@gmail.com",
+                "FirstName": "Peter",
+                "LastName": "Parker"
+            }
+            
++ Response 200 (application/json)
+
+    + Body
+    
+            {
+                "message": "Success!"
+            }
+
+### Password Reset [POST /student/password/reset]
+
++ Request (application/json)
+    
+    + Body
+    
+            {
+                "token": "jwt token",
+                "new": "123456"
+            }
+            
++ Response 200 (application/json)
+
+    + Body
+    
+            {
+                "message": "Success!"
+            }
+
++ Response 400 (application/json)
+
+    + Body
+    
+            {
+                "message": "invalid token"
+            }
+            
++ Response 406 (application/json)
+
+    + Body
+
+            {
+                "message": "password length must between 6 and 16"
+            }
+
+### Add University [POST /student/university]
+
++ Request (application/json)
+
+    + Headers
+            
+            id: user id
+            token: user token
+
+    + Body
+
+            {
+                "UniversityID": 1,  `can be null`
+                "UniversityName": "",   `must be set if university id is null`
+                "Degree": "B.Eng",
+                "Major": "Electrical Engineering",
+                "FromYear": 2013,
+                "ToYear": 2017,
+                "Description": "some descriptions, optional",
+                "GPA": 3.7,
+                "GPAType": 1
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "message": "Success!"
+            }
+
++ Response 400 (application/json)
+
+    + Body
+    
+            {
+                "message": "Key: 'StudentUniversities.Degree' Error:Field validation for 'Degree' failed on the 'required' tag"
+            }
+
++ Response 401 (application/json)
+
+    + Body
+    
+            {
+                "message": "unauthorized"
+            }
+
+### Delete University [DELETE /student/university]
+
++ Request (application/json)
+
+    + Headers
+            
+            id: user id
+            token: user token
+
+    + Body
+
+            {
+                "id": 1
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "message": "Success!"
+            }
+
++ Response 401 (application/json)
+
+    + Body
+    
+            {
+                "message": "unauthorized"
+            }
+
+### Edit University [PUT /student/university]
+
++ Request (application/json)
+
+    + Headers
+            
+            id: user id
+            token: user token
+
+    + Body
+
+            {
+                "id": 1
+                "UniversityID": 1,  `can be null`
+                "UniversityName": "",   `must be set if university id is null`
+                "Degree": "B.Eng",
+                "Major": "Electrical Engineering",
+                "FromYear": 2013,
+                "ToYear": 2017,
+                "Description": "some descriptions, optional",
+                "GPA": 3.7,
+                "GPAType": 1
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "message": "Success!"
+            }
+
++ Response 400 (application/json)
+
+    + Body
+    
+            {
+                "message": "Key: 'StudentUniversities.Degree' Error:Field validation for 'Degree' failed on the 'required' tag"
+            }
+
++ Response 401 (application/json)
+
+    + Body
+    
+            {
+                "message": "unauthorized"
+            }
+
+### Add publication [POST /student/publication]
+
++ Request (application/json)
+
+    + Headers
+            
+            id: user id
+            token: user token
+
+    + Body
+
+            {
+                "Type":"Journal",
+                "Title":"title",
+                "PublicationDate":"date",     `optional`
+                "PublicationName":"string",     `optional`
+                "Volumn":"string",     `optional`
+                "Issue":"string",     `optional`
+                "Pages":"string",     `optional`
+                "Publisher":"string",     `optional`
+                "Url": "url",     `optional`
+                "Authors": "Parker"
+            }
+
+            {
+                "Type":"Conference",
+                "Title":"title",
+                "PublicationDate":"date",     `optional`
+                "PublicationName":"string",     `optional`
+                "Volumn":"string",     `optional`
+                "Issue":"string",     `optional`
+                "Pages":"string",     `optional`
+                "Url": "url",     `optional`
+                "Authors": "Parker"
+            }
+
+            {
+                "Type":"Book",
+                "Title":"title",
+                "PublicationDate":"date",     `optional`
+                "Volumn":"string",     `optional`
+                "Pages":"string",     `optional`
+                "Url": "url",     `optional`
+                "Authors": "Parker"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+        
+            {
+                "message": "Success!"
+            }
+
++ Response 400 (application/json)
+
+    + Body
+    
+            {
+                "message": "error"
+            }
+
++ Response 401 (application/json)
+
+    + Body
+    
+            {
+                "message": "unauthorized"
+            }
+
++ Response 417 (application/json)
+
+    + Body
+    
+            {
+                "message": "wrong type"
+            }
+
+### Delete Publication [DELETE /student/publication]
+
++ Request (application/json)
+
+    + Headers
+            
+            id: user id
+            token: user token
+
+    + Body
+
+            {
+                "id": 1
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "message": "Success!"
+            }
+
++ Response 401 (application/json)
+
+    + Body
+    
+            {
+                "message": "unauthorized"
+            }
+
+### Edit Publication [PUT /student/publication]
+
++ Request (application/json)
+
+    + Headers
+            
+            id: user id
+            token: user token
+
+    + Body
+
+            {
+                "id":1,
+                "Type":"Journal",
+                "Title":"title",
+                "PublicationDate":"date",     `optional`
+                "PublicationName":"string",     `optional`
+                "Volumn":"string",     `optional`
+                "Issue":"string",     `optional`
+                "Pages":"string",     `optional`
+                "Publisher":"string",     `optional`
+                "Url": "url",     `optional`
+                "Authors": "Parker"
+            }
+
+            {
+                "id":1,
+                "Type":"Conference",
+                "Title":"title",
+                "PublicationDate":"date",     `optional`
+                "PublicationName":"string",     `optional`
+                "Volumn":"string",     `optional`
+                "Issue":"string",     `optional`
+                "Pages":"string",     `optional`
+                "Url": "url",     `optional`
+                "Authors": "Parker"
+            }
+
+            {
+                "id":1,
+                "Type":"Book",
+                "Title":"title",
+                "PublicationDate":"date",     `optional`
+                "Volumn":"string",     `optional`
+                "Pages":"string",     `optional`
+                "Url": "url",     `optional`
+                "Authors": "Parker"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "message": "Success!"
+            }
+
++ Response 400 (application/json)
+
+    + Body
+    
+            {
+                "message": "error"
+            }
+
++ Response 401 (application/json)
+
+    + Body
+    
+            {
+                "message": "unauthorized"
+            }
+
++ Response 417 (application/json)
+
+    + Body
+    
+            {
+                "message": "wrong type"
+            }
+
+### Add Company [POST /student/company]
+
++ Request (application/json)
+
+    + Headers
+
+            id: user id
+            token: user token
+
+    + Body
+
+            {
+                "CompanyName": "Unimelb",
+                "Title": "IT Tutor",
+                "Country": "Austrilia",
+                "City": "Melbourne",
+                "StartDate": "2006-01-02T15:04:05Z",
+                "EndDate": "2018-01-02T15:04:05Z",
+                "Description": "boring works",
+                "Materials": "hapi"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "message": "Success!"
+            }
+
++ Response 400 (application/json)
+
+    + Body
+
+            {
+                "message": "parsing time \"\"2006-01-02\"\" as \"\"2006-01-02T15:04:05Z07:00\"\": cannot parse \"\"\" as \"T\""
+            }
+
++ Response 401 (application/json)
+
+    + Body
+
+            {
+                "message": "unauthorized"
+            }
+
+### Delete Company [DELETE /student/company]
+
++ Request (application/json)
+
+    + Headers
+
+            id: user id
+            token: user token
+
+    + Body
+
+            {
+                "id": 1
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "message": "Success!"
+            }
+
++ Response 401 (application/json)
+
+    + Body
+
+            {
+                "message": "unauthorized"
+            }
+
+### Edit Company [PUT /student/company]
+
++ Request (application/json)
+
+    + Headers
+
+            id: user id
+            token: user token
+
+    + Body
+
+            {
+                "id": 4,
+                "CompanyName": "Monash",
+                "Title": "JAVA Tutor",
+                "Country": "Austrilia",
+                "City": "Melbourne",
+                "StartDate": "2016-01-02T15:04:05Z",
+                "EndDate": "2018-01-02T15:04:05Z",
+                "Description": "funny works",
+                "Materials": "chuizi"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "message": "Success!"
+            }
+
++ Response 400 (application/json)
+
+    + Body
+
+            {
+                "message": "parsing time \"\"2016-01-02\"\" as \"\"2006-01-02T15:04:05Z07:00\"\": cannot parse \"\"\" as \"T\""
+            }
+
++ Response 401 (application/json)
+
+    + Body
+
+            {
+                "message": "unauthorized"
+            }

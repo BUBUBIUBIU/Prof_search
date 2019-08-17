@@ -225,6 +225,7 @@ class ProfileCard extends Component {
 
             </Modal>
 
+            
             </Card>
         )
     }
