@@ -53,7 +53,6 @@ class LoginPage extends Component {
     
       handleClose = () => {
         this.setState({ open: false });
-        this.props.close();
       };
     
       emailInput(text){
@@ -79,7 +78,8 @@ class LoginPage extends Component {
                     cookie.save('token', response.content.token);
                     let name = response.content.FirstName + response.content.LastName
                     loginSuccessful(name);
-                    alert("login successful")
+                    alert("login successful");
+                    
                 },function(err){
                     alert("login failed")
                     console.log(err);
@@ -102,6 +102,7 @@ class LoginPage extends Component {
 
 
     render(){
+       
         const {classes, profile} = this.props
         return(
             <div>
@@ -119,6 +120,8 @@ class LoginPage extends Component {
                 {/* todo */}
                 <BootstrapStyleSearchBox    
                     label = "Password"
+                    type="password"
+                    autoComplete="current-password"
                     placeHolder = "Please enter your password"
                     compusory = {true}
                     onChangeInput = {this.handleChange("password")}

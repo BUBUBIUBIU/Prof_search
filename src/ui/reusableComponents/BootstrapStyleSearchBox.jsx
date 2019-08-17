@@ -59,7 +59,7 @@ class BootStrapStyleSearchBox extends Component{
 
   
         return (
-        <div>
+        <div >
             <Typography variant="h3" color="inherit">
                 <p className={classes.inputLabel}>
                 {this.props.compusory && <span style={{color:"#E4554D"}}> *</span>} {this.props.label}
@@ -80,6 +80,7 @@ class BootStrapStyleSearchBox extends Component{
 //     label: PropTypes.String,
 //     placeHolder:PropTypes.String,
 //     compusory:PropTypes.bool
+
 //   };
 
 
