@@ -6,12 +6,13 @@
 
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
-import { Paper,Typography,Collapse, Button, withStyles,ToolBar } from '@material-ui/core';
+import { Paper,Typography,Collapse, Button, withStyles,ToolBar, Modal } from '@material-ui/core';
 import Icon from '@material-ui/core/Icon';
 import { Plus } from 'mdi-material-ui'
 
 //UI 
 import  CardHeader from '../CardHeader'
+import OtherMaterialModal from './OtherMaterialModal'
 
 const styles = theme => ({
     paper:{
@@ -31,7 +32,7 @@ class OtherMaterial extends Component {
         super(props);
         this.state = {
             expand: false
-
+            // ？没有open这个property 啊
         };
     }
 
@@ -42,20 +43,32 @@ class OtherMaterial extends Component {
             this.setState({expand:false})
         }
     }
+
     handleOpen = () => {
-        
+        this.setState({ open: true });
+    }
+
+    handleClose = () => {
+        this.setState({ open: false });
     }
 
     render(){
         return(
             <div>
             <CardHeader title = {"Other Material"} handleOpen ={this.handleOpen} isCompulsory= {false} buttonName = {"Add Material"}/>
+
+            {/* 没有detials */}
+            <Modal
+            aria-labelledby="simple-modal-title"
+            aria-describedby="simple-modal-description"
+            open={this.state.open}
+            onClose={this.handleClose}
+            >   
+            <OtherMaterialModal handleClose ={this.handleClose}/>
+            </Modal>
             </div>
         )
     }
-    
-    
-
 }
 
 export default withStyles(styles)(OtherMaterial);
