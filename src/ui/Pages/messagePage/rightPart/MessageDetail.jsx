@@ -1,17 +1,15 @@
 /* Copyright (C) Profware Pty. Ltd. - All Rights Reserved
  * Unauthorized copying of this file, via any medium is strictly prohibited
  * Proprietary and confidential
- * Written by [Chenyang Lu], [date:10th Aug 2019]
+ * Written by [Chenyang Lu], [date:17th Aug 2019]
  */
 
 //Dependencies
 import React, { Component } from 'react';
-import { Paper, Typography,withStyles,Avatar, InputBase, Button, IconButton} from '@material-ui/core';
-import {KeyboardArrowUp, Attachment, PersonOutline} from '@material-ui/icons'
+import { Paper, Typography,withStyles,Avatar, IconButton, Button} from '@material-ui/core';
 
 //UI
-
-
+import ProfileSummary from './ProfileSummary'
 
 
 const styles = theme => ({
@@ -23,86 +21,63 @@ const styles = theme => ({
       width:"800px",
       // width:"100%"
     },
-    input:{
-        backgroundColor: theme.palette.common.white,
-        padding: '9px 15px',
-        // position: 'relative',
-        borderRadius: 4,
-        border:"2px",
-        transition: theme.transitions.create(['border-color', 'box-shadow']),
-        '&:focus': {
-            borderRadius: 4,
-            borderColor: '#80bdff',
-            boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
-          },
-        flex: 1,
-        width:"100%",
-        height:"80%"
-    },
+    iconButton:{
+        float:"right", 
+        margin:"20 5 10 3", 
+        display:"inline-block"
+
+    }
 })
+
+const message = "Dear Mr. Kim: \n\nI am attending the LL.M program at Duke University School of Law and will receive my degree in May 2009. After my graduation, I would like to work in the U.S. for up to a year before Ireturen to my law firm in Japan. I am particularly interested in the possibility of an internship position at Sullivan & Cromwell because of its preeminent U.S legal practice in Tokyo.I received my first law honor from Waseda University in Tokyo.";
 
 
 class MessageDetail extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            profile: {
-
-            },
         };
     }
 
+    componentDidMount(){
+
+    }
 
     
     render(){
         const {classes} = this.props
         return(
-            <div>
-            
-            {/* message body */}
-            <Paper className ={classes.paper} style ={{overflow:"auto", height:"500px"}}>
-            test
-            </Paper>
+            <div style={{width:"90%", display:"flex" }}>
 
+                {/* avatar */}
+                <div style= {{flexGrow:"1", padding:10}}>
+                <Avatar style = {{width:"40px", height:"40px", borderRadius:'5px'}}
+                src="https://pic2.zhimg.com/80/v2-d888ae1c0639ddcf1a7fdabf199a36a3_hd.jpg" />
+                </div >
 
-
-            {/* writting message part */}
-            <Paper className ={classes.paper} style ={{overflow:"auto", height:"240px", marginTop: '5px'}}>
-
-            {/* subject */}
-            <div style ={{marginBottom:"15px", postion:"fixed"}}>
-                <Typography variant ="body2">
-                    Subject
-                    <KeyboardArrowUp style ={{float:"right"}}/>
+                {/* message part*/}
+                <div style= {{flexGrow:"14" , wordWrap:"initial", padding:10}}>
+                {/* sender */}
+                <Typography variant= 'h3' inline style={{ marginRight: 16 , fontWeight: "bold"}}>
+                    You  
                 </Typography>
+
+                <Typography variant= 'h4' inline>
+                    9:17 am 
+                </Typography>
+
+                {/* subject */}
+                <Typography variant= 'h2'style ={{fontWeight:"bold", margin:"5px 0 10px 0" }}>
+                    Apply for project position
+                </Typography>
+                <Typography variant ="h2" style ={{fontSize: "16px", fontWeight:400, lineHeight:1.5}}>
+                <div style = {{wordBreak:"break-word", wordWrap:"", whiteSpace: "pre-wrap"}}>
+                    {message}
+                </div>
+                </Typography>
+                <ProfileSummary/>
+                </div>
             </div>
-
-            {/* testarea */}
-            <div style ={{height:"60%", width:"40%"}}>
-             <textarea name="message" id="message"style = {{borderWidth: 0, width:"80%", height:"80%"}}>
-
-             </textarea>
-            </div>
-
-            {/* bottom part */}
-            <div style ={{position:"sticky"}}>
-            <IconButton>
-                <PersonOutline />
-            </IconButton>
-            <IconButton>
-                <Attachment />
-            </IconButton>
-            <Button variant="outlined"  color ="black" size="small">
-                    profile
-                </Button>
-
-                <Button variant="contained" color="primary" size="small" style = {{float:"right"}}>
-                    send
-                </Button>
-            </div>
-            </Paper>
-            </div>
-
         )
 
     }

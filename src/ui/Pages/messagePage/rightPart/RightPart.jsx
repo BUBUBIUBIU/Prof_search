@@ -11,7 +11,7 @@ import Icon from '@material-ui/core/Icon';
 import {StarRate, MoreHoriz} from '@material-ui/icons';
 
 //UI
-import MessageDetail from './MessageDetail'
+import MessageContainer from './MessageContainer'
 
 
 
@@ -76,7 +76,7 @@ class RightPart extends Component {
                 </IconButton>
                 {/* </div> */}
             </Paper >
-            <MessageDetail/>
+            <MessageContainer/>
             </div>
         )
 
