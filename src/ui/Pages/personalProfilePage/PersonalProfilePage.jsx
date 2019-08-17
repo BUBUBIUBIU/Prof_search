@@ -8,8 +8,9 @@ import ProfileCard from './ProfileCard'
 import EducationPaper from './educationSection/EducationPaper'
 import WorkAndProjectExperience from './workAndProjectExperienceSection/WorkAndProjectExperience'
 import CV from './cvSection/CV'
+import Award from './awardSection/AwardPaper'
 import Publication from './publicationSection/Publication'
-import OtherMaterial from './otherMaterialSection/OtherMaterial'
+import OtherMaterial from './otherMaterialSection/OtherMaterialPaper'
 
 //api
 import {getProfile} from '../../../api/personalProfileApi'
@@ -32,7 +33,8 @@ class PersonalProfilePage extends Component {
 
     componentDidMount(){
         const temp = this;
-        const profile = getProfile()
+
+        getProfile()
         .then(function(response){
             // return new Promise(function(resolve, reject) {
             //       resolve(response.content);
@@ -67,6 +69,7 @@ class PersonalProfilePage extends Component {
                 <EducationPaper educations = {profile.Universities}/>
                 <WorkAndProjectExperience/>
                 <CV/>
+                <Award/>
                 <Publication/>
                 <OtherMaterial/> 
                 </Grid>

@@ -6,11 +6,34 @@
 
 //Dependencies
 import React, { Component } from 'react';
-import { Paper, Typography,withStyles,Avatar,ListItem, Grid,Divider,List } from '@material-ui/core';
-
+import { Paper, Typography,withStyles,Avatar,ListItem, Grid,InputBase,Divider,List,IconButton } from '@material-ui/core';
+import SearchIcon from '@material-ui/icons/Search';
 
 
 const styles = theme => ({
+    root:{
+        '&$focusVisible': {
+            backgroundColor: 'rgba(251, 175, 59, 0.13)',
+          },
+        '&$selected, &$selected:hover': {
+            backgroundColor: 'rgba(251, 175, 59, 0.13)',
+          },
+    },
+    listButton: {
+        transition: theme.transitions.create('background-color', {
+          duration: theme.transitions.duration.shortest,
+        }),
+        '&:hover': {
+          textDecoration: 'none',
+          backgroundColor: 'rgba(251, 175, 59, 0.13)',
+          // Reset on touch devices, it doesn't add specificity
+          '@media (hover: none)': {
+            backgroundColor: 'transparent',
+          },
+        },
+      },
+      selected: {backgroundColor: 'rgba(251, 175, 59, 0.13)'},
+      focusVisible: {},
     paper:{
       ...theme.mixins.gutters(),
       backgroundColor: theme.palette.common.white,
@@ -19,6 +42,21 @@ const styles = theme => ({
       width:"340px",
       // width:"100%"
     },
+      input: {
+        marginLeft: 8,
+        flex: 1,
+      },
+      iconButton: {
+        padding: 10,
+      },
+      divider: {
+        width: 1,
+        height: 28,
+        margin: 4,
+      },
+      itemSelected:{
+          backgroundColor: "red"
+      }
 })
 
 
@@ -29,19 +67,19 @@ class MessageSnippet extends Component {
             messageList: [
                 {
                 name:"Artem",
-                place:"Professor|Melborun University",
+                place:"Professor|Melborune University",
                 time:"",
-                messageSnippet:"Dear doctor, I'm trying to ...."
+                messageSnippet:"Dear doctor, I'm trying to reach you by sadljfldvnmzklkf'poJFDBA'PK[KDSAPHF'ANOINI]......"
                 },
                 {
                     name:"Rui Zhang",
-                    place:"Professor|Melborun University",
+                    place:"Professor|Melborune University",
                     time:"",
                     messageSnippet:"Hi There, I'm trying to ...."
                 },
                 {
                     name:"Buyya",
-                    place:"Professor|Melborun University",
+                    place:"Professor|Melborune University",
                     time:"",
                     messageSnippet:"Dear doctor, I'm trying to ...."
                 },
@@ -53,29 +91,51 @@ class MessageSnippet extends Component {
 
     }
 
+    pop = () =>{
+        alert("clicked")
+    }
+
     
     render(){
         const {classes, profile,educations} = this.props
         const {messageList} = this.state
                 // Note: Here we directly use this.props.educationExperience, It might result in bug(no data update), use state instead
                 const Messages = messageList.map((message, index) =>
-                <ListItem key={message._id}>
-                    <div style = {{width:"100%", display:"flex"}}>
-                        <div style ={{float:"left", width:"30%"}}>
-                            <Avatar style={{width:"70px", height:"70px", borderRadius:'5px'}}
-                                src="https://scontent.fcbr1-1.fna.fbcdn.net/v/t1.0-0/p370x247/50229562_10157302245734739_2837044079051669504_n.jpg?_nc_cat=109&amp;_nc_ht=scontent.fcbr1-1.fna&amp;oh=9af7e41fe295e20bf12794a74726716b&amp;oe=5D53A962" />
+                <ListItem key={message._id}  button   classes={{
+                    root: classes.root, //  override root style
+                    button:classes.listButton, // overried button style
+                  }}>
+                    <div style={{width:"100%", marginBottom:"20px"}}>
+                        <div style={{float:"left", width:"30%"}}>
+                            <Avatar style={{width:"70px", height:"70px", borderRadius:15}}
+                                src="https://pic2.zhimg.com/80/v2-d888ae1c0639ddcf1a7fdabf199a36a3_hd.jpg" />
                         </div>
-                        <div style={{width:"70%", padding:"5px", margin:"5px"}}>
-                        <Typography variant ="h3">
-                            {message.name} <br/>
-                            {message.place} <br/>
-                            {message.messageSnippet}
-                        </Typography>
+
+                        <div style={{width:"100%", height:"100%", margin:"5px"}}>
+                            <Typography variant="h3" display='block' style={{marginBottom: "5px"}} gutterBottom>
+                                <div>
+                                    <span style={{fontWeight:"bold"}}>
+                                        {message.name}
+                                    </span>
+                                    <Typography variant="subtitle2" display='block' style={{float:"right"}}
+                                        gutterBottom>
+                                        Yesterday
+                                    </Typography>
+                                </div>
+                            </Typography>
+
+                            <Typography variant="subtitle2" noWrap={true} display='block'>
+                                {message.place}
+                            </Typography>
+
+                            <Typography variant="subtitle2" noWrap={true} display='block' style={{fontWeight:"bold"}}
+                                gutterBottom>
+                                {message.messageSnippet}
+                            </Typography>
                         </div>
+                        <Divider />
                     </div>
-                    <div style ={{clear:"left"}}>
-                    <Divider variant = "inset" component="li"/>
-                    </div>
+                    <Divider />
                 </ListItem>
                 );
 
