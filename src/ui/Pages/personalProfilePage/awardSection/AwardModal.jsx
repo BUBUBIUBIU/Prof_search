@@ -1,8 +1,7 @@
 /**
- * @file this file is for education modal
- * @author Chenyang Lu(clu3842@gmail.com)
- * @description 
- *       
+ * @file this is Award section
+ * @author Shaochuan Luo(shaochuanl@student.unimelb.edu.au)
+ * @description    
  */
 
 import React, { Component } from 'react'
@@ -16,7 +15,7 @@ import { Close } from 'mdi-material-ui';
 import BootstrapStyleSearchBox from '../../../reusableComponents/BootstrapStyleSearchBox'
 
 //api
-// import {addEducation} from '../../../../api/personalProfileApi'
+import {addAward} from '../../../../api/personalProfileApi'
 
 const styles = theme => ({
     paper: {
@@ -80,54 +79,39 @@ class AwardModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            universityName: '',
-            degree: '',
-            major: '',
-            fromYear: 2013,
-            toYear: 2017,
-            gpa: NaN,
-            gpaType: 0,
-            description: ""
+            name: '',
+            organization: '',
+            date: '',
+            briefDescription: ''
         };
     }
 
-    // handleSubmit = () =>{
+    handleSubmit = () => {
+        //Check all requirement
+        if (this.state.name.replace(/(^s*)|(s*$)/g, "").length !== 0 
+            && this.state.organization.replace(/(^s*)|(s*$)/g, "").length !== 0
+            && this.state.date !== NaN
+            && this.state.briefDescription !== NaN) {
+            const data = {
+                Name: this.state.name,
+                Organization: this.state.organization,
+                Date: "2018-01-02T15:04:05Z",
+                Description: this.state.Description
+            }
+            console.log(data)
 
-    //     //Check all requirement
-    //     if (this.state.universityName.replace(/(^s*)|(s*$)/g, "").length !==0 
-    //     &&  this.state.degree.replace(/(^s*)|(s*$)/g, "").length !== 0 
-    //     && this.state.major.replace(/(^s*)|(s*$)/g, "").length !== 0
-    //     && this.state.fromYear !== NaN
-    //     && this.state.toYear !== NaN
-    //     && this.state.gpa!== NaN
-    //     && this.state.gpaType!== 0){
-    //     const data = {
-    //         UniversityName:this.state.universityName,
-    //         Degree: this.state.degree,
-    //         Major:this.state.major,
-    //         FromYear: 2013,
-    //         ToYear: 2017,
-    //         Description:this.state.description,
-    //         GPA:parseFloat(this.state.gpa),
-    //         GPAType:parseInt(this.state.gpaType)
-    //     }
-    //     console.log(data)
+            addAward(data)
+                .then(function (response) {
+                    alert(response.message);
+                }, function (err) {
+                    alert(err.message);
+                    console.log(err);
+                })
 
-    //     addEducation(data)
-    //     .then(function(response){
-    //         alert(response.message);
-    //     },function(err){
-    //         alert(err.message);
-    //         console.log(err);
-    //     })
-
-    // }else{
-    //     alert("please fullfill all required files")
-    // }
-
-
-
-    // }
+        } else {
+            alert("please fullfill all required files")
+        }
+    }
 
     handleChange = field => event => {
         this.setState({ [field]: event.target.value })
@@ -154,26 +138,25 @@ class AwardModal extends Component {
                 <Paper className={classes.paper} style={{ padding: "50px 30px" }}>
                     <BootstrapStyleSearchBox
                         label="Award Name"
-                        // onChangeInput = {this.handleChange("universityName")}
+                        onChangeInput = {this.handleChange("name")}
                         compusory={true}
                     />
 
                     <BootstrapStyleSearchBox
                         label="Award Organization"
-                    // onChangeInput = {this.handleChange("degree")}
+                        onChangeInput = {this.handleChange("organization")}
                     // compusory={true}
                     />
 
                     <BootstrapStyleSearchBox
                         label="Date"
                         compusory={true}
-                        onChangeInput={this.handleChange("Date")}
+                        onChangeInput={this.handleChange("date")}
                     />
 
                     <BootstrapStyleSearchBox
                         label="Brief Description"
-                        compusory={true}
-                        onChangeInput={this.handleChange("description")}
+                        onChangeInput={this.handleChange("briefDescription")}
                     />
 
                     <Button style={{ color: 'red' }}>Add file</Button>

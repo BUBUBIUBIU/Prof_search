@@ -39,20 +39,21 @@ class EducationDetail extends Component {
 
     render() {
         const { classes, educationExperience } = this.props
-        console.log(educationExperience)
+        console.log(educationExperience);
+
         // Note: Here we directly use this.props.educationExperience, It might result in bug(no data update), use state instead
         const educationList = educationExperience.map((education, index) =>
             <ListItem key={education._id} >
-                <div style={{ width: "100%" }}>
+                <div style={{ width: "100%", display: "flex"}}>
                     {/* title */}
                     <Grid container spacing={3}>
                         <Grid item xs={1}>
                             <Avatar className={classes.purpleAvatar}>ME</Avatar>
                         </Grid>
                         
-                        {/* <Button className={classes.modalButton} onClick={this.inputHandleClose}>
+                        <Button className={classes.modalButton} onClick={this.inputHandleClose} style={{ flexGrow: 1 }}>
                             <Edit/>
-                        </Button> */}
+                        </Button>
 
                         <Grid item xs={11}>
                             {/* subtitle */}
@@ -68,7 +69,6 @@ class EducationDetail extends Component {
                                     {education.Degree}
                                 </Typography>
                             </div>
-
 
                             {/* year and location */}
                             <div style={{ margin: "10px" }}>

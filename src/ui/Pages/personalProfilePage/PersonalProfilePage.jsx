@@ -26,7 +26,11 @@ class PersonalProfilePage extends Component {
                 LastName: null,
                 Email:null,
                 Phone:null,
-                Universities:[]
+                Universities:[],
+                Companies:[],
+                Awards:[],
+                Materials: [],
+                Publications: []
             },
         };
     }
@@ -41,7 +45,7 @@ class PersonalProfilePage extends Component {
             //   });
             // profile = response.content;
             temp.setState({profile: response.content})
-            console.log("Re-render")
+            console.log(response.content)
         },function(err){
 
         })
@@ -54,7 +58,8 @@ class PersonalProfilePage extends Component {
 
     
     render(){
-        const { profile} = this.state
+        const {profile} = this.state
+        // console.log(profile.Materials);
         return(
             <div>
                 <SecondHeader/>
@@ -67,11 +72,12 @@ class PersonalProfilePage extends Component {
                             Phone = {profile.Phone}/>
                 {/* <ProfileCard/>          */}
                 <EducationPaper educations = {profile.Universities}/>
-                <WorkAndProjectExperience/>
+                <WorkAndProjectExperience workAndExp = {profile.Companies}/>
+                
                 <CV/>
-                <Award/>
-                <Publication/>
-                <OtherMaterial/> 
+                <Award awards = {profile.Awards}/>
+                <Publication publications = {profile.Publications}/>
+                <OtherMaterial otherMaterial = {profile.Materials}/> 
                 </Grid>
                 <Grid item xs={1}/>
                 </Grid >

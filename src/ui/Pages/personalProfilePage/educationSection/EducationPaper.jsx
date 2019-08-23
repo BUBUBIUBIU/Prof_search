@@ -78,8 +78,6 @@ const styles = theme => ({
   }
 });
 
-
-
 const educationExperience = [
   {
     universityName: "Melbourne University",
@@ -105,7 +103,6 @@ class EducationPaper extends Component {
     };
   }
 
-
   handleOpen = () => {
     this.setState({ open: true });
   };
@@ -129,9 +126,7 @@ class EducationPaper extends Component {
     return (
       <div>
         <CardHeader title={"Education"} handleOpen={this.handleOpen} isCompulsory={true} buttonName={"Add Degree"} />
-        
-        
-
+      
         {currentEducations &&
           <EducationDetail educationExperience={currentEducations} />
         }

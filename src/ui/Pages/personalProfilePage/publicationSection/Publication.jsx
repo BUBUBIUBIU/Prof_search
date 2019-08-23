@@ -2,7 +2,7 @@
  * @file this file is  publications section container
  * @author Chenyang Lu(clu3842@gmail.com)
  * @description 
- *       
+ * 
  */
 
 import React, { Component } from 'react'
@@ -42,7 +42,7 @@ const styles = theme => ({
   });
 
 
-  const publications = [
+const publications = [
     {
       title: "publication1",
       authors: "Chenyang Lu, Chunyao Wang",
@@ -63,18 +63,27 @@ class Publication extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            expand: false
-
+            expand: false,
+            publication: this.props.publications
         };
+    }
+
+    componentDidUpdate() {
+      if (this.props.publications != this.state.publication) {
+        this.setState({
+          publication: this.props.publications,
+        })
+      }
+      console.log("publications Paper update")
     }
 
     handleOpen = () => {
         this.setState({ open: true });
-      };
+    };
     
-      handleClose = () => {
+    handleClose = () => {
         this.setState({ open: false });
-      };
+    };
 
     handleOnclick = () =>{
         if (this.state.expand == false){
@@ -85,10 +94,16 @@ class Publication extends Component {
     }
 
     render(){
+        const {publication} = this.state
         return(
             <div>
             <CardHeader title = {"Publication"} handleOpen ={this.handleOpen} isCompulsory= {false} buttonName = {"Add Publication"}/>
             {/* Pop-up Modal */}
+
+            {publication &&
+                <PublicationDetail publications = {publication}/>
+            }
+
             <Modal
               aria-labelledby="simple-modal-title"
               aria-describedby="simple-modal-description"
@@ -98,8 +113,6 @@ class Publication extends Component {
                 <PublicationModal handleClose = {this.handleClose}/>
                 
             </Modal>
-
-            <PublicationDetail publications = {publications}/>
 
             </div>
         )

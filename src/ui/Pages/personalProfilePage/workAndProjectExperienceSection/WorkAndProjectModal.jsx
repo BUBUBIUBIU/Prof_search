@@ -17,7 +17,7 @@ import BootstrapStyleSearchBox from '../../../reusableComponents/BootstrapStyleS
 import CardHeader from '../CardHeader'
 import { addExperience } from '../../../../api/personalProfileApi';
 
-import {years, months} from '../../../../config/years'
+import { years, months } from '../../../../config/years'
 
 const styles = theme => ({
     paper: {
@@ -88,7 +88,7 @@ class WorkAndProjectModal extends Component {
             location: '',
             briefDescription: '',
             material: '',
-            
+
             fromYear: 0,
             toYear: 0,
             fromMonth: '',
@@ -113,7 +113,7 @@ class WorkAndProjectModal extends Component {
                 StartDate: "2006-01-02T15:04:05Z",
                 EndDate: "2018-01-02T15:04:05Z",
                 Description: "test",
-                Materials: "hapi",    
+                Materials: "hapi",
             }
 
             console.log(data)
@@ -172,7 +172,7 @@ class WorkAndProjectModal extends Component {
                         onChangeInput={this.handleChange("title")}
                         compusory={true}
                     />
-                   
+
                     <BootstrapStyleSearchBox
                         label="Location"
                         placeHolder="Ex. Melbourne"
@@ -181,40 +181,46 @@ class WorkAndProjectModal extends Component {
                     />
 
                     <div>
-                        <FormControlLabel 
+                        <FormControlLabel
                             control={
                                 <Checkbox checked={this.state.currentWorking} onChange={this.handleCheck} value="checkedA" />
                             }
                             label="I am currently working in this role"
                         />
                     </div>
-                    
 
-                    <div style={{float: 'left'}}>
-                        <Typography variant="h3" color="inherit">
-                            <p className={classes.inputLabel}>
-                                <span style={{ color: "#E4554D" }}> *</span> From year
-                            </p>
-                        </Typography>
+                    <div style={{ display: "flex" }}>
+                        <SelectorOne
+                            style={{ flexGrow: 1 }}
+                            label="Start Date"
+                            isCompulsory={true}
+                            items={months}
+                            onChangeSelect={this.handleChange("fromMonth")}
+                        />
 
-                        <SelectorOne items = {months}  onChangeSelect = {this.handleChange("fromMonth")}/>
-                        <br/>
-                        <SelectorOne items = {years}  onChangeSelect = {this.handleChange("fromYear")}/>
-                    </div>
-                    
-                    <div style={{float: 'right'}}>
-                        <Typography variant="h3" color="inherit">
-                            <p className={classes.inputLabel}>
-                                <span style={{ color: "#E4554D" }}> *</span> To year (or expected)
-                            </p>
-                        </Typography>
-
-                        <SelectorOne items = {months}  onChangeSelect = {this.handleChange("toMonth")}/>
-                        <br/>
-                        <SelectorOne items = {years}  onChangeSelect = {this.handleChange("fromYear")}/>
+                        <SelectorOne
+                            style={{ flexGrow: 1 }}
+                            label="End Date"
+                            isCompulsory={true}
+                            items={months}
+                            onChangeSelect={this.handleChange("toMonth")}
+                        />
                     </div>
 
-                    
+                    <div>
+                        <SelectorOne
+                            style={{ flexGrow: 1 }}
+                            items={years}
+                            isCompulso
+                            onChangeSelect={this.handleChange("fromYear")}
+                        />
+
+                        <SelectorOne
+                            style={{ flexGrow: 1 }}
+                            items={years}
+                            onChangeSelect={this.handleChange("toYear")}
+                        />
+                    </div>
 
                     <BootstrapStyleSearchBox
                         label="Brief Description"
@@ -226,7 +232,7 @@ class WorkAndProjectModal extends Component {
                         label="Material"
                         placeHolder="Briefly describe your work here"
                         onChangeInput={this.handleChange("material")}
-                        // compusory={true}
+                    // compusory={true}
                     />
 
                     <div style={{ float: "right" }}>
@@ -246,3 +252,30 @@ WorkAndProjectModal.propTypes = {
 }
 
 export default withStyles(styles)(WorkAndProjectModal);
+
+{/* <div style={{float: 'left'}}>
+                        <Typography variant="h3" color="inherit">
+                            <p className={classes.inputLabel}>
+                                <span style={{ color: "#E4554D" }}> *</span> From year
+                            </p>
+                        </Typography>
+
+                        <SelectorOne items = {months}  onChangeSelect = {this.handleChange("fromMonth")}/>
+                        <br/>
+                        <SelectorOne items = {years}  onChangeSelect = {this.handleChange("fromYear")}/>
+                    </div> */}
+
+
+
+{/* <div style={{float: 'right'}}>
+                        <Typography variant="h3" color="inherit">
+                            <p className={classes.inputLabel}>
+                                <span style={{ color: "#E4554D" }}> *</span> To year (or expected)
+                            </p>
+                        </Typography>
+
+                        <SelectorOne items = {months}  onChangeSelect = {this.handleChange("toMonth")}/>
+                        <br/>
+                        <SelectorOne items = {years}  onChangeSelect = {this.handleChange("fromYear")}/>
+                    </div> */}
+

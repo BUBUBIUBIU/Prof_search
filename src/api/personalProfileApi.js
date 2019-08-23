@@ -31,7 +31,6 @@ export function addEducation(data){
         method: 'POST',
         data,
     }
-    console.log(data);
     return getDataFromServer(apiUrl.ADDUNIVERSITY, configObj);
 }
 
@@ -65,6 +64,38 @@ export function addPublication(data){
     }
     console.log(data);
     return getDataFromServer(apiUrl.PUBlICATION, configObj);
+}
+
+/**
+ * This method used for add Award
+ * Post method is implemented
+ *
+ * @param {Object} data: detail in AddAward ApI, request Body 
+ * @return {Object} 
+ */
+export function addAward(data){
+    const configObj = {
+        method: 'POST',
+        data,
+    }
+    console.log(data);
+    return getDataFromServer(apiUrl.AWARD, configObj);
+}
+
+/**
+ * This method used for add Award
+ * Post method is implemented
+ *
+ * @param {Object} data: detail in AddAward ApI, request Body 
+ * @return {Object} 
+ */
+export function addOtherMaterial(data){
+    const configObj = {
+        method: 'POST',
+        data,
+    }
+    console.log(data);
+    return getDataFromServer(apiUrl.OTHERMATERIAL, configObj);
 }
 
 

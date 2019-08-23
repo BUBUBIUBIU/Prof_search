@@ -1,6 +1,6 @@
 /**
- * @file this is otherMaterial section
- * @author Chenyang Lu(clu3842@gmail.com)
+ * @file this is Award section
+ * @author Shaochuan Luo(shaochuanl@student.unimelb.edu.au)
  * @description    
  */
 
@@ -13,6 +13,7 @@ import { Plus } from 'mdi-material-ui'
 //UI 
 import  CardHeader from '../CardHeader'
 import AwardModal from './AwardModal'
+import AwardDetails from './AwardDetails';
 
 const styles = theme => ({
     paper:{
@@ -31,8 +32,9 @@ class Award extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            expand: false
+            expand: false,
             // ？没有open这个property 啊
+            award: this.props.awards
         };
     }
 
@@ -52,10 +54,24 @@ class Award extends Component {
         this.setState({ open: false });
     }
 
+    componentDidUpdate() {
+        if (this.props.awards != this.state.award) {
+          this.setState({
+            award: this.props.awards,
+          })
+        }
+        console.log("WorkAndExp Paper update")
+    }
+
     render(){
+        const {award} = this.state
         return(
             <div>
             <CardHeader title = {"Award"} handleOpen ={this.handleOpen} isCompulsory= {false} buttonName = {"Add Award"}/>
+
+            {award &&
+            <AwardDetails awards = {award}/>
+            }
 
             {/* 没有detials */}
             <Modal

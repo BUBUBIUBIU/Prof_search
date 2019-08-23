@@ -29,40 +29,38 @@ const styles = theme => ({
 class EducationDetailComponent extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-
-            
+        this.state = {        
         };
     }
 
     render(){
-        const {classes,educationExperience} = this.props
+        const {classes, publications} = this.props
 
         // Note: Here we directly use this.props.educationExperience, It might result in bug(no data update), use state instead
-        const publicationList = this.props.publications.map((publication, index) =>
+        const publicationList = publications.map((publication, index) =>
         <ListItem key={publication._id} >
             <div style ={{width: "100%"}}>
 
                     <div style ={{margin:"10px"}}>
                     <Typography variant ="h2">
-                        ({publication.year} ) {publication.title}
+                        {publication.Title}
                     </Typography>
                     </div>
 
                     {/* subtitle */}
                     <div style ={{margin:"10px"}}>
                     <Typography variant ="body2">
-                    {publication.authors}
+                    {publication.Authors}
                     </Typography>
                     </div>
 
                     <div style ={{margin:"10px"}}>
                     {/* Describetion */}
                     <Typography variant ="body2">
-                    {publication.magzine}
+                    {publication.Url}
                     </Typography>
                     </div>
-                    {this.props.publications.length -1 !== index && <Divider variant = "fullWidth"/>}
+                    {publications.length -1 !== index && <Divider variant = "fullWidth"/>}
             </div>
         </ListItem>
         );

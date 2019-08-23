@@ -11,13 +11,13 @@ import { Paper, Typography, Button, withStyles, FormControl, NativeSelect, Input
 import Icon from '@material-ui/core/Icon';
 import { Close } from 'mdi-material-ui';
 import SelectorOne from '../../../reusableComponents/textField/SelectorOne.jsx';
-import {years} from '../../../../config/years'
+import { years } from '../../../../config/years'
 
 //Ui
 import BootstrapStyleSearchBox from '../../../reusableComponents/BootstrapStyleSearchBox'
 
 //api
-// import {addEducation} from '../../../../api/personalProfileApi'
+import {addOtherMaterial} from '../../../../api/personalProfileApi'
 
 const styles = theme => ({
     paper: {
@@ -81,54 +81,42 @@ class OtherMaterialModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            universityName: '',
-            degree: '',
-            major: '',
-            fromYear: 2013,
-            toYear: 2017,
-            gpa: NaN,
-            gpaType: 0,
-            description: ""
+            title: '',
+            year: 0,
+            briefDescription: '',
+            url: ''
         };
     }
 
-    // handleSubmit = () =>{
+    handleSubmit = () => {
+        //Check all requirement
+        if (this.state.title.replace(/(^s*)|(s*$)/g, "").length !== 0
+            && this.state.briefDescription.replace(/(^s*)|(s*$)/g, "").length !== 0
+            && this.state.url !== NaN
+            && this.state.year !== 0) {
+            const data = {
+                Title: this.state.title,
+                Year: 2018,
+                Description: this.state.briefDescription,
+                Url: this.state.url
+            }
+            console.log(data)
 
-    //     //Check all requirement
-    //     if (this.state.universityName.replace(/(^s*)|(s*$)/g, "").length !==0 
-    //     &&  this.state.degree.replace(/(^s*)|(s*$)/g, "").length !== 0 
-    //     && this.state.major.replace(/(^s*)|(s*$)/g, "").length !== 0
-    //     && this.state.fromYear !== NaN
-    //     && this.state.toYear !== NaN
-    //     && this.state.gpa!== NaN
-    //     && this.state.gpaType!== 0){
-    //     const data = {
-    //         UniversityName:this.state.universityName,
-    //         Degree: this.state.degree,
-    //         Major:this.state.major,
-    //         FromYear: 2013,
-    //         ToYear: 2017,
-    //         Description:this.state.description,
-    //         GPA:parseFloat(this.state.gpa),
-    //         GPAType:parseInt(this.state.gpaType)
-    //     }
-    //     console.log(data)
+            addOtherMaterial(data)
+                .then(function (response) {
+                    alert(response.message);
+                }, function (err) {
+                    alert(err.message);
+                    console.log(err);
+                })
 
-    //     addEducation(data)
-    //     .then(function(response){
-    //         alert(response.message);
-    //     },function(err){
-    //         alert(err.message);
-    //         console.log(err);
-    //     })
-
-    // }else{
-    //     alert("please fullfill all required files")
-    // }
+        } else {
+            alert("please fullfill all required files")
+        }
 
 
 
-    // }
+    }
 
     handleChange = field => event => {
         this.setState({ [field]: event.target.value })
@@ -155,28 +143,27 @@ class OtherMaterialModal extends Component {
                 <Paper className={classes.paper} style={{ padding: "50px 30px" }}>
                     <BootstrapStyleSearchBox
                         label="Title"
-                    // onChangeInput = {this.handleChange("universityName")}
+                        onChangeInput = {this.handleChange("title")}
                     // compusory = {true}
                     />
-                
-                    <SelectorOne 
+
+                    <SelectorOne
                         label="Year"
-                        styles = {{width: "600px"}}
-                        items = {years}  
-                        onChangeSelect = {this.handleChange("toYear")}
+                        styles={{ width: "600px" }}
+                        items={years}
+                        onChangeSelect={this.handleChange("year")}
                     />
-                    
-                
+
                     <BootstrapStyleSearchBox
                         label="Brief Description"
                         compusory={true}
-                        onChangeInput={this.handleChange("description")}
+                        onChangeInput={this.handleChange("briefDescription")}
                     />
 
                     <BootstrapStyleSearchBox
                         label="URL"
                         compusory={false}
-                        onChangeInput={this.handleChange("URL")}
+                        onChangeInput={this.handleChange("url")}
                     />
 
                     <Button style={{ color: 'red' }}>Add file</Button>

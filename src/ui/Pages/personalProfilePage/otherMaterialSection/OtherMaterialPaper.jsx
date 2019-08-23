@@ -13,6 +13,7 @@ import { Plus } from 'mdi-material-ui'
 //UI 
 import  CardHeader from '../CardHeader'
 import OtherMaterialModal from './OtherMaterialModal'
+import OtherMaterialDetails from './OtherMaterialDetails'
 
 const styles = theme => ({
     paper:{
@@ -29,11 +30,22 @@ const styles = theme => ({
 
 class OtherMaterial extends Component {
     constructor(props) {
+        console.log(123);
         super(props);
         this.state = {
-            expand: false
+            expand: false,
             // ？没有open这个property 啊
+            otherMaterials: this.props.otherMaterial
         };
+    }
+
+    componentDidUpdate() {
+        if (this.props.otherMaterial != this.state.otherMaterials) {
+          this.setState({
+            otherMaterials: this.props.otherMaterial,
+          })
+        }
+        console.log("otherMaterial Paper update")
     }
 
     handleOnclick = () =>{
@@ -53,11 +65,15 @@ class OtherMaterial extends Component {
     }
 
     render(){
+        const {otherMaterials} = this.state
+  
         return(
             <div>
             <CardHeader title = {"Other Material"} handleOpen ={this.handleOpen} isCompulsory= {false} buttonName = {"Add Material"}/>
-
-            {/* 没有detials */}
+            
+            {otherMaterials &&
+                <OtherMaterialDetails otherMaterial = {otherMaterials}/>
+            }
             <Modal
             aria-labelledby="simple-modal-title"
             aria-describedby="simple-modal-description"

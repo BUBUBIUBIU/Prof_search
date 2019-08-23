@@ -17,7 +17,7 @@ import SelectorOne from '../../../reusableComponents/textField/SelectorOne.jsx';
 import { addEducation } from '../../../../api/personalProfileApi';
 
 //config
-import {years} from '../../../../config/years'
+import { years } from '../../../../config/years'
 
 
 const styles = theme => ({
@@ -88,8 +88,8 @@ class EducationModal extends Component {
             major: '',
             fromYear: 2013,
             toYear: 2017,
-            gpa: NaN,
-            gpaType: 0,
+            gpa: 1,
+            gpaType: 1,
             description: "",
 
             fromYear: 0,
@@ -178,21 +178,22 @@ class EducationModal extends Component {
                         compusory={true}
                     />
 
-                    <div style ={{display:"flex"}}>
-                    <SelectorOne 
-                        style ={{flexGrow:1}}
-                        label="From Year"
-                        items = {years}  
-                        onChangeSelect = {this.handleChange("fromYear")}
-                    />
-                        <SelectorOne 
-                        style ={{flexGrow:1}}
+                    <div style={{ display: "flex" }}>
+                        <SelectorOne
+                            style={{ flexGrow: 1 }}
+                            label="From Year"
+                            items={years}
+                            onChangeSelect={this.handleChange("fromYear")}
+                        />
+
+                        <SelectorOne
+                            style={{ flexGrow: 1 }}
                             label="To Year (or expected)"
-                            items = {years}  
-                            onChangeSelect = {this.handleChange("toYear")}
+                            items={years}
+                            onChangeSelect={this.handleChange("toYear")}
                         />
                     </div>
-                 
+
                     {/* <div style={{float: 'left'}}>
                         <Typography variant="h3" color="inherit">
                             <p className={classes.inputLabel}>

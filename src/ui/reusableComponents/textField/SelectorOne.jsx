@@ -46,13 +46,13 @@ class SelectorOne extends Component {
         {item}
         </option>
         );
-        const {classes} = this.props
+        const {classes, isCompulsory} = this.props
         return(
 
         <div style ={{width:"100%"}}>
             <Typography variant="h3" color="inherit">
                 <p className={classes.inputLabel}>
-                    <span style={{ color: "#E4554D" }}> *</span> {this.props.label}
+                    {isCompulsory && <span style={{ color: "#E4554D" }}> *</span>} {this.props.label}
                 </p>
             </Typography>
             <NativeSelect value={this.state.years} onChange={this.handleChange("years")}

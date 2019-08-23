@@ -1,8 +1,7 @@
 /**
- * @file this file is for show the list of education experience
- * @author Chenyang Lu(clu3842@gmail.com)
- * @description 
- *       
+ * @file this is Award section
+ * @author Shaochuan Luo(shaochuanl@student.unimelb.edu.au)
+ * @description    
  */
 
 //Dependencies
@@ -25,7 +24,7 @@ const styles = theme => ({
     },
 });
 
-class WorkAndProjectDetail extends Component {
+class OtherMaterialDetails extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -33,31 +32,27 @@ class WorkAndProjectDetail extends Component {
     }
 
     render() {
-        const { classes, workAndProjectExperiences } = this.props
-        console.log(workAndProjectExperiences);
+        const { classes, otherMaterial } = this.props
 
         // Note: Here we directly use this.props.educationExperience, It might result in bug(no data update), use state instead
-        const educationList = workAndProjectExperiences.map((experience, index) =>
-            <ListItem key={experience._id} >
+        const materialList = otherMaterial.map((materials, index) =>
+            <ListItem key={materials._id} >
                 <div style={{ width: "100%" }}>
                     {/* title */}
                     <Grid container spacing={3}>
-                        <Grid item xs={1}>
-                            <Avatar className={classes.purpleAvatar}>G</Avatar>
-                        </Grid>
 
                         <Grid item xs={11}>
                             {/* subtitle */}
                             <div style={{ margin: "10px" }}>
                                 <Typography variant="h2">
-                                    {experience.CompanyName}
+                                    {materials.Title}
                                 </Typography>
                             </div>
 
                             {/* subtitle */}
                             <div style={{ margin: "10px" }}>
                                 <Typography variant="body2">
-                                    {experience.Title}
+                                    {materials.Year}
                                 </Typography>
                             </div>
 
@@ -65,19 +60,19 @@ class WorkAndProjectDetail extends Component {
                             {/* year and location */}
                             <div style={{ margin: "10px" }}>
                                 <Typography variant="body2">
-                                    {experience.yearAndLocation}
+                                    {materials.Description}
                                 </Typography>
                             </div>
 
                             <div style={{ margin: "25px 10px 25px 10px" }}>
                                 {/* Describetion */}
                                 <Typography variant="body2">
-                                    {experience.Description}
+                                    {materials.Url}
                                 </Typography>
                             </div>
                         </Grid>
                     </Grid>
-                    {workAndProjectExperiences.length - 1 !== index && <Divider variant="inset" />}
+                    {otherMaterial.length - 1 !== index && <Divider variant="inset" />}
                 </div>
             </ListItem>
         );
@@ -87,7 +82,7 @@ class WorkAndProjectDetail extends Component {
             <Paper className={classes.paper} style={{ marginTop: "2px", padding: "25px 20px 50px 30px" }}>
                 {/* title */}
                 <List>
-                    {educationList}
+                    {materialList}
                 </List>
             </Paper>
         )
@@ -96,9 +91,9 @@ class WorkAndProjectDetail extends Component {
 };
 
 //Todo 
-WorkAndProjectDetail.propTypes = {
+OtherMaterialDetails.propTypes = {
     isCompulsory: PropTypes.bool,
     title: PropTypes.string,
 }
 
-export default withStyles(styles)(WorkAndProjectDetail);
+export default withStyles(styles)(OtherMaterialDetails);

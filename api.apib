@@ -914,3 +914,233 @@ APIs descriptions
             {
                 "message": "unauthorized"
             }
+
+### Add Award [POST /student/award]
+
++ Request (application/json)
+
+    + Headers
+
+            id: user id
+            token: user token
+
+    + Body
+
+            {
+                "Name": "IT super",
+                "Organization": "Monash",
+                "Date": "2018-01-02T15:04:05Z",
+                "Description": "Haha"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "message": "Success!"
+            }
+
++ Response 400 (application/json)
+
+    + Body
+
+            {
+                "message": "Key: 'StudentAwards.Name' Error:Field validation for 'Name' failed on the 'required' tag"
+            }
+
++ Response 401 (application/json)
+
+    + Body
+
+            {
+                "message": "unauthorized"
+            }
+
+### Delete Award [DELETE /student/award]
+
++ Request (application/json)
+
+    + Headers
+
+            id: user id
+            token: user token
+
+    + Body
+
+            {
+                "id": 1
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "message": "Success!"
+            }
+
++ Response 401 (application/json)
+
+    + Body
+
+            {
+                "message": "unauthorized"
+            }
+
+### Edit Award [PUT /student/award]
+
++ Request (application/json)
+
+    + Headers
+
+            id: user id
+            token: user token
+
+    + Body
+
+            {
+                "Name": "IT super",
+                "Organization": "UniMelb",
+                "Date": "2019-02-02T15:04:05Z",
+                "Description": "Tired"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "message": "Success!"
+            }
+
++ Response 400 (application/json)
+
+    + Body
+
+            {
+                "message": "parsing time \"\"2019-02-02T15:04:05\"\" as \"\"2006-01-02T15:04:05Z07:00\"\": cannot parse \"\"\" as \"Z07:00\""
+            }
+
++ Response 401 (application/json)
+
+    + Body
+
+            {
+                "message": "unauthorized"
+            }
+
+### Add Material [POST /student/material]
+
++ Request (application/json)
+
+    + Headers
+
+            id: user id
+            token: user token
+
+    + Body
+
+            {
+                "Title": "Chunyao, Chenyang tql",
+                "Year": 2018,
+                "Description": "Na hai yong shuo? Qiang de ke pa.",
+                "Url": "myunimelb.edu.au"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "message": "Success!"
+            }
+
++ Response 400 (application/json)
+
+    + Body
+
+            {
+                "message": "json: cannot unmarshal string into Go struct field StudentMaterials.Year of type uint"
+            }
+
++ Response 401 (application/json)
+
+    + Body
+
+            {
+                "message": "unauthorized"
+            }
+
+### Delete Material [DELETE /student/material]
+
++ Request (application/json)
+
+    + Headers
+
+            id: user id
+            token: user token
+
+    + Body
+
+            {
+                "id": 1
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "message": "Success!"
+            }
+
++ Response 401 (application/json)
+
+    + Body
+
+            {
+                "message": "unauthorized"
+            }
+
+### Edit Material [PUT /student/material]
+
++ Request (application/json)
+
+    + Headers
+
+            id: user id
+            token: user token
+
+    + Body
+
+            {
+                "Title": "Chunyao, Chenyang tql",
+                "Year": 2018,
+                "Description": "Na hai yong shuo? Qiang de ke pa.",
+                "Url": "myunimelb.edu.au"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "message": "Success!"
+            }
+
++ Response 400 (application/json)
+
+    + Body
+
+            {
+                "message": "json: cannot unmarshal string into Go struct field StudentMaterials.Year of type uint"
+            }
+
++ Response 401 (application/json)
+
+    + Body
+
+            {
+                "message": "unauthorized"
+            }
