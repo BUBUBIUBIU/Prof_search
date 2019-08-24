@@ -3,12 +3,6 @@ import {AppBar,Toolbar,Typography,Button,Tabs,Tab, withStyles,withTheme, spacing
 import { FormattedMessage, injectIntl, intlShape, FormattedRelative } from 'react-intl';
 import PropTypes from 'prop-types';
 
-//UI
-import SignUpPage from './SignUpPage'
-import LoginPage from './LoginPage'
-import AuthSinglePage from "../Pages/authPage/AuthSinglePage"
-
-
 //redux Dependencies
 import { connect } from 'react-redux'
 import {backToHomePage,changeLanguage} from '../../redux/actions/index.js'
@@ -50,14 +44,6 @@ const styles = theme => ({
   }
 });
 
-
-function TabContainer(props) {
-    return (
-      <Typography component="div" style={{ padding: 8 * 3 }}>
-        {props.children}
-      </Typography>
-    );
-  }
 
 class HeadNavigator extends Component {
     constructor(props) {
@@ -186,7 +172,7 @@ class HeadNavigator extends Component {
                     aria-haspopup="true"
                     onClick={this.handleProfileClick}>
                   {/* {this.props.userInfo.name} */}
-                  CL
+                  
                   </Button>
                 }
                 <Menu id="personal-profile" 
@@ -194,24 +180,28 @@ class HeadNavigator extends Component {
                       anchorEl = {profileAnchorEl}
                       open={Boolean(profileAnchorEl)}
                       onClose={this.handleClose}>
+
                   <MenuItem onClick={this.jumpToProfilePage}>
                   <Avatar className={classes.smallAvatar} 
                       src = "https://scontent.fcbr1-1.fna.fbcdn.net/v/t1.0-0/p370x247/50229562_10157302245734739_2837044079051669504_n.jpg?_nc_cat=109&amp;_nc_ht=scontent.fcbr1-1.fna&amp;oh=9af7e41fe295e20bf12794a74726716b&amp;oe=5D53A962"> 
                     </Avatar>
                   <Typography variant="h3" >
-                    Chenyang Lu
+                    {this.props.userInfo.name}
                   </Typography>
+
                   </MenuItem>
                   <MenuItem onClick={this.handleProfileClose}>
                   <Typography variant="h3" >
                     Setting and privacy
                   </Typography>
                   </MenuItem>
+
                   <MenuItem onClick={this.handleProfileClose}>
                   <Typography variant="h3" >
                     Log out
                   </Typography>
                   </MenuItem>
+
                 </Menu>
 
                   <Button variant="outlined" 

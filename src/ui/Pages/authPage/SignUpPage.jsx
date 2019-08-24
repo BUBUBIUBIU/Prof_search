@@ -1,3 +1,9 @@
+/* Copyright (C) Profware Pty. Ltd. - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ * Written by [Wiwi, Chenyang Lu], [date:24th Aug 2019]
+ */
+
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 

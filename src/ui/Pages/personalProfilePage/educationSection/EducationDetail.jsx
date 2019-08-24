@@ -1,8 +1,7 @@
-/**
- * @file this file is for show the list of education experience
- * @author Chenyang Lu(clu3842@gmail.com)
- * @description 
- *       
+/* Copyright (C) Profware Pty. Ltd. - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ * Written by [Chenyang Lu], [date:20th Aug 2019]
  */
 
 //Dependencies
