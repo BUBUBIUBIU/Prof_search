@@ -82,46 +82,36 @@ const styles = theme => ({
 class WorkAndProjectModal extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            company: '',
-            title: '',
-            location: '',
-            briefDescription: '',
-            material: '',
-
-            fromYear: 0,
-            toYear: 0,
-            fromMonth: '',
-            toMonth: ''
-        };
+        this.state = this.props.currentWorkExperience
+        console.log(this.props.currentWorkExperience)
     }
 
     handleSubmit = () => {
 
         //Check all requirement
-        if (this.state.company.replace(/(^s*)|(s*$)/g, "").length !== 0
-            && this.state.title.replace(/(^s*)|(s*$)/g, "").length !== 0
-            //  && this.state.major.replace(/(^s*)|(s*$)/g, "").length !== 0
-            && this.state.location !== NaN
-            && this.state.briefDescription !== NaN) {
+        if (this.state.CompanyName.replace(/(^s*)|(s*$)/g, "").length !== 0
+            && this.state.Title.replace(/(^s*)|(s*$)/g, "").length !== 0
+            && this.state.Country.replace(/(^s*)|(s*$)/g, "").length !== 0
+            ) {
 
             const data = {
-                CompanyName: this.state.company,
-                Title: this.state.title,
-                Country: "Austrilia",
-                City: "Melbourne",
+                CompanyName: this.state.CompanyName,
+                Title: this.state.Title,
+                Country: this.state.Location,
+                City: this.state.Location,
                 StartDate: "2006-01-02T15:04:05Z",
                 EndDate: "2018-01-02T15:04:05Z",
-                Description: "test",
+                Description: this.state.Description,
                 Materials: "hapi",
             }
 
             console.log(data)
             const temp = this
-
             addExperience(data)
                 .then(function (response) {
+                    temp.props.handleUpdate(data)
                     temp.props.handleClose()
+                    alert(response.message);
                 }, function (err) {
                     alert(err.message);
                     console.log(err);
@@ -142,7 +132,9 @@ class WorkAndProjectModal extends Component {
 
 
     render() {
-        const { classes, profile } = this.props
+        const { classes} = this.props
+
+
         return (
             <div className={classes.modal}>
                 <Paper className={classes.paper} style={{ padding: "20px 30px 0px 30px", marginBottom: "1px", height: "40px", position:"fix" }} >
@@ -163,22 +155,26 @@ class WorkAndProjectModal extends Component {
                     <BootstrapStyleSearchBox
                         label="Company"
                         placeHolder="Company Name"
-                        onChangeInput={this.handleChange("company")}
+                        onChangeInput={this.handleChange("CompanyName")}
                         compusory={true}
+                        value ={this.state.CompanyName}
+                    
                     />
 
                     <BootstrapStyleSearchBox
                         label="Title"
                         placeHolder="Ex. Project Manager"
-                        onChangeInput={this.handleChange("title")}
+                        onChangeInput={this.handleChange("Title")}
                         compusory={true}
+                        value ={this.state.Title}
                     />
 
                     <BootstrapStyleSearchBox
                         label="Location"
                         placeHolder="Ex. Melbourne"
-                        onChangeInput={this.handleChange("location")}
+                        onChangeInput={this.handleChange("Country")}
                         compusory={true}
+                        value ={this.state.Country}
                     />
 
                     <div>
@@ -196,7 +192,7 @@ class WorkAndProjectModal extends Component {
                             label="Start Date"
                             isCompulsory={true}
                             items={months}
-                            onChangeSelect={this.handleChange("fromMonth")}
+                            onChangeSelect={this.handleChange("FromMonth")}
                         />
 
                         <SelectorOne
@@ -204,7 +200,7 @@ class WorkAndProjectModal extends Component {
                             label="End Date"
                             isCompulsory={true}
                             items={months}
-                            onChangeSelect={this.handleChange("toMonth")}
+                            onChangeSelect={this.handleChange("ToMonth")}
                         />
                     </div>
 
@@ -213,27 +209,28 @@ class WorkAndProjectModal extends Component {
                             style={{ flexGrow: 1 }}
                             items={years}
                             isCompulso
-                            onChangeSelect={this.handleChange("fromYear")}
+                            onChangeSelect={this.handleChange("FromYear")}
                         />
 
                         <SelectorOne
                             style={{ flexGrow: 1 }}
                             items={years}
-                            onChangeSelect={this.handleChange("toYear")}
+                            onChangeSelect={this.handleChange("ToYear")}
                         />
                     </div>
 
                     <BootstrapStyleSearchBox
                         label="Brief Description"
-                        compusory={false}
-                        onChangeInput={this.handleChange("briefDescription")}
+                        compusory={false} 
+                        onChangeInput={this.handleChange("Description")}
+                        value ={this.state.Description}
                     />
 
                     <BootstrapStyleSearchBox
                         label="Material"
                         placeHolder="Briefly describe your work here"
-                        onChangeInput={this.handleChange("material")}
-                    // compusory={true}
+                        onChangeInput={this.handleChange("Material")}
+                        value ={this.state.Materials}
                     />
 
                     <div style={{ float: "right" }}>
@@ -253,30 +250,3 @@ WorkAndProjectModal.propTypes = {
 }
 
 export default withStyles(styles)(WorkAndProjectModal);
-
-{/* <div style={{float: 'left'}}>
-                        <Typography variant="h3" color="inherit">
-                            <p className={classes.inputLabel}>
-                                <span style={{ color: "#E4554D" }}> *</span> From year
-                            </p>
-                        </Typography>
-
-                        <SelectorOne items = {months}  onChangeSelect = {this.handleChange("fromMonth")}/>
-                        <br/>
-                        <SelectorOne items = {years}  onChangeSelect = {this.handleChange("fromYear")}/>
-                    </div> */}
-
-
-
-{/* <div style={{float: 'right'}}>
-                        <Typography variant="h3" color="inherit">
-                            <p className={classes.inputLabel}>
-                                <span style={{ color: "#E4554D" }}> *</span> To year (or expected)
-                            </p>
-                        </Typography>
-
-                        <SelectorOne items = {months}  onChangeSelect = {this.handleChange("toMonth")}/>
-                        <br/>
-                        <SelectorOne items = {years}  onChangeSelect = {this.handleChange("fromYear")}/>
-                    </div> */}
-

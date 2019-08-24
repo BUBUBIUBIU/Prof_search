@@ -22,10 +22,11 @@ class PersonalProfilePage extends Component {
         super(props);
         this.state = {
             profile: {
-                FirstName: null,
-                LastName: null,
-                Email:null,
-                Phone:null,
+                Avatar: "",
+                FirstName: "",
+                LastName: "",
+                Email:"",
+                Phone: "",
                 Universities:[],
                 Companies:[],
                 Awards:[],
@@ -52,8 +53,22 @@ class PersonalProfilePage extends Component {
         // const profile1 = await profile;
 
         // this.setState({profile1})
-        console.log("Re-render")
-        console.log(this.state.profile)
+    }
+
+    UpdateFile= () => {
+        const temp = this;
+
+        getProfile()
+        .then(function(response){
+            // return new Promise(function(resolve, reject) {
+            //       resolve(response.content);
+            //   });
+            // profile = response.content;
+            temp.setState({profile: response.content})
+            console.log(response.content)
+        },function(err){
+
+        })
     }
 
     
@@ -69,14 +84,21 @@ class PersonalProfilePage extends Component {
                 <ProfileCard FirstName = {profile.FirstName} 
                             LastName = {profile.LastName}
                             Email = {profile.Email}
-                            Phone = {profile.Phone}/>
+                            Phone = {profile.Phone}
+                            Avatar = {profile.Avatar}/>
                 {/* <ProfileCard/>          */}
-                <EducationPaper educations = {profile.Universities}/>
-                <WorkAndProjectExperience workAndExp = {profile.Companies}/>
+                <EducationPaper educations = {profile.Universities}
+                UpdateFile = {this.UpdateFile}/>
+                
+                <WorkAndProjectExperience workAndExp = {profile.Companies}
+                 UpdateFile = {this.UpdateFile}
+                />
                 
                 <CV/>
-                <Award awards = {profile.Awards}/>
-                <Publication publications = {profile.Publications}/>
+                <Award awards = {profile.Awards}
+                UpdateFile = {this.UpdateFile}/>
+                <Publication publications = {profile.Publications}
+                UpdateFile = {this.UpdateFile}/>
                 <OtherMaterial otherMaterial = {profile.Materials}/> 
                 </Grid>
                 <Grid item xs={1}/>

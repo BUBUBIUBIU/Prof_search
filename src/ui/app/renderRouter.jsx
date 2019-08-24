@@ -177,8 +177,8 @@ class RenderRouter extends Component {
                 <Route exact path="/personalProfile" component={PersonalProfilePage} />
                 <Route exact path="/contactList" component={ContactListPage} />
                 <Route exact path="/message" component={MessagePage} />
-                <Route exact path="/login" component={ props => <AuthSinglePage authValue = "login"/>} />
-                <Route exact path="/signup" component={ props => <AuthSinglePage authValue = "signup"/>} />
+                <Route exact path="/login" component={ props => <LoginPage authValue = "login"/>} />
+                <Route exact path="/signup" component={ props => <SignUpPage authValue = "signup"/>} />
                 {/* <Route exact path="/authsingle" component={AuthSinglePage} /> */}
                 <Route path="*" component={NotFoundPage} />
               </Switch>

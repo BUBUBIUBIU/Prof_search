@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
-import { Paper,Typography,Collapse, Button, withStyles,ToolBar,FormControl,NativeSelect,InputBase  } from '@material-ui/core';
+
+import { Paper,Divider,AppBar,Card,Tab, Tabs, CardContent, Typography,Collapse, Button, withStyles,ToolBar, Modal,FormControl,NativeSelect,InputBase  } from '@material-ui/core';
 import Icon from '@material-ui/core/Icon';
 import { Plus, Close, ConsoleNetwork } from 'mdi-material-ui';
 
@@ -9,8 +10,11 @@ import BootstrapStyleSearchBox from '../../reusableComponents/BootstrapStyleSear
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import InputLabel from '@material-ui/core/InputLabel';
-import Divider from '@material-ui/core/Divider';
+import ThirdHeader from "../../reusableComponents/ThirdHeader"
 
+
+//router 
+import { Redirect } from 'react-router-dom'
 
 //api
 import {signUp} from '../../../api/authApi.js'
@@ -57,6 +61,8 @@ class SignUpPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            value:"signup",
+            toAnotherPage:"",
             open: this.props.open,
             email: "",
             password: "",
@@ -83,9 +89,6 @@ class SignUpPage extends Component {
         this.setState({ open: true });
       };
     
-      handleClose = () => {
-        this.setState({ open: false });
-      };
     
       emailInput(text){
           console.log(text)
@@ -108,9 +111,8 @@ class SignUpPage extends Component {
               country:this.state.country,
               city:this.state.city
           };
-          signUp(data);
-          
-          this.handleClose();
+          signUp(data);  
+          this.setState({value:"login"})
         }else{
             var info = "";
             if (!this.emailValidate()) info = info + EMAIL_INCORRECT;
@@ -150,111 +152,104 @@ class SignUpPage extends Component {
         return this.state.password == this.state.confirm_password
     }
 
+    handleTab = (event,value) => {
+        this.setState({value});
+
+    }
+
     render(){
         const {classes, profile} = this.props
+        const {value} = this.state
+
+        if (this.state.value === "login") {
+            return <Redirect to='../login' />
+          }
+
         return(
-            <div>
-            {/* <AuthPage authValue = "signup"/> */}
-            <Paper className ={classes.paper} style ={{padding:"20px 50px 20px 30px",marginBottom:"10px",height:"900px"}}>
-             <div class="inline" style ={{display:"flex", margin:"0 -5px"}}>
-             <div style={{flexGrow:1, margin:"0 5px"}}>
-            <BootstrapStyleSearchBox
-                
-                    label = "First Name"
-                    placeHolder = "Xiao"
-                    compusory = {true}
-                    onChangeInput = {this.handleChange("firstName")}
-                    />
+<div>
+    <ThirdHeader />
+    <Card classes={{
+               root: classes.card, // class name, e.g. `classes-nesting-root-x`
+             }}style={{width:"50%",marginLeft:"300px"}}>
 
+        <AppBar position="static" color="default" className={classes.cardAppBar}>
+            <Tabs variant="fullWidth" value={value} onChange={this.handleTab} indicatorColor="primary">
+                <Tab value="login" label="login" />
+                <Tab value="signup" label="sign up" />
+            </Tabs>
+        </AppBar>
+        <Divider />
+            {/*
+            <AuthPage authValue="signup" /> */}
+            <Paper className={classes.paper} style={{padding:"20px 50px 20px 30px",marginBottom:"10px",height:"900px"}}>
+                <div class="inline" style={{display:"flex", margin:"0 -5px"}}>
+                    <div style={{flexGrow:1, margin:"0 5px"}}>
+                        <BootstrapStyleSearchBox label="First Name" placeHolder="Xiao" compusory={true}
+                            onChangeInput={this.handleChange("firstName")} />
+
+                    </div>
+                    <div style={{flexGrow:1,margin:"0 5px"}}>
+                        <BootstrapStyleSearchBox label="Last Name" placeHolder="Wang" compusory={true}
+                            onChangeInput={this.handleChange("lastName")} />
+                    </div>
                 </div>
-                <div style={{flexGrow:1,margin:"0 5px"}}>
-                <BootstrapStyleSearchBox    
-                    label = "Last Name"
-                    placeHolder = "Wang"
-                    compusory = {true}
-                    onChangeInput = {this.handleChange("lastName")}
-            />
-            </div>
-            </div>
-            
-            <FormControl required className={classes.formControl}>
-        
-            <InputLabel htmlFor="age-required">Role</InputLabel>
-                            <NativeSelect value={this.state.gpaType} onChange={this.handleChange("role")}
 
-                                className={classes.typeSelectBox} variant="outlined" label="Role" compulsory={true}>
-                                <option value={0} />
-                                <option value={1}>
-                                   Student
-                                </option>
-                                <option value={2}>
-                                    Teacher
-                                </option>
-                            </NativeSelect>
-            </FormControl>
+                <FormControl required className={classes.formControl}>
 
-            <Divider variant="middle" />
+                    <InputLabel htmlFor="age-required">Role</InputLabel>
+                    <NativeSelect value={this.state.gpaType} onChange={this.handleChange("role")}
+                        className={classes.typeSelectBox} variant="outlined" label="Role" compulsory={true}>
+                        <option value={0} />
+                        <option value={1}>
+                            Student
+                        </option>
+                        <option value={2}>
+                            Teacher
+                        </option>
+                    </NativeSelect>
+                </FormControl>
 
-                <BootstrapStyleSearchBox
-                    label = "Email"
-                    placeHolder = "xxx@gmail.com"
-                    onChangeInput = {this.handleChange("email")}
-                    compusory = {true}
-                    />
+                <Divider variant="middle" />
+
+                <BootstrapStyleSearchBox label="Email" placeHolder="xxx@gmail.com"
+                    onChangeInput={this.handleChange("email")} compusory={true} />
 
                 {/* todo */}
-                <BootstrapStyleSearchBox    
-                    label = "Password"
-                    type="password"
-                    placeHolder = "At least 8 characters"
-                    autoComplete="current-password"
-                    compusory = {true}
-                    onChangeInput = {this.handleChange("password")}
-                    />
-                <BootstrapStyleSearchBox    
-                    label = "Confirm Password"
-                    type="password"
-                    autoComplete="current-password"
-                    placeHolder = "At least 8 characters"
-                    compusory = {true}
-                    onChangeInput = {this.handleChange("confirm_password")}
-                    />
+                <BootstrapStyleSearchBox label="Password" type="password" placeHolder="At least 8 characters"
+                    autoComplete="current-password" compusory={true} onChangeInput={this.handleChange("password")} />
+                <BootstrapStyleSearchBox label="Confirm Password" type="password" autoComplete="current-password"
+                    placeHolder="At least 8 characters" compusory={true}
+                    onChangeInput={this.handleChange("confirm_password")} />
 
-                <BootstrapStyleSearchBox    
-                    label = "Phone Number"
-                    compusory = {false}
-                    onChangeInput = {this.handleChange("phoneNumber")}
-                    />
-                <BootstrapStyleSearchBox    
-                    label = "Description"
-                    compusory = {false}
-                    onChangeInput = {this.handleChange("description")}
-                    />
-                <BootstrapStyleSearchBox    
-                    label = "Country"
-                    compusory = {false}
-                    onChangeInput = {this.handleChange("country")}
-                    />
+                <BootstrapStyleSearchBox label="Phone Number" compusory={false}
+                    onChangeInput={this.handleChange("phoneNumber")} />
+                <BootstrapStyleSearchBox label="Description" compusory={false}
+                    onChangeInput={this.handleChange("description")} />
+                <BootstrapStyleSearchBox label="Country" compusory={false}
+                    onChangeInput={this.handleChange("country")} />
 
-                <BootstrapStyleSearchBox    
-                    label = "City"
-                    compusory = {false}
-                    onChangeInput = {this.handleChange("city")}
-                    />                
-                <FormControlLabel control={<Checkbox value="pwcheck" color="Primary"/>} 
+                <BootstrapStyleSearchBox label="City" compusory={false} onChangeInput={this.handleChange("city")} />
+                <FormControlLabel control={<Checkbox value="pwcheck" color="Primary" />}
                 classes ={{
                     label: classes.label
                 }}
                 label="I have read and agreed to the Service Agreement and Privacy Policy" />
 
-                <div style= {{float: "right",paddingBottom:"20px"}}>
-                <Button variant="contained" color="primary" size="small" onClick = {this.submit}>
-                    Sign Up
-                </Button>
+                <div style={{float: "right",paddingBottom:"20px"}}>
+                    <Button variant="contained" color="primary" size="small" onClick={this.submit}>
+                        Sign Up
+                    </Button>
                 </div>
-                    
+
             </Paper>
-            </div>
+
+
+    </Card>
+</div>
+
+
+
+
         )
     }
     

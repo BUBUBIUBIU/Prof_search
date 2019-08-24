@@ -83,17 +83,7 @@ class EducationModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            universityName: '',
-            degree: '',
-            major: '',
-            fromYear: 2013,
-            toYear: 2017,
-            gpa: 1,
-            gpaType: 1,
-            description: "",
 
-            fromYear: 0,
-            toYear: 0
         };
     }
 
@@ -120,10 +110,11 @@ class EducationModal extends Component {
                 GPAType: parseInt(this.state.gpaType)
             }
             console.log(data)
-
+            const temp = this;
             addEducation(data)
                 .then(function (response) {
-                    alert(response.message);
+                    console.log(response.message)
+                    temp.props.handleClose()
                 }, function (err) {
                     alert(err.message);
                     console.log(err);
@@ -194,24 +185,6 @@ class EducationModal extends Component {
                         />
                     </div>
 
-                    {/* <div style={{float: 'left'}}>
-                        <Typography variant="h3" color="inherit">
-                            <p className={classes.inputLabel}>
-                                <span style={{ color: "#E4554D" }}> *</span> From year
-                            </p>
-                        </Typography>
-
-                        <SelectorOne items = {years}  onChangeSelect = {this.handleChange("fromYear")}/>
-                    </div>
-                    
-                    <div style={{float: 'right'}}>
-                        <Typography variant="h3" color="inherit">
-                            <p className={classes.inputLabel}>
-                                <span style={{ color: "#E4554D" }}> *</span> To year (or expected)
-                            </p>
-                        </Typography>
-                        <SelectorOne items = {years}  onChangeSelect = {this.handleChange("toYear")}/>
-                    </div> */}
 
                     <BootstrapStyleSearchBox
                         label="Brief Description"
@@ -241,40 +214,3 @@ EducationModal.propTypes = {
 export default withStyles(styles)(EducationModal);
 
 
-
-// {/* <div style={{ width: "100%", marginBottom: "15px", }}>
-// {/* score box */}
-// <FormControl style={{ marginRight: "15px", width: "100px" }}>
-//     <InputBase placeholder="3.9" classes={{
-//         root: classes.inputBoxroot,
-//         input: classes.scoreBox,
-//     }}
-//         onChange={this.handleChange("gpa")} />
-// </FormControl>
-
-// {/* <span className={classes.inlineWord}> */}
-// <Typography variant="h3" color="inherit" inline>
-//     <span className={classes.inlineWord}>
-//         in
-//         </span>
-// </Typography>
-// {/* </span> */}
-
-// {/* select box */}
-// <FormControl style={{ margin: "0 15px 0 15px" }}>
-//     <NativeSelect value={this.state.gpaType} onChange={this.handleChange("gpaType")}
-//         className={classes.typeSelectBox} variant="outlined" native>
-//         <option value={0} />
-//         <option value={1}>
-//             GPA
-//         </option>
-//         <option value={2}>
-//             WAM
-//         </option>
-//         <option value={3}>
-//             Percentage
-//         </option>
-//     </NativeSelect>
-// </FormControl>
-
-// </div> */}

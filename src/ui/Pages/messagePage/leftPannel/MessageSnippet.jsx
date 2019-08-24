@@ -108,7 +108,7 @@ class MessageSnippet extends Component {
                     <div style={{width:"100%", marginBottom:"20px"}}>
                         <div style={{float:"left", width:"30%"}}>
                             <Avatar style={{width:"70px", height:"70px", borderRadius:15}}
-                                src="https://pic2.zhimg.com/80/v2-d888ae1c0639ddcf1a7fdabf199a36a3_hd.jpg" />
+                                src="43.240.97.130:8081/file/avatar_2?token=o0CgIdNpLuydwzXzRYCDO9cnxxK8HEcXm5dsobBF%2BUHTRZwx2EWgAhP86F6vMu6bS67icijVp0DcMxt5xRszTNiqoRN%2FsRciHjTg7spsKd4gNBe6jxrSP3sjh1ymQ29czghgpSlIseWFpxhhE1Ycqs871w%3D%3D" />
                         </div>
 
                         <div style={{width:"100%", height:"100%", margin:"5px"}}>

@@ -8,7 +8,12 @@
 //Dependencies
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Grid, Paper, Typography, Button, withStyles, Avatar, List, ListItem, Divider } from '@material-ui/core';
+import { Grid, Paper, Typography, Button, withStyles, Avatar, List, ListItem, Divider,IconButton,Modal } from '@material-ui/core';
+import { Edit } from '@material-ui/icons/';
+
+
+//UI
+import UpdateModal from './UpdateModal'
 
 const styles = theme => ({
     paper: {
@@ -29,9 +34,37 @@ class WorkAndProjectDetail extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            workExperience: this.props.workAndProjectExperiences,
+            workExperienceWaitingForUpdate:{},
+            index:0,
         };
+
     }
 
+    componentDidUpdate(){
+        if (this.props.workAndProjectExperiences !== this.state.workExperience) {
+          this.setState({
+            workExperience: this.props.workAndProjectExperiences,
+          })
+        }
+      }
+
+    openUpdateModal = index => event => {
+        if (this.state.open !== true)
+            this.setState({ index,workExperienceWaitingForUpdate:this.state.workExperience[index], open: true});
+    }
+
+    handleCloseModal= () => {
+        this.setState({open: false})
+    }
+    
+    handleUpdate = (obj) =>{
+        let tempProfile =  this.state.workExperience;
+        tempProfile[this.state.index] = obj;
+        this.setState({workExperience: tempProfile})
+    }
+
+    
     render() {
         const { classes, workAndProjectExperiences } = this.props
         console.log(workAndProjectExperiences);
@@ -46,7 +79,7 @@ class WorkAndProjectDetail extends Component {
                             <Avatar className={classes.purpleAvatar}>G</Avatar>
                         </Grid>
 
-                        <Grid item xs={11}>
+                        <Grid item xs={10}>
                             {/* subtitle */}
                             <div style={{ margin: "10px" }}>
                                 <Typography variant="h2">
@@ -76,6 +109,11 @@ class WorkAndProjectDetail extends Component {
                                 </Typography>
                             </div>
                         </Grid>
+                        <Grid item xs={1}>
+                        <IconButton onClick={this.openUpdateModal(index)} >
+                                <Edit/>
+                        </IconButton>
+                        </Grid>
                     </Grid>
                     {workAndProjectExperiences.length - 1 !== index && <Divider variant="inset" />}
                 </div>
@@ -84,12 +122,24 @@ class WorkAndProjectDetail extends Component {
 
 
         return (
+            <div>
             <Paper className={classes.paper} style={{ marginTop: "2px", padding: "25px 20px 50px 30px" }}>
                 {/* title */}
                 <List>
                     {educationList}
                 </List>
             </Paper>
+
+            <Modal
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description"
+                open={this.state.open}
+                onClose={this.handleClose}
+            >
+
+            <UpdateModal handleClose={this.handleCloseModal} currentWorkExperience = {this.state.workExperienceWaitingForUpdate} handleUpdate = {this.handleUpdate}/>
+            </Modal>
+            </div>
         )
 
     }
@@ -97,8 +147,7 @@ class WorkAndProjectDetail extends Component {
 
 //Todo 
 WorkAndProjectDetail.propTypes = {
-    isCompulsory: PropTypes.bool,
-    title: PropTypes.string,
+    workAndExp: PropTypes.object
 }
 
 export default withStyles(styles)(WorkAndProjectDetail);

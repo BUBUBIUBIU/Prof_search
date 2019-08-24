@@ -47,10 +47,10 @@ class PublicationBook extends Component {
             }
 
             console.log(data)
-
+            const temp = this
             addPublication(data)
                 .then(function (response) {
-                    alert(response.message);
+                    temp.props.handleClose()
                 }, function (err) {
                     alert(err.message);
                     console.log(err);

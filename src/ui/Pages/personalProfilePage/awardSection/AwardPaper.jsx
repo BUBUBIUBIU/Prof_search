@@ -52,6 +52,7 @@ class Award extends Component {
 
     handleClose = () => {
         this.setState({ open: false });
+        this.props.UpdateFile();
     }
 
     componentDidUpdate() {
@@ -70,7 +71,7 @@ class Award extends Component {
             <CardHeader title = {"Award"} handleOpen ={this.handleOpen} isCompulsory= {false} buttonName = {"Add Award"}/>
 
             {award &&
-            <AwardDetails awards = {award}/>
+            <AwardDetails awards = {award} UpdateFile = {this.props.UpdateFile}/>
             }
 
             {/* 没有detials */}

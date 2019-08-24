@@ -6,7 +6,9 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Grid, Paper, Typography, Button, withStyles, Avatar, List, ListItem, Divider } from '@material-ui/core';
+import { Grid, Paper, Typography, Button, withStyles, Modal,Avatar, List, ListItem, Divider,IconButton } from '@material-ui/core';
+import { Edit } from '@material-ui/icons/';
+import UpdateModal from './UpdateModal'
 
 const styles = theme => ({
     paper: {
@@ -18,12 +20,36 @@ const styles = theme => ({
     }
 });
 
-class WorkAndProjectDetail extends Component {
+class AwardDetail extends Component {
     constructor(props) {
         super(props);
         this.state = {
-        };
+            awards: this.props.awards,
+            awardForUpdate: {}
+        }
     }
+
+    openUpdateModal = index => event => {
+        console.log(this.state.awards)
+        if (this.state.open !== true)
+            this.setState({ index, awardForUpdate:this.state.awards[index], open: true});
+    }
+
+    handleCloseModal= () => {
+        this.setState({open: false})
+        this.props.UpdateFile()
+    }
+
+    componentDidUpdate(){
+        if(this.props.awards !== this.state.awards)
+            this.setState({awards: this.props.awards})
+    }
+    
+    // handleUpdate = (obj) =>{
+    //     let tempProfile =  this.state.educationExperience;
+    //     tempProfile[this.state.index] = obj;
+    //     this.setState({educationExperience: tempProfile})
+    // }
 
     render() {
         const { classes, awards } = this.props
@@ -65,6 +91,11 @@ class WorkAndProjectDetail extends Component {
                                 </Typography>
                             </div>
                         </Grid>
+                        <Grid item xs={1}>
+                        <IconButton onClick={this.openUpdateModal(index)} >
+                                <Edit/>
+                        </IconButton>
+                        </Grid>
                     </Grid>
                     {awards.length - 1 !== index && <Divider variant="inset" />}
                 </div>
@@ -73,21 +104,32 @@ class WorkAndProjectDetail extends Component {
 
 
         return (
+            <div>
             <Paper className={classes.paper} style={{ marginTop: "2px", padding: "25px 20px 50px 30px" }}>
                 {/* title */}
                 <List>
                     {awardList}
                 </List>
             </Paper>
+            <Modal
+            aria-labelledby="simple-modal-title"
+            aria-describedby="simple-modal-description"
+            open={this.state.open}
+            onClose={this.handleClose}
+        >
+
+        <UpdateModal handleClose={this.handleCloseModal} currentAward= {this.state.awardForUpdate}/>
+        </Modal>
+        </div>
         )
 
     }
 };
 
 //Todo 
-WorkAndProjectDetail.propTypes = {
+AwardDetail.propTypes = {
     isCompulsory: PropTypes.bool,
     title: PropTypes.string,
 }
 
-export default withStyles(styles)(WorkAndProjectDetail);
+export default withStyles(styles)(AwardDetail);

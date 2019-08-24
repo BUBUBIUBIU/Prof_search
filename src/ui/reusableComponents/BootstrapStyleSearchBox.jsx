@@ -42,13 +42,19 @@ class BootStrapStyleSearchBox extends Component{
         super(props);
         this.state = {
             input: '',
+            value: this.props.value
         }; 
-        console.log(this.props);
         
+    }
+
+    componentDidMount(){
+        if (this.props.value) this.setState({value:this.props.value});
+
     }
 
     // On SearchBoxChange
     onChangeInput = (event) => {
+        this.setState({value:event.target.value})
         this.props.onChangeInput(event);
     }
 
@@ -56,7 +62,8 @@ class BootStrapStyleSearchBox extends Component{
 
     render(){
         const {classes, intl} = this.props;
-
+        // if (this.props.value) value = this.props.value;
+        // const value = this.props.value
   
         return (
         <div >
@@ -67,7 +74,7 @@ class BootStrapStyleSearchBox extends Component{
             </Typography>
             <Paper className={classes.root} elevation={0}>
                     <InputBase placeholder={this.props.placeHolder} className={classes.input}
-                        onChange={this.onChangeInput} />
+                        onChange={this.onChangeInput} value = {this.state.value}/>
             </Paper>
         </div>
         );

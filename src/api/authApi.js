@@ -22,7 +22,7 @@ export function signUp(data){
         .then(function(data){
             alert("Sign-up successful") 
         },function(err){
-            alert("User already exit") 
+            alert(err.data.message) 
             console.log(err)
         })
 }

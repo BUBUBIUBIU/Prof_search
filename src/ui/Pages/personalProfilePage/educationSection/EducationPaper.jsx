@@ -78,21 +78,6 @@ const styles = theme => ({
   }
 });
 
-const educationExperience = [
-  {
-    universityName: "Melbourne University",
-    degree: "Masters Degree, Information Technology",
-    year: "2018-2020",
-    description: "Obtain master's degree from university of Melbourne"
-
-  },
-  {
-    universityName: "Monash University",
-    degree: "Bachelor Degree, Civil Engineering",
-    year: "2015 - 2018",
-    description: "Obtain Bachelor's degree from university of Melbourne"
-  }
-]
 
 class EducationPaper extends Component {
   constructor(props) {
@@ -101,7 +86,18 @@ class EducationPaper extends Component {
       expand: false,
       currentEducations: this.props.educations,
     };
+    console.log(this.props.educations)
+    console.log(this.state.currentEducations)
   }
+
+  componentDidUpdate(){
+    if (this.props.educations != this.state.currentEducations) {
+      this.setState({
+        currentEducations: this.props.educations,
+      })
+    }
+  }
+
 
   handleOpen = () => {
     this.setState({ open: true });
@@ -109,26 +105,20 @@ class EducationPaper extends Component {
 
   handleClose = () => {
     this.setState({ open: false });
+    this.props.UpdateFile();
+    
   };
 
-  componentDidUpdate() {
-    if (this.props.educations != this.state.currentEducations) {
-      this.setState({
-        currentEducations: this.props.educations,
-      })
-    }
-    console.log("Education Paper update")
-    console.log(this.state.currentEducations)
-  }
 
   render() {
     const { currentEducations } = this.state
+    console.log(currentEducations)
     return (
       <div>
         <CardHeader title={"Education"} handleOpen={this.handleOpen} isCompulsory={true} buttonName={"Add Degree"} />
       
         {currentEducations &&
-          <EducationDetail educationExperience={currentEducations} />
+          <EducationDetail educationExperience={currentEducations} UpdateFile = {this.props.UpdateFile}/>
         }
         <Modal
           aria-labelledby="simple-modal-title"

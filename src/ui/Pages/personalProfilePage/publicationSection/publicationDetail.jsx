@@ -8,8 +8,8 @@
 //Dependencies
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Paper,Typography, withStyles, List, ListItem, Divider } from '@material-ui/core';
-
+import { Paper,Typography, withStyles, List, ListItem, Divider,Grid,IconButton } from '@material-ui/core';
+import { Edit } from '@material-ui/icons/';
 
 const styles = theme => ({
     paper:{
@@ -33,6 +33,22 @@ class EducationDetailComponent extends Component {
         };
     }
 
+    openUpdateModal = index => event => {
+        if (this.state.open !== true)
+            this.setState({ index,educationWaitingForUpdate:this.state.educationExperience[index], open: true});
+    }
+
+    handleCloseModal= () => {
+        this.setState({open: false})
+    }
+    
+    handleUpdate = (obj) =>{
+        let tempProfile =  this.state.educationExperience;
+        tempProfile[this.state.index] = obj;
+        this.setState({educationExperience: tempProfile})
+    }
+
+
     render(){
         const {classes, publications} = this.props
 
@@ -40,6 +56,8 @@ class EducationDetailComponent extends Component {
         const publicationList = publications.map((publication, index) =>
         <ListItem key={publication._id} >
             <div style ={{width: "100%"}}>
+            <Grid container spacing={3} style = {{flexGrow:1}}>
+                    <Grid item xs={11}>
 
                     <div style ={{margin:"10px"}}>
                     <Typography variant ="h2">
@@ -61,6 +79,14 @@ class EducationDetailComponent extends Component {
                     </Typography>
                     </div>
                     {publications.length -1 !== index && <Divider variant = "fullWidth"/>}
+                    </Grid>
+                    <Grid item xs={1}>
+                        <IconButton onClick={this.openUpdateModal(index)} >
+                                <Edit/>
+                        </IconButton>
+                    </Grid>
+
+            </Grid>
             </div>
         </ListItem>
         );

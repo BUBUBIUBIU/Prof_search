@@ -4,12 +4,16 @@ import cookie from 'react-cookies';
 import PropTypes from 'prop-types';
 
 //@materail design
-import { Paper,Typography,Collapse, Button, withStyles,ToolBar, Modal,FormControl,NativeSelect,InputBase  } from '@material-ui/core';
+import { Paper,Divider,AppBar,Card,Tab, Tabs, CardContent, Typography,Collapse, Button, withStyles,ToolBar, Modal,FormControl,NativeSelect,InputBase  } from '@material-ui/core';
 import Icon from '@material-ui/core/Icon';
 import { Plus, Close, ConsoleNetwork } from 'mdi-material-ui';
 
 //Ui
 import BootstrapStyleSearchBox from '../../reusableComponents/BootstrapStyleSearchBox'
+import ThirdHeader from "../../reusableComponents/ThirdHeader"
+
+//router 
+import { Redirect } from 'react-router-dom'
 
 //api
 import {Login} from '../../../api/authApi.js'
@@ -35,6 +39,7 @@ class LoginPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            value:"login",
             email: "",
             password: "",
         };
@@ -71,6 +76,7 @@ class LoginPage extends Component {
             }
             const loginSuccessful =(name) => this.props.loginSuccess(name);
 
+            const temp = this;
             //method from login API, if succcusss, then store cookie, otherwise don't  
             Login(data)
                 .then(function(response){
@@ -78,7 +84,7 @@ class LoginPage extends Component {
                     cookie.save('token', response.content.token);
                     let name = response.content.FirstName + response.content.LastName
                     loginSuccessful(name);
-                    alert("login successful");
+                    temp.setState({value:"home"})
                     
                 },function(err){
                     alert("login failed")
@@ -100,41 +106,57 @@ class LoginPage extends Component {
           return this.state.password !== "" && this.state.password.length > 5
       }
 
+      handleTab = (event,value) => {
+        this.setState({value});
+
+    }
+
 
     render(){
-       
+        if (this.state.value=="signup") {
+            return <Redirect to='../signup' />
+          }
+
+          if (this.state.value=="home") {
+            return <Redirect to ="/SearchExpert"/>
+          }
+
         const {classes, profile} = this.props
+        const {value} = this.state
         return(
             <div>
-             
+                <ThirdHeader />
+                <Card classes={{
+                        root: classes.card, // class name, e.g. `classes-nesting-root-x`
+                      }}style={{width:"50%",marginLeft:"300px"}}>
+
+                    <AppBar position="static" color="default" className={classes.cardAppBar}>
+                        <Tabs variant="fullWidth" value={value} onChange={this.handleTab} indicatorColor="primary">
+                            <Tab value="login" label="login" />
+                            <Tab value="signup" label="sign up" />
+                        </Tabs>
+                    </AppBar>
+                    <Divider />
+
+                        <Paper className={classes.paper} style={{padding:"20px 30px",height:"200px"}}>
+                            <BootstrapStyleSearchBox label="Email Adress" placeHolder="xxx@gmail.com"
+                                onChangeInput={this.handleChange("email")} compusory={true} />
+
+                            {/* todo */}
+                            <BootstrapStyleSearchBox label="Password" type="password" autoComplete="current-password"
+                                placeHolder="Please enter your password" compusory={true}
+                                onChangeInput={this.handleChange("password")} />
 
 
-            <Paper className ={classes.paper} style ={{padding:"20px 30px",height:"200px"}}>
-                <BootstrapStyleSearchBox
-                    label = "Email Adress"
-                    placeHolder = "xxx@gmail.com"
-                    onChangeInput = {this.handleChange("email")}
-                    compusory = {true}
-                    />
+                            <div style={{float: "right"}}>
+                                <Button variant="contained" color="primary" size="small" onClick={this.submit}>
+                                    Log in
+                                </Button>
+                            </div>
 
-                {/* todo */}
-                <BootstrapStyleSearchBox    
-                    label = "Password"
-                    type="password"
-                    autoComplete="current-password"
-                    placeHolder = "Please enter your password"
-                    compusory = {true}
-                    onChangeInput = {this.handleChange("password")}
-                    />
+                        </Paper>
+                </Card>
 
-
-                <div style= {{float: "right"}}>
-                <Button variant="contained" color="primary" size="small" onClick = {this.submit}>
-                    Log in 
-                </Button>
-                </div>
-                    
-            </Paper>
             </div>
            
         )

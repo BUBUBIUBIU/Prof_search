@@ -95,11 +95,11 @@ class Publication extends Component {
                     </div>
                 </Paper> 
 
-                {value === "Journal" && <PublicationJournal/>}
+                {value === "Journal" && <PublicationJournal handleClose = {this.props.handleClose}/>}
 
-                {value === "Conference" && <PublicationConference/>}
+                {value === "Conference" && <PublicationConference handleClose = {this.props.handleClose}/>}
 
-                {value === "Book" && <PublicationBook/>
+                {value === "Book" && <PublicationBook handleClose = {this.props.handleClose}/>
                 }
                 
             </div>

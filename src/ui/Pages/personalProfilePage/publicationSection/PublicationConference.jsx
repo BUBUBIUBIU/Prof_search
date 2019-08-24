@@ -61,10 +61,11 @@ class PublicationConference extends Component {
             }
 
             console.log(data)
+            const temp = this
 
             addPublication(data)
                 .then(function (response) {
-                    alert(response.message);
+                    temp.props.handleClose()
                 }, function (err) {
                     alert(err.message);
                     console.log(err);
@@ -86,7 +87,7 @@ class PublicationConference extends Component {
     render(){
         const {classes} = this.props
         return(
-            <Paper className ={classes.paper} style = {{ height:"600px", overflowY: "scroll"}}>
+            <Paper className ={classes.paper} style = {{ height:500, overflowY: "scroll"}}>
                 
                     <BootstrapStyleSearchBox
                         label = "Title"

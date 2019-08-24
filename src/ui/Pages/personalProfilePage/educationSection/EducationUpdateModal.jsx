@@ -18,7 +18,7 @@ import { Close } from 'mdi-material-ui';
 import BootstrapStyleSearchBox from '../../../reusableComponents/BootstrapStyleSearchBox'
 
 //api
-import { addEducation } from '../../../../api/personalProfileApi'
+import { updateEducation, deleteEducation } from '../../../../api/personalProfileApi'
 
 const styles = theme => ({
     paper: {
@@ -81,43 +81,54 @@ const styles = theme => ({
 class EducationModal extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            universityName: '',
-            degree: '',
-            major: '',
-            fromYear: 2013,
-            toYear: 2017,
-            gpa: NaN,
-            gpaType: 0,
-            description: ""
-        };
+        this.state = this.props.currentUniversity
+    }
+
+
+    handleDelete = () => {
+        const data = {
+            ID: this.state.ID
+        }
+
+        const temp = this;
+        deleteEducation(data)
+        .then(function (response) {
+            temp.props.handleClose()
+        }, function (err) {
+            alert(err.message);
+            console.log(err);
+        })
+
     }
 
     handleSubmit = () => {
-
-        //Check all requirement
-        if (this.state.universityName.replace(/(^s*)|(s*$)/g, "").length !== 0
-            && this.state.degree.replace(/(^s*)|(s*$)/g, "").length !== 0
-            && this.state.major.replace(/(^s*)|(s*$)/g, "").length !== 0
-            && this.state.fromYear !== NaN
-            && this.state.toYear !== NaN
-            && this.state.gpa !== NaN
-            && this.state.gpaType !== 0) {
+       
+        if (
+            this.state.UniversityName && this.state.UniversityName.replace(/(^s*)|(s*$)/g, "").length !== 0 &&
+            this.state.Degree && this.state.Degree.replace(/(^s*)|(s*$)/g, "").length !== 0
+            && this.state.Major && this.state.Major.replace(/(^s*)|(s*$)/g, "").length !== 0
+            && this.state.FromYear !== NaN
+            && this.state.ToYear !== NaN
+            && this.state.GPA !== NaN
+            && this.state.GPATYPE !== 0
+            ) {
             const data = {
-                UniversityName: this.state.universityName,
-                Degree: this.state.degree,
-                Major: this.state.major,
+                ID: this.state.ID,
+                UniversityName: this.state.UniversityName,
+                Degree: this.state.Degree,
+                Major: this.state.Major,
                 FromYear: 2013,
                 ToYear: 2017,
-                Description: this.state.description,
-                GPA: parseFloat(this.state.gpa),
-                GPAType: parseInt(this.state.gpaType)
+                Description: this.state.Description,
+                GPA: parseFloat(this.state.GPA),
+                GPAType: parseInt(this.state.GPAType)
             }
-            console.log(data)
+            const temp = this
 
-            addEducation(data)
+
+            updateEducation(data)
                 .then(function (response) {
-                    alert(response.message);
+                    temp.props.handleClose()
                 }, function (err) {
                     alert(err.message);
                     console.log(err);
@@ -126,18 +137,19 @@ class EducationModal extends Component {
         } else {
             alert("please fullfill all required files")
         }
-
-
-
     }
 
     handleChange = field => event => {
         this.setState({ [field]: event.target.value })
+        console.log(field)
+        // console.log(this.state.field)
     }
 
 
+
+
     render() {
-        const { classes } = this.props
+        const { classes, currentUniversity} = this.props
 
 
         return (
@@ -160,21 +172,24 @@ class EducationModal extends Component {
                     <BootstrapStyleSearchBox
                         label="School"
                         placeHolder="University Name"
-                        onChangeInput={this.handleChange("universityName")}
+                        onChangeInput={this.handleChange("UniversityName")}
                         compusory={true}
+                        value = {this.state.UniversityName}
                     />
 
                     <BootstrapStyleSearchBox
                         label="Degree"
                         placeHolder="Ex. Bachelor of Engineering"
-                        onChangeInput={this.handleChange("degree")}
+                        onChangeInput={this.handleChange("Degree")}
                         compusory={true}
+                        value = {this.state.Degree}
                     />
                     <BootstrapStyleSearchBox
                         label="Major"
                         placeHolder="Ex. Design"
-                        onChangeInput={this.handleChange("major")}
+                        onChangeInput={this.handleChange("Major")}
                         compusory={true}
+                        value = {this.state.Major}
                     />
                     <Typography variant="h3" color="inherit">
                         <p className={classes.inputLabel}>
@@ -222,14 +237,22 @@ class EducationModal extends Component {
                     <BootstrapStyleSearchBox
                         label="Brief Description"
                         compusory={false}
-                        onChangeInput={this.handleChange("description")}
+                        onChangeInput={this.handleChange("Description")}
+                        value =  {this.state.Description}
                     />
-
-                    <div style={{ float: "right" }}>
+                <div style ={{marginTop:30}}>
+                <div style={{ float: "right", marginLeft:40 }}>
                         <Button variant="contained" color="primary" size="small" onClick={this.handleSubmit} >
                             Save
-                </Button>
+                        </Button>
                     </div>
+
+                    <div style={{ float: "right" }}>
+                        <Button  size="small" onClick={this.handleDelete} >
+                            Delete
+                        </Button>
+                    </div>
+                </div>
 
                 </Paper>
             </div>

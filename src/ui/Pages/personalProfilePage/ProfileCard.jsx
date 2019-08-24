@@ -75,8 +75,21 @@ class ProfileCard extends Component {
             value: "projects",
             contactModal: false,
             toContactList: false,
-            inputModal: false
+            inputModal: false,
+            Avatar:this.props.Avatar,
+            FirstName:this.props.FirstName,
+            LastName: this.props.LastName,
+            Email:this.props.Email,
+            Phone: this.props.Phone,
+
         };
+    }
+
+    componentDidUpdate = () =>{
+        if (this.state.Avatar !== this.props.Avatar){
+            this.setState({Avatar:this.props.Avatar})
+        }
+
     }
 
     openContactModal = () =>{
@@ -102,6 +115,8 @@ class ProfileCard extends Component {
 
     render(){
 
+        console.log(this.state)
+
         const {classes} = this.props
 
         return(
@@ -110,8 +125,7 @@ class ProfileCard extends Component {
               }}>
                 <CardHeader 
                     avatar={ 
-                    <Avatar className={classes.bigAvatar} src = "https://scontent.fcbr1-1.fna.fbcdn.net/v/t1.0-0/p370x247/50229562_10157302245734739_2837044079051669504_n.jpg?_nc_cat=109&amp;_nc_ht=scontent.fcbr1-1.fna&amp;oh=9af7e41fe295e20bf12794a74726716b&amp;oe=5D53A962"> 
-                    </Avatar>
+                    <Avatar className={classes.bigAvatar} src = "43.240.97.130:8081/file/avatar_2?token=o0CgIdNpLuydwzXzRYCDO9cnxxK8HEcXm5dsobBF%2BUHTRZwx2EWgAhP86F6vMu6bS67icijVp0DcMxt5xRszTNiqoRN%2FsRciHjTg7spsKd4gNBe6jxrSP3sjh1ymQ29czghgpSlIseWFpxhhE1Ycqs871w%3D%3D.png"/> 
                     }
                     action={
                     <Button color="primary" variant="contained" className ={classes.button} variant="outlined" onClick={this.directToContectList}>
