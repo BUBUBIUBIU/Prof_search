@@ -1,9 +1,10 @@
 /* Copyright (C) Profware Pty. Ltd. - All Rights Reserved
  * Unauthorized copying of this file, via any medium is strictly prohibited
  * Proprietary and confidential
- * Written by [Chenyang Lu], [date:20th Aug 2019]
+ * Written by [Chenyang Lu, Shaochuan Luo], [date:24th Aug 2019]
  */
 
+ 
 //Dependencies
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -58,6 +59,8 @@ class EducationDetail extends Component {
             this.setState({ index,educationWaitingForUpdate:this.state.educationExperience[index], open: true});
     }
 
+
+    // When modal is closed, update the entire profile page at the same time
     handleCloseModal= () => {
         this.setState({open: false})
         this.props.UpdateFile()

@@ -1,7 +1,7 @@
-/**
- * @file this is Award section
- * @author Shaochuan Luo(shaochuanl@student.unimelb.edu.au)
- * @description    
+/* Copyright (C) Profware Pty. Ltd. - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ * Written by [shaochuan Luo], [date:20th Aug 2019]
  */
 
 import React, { Component } from 'react'
@@ -13,6 +13,7 @@ import { Close } from 'mdi-material-ui';
 
 //Ui
 import BootstrapStyleSearchBox from '../../../reusableComponents/BootstrapStyleSearchBox'
+import ConfirmationDialog from '../../../reusableComponents/Dialog/ConfirmationDialog'
 
 //api
 import {addAward} from '../../../../api/personalProfileApi'
@@ -86,7 +87,7 @@ class AwardModal extends Component {
         }
         console.log(this.props.currentAward)
     }
-
+    
 
     handleSubmit = () => {
         //Check all requirement
@@ -118,6 +119,10 @@ class AwardModal extends Component {
     handleChange = field => event => {
         this.setState({ [field]: event.target.value })
     }
+
+    // handleAgreeAction = () =>{
+
+    // }
 
     render() {
         const { classes } = this.props
@@ -174,6 +179,7 @@ class AwardModal extends Component {
                     </div>
 
                 </Paper>
+
             </div>
 
         )

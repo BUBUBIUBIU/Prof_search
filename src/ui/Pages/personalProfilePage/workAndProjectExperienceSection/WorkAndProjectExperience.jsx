@@ -1,8 +1,7 @@
-/**
- * @file this file is for work and project experience container
- * @author Chenyang Lu(clu3842@gmail.com)
- * @description 
- *       
+/* Copyright (C) Profware Pty. Ltd. - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ * Written by [Chenyang Lu, Shaochuan Luo], [date:24th Aug 2019]
  */
 
 import React, { Component } from 'react'
@@ -75,20 +74,6 @@ const styles = theme => ({
   },
 });
 
-const workAndProjectExperiences = [
-  {
-    company: "Google",
-    title: "Full stack engineer",
-    yearAndLocation: "2018-2020 Melbourne",
-    description: "Did full stack engineer in Google"
-  },
-  {
-    company: "Microsoft",
-    title: "Project Manager",
-    yearAndLocation: "2015 - 2018 Sydney",
-    description: "Project Manager role"
-  }
-]
 
 class WorkAndProjectExperience extends Component {
   constructor(props) {
@@ -138,7 +123,10 @@ class WorkAndProjectExperience extends Component {
         <CardHeader title={"Work/Project Experience"} handleOpen={this.handleOpen} isCompulsory={false} buttonName={"Add Experience"} />
 
         {workAndExperience &&
-          <WorkProjectExperienceDetail workAndProjectExperiences = {workAndExperience}/>
+          <WorkProjectExperienceDetail 
+            workAndProjectExperiences = {workAndExperience} 
+            UpdateFile = {this.props.UpdateFile}
+          />
         }
         <Modal
           aria-labelledby="simple-modal-title"

@@ -1,7 +1,7 @@
 /* Copyright (C) Profware Pty. Ltd. - All Rights Reserved
  * Unauthorized copying of this file, via any medium is strictly prohibited
  * Proprietary and confidential
- * Written by [Chenyang Lu], [date:20th Aug 2019]
+ * Written by [Chenyang Lu], [date:2th Aug 2019]
  */
 
 import React, { Component } from 'react';
@@ -9,12 +9,9 @@ import PropTypes from 'prop-types';
 import { Paper, Typography, Button, withStyles, FormControl, NativeSelect, InputBase } from '@material-ui/core';
 import { Close } from 'mdi-material-ui';
 
-
-
-
-
 //Ui
 import BootstrapStyleSearchBox from '../../../reusableComponents/BootstrapStyleSearchBox'
+import ConfirmationDialog from '../../../reusableComponents/Dialog/ConfirmationDialog'
 
 //api
 import { updateEducation, deleteEducation } from '../../../../api/personalProfileApi'
@@ -83,13 +80,26 @@ class EducationModal extends Component {
         this.state = this.props.currentUniversity
     }
 
+    handleDialogOpen= () => {
+        this.setState({ModalOpen:true})
+    }
+
+    handleDialogClose = () =>{
+        this.setState({ModalOpen:false})
+    }
+
+    handleAgreeAction = () => {
+        this.handleDialogClose()
+        this.handleDelete()
+    }
+
 
     handleDelete = () => {
         const data = {
             ID: this.state.ID
         }
+        const temp = this
 
-        const temp = this;
         deleteEducation(data)
         .then(function (response) {
             temp.props.handleClose()
@@ -247,13 +257,21 @@ class EducationModal extends Component {
                     </div>
 
                     <div style={{ float: "right" }}>
-                        <Button  size="small" onClick={this.handleDelete} >
+                        <Button  size="small" onClick={this.handleDialogOpen} >
                             Delete
                         </Button>
                     </div>
                 </div>
 
                 </Paper>
+
+                <ConfirmationDialog 
+                    open = {this.state.ModalOpen}
+                    handleAgreeAction = {this.handleAgreeAction}
+                    handleClose = {this.handleDialogClose}
+                    text = "Are you sure you want to delete this degree?"
+                    header = "Notification"
+                />
             </div>
 
         )

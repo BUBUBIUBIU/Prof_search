@@ -58,7 +58,7 @@ export function updateEducation(data){
  */
 export function deleteEducation(data){
     const configObj = {
-        method: 'PUT',
+        method: 'DELETE',
         data,
     }
     return getDataFromServer(apiUrl.UNIVERSITY, configObj);

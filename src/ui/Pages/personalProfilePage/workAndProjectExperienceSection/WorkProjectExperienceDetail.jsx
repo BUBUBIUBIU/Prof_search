@@ -1,8 +1,7 @@
-/**
- * @file this file is for show the list of education experience
- * @author Chenyang Lu(clu3842@gmail.com)
- * @description 
- *       
+/* Copyright (C) Profware Pty. Ltd. - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ * Written by [Chenyang Lu, Shaochuan Luo], [date:24th Aug 2019]
  */
 
 //Dependencies
@@ -36,7 +35,6 @@ class WorkAndProjectDetail extends Component {
         this.state = {
             workExperience: this.props.workAndProjectExperiences,
             workExperienceWaitingForUpdate:{},
-            index:0,
         };
 
     }
@@ -50,18 +48,16 @@ class WorkAndProjectDetail extends Component {
       }
 
     openUpdateModal = index => event => {
-        if (this.state.open !== true)
-            this.setState({ index,workExperienceWaitingForUpdate:this.state.workExperience[index], open: true});
+        if (this.state.open !== true){
+            this.setState({ 
+                workExperienceWaitingForUpdate:this.state.workExperience[index], 
+                open: true});
+            }
     }
 
     handleCloseModal= () => {
+        this.props.UpdateFile()
         this.setState({open: false})
-    }
-    
-    handleUpdate = (obj) =>{
-        let tempProfile =  this.state.workExperience;
-        tempProfile[this.state.index] = obj;
-        this.setState({workExperience: tempProfile})
     }
 
     
@@ -137,7 +133,11 @@ class WorkAndProjectDetail extends Component {
                 onClose={this.handleClose}
             >
 
-            <UpdateModal handleClose={this.handleCloseModal} currentWorkExperience = {this.state.workExperienceWaitingForUpdate} handleUpdate = {this.handleUpdate}/>
+            <UpdateModal 
+                handleClose={this.handleCloseModal} 
+                currentWorkExperience = {this.state.workExperienceWaitingForUpdate} 
+                handleUpdate = {this.handleUpdate}
+            />
             </Modal>
             </div>
         )

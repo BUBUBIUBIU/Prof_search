@@ -79,23 +79,22 @@ class AwardModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: '',
-            organization: '',
-            date: '',
-            briefDescription: ''
+            Name: '',
+            Organization: '',
+            Date: '',
+            Description: ''
         };
     }
 
     handleSubmit = () => {
         //Check all requirement
-        if (this.state.name.replace(/(^s*)|(s*$)/g, "").length !== 0 
-            && this.state.organization.replace(/(^s*)|(s*$)/g, "").length !== 0
-            && this.state.date !== NaN
-            && this.state.briefDescription !== NaN) {
+        if (this.state.Name.replace(/(^s*)|(s*$)/g, "").length !== 0 
+            && this.state.Date !== NaN
+            && this.state.Description !== NaN) {
             const data = {
-                Name: this.state.name,
-                Organization: this.state.organization,
-                Date: "2018-01-02T15:04:05Z",
+                Name: this.state.Name,
+                Organization: this.state.Organization,
+                Date: this.state.Date,
                 Description: this.state.Description
             }
             console.log(data)
@@ -139,25 +138,25 @@ class AwardModal extends Component {
                 <Paper className={classes.paper} style={{ padding: "50px 30px" }}>
                     <BootstrapStyleSearchBox
                         label="Award Name"
-                        onChangeInput = {this.handleChange("name")}
+                        onChangeInput = {this.handleChange("Name")}
                         compusory={true}
                     />
 
                     <BootstrapStyleSearchBox
                         label="Award Organization"
-                        onChangeInput = {this.handleChange("organization")}
+                        onChangeInput = {this.handleChange("Organization")}
                     // compusory={true}
                     />
 
                     <BootstrapStyleSearchBox
                         label="Date"
                         compusory={true}
-                        onChangeInput={this.handleChange("date")}
+                        onChangeInput={this.handleChange("Date")}
                     />
 
                     <BootstrapStyleSearchBox
                         label="Brief Description"
-                        onChangeInput={this.handleChange("briefDescription")}
+                        onChangeInput={this.handleChange("Description")}
                     />
 
                     <Button style={{ color: 'red' }}>Add file</Button>

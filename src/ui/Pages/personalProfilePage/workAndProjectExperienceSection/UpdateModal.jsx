@@ -1,8 +1,7 @@
-/**
- * @file this file is for adding work and project experience
- * @author Chenyang Lu(clu3842@gmail.com)
- * @description 
- *       
+/* Copyright (C) Profware Pty. Ltd. - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ * Written by [Chenyang Lu], [date:24th Aug 2019]
  */
 
 import React, { Component } from 'react'
@@ -11,13 +10,15 @@ import { Paper, Typography, Collapse, Button, withStyles, ToolBa, Modal, Checkbo
 import Icon from '@material-ui/core/Icon';
 import { Plus, Close } from 'mdi-material-ui';
 import SelectorOne from '../../../reusableComponents/textField/SelectorOne.jsx';
+import { years, months } from '../../../../config/years'
 
 //Ui
 import BootstrapStyleSearchBox from '../../../reusableComponents/BootstrapStyleSearchBox'
 import CardHeader from '../CardHeader'
-import { addExperience } from '../../../../api/personalProfileApi';
+import ConfirmationDialog from '../../../reusableComponents/Dialog/ConfirmationDialog'
 
-import { years, months } from '../../../../config/years'
+//api
+import { deleteExperience, addExperience } from '../../../../api/personalProfileApi';
 
 const styles = theme => ({
     paper: {
@@ -83,22 +84,21 @@ class WorkAndProjectModal extends Component {
     constructor(props) {
         super(props);
         this.state = this.props.currentWorkExperience
-        console.log(this.props.currentWorkExperience)
     }
+
+
 
     handleSubmit = () => {
 
         //Check all requirement
         if (this.state.CompanyName.replace(/(^s*)|(s*$)/g, "").length !== 0
             && this.state.Title.replace(/(^s*)|(s*$)/g, "").length !== 0
-            && this.state.Country.replace(/(^s*)|(s*$)/g, "").length !== 0
             ) {
 
             const data = {
                 CompanyName: this.state.CompanyName,
                 Title: this.state.Title,
-                Country: this.state.Location,
-                City: this.state.Location,
+                Location: this.state.Location,
                 StartDate: "2006-01-02T15:04:05Z",
                 EndDate: "2018-01-02T15:04:05Z",
                 Description: this.state.Description,
@@ -109,7 +109,6 @@ class WorkAndProjectModal extends Component {
             const temp = this
             addExperience(data)
                 .then(function (response) {
-                    temp.props.handleUpdate(data)
                     temp.props.handleClose()
                     alert(response.message);
                 }, function (err) {
@@ -131,8 +130,40 @@ class WorkAndProjectModal extends Component {
     }
 
 
+    handleDelete = () => {
+        const data = {
+            ID: this.state.ID
+        }
+        const temp = this
+
+        deleteExperience(data)
+        .then(function (response) {
+            temp.props.handleClose()
+        }, function (err) {
+            alert(err.message);
+            console.log(err);
+        })
+
+    }
+
+    
+    handleDialogOpen= () => {
+        this.setState({ModalOpen:true})
+    }
+
+    handleDialogClose = () =>{
+        this.setState({ModalOpen:false})
+    }
+
+    handleAgreeAction = () => {
+        this.handleDialogClose()
+        this.handleDelete()
+    }
+
+
     render() {
         const { classes} = this.props
+        console.log(this.state)
 
 
         return (
@@ -150,7 +181,7 @@ class WorkAndProjectModal extends Component {
                     </div>
                 </Paper>
 
-                <Paper className={classes.paper} style={{ padding: "10px 30px" , height:600, overflowY:"auto"}}>
+                <Paper className={classes.paper} style={{ padding: "10px 30px" , height:500, overflowY:"auto"}}>
 
                     <BootstrapStyleSearchBox
                         label="Company"
@@ -172,9 +203,8 @@ class WorkAndProjectModal extends Component {
                     <BootstrapStyleSearchBox
                         label="Location"
                         placeHolder="Ex. Melbourne"
-                        onChangeInput={this.handleChange("Country")}
-                        compusory={true}
-                        value ={this.state.Country}
+                        onChangeInput={this.handleChange("Location")}
+                        value ={this.state.Location}
                     />
 
                     <div>
@@ -233,13 +263,31 @@ class WorkAndProjectModal extends Component {
                         value ={this.state.Materials}
                     />
 
-                    <div style={{ float: "right" }}>
+                    <div style = {{marginTop:30}}>
+                    <div style={{ float: "right", marginLeft:40 }}>
                         <Button variant="contained" color="primary" size="small" onClick={this.handleSubmit} >
-                            Submit
+                            Save
                         </Button>
                     </div>
 
+                    <div style={{ float: "right" }}>
+                        <Button  size="small" onClick={this.handleDialogOpen} >
+                            Delete
+                        </Button>
+                    </div>
+
+                    </div>
+
                 </Paper>
+
+                
+                <ConfirmationDialog 
+                    open = {this.state.ModalOpen}
+                    handleAgreeAction = {this.handleAgreeAction}
+                    handleClose = {this.handleDialogClose}
+                    text = "Are you sure you want to delete this Experience?"
+                    header = "Notification"
+                />
             </div>
         )
     }
