@@ -9,8 +9,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Grid, Paper, Typography, IconButton, withStyles, Avatar, List, ListItem, Divider,Modal } from '@material-ui/core';
-import { deepOrange, deepPurple } from '@material-ui/core/colors';
-import { Plus } from 'mdi-material-ui';
 import { Edit } from '@material-ui/icons/';
 
 
@@ -142,7 +140,7 @@ class EducationDetail extends Component {
                 onClose={this.handleClose}
             >
 
-            <EducationUpdateModal handleClose={this.handleCloseModal} currentUniversity = {this.state.educationWaitingForUpdate} handleUpdate = {this.handleUpdate}/>
+            <EducationUpdateModal handleClose={this.handleCloseModal} currentUniversity = {this.state.educationWaitingForUpdate}/>
             </Modal>
             </div>
         )

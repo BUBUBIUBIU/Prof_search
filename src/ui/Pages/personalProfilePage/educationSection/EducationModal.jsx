@@ -1,7 +1,7 @@
 /* Copyright (C) Profware Pty. Ltd. - All Rights Reserved
  * Unauthorized copying of this file, via any medium is strictly prohibited
  * Proprietary and confidential
- * Written by [Micheal, Chenyang Lu], [date:20th Aug 2019]
+ * Written by [Shaochuan Luo, Chenyang Lu], [date:20th Aug 2019]
  */
 
 import React, { Component } from 'react'

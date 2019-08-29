@@ -106,7 +106,8 @@ class PersonalProfilePage extends Component {
                 UpdateFile = {this.UpdateFile}/>
                 <Publication publications = {profile.Publications}
                 UpdateFile = {this.UpdateFile}/>
-                <OtherMaterial otherMaterial = {profile.Materials}/> 
+                <OtherMaterial otherMaterial = {profile.Materials}
+                 UpdateFile = {this.UpdateFile}/> 
                 </Grid>
                 <Grid item xs={1}/>
                 </Grid >

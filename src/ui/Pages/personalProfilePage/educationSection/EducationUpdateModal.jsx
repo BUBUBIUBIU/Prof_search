@@ -150,15 +150,14 @@ class EducationModal extends Component {
 
     handleChange = field => event => {
         this.setState({ [field]: event.target.value })
-        console.log(field)
-        // console.log(this.state.field)
+
     }
 
 
 
 
     render() {
-        const { classes, currentUniversity} = this.props
+        const { classes} = this.props
 
 
         return (
@@ -168,7 +167,7 @@ class EducationModal extends Component {
                         <Typography variant="h1">
                             <div style={{ verticalAlign: "middle", height: "100%", float: "left" }}>
                                 Update Degree
-                </div>
+                            </div>
                             <Button style={{ float: "right", verticalAlign: "middle", color: "#000000" }} size="small" onClick={this.props.handleClose}>
                                 <Close />
                             </Button>
@@ -250,7 +249,7 @@ class EducationModal extends Component {
                         value =  {this.state.Description}
                     />
                 <div style ={{marginTop:30}}>
-                <div style={{ float: "right", marginLeft:40 }}>
+                    <div style={{ float: "right", marginLeft:40 }}>
                         <Button variant="contained" color="primary" size="small" onClick={this.handleSubmit} >
                             Save
                         </Button>

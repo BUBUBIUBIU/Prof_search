@@ -16,7 +16,7 @@ import BootstrapStyleSearchBox from '../../../reusableComponents/BootstrapStyleS
 import ConfirmationDialog from '../../../reusableComponents/Dialog/ConfirmationDialog'
 
 //api
-import {addAward} from '../../../../api/personalProfileApi'
+import {updateAward, deleteAward} from '../../../../api/personalProfileApi'
 
 const styles = theme => ({
     paper: {
@@ -79,12 +79,7 @@ const styles = theme => ({
 class AwardModal extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            Name: this.props.currentAward.Name,
-            Organization:this.props.currentAward.Organization,
-            Description:this.props.currentAward.Description,
-
-        }
+        this.state = this.props.currentAward
         console.log(this.props.currentAward)
     }
     
@@ -95,6 +90,7 @@ class AwardModal extends Component {
             && this.state.Organization.replace(/(^s*)|(s*$)/g, "").length !== 0
             && this.state.Description !== NaN) {
             const data = {
+                ID: this.state.ID,
                 Name: this.state.Name,
                 Organization: this.state.Organization,
                 Date: "2018-01-02T15:04:05Z",
@@ -103,7 +99,7 @@ class AwardModal extends Component {
             console.log(data)
             const temp = this
 
-            addAward(data)
+            updateAward(data)
                 .then(function (response) {
                     temp.props.handleClose()
                 }, function (err) {
@@ -116,13 +112,38 @@ class AwardModal extends Component {
         }
     }
 
+    handleDialogOpen= () => {
+        this.setState({ModalOpen:true})
+    }
+
     handleChange = field => event => {
         this.setState({ [field]: event.target.value })
     }
 
-    // handleAgreeAction = () =>{
+    handleDialogClose = () =>{
+        this.setState({ModalOpen:false})
+    }
 
-    // }
+    handleAgreeAction = () => {
+        this.handleDialogClose()
+        this.handleDelete()
+    }
+
+    handleDelete = () => {
+        const data = {
+            ID: this.state.ID
+        }
+        const temp = this
+
+        deleteAward(data)
+        .then(function (response) {
+            temp.props.handleClose()
+        }, function (err) {
+            alert(err.message);
+            console.log(err);
+        })
+
+    }
 
     render() {
         const { classes } = this.props
@@ -171,14 +192,30 @@ class AwardModal extends Component {
                     />
 
                     <Button style={{ color: 'red' }}>Add file</Button>
-                    <br />
-                    <div style={{ float: "right" }}>
+
+                    <div style ={{marginTop:30}}>
+                <div style={{ float: "right", marginLeft:40 }}>
                         <Button variant="contained" color="primary" size="small" onClick={this.handleSubmit} >
                             Save
-                </Button>
+                        </Button>
                     </div>
 
+                    <div style={{ float: "right" }}>
+                        <Button  size="small" onClick={this.handleDialogOpen} >
+                            Delete
+                        </Button>
+                    </div>
+                </div>
+
                 </Paper>
+
+                <ConfirmationDialog 
+                    open = {this.state.ModalOpen}
+                    handleAgreeAction = {this.handleAgreeAction}
+                    handleClose = {this.handleDialogClose}
+                    text = "Are you sure you want to delete this degree?"
+                    header = "Notification"
+                />
 
             </div>
 

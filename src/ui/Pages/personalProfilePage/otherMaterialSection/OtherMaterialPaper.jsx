@@ -62,6 +62,7 @@ class OtherMaterial extends Component {
 
     handleClose = () => {
         this.setState({ open: false });
+        this.props.UpdateFile();
     }
 
     render(){
@@ -72,7 +73,7 @@ class OtherMaterial extends Component {
             <CardHeader title = {"Other Material"} handleOpen ={this.handleOpen} isCompulsory= {false} buttonName = {"Add Material"}/>
             
             {otherMaterials &&
-                <OtherMaterialDetails otherMaterial = {otherMaterials}/>
+                <OtherMaterialDetails otherMaterials = {otherMaterials} UpdateFile = {this.props.UpdateFile}/>
             }
             <Modal
             aria-labelledby="simple-modal-title"

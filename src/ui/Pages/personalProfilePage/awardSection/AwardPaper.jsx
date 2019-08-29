@@ -81,7 +81,7 @@ class Award extends Component {
             open={this.state.open}
             onClose={this.handleClose}
             >   
-            <AwardModal handleClose ={this.handleClose}/>
+            <AwardModal handleClose ={this.handleClose} />
             </Modal>
             </div>
         )

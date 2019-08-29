@@ -179,6 +179,22 @@ export function updateAward(data){
 }
 
 /**
+ * This method used for delete Award
+ * Post method is implemented
+ *
+ * @param {Object} data: detail in AddAward ApI, request Body 
+ * @return {Object} 
+ */
+export function deleteAward(data){
+    const configObj = {
+        method: 'DELETE',
+        data,
+    }
+    console.log(data);
+    return getDataFromServer(apiUrl.AWARD, configObj);
+}
+
+/**
  * This method used for add Award
  * Post method is implemented
  *
@@ -188,6 +204,39 @@ export function updateAward(data){
 export function addOtherMaterial(data){
     const configObj = {
         method: 'POST',
+        data,
+    }
+    console.log(data);
+    return getDataFromServer(apiUrl.OTHERMATERIAL, configObj);
+}
+
+
+/**
+ * This method used for update other material
+ * Put method is implemented
+ *
+ * @param {Object} data: detail in AddAward ApI, request Body 
+ * @return {Object} 
+ */
+export function updateOtherMaterial(data){
+    const configObj = {
+        method: 'PUT',
+        data,
+    }
+    console.log(data);
+    return getDataFromServer(apiUrl.OTHERMATERIAL, configObj);
+}
+
+/**
+ * This method used for delte other material
+ * Delete method is implemented
+ *
+ * @param {Object} data: detail in AddAward ApI, request Body 
+ * @return {Object} 
+ */
+export function deleteOtherMaterial(data){
+    const configObj = {
+        method: 'DELETE',
         data,
     }
     console.log(data);

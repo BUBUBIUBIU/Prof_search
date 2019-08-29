@@ -1,9 +1,8 @@
 /* Copyright (C) Profware Pty. Ltd. - All Rights Reserved
  * Unauthorized copying of this file, via any medium is strictly prohibited
  * Proprietary and confidential
- * Written by [Shaochuan Luo, Chenyang Lu], [date:29th Aug 2019]
+ * Written by [Chenyang Lu], [date:29th Aug 2019]
  */
-
 
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
@@ -15,9 +14,9 @@ import { years } from '../../../../config/years'
 
 //Ui
 import BootstrapStyleSearchBox from '../../../reusableComponents/BootstrapStyleSearchBox'
-
+import ConfirmationDialog from '../../../reusableComponents/Dialog/ConfirmationDialog'
 //api
-import {addOtherMaterial} from '../../../../api/personalProfileApi'
+import {updateOtherMaterial, deleteOtherMaterial} from '../../../../api/personalProfileApi'
 
 const styles = theme => ({
     paper: {
@@ -80,30 +79,58 @@ const styles = theme => ({
 class OtherMaterialModal extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            title: '',
-            year: 0,
-            briefDescription: '',
-            url: ''
-        };
+        this.state = this.props.currentMaterial
     }
+
+    
+    handleDialogOpen= () => {
+        this.setState({ModalOpen:true})
+    }
+
+    handleDialogClose = () =>{
+        this.setState({ModalOpen:false})
+    }
+
+    handleAgreeAction = () => {
+        this.handleDialogClose()
+        this.handleDelete()
+    }
+
+    handleDelete = () => {
+        const data = {
+            ID: this.state.ID
+        }
+        const temp = this
+
+        deleteOtherMaterial(data)
+        .then(function (response) {
+            temp.props.handleClose()
+        }, function (err) {
+            alert(err.message);
+            console.log(err);
+        })
+
+    }
+
+
 
     handleSubmit = () => {
         //Check all requirement
-        if (this.state.title.replace(/(^s*)|(s*$)/g, "").length !== 0
-            && this.state.briefDescription.replace(/(^s*)|(s*$)/g, "").length !== 0
-            && this.state.url !== NaN
-            && this.state.year !== 0) {
+        if (this.state.Title.replace(/(^s*)|(s*$)/g, "").length !== 0
+            && this.state.Description.replace(/(^s*)|(s*$)/g, "").length !== 0
+            && this.state.Url !== NaN
+            && this.state.Year !== 0) {
             const data = {
-                Title: this.state.title,
-                Year: 2018,
-                Description: this.state.briefDescription,
-                Url: this.state.url
+                ID: this.state.ID,
+                Title: this.state.Title,
+                Year: this.state.Year,
+                Description: this.state.Description,
+                Url: this.state.Url
             }
             console.log(data)
-            
-            const temp = this;
-            addOtherMaterial(data)
+            const temp = this
+
+            updateOtherMaterial(data)
                 .then(function (response) {
                     temp.props.handleClose()
                 }, function (err) {
@@ -132,7 +159,7 @@ class OtherMaterialModal extends Component {
                         <Typography variant="h1">
                             <div style={{ verticalAlign: "middle", height: "100%", float: "left" }}>
                                 Add Material
-                </div>
+                            </div>
                             <Button style={{ float: "right", verticalAlign: "middle", color: "#000000" }} size="small" onClick={this.props.handleClose}>
                                 <Close />
                             </Button>
@@ -144,38 +171,56 @@ class OtherMaterialModal extends Component {
                 <Paper className={classes.paper} style={{ padding: "50px 30px" }}>
                     <BootstrapStyleSearchBox
                         label="Title"
-                        onChangeInput = {this.handleChange("title")}
-                    // compusory = {true}
+                        onChangeInput = {this.handleChange("Title")}
+                        value = {this.state.Title}
                     />
 
                     <SelectorOne
                         label="Year"
                         styles={{ width: "600px" }}
                         items={years}
-                        onChangeSelect={this.handleChange("year")}
+                        onChangeSelect={this.handleChange("Year")}
                     />
 
                     <BootstrapStyleSearchBox
                         label="Brief Description"
                         compusory={true}
-                        onChangeInput={this.handleChange("briefDescription")}
+                        onChangeInput={this.handleChange("Description")}
+                        value = {this.state.Description}
                     />
 
                     <BootstrapStyleSearchBox
                         label="URL"
                         compusory={false}
-                        onChangeInput={this.handleChange("url")}
+                        onChangeInput={this.handleChange("Url")}
+                        value ={this.state.Url}
                     />
 
                     <Button style={{ color: 'red' }}>Add file</Button>
-                    <br />
-                    <div style={{ float: "right" }}>
-                        <Button variant="contained" color="primary" size="small" onClick={this.handleSubmit}>
-                            Save
-                </Button>
+
+                    <div style ={{marginTop:30}}>
+                        <div style={{ float: "right", marginLeft:40 }}>
+                            <Button variant="contained" color="primary" size="small" onClick={this.handleSubmit} >
+                                Save
+                            </Button>
+                        </div>
+
+                        <div style={{ float: "right" }}>
+                            <Button  size="small" onClick={this.handleDialogOpen} >
+                                Delete
+                            </Button>
+                        </div>
                     </div>
 
                 </Paper>
+                <ConfirmationDialog 
+                    open = {this.state.ModalOpen}
+                    handleAgreeAction = {this.handleAgreeAction}
+                    handleClose = {this.handleDialogClose}
+                    text = "Are you sure you want to delete this Material?"
+                    header = "Notification"
+                />
+
             </div>
 
         )
