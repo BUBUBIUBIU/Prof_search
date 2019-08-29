@@ -42,20 +42,45 @@ class SecondHeader extends Component {
     constructor(props) {
         super(props);
         this.state = {
+          toAnotherPage: ""
             
         };
     }
+
+    toHomePage = () =>{
+      this.setState({toAnotherPage:"SearchExpert"})
+    }
+
+    componentWillUnmount = () => {
+      this.setState({toAnotherPage:""})
+    }
+    // componentDidUpdate = () =>{
+    //   this.setState({toAnotherPage:""})
+    // }
+
+
+
+    
     render(){
+
+      if(this.state.toAnotherPage == "SearchExpert"){
+        return <Redirect to ="/SearchExpert"/>
+    }
+
+    if(this.state.toAnotherPage == "profile"){
+      return <Redirect to ="/personalProfile"/>
+  }
+
         const {classes} = this.props;
         return(
             <div>
             <AppBar position="static" className={classes.appBar}>
                 <Toolbar>
-                    <Typography variant="h4" color="inherit" className={classes.grow}>
+                    <Typography variant="h4" color="inherit" className={classes.grow} onClick = {this.toHomePage}>
                     PROFSEARCH 
                     </Typography>
 
-                    <Button  color="secondary" className={classes.button} size="small">
+                    <Button  color="secondary" className={classes.button} size="small" onClick = {this.toProfilePage}>
                     <div style= {{float:"left", align:"middle", displa:"block",textAlign:"center"}}>
                     <AccountCardDetailsOutline/> <p style = {{padding:"0", margin:"0", fontSize:"12px"}}>contactlist</p>
                     </div>

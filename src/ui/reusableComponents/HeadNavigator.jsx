@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
-import {AppBar,Toolbar,Typography,Button,Tabs,Tab, withStyles,withTheme, spacing,Avatar, Menu, ClickAwayListener, Grid, MenuItem, Paper} from '@material-ui/core';
+import {AppBar,Toolbar,Typography,Button,Tabs,Tab, withStyles,withTheme, spacing,Avatar, Menu, ClickAwayListener, Grid,ButtonBase, MenuItem, Paper} from '@material-ui/core';
 import { FormattedMessage, injectIntl, intlShape, FormattedRelative } from 'react-intl';
 import PropTypes from 'prop-types';
+import cookie from 'react-cookies';
 
 //redux Dependencies
 import { connect } from 'react-redux'
-import {backToHomePage,changeLanguage} from '../../redux/actions/index.js'
+import {backToHomePage,changeLanguage, logout} from '../../redux/actions/index.js'
 
 // RouterDependencies
 import { Redirect } from 'react-router-dom'
 
-import {LoginCheck} from '../../api/authApi'
+//API
+import {LoginCheck, Logout} from '../../api/authApi'
+
+
 
 
 const styles = theme => ({
@@ -34,7 +38,8 @@ const styles = theme => ({
     background: 'linear-gradient(45deg, #D4145A 30%, #FBB03B 90%)',
     paddingLeft:100,
     paddingRight:100,
-    margin:0
+    margin:0,
+
   },
   smallAvatar:{
     margin: 5,
@@ -115,10 +120,37 @@ class HeadNavigator extends Component {
       
     }
 
+    backToHomePage = () =>{
+      this.setState({toAnotherPage:"SearchExpert"})
+    }
+
+    logout = () =>{
+      const temp = this
+    //method from login API, if succcusss, then store cookie, otherwise don't  
+    Logout()
+        .then(function(response){
+          alert("successful")
+          temp.props.logout();
+            cookie.remove('userId');
+            cookie.remove('token');            
+        },function(err){
+            alert("login failed")
+            console.log(err);
+        })
+        this.handleClose();
+
+    }
+
+
     render() {
         if(this.state.toAnotherPage == "SearchExpert"){
             return <Redirect to ="/SearchExpert"/>
         }
+
+        if(this.state.toAnotherPage == "home"){
+          return <Redirect to ="/SearchExpert"/>
+        }
+
         if(this.state.toAnotherPage == "SearchPhd"){
             return <Redirect to ="/SearchPhdPosition"/>
         }
@@ -148,9 +180,12 @@ class HeadNavigator extends Component {
           <div>
               <AppBar position="static" className={classes.appBar}>
                 <Toolbar>
-                  <Typography variant="h4" color="inherit" className={classes.grow}>
+
+
+                  <Typography variant="h4" color="inherit" className = {classes.grow} onClick = {this.backToHomePage}>
                   PROFSEARCH 
                   </Typography>
+
 
                   {this.props.userInfo.status === 0 &&
                   <Button variant="outlined" color="secondary" className={classes.button} size="small" onClick = {this.signUp}> 
@@ -171,7 +206,7 @@ class HeadNavigator extends Component {
                     size="small"
                     aria-haspopup="true"
                     onClick={this.handleProfileClick}>
-                  {/* {this.props.userInfo.name} */}
+                  {this.props.userInfo.name}
                   
                   </Button>
                 }
@@ -197,7 +232,7 @@ class HeadNavigator extends Component {
                   </MenuItem>
 
                   <MenuItem onClick={this.handleProfileClose}>
-                  <Typography variant="h3" >
+                  <Typography variant="h3" onClick = {this.logout}>
                     Log out
                   </Typography>
                   </MenuItem>
@@ -237,6 +272,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     backHome: () => dispatch(backToHomePage()),
     changeLanguage: (language) => dispatch(changeLanguage(language)),
+    logout: ()=> dispatch(logout()),
     dispatch
 });
 

@@ -58,3 +58,19 @@ export function LoginCheck(){
 
     return getDataFromServer(apiUrl.CHECKLOGIN, configObj);
 }
+
+
+/**
+ * This method used for Check login status
+ * Post method is implemented
+ *
+ * @param {Object} data:{"email": String, "password": String}
+ * @return {Object} check Signup Api
+ */
+export function Logout(){
+    const configObj = {
+        method: 'POST'
+    }
+
+    return getDataFromServer(apiUrl.SIGNOUT, configObj);
+}

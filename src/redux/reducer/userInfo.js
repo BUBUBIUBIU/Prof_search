@@ -20,6 +20,9 @@ const userInfo = (state = initialState, action) => {
         case "LOGIN_FAIL": {
             return initialState
         }
+        case "LOG_OUT": {
+            return initialState
+        }
         default: {
             return state
         }

@@ -46,6 +46,10 @@ export const recieveScholorInformation = (scholarProfileList) => ({
     type:'LOGIN_Fail',
   })
 
+  export const logout = () => ({
+    type:'LOG_OUT',
+  })
+
 
   // export const searchPhd_ScholarInformationClear = ()  => ({
   //   type: 'SEARCH_PHD_RECEIVE_SCHOLAR_INFORMATION',

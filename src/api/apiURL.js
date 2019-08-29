@@ -8,6 +8,7 @@ import {publicIp} from './apiIp';
 export const SEARCHEXPERTS = '/api/search/experts';
 export const SIGNUP = '/api/student/signup';
 export const LOGIN ='/api/student/signin';
+export const SIGNOUT = '/api/student/signout'
 export const CHECKLOGIN ='/api/student/checksignin';
 export const UNIVERSITY ='/api/student/university';
 export const PROFILE ='/api/student/profile';
