@@ -9,12 +9,18 @@ import PropTypes from 'prop-types';
 import { Paper, Typography, Button, withStyles, FormControl, NativeSelect, InputBase } from '@material-ui/core';
 import { Close } from 'mdi-material-ui';
 
+
 //Ui
 import BootstrapStyleSearchBox from '../../../reusableComponents/BootstrapStyleSearchBox'
 import ConfirmationDialog from '../../../reusableComponents/Dialog/ConfirmationDialog'
+import SelectorOne from '../../../reusableComponents/textField/SelectorOne.jsx';
 
 //api
 import { updateEducation, deleteEducation } from '../../../../api/personalProfileApi'
+
+//config
+import { gpa } from '../../../../config/gpaType'
+import { years } from '../../../../config/years'
 
 const styles = theme => ({
     paper: {
@@ -199,48 +205,23 @@ class EducationModal extends Component {
                         compusory={true}
                         value = {this.state.Major}
                     />
-                    <Typography variant="h3" color="inherit">
-                        <p className={classes.inputLabel}>
-                            <span style={{ color: "#E4554D" }}> *</span> Average Score
-                    </p>
-                    </Typography>
 
-                    <div style={{ width: "100%", marginBottom: "15px", }}>
-                        {/* score box */}
-                        <FormControl style={{ marginRight: "15px", width: "100px" }}>
-                            <InputBase placeholder="3.9" classes={{
-                                root: classes.inputBoxroot,
-                                input: classes.scoreBox,
-                            }}
-                                onChange={this.handleChange("gpa")} />
-                        </FormControl>
+                    <div style={{ display: "flex", justifyContent: "space-around" }}>
+                        <SelectorOne
+                            style={{ flexGrow: 1 }}
+                            label="From Year"
+                            items={years}
+                            onChangeSelect={this.handleChange("fromYear")}
+                        />
 
-                        {/* <span className={classes.inlineWord}> */}
-                        <Typography variant="h3" color="inherit" inline>
-                            <span className={classes.inlineWord}>
-                                in
-                                </span>
-                        </Typography>
-                        {/* </span> */}
-
-                        {/* select box */}
-                        <FormControl style={{ margin: "0 15px 0 15px" }}>
-                            <NativeSelect value={this.state.gpaType} onChange={this.handleChange("gpaType")}
-                                className={classes.typeSelectBox} variant="outlined" native>
-                                <option value={0} />
-                                <option value={1}>
-                                    GPA
-                                </option>
-                                <option value={2}>
-                                    WAM
-                                </option>
-                                <option value={3}>
-                                    Percentage
-                                </option>
-                            </NativeSelect>
-                        </FormControl>
-
+                        <SelectorOne
+                            style={{ flexGrow: 1 }}
+                            label="To Year (or expected)"
+                            items={years}
+                            onChangeSelect={this.handleChange("toYear")}
+                        />
                     </div>
+
 
                     <BootstrapStyleSearchBox
                         label="Brief Description"
@@ -248,6 +229,39 @@ class EducationModal extends Component {
                         onChangeInput={this.handleChange("Description")}
                         value =  {this.state.Description}
                     />
+
+                    <div style = {{display:"flex", alignItems: "center"}}>
+                        <div style = {{flexGrow: 1, maxWidth: 200, margin: "0 10px 0 0 "}}>
+                            <BootstrapStyleSearchBox
+                                placeHolder="Score"
+                                onChangeInput={this.handleChange("score")}
+                            />
+                        </div>
+
+                        <Typography variant="h3" color="inherit" style ={{verticalAlign:"center",flexGrow: 1, maxWidth: 200,margin:"0 10px"}}>
+                                in
+                        </Typography>
+                    
+                        <div  style={{ flexGrow: 1, maxWidth: 200 , margin:'0 10px'}}>
+                        <SelectorOne
+                            items={gpa}
+                            onChangeSelect={this.handleChange("gpa")}
+                        />
+                        </div>
+                        
+                        <Typography variant="h3" color="inherit" style ={{verticalAlign:"center",flexGrow: 1, maxWidth: 200,margin:"0 10px"}}>
+                                from
+                        </Typography>
+
+                        <div style={{ flexGrow: 8 }}>
+                        <BootstrapStyleSearchBox
+                            placeHolder="University Name"
+                            onChangeInput={() => {}}
+                            value = {this.state.UniversityName}
+                        />
+                        </div>
+                    </div>
+
                 <div style ={{marginTop:30}}>
                     <div style={{ float: "right", marginLeft:40 }}>
                         <Button variant="contained" color="primary" size="small" onClick={this.handleSubmit} >

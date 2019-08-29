@@ -190,37 +190,40 @@ class WorkAndProjectModal extends Component {
                         />
                     </div>
 
-                    <div style={{ display: "flex" }}>
-                        <SelectorOne
-                            style={{ flexGrow: 1 }}
-                            label="Start Date"
-                            isCompulsory={true}
-                            items={months}
-                            onChangeSelect={this.handleChange("fromMonth")}
-                        />
 
-                        <SelectorOne
-                            style={{ flexGrow: 1 }}
-                            label="End Date"
-                            isCompulsory={true}
-                            items={months}
-                            onChangeSelect={this.handleChange("toMonth")}
-                        />
-                    </div>
+                    <div style = {{display:"flex",flex:1,  flexDirection:"row", flexWrap: "wrap", overflow: "auto"}}>
+                        <div style={{ flex : "1 1 auto"}}>
+                            <div style ={{display: "flex" , flexDirection:"column", }}>
+                            <SelectorOne
+                                label="Start Date"
+                                isCompulsory={true}
+                                items={months}
+                                onChangeSelect={this.handleChange("fromMonth")}
+                            />
 
-                    <div>
-                        <SelectorOne
-                            style={{ flexGrow: 1 }}
-                            items={years}
-                            isCompulso
-                            onChangeSelect={this.handleChange("fromYear")}
-                        />
+                            <SelectorOne
+                                items={years}
+                                isCompulso
+                                onChangeSelect={this.handleChange("fromYear")}
+                            />
+                            </div>
+                        </div>
 
-                        <SelectorOne
-                            style={{ flexGrow: 1 }}
-                            items={years}
-                            onChangeSelect={this.handleChange("toYear")}
-                        />
+                        <div style={{flex : "1 1 auto", overflow: "auto"}}>
+                            <div style ={{display: "flex" , flexDirection:"column", }}>
+                                <SelectorOne
+                                    label="End Date"
+                                    isCompulsory={true}
+                                    items={months}
+                                    onChangeSelect={this.handleChange("toMonth")}
+                                />
+
+                                <SelectorOne
+                                    items={years}
+                                    onChangeSelect={this.handleChange("toYear")}
+                                />
+                            </div>
+                        </div>
                     </div>
 
                     <BootstrapStyleSearchBox
@@ -253,30 +256,3 @@ WorkAndProjectModal.propTypes = {
 }
 
 export default withStyles(styles)(WorkAndProjectModal);
-
-{/* <div style={{float: 'left'}}>
-                        <Typography variant="h3" color="inherit">
-                            <p className={classes.inputLabel}>
-                                <span style={{ color: "#E4554D" }}> *</span> From year
-                            </p>
-                        </Typography>
-
-                        <SelectorOne items = {months}  onChangeSelect = {this.handleChange("fromMonth")}/>
-                        <br/>
-                        <SelectorOne items = {years}  onChangeSelect = {this.handleChange("fromYear")}/>
-                    </div> */}
-
-
-
-{/* <div style={{float: 'right'}}>
-                        <Typography variant="h3" color="inherit">
-                            <p className={classes.inputLabel}>
-                                <span style={{ color: "#E4554D" }}> *</span> To year (or expected)
-                            </p>
-                        </Typography>
-
-                        <SelectorOne items = {months}  onChangeSelect = {this.handleChange("toMonth")}/>
-                        <br/>
-                        <SelectorOne items = {years}  onChangeSelect = {this.handleChange("fromYear")}/>
-                    </div> */}
-

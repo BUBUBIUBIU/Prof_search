@@ -17,6 +17,7 @@ import { addEducation } from '../../../../api/personalProfileApi';
 
 //config
 import { years } from '../../../../config/years'
+import { gpa } from '../../../../config/gpaType'
 
 
 const styles = theme => ({
@@ -95,14 +96,15 @@ class EducationModal extends Component {
             && this.state.major.replace(/(^s*)|(s*$)/g, "").length !== 0
             && this.state.fromYear !== NaN
             && this.state.toYear !== NaN
+            && this.state.fromYear < this.state.toYear
             && this.state.gpa !== NaN
             && this.state.gpaType !== 0) {
             const data = {
                 UniversityName: this.state.universityName,
                 Degree: this.state.degree,
                 Major: this.state.major,
-                FromYear: 2013,
-                ToYear: 2017,
+                FromYear: parseInt(this.state.fromYear),
+                ToYear: parseInt(this.state.toYear),
                 Description: this.state.description,
 
                 GPA: parseFloat(this.state.gpa),
@@ -120,7 +122,7 @@ class EducationModal extends Component {
                 })
 
         } else {
-            alert("please fullfill all required files")
+            alert("Some error with your input")
         }
     }
 
@@ -168,7 +170,7 @@ class EducationModal extends Component {
                         compusory={true}
                     />
 
-                    <div style={{ display: "flex" }}>
+                    <div style={{ display: "flex", justifyContent: "space-around" }}>
                         <SelectorOne
                             style={{ flexGrow: 1 }}
                             label="From Year"
@@ -190,6 +192,44 @@ class EducationModal extends Component {
                         compusory={false}
                         onChangeInput={this.handleChange("description")}
                     />
+                    
+                    <Typography variant="h3" color="inherit">
+                        Average Score
+                    </Typography>
+
+
+                    <div style = {{display:"flex", alignItems: "center"}}>
+                        <div style = {{flexGrow: 1, maxWidth: 200, margin: "0 10px 0 0 "}}>
+                            <BootstrapStyleSearchBox
+                                placeHolder="Score"
+                                onChangeInput={this.handleChange("score")}
+                            />
+                        </div>
+
+                        <Typography variant="h3" color="inherit" style ={{verticalAlign:"center",flexGrow: 1, maxWidth: 200,margin:"0 10px"}}>
+                                in
+                        </Typography>
+                    
+                        <div  style={{ flexGrow: 1, maxWidth: 200 , margin:'0 10px'}}>
+                        <SelectorOne
+                            items={gpa}
+                            onChangeSelect={this.handleChange("gpa")}
+                        />
+                        </div>
+                        
+                        <Typography variant="h3" color="inherit" style ={{verticalAlign:"center",flexGrow: 1, maxWidth: 200,margin:"0 10px"}}>
+                                from
+                        </Typography>
+
+                        <div style={{ flexGrow: 8 }}>
+                        <BootstrapStyleSearchBox
+                            placeHolder="University Name"
+                            onChangeInput={() => {}}
+                            value = {this.state.universityName}
+                        />
+                        </div>
+
+                    </div>
 
                     <div style={{ float: "right" }}>
                         <Button variant="contained" color="primary" size="small" onClick={this.handleSubmit} >

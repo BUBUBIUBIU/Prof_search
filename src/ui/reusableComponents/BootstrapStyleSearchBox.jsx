@@ -52,9 +52,15 @@ class BootStrapStyleSearchBox extends Component{
 
     }
 
+
+    componentDidUpdate(){
+        if (this.props.value != this.state.value ) this.setState({value:this.props.value});
+
+    }
+
     // On SearchBoxChange
     onChangeInput = (event) => {
-        this.setState({value:event.target.value})
+        // this.setState({value:event.target.value})
         this.props.onChangeInput(event);
     }
 

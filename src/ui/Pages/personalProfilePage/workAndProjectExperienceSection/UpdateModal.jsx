@@ -215,38 +215,39 @@ class WorkAndProjectModal extends Component {
                             label="I am currently working in this role"
                         />
                     </div>
+                    <div style = {{display:"flex",flex:1,  flexDirection:"row", flexWrap: "wrap", overflow: "auto"}}>
+                        <div style={{ flex : "1 1 auto"}}>
+                            <div style ={{display: "flex" , flexDirection:"column", }}>
+                            <SelectorOne
+                                label="Start Date"
+                                isCompulsory={true}
+                                items={months}
+                                onChangeSelect={this.handleChange("fromMonth")}
+                            />
 
-                    <div style={{ display: "flex" }}>
-                        <SelectorOne
-                            style={{ flexGrow: 1 }}
-                            label="Start Date"
-                            isCompulsory={true}
-                            items={months}
-                            onChangeSelect={this.handleChange("FromMonth")}
-                        />
+                            <SelectorOne
+                                items={years}
+                                isCompulso
+                                onChangeSelect={this.handleChange("fromYear")}
+                            />
+                            </div>
+                        </div>
 
-                        <SelectorOne
-                            style={{ flexGrow: 1 }}
-                            label="End Date"
-                            isCompulsory={true}
-                            items={months}
-                            onChangeSelect={this.handleChange("ToMonth")}
-                        />
-                    </div>
+                        <div style={{flex : "1 1 auto", overflow: "auto"}}>
+                            <div style ={{display: "flex" , flexDirection:"column", }}>
+                                <SelectorOne
+                                    label="End Date"
+                                    isCompulsory={true}
+                                    items={months}
+                                    onChangeSelect={this.handleChange("toMonth")}
+                                />
 
-                    <div>
-                        <SelectorOne
-                            style={{ flexGrow: 1 }}
-                            items={years}
-                            isCompulso
-                            onChangeSelect={this.handleChange("FromYear")}
-                        />
-
-                        <SelectorOne
-                            style={{ flexGrow: 1 }}
-                            items={years}
-                            onChangeSelect={this.handleChange("ToYear")}
-                        />
+                                <SelectorOne
+                                    items={years}
+                                    onChangeSelect={this.handleChange("toYear")}
+                                />
+                            </div>
+                        </div>
                     </div>
 
                     <BootstrapStyleSearchBox

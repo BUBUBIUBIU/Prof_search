@@ -1,9 +1,21 @@
 //Dependencies
 import React, { Component } from 'react';
-import {NativeSelect, withStyles, Typography} from '@material-ui/core';
+import {NativeSelect, withStyles, Typography, Paper} from '@material-ui/core';
 import PropTypes from 'prop-types';
 
 const styles = theme => ({
+    root:{
+        backgroundColor: theme.palette.common.white,
+        display: 'flex',
+        height: "40px",
+        marginBottom:"10px",
+        border:"solid 0.5px #cccccc",
+        // borderColor:"#fffff"
+    },
+    inputLabel:{
+        margin: "10px 0 6px 0",
+        display: 'inline-block',
+    },
     typeSelectBox: {
         backgroundColor: theme.palette.common.white,
         transition: theme.transitions.create(['border-color', 'box-shadow']),
@@ -55,10 +67,12 @@ class SelectorOne extends Component {
                     {isCompulsory && <span style={{ color: "#E4554D" }}> *</span>} {this.props.label}
                 </p>
             </Typography>
+            <Paper className={classes.root} elevation={0}>
             <NativeSelect value={this.state.years} onChange={this.handleChange("years")}
                 className={classes.typeSelectBox} variant="outlined">
                     {options}
             </NativeSelect>
+            </Paper>
         </div>
 
         );
