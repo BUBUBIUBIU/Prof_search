@@ -72,7 +72,7 @@ class EducationDetail extends Component {
 
         // Note: Here we directly use this.props.educationExperience, It might result in bug(no data update), use state instead
         const educationList = educationExperience.map((education, index) =>
-            <ListItem key={education._id} >
+            <ListItem key={education.ID} >
                 <div style={{ width: "100%"}}>
                     {/* title */}
                     <Grid container spacing={3} style = {{flexGrow:1}}>

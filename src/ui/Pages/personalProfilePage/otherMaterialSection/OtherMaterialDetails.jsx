@@ -67,7 +67,7 @@ class OtherMaterialDetails extends Component {
 
         // Note: Here we directly use this.props.educationExperience, It might result in bug(no data update), use state instead
         const materialList = otherMaterials.map((materials, index) =>
-            <ListItem key={materials._id} >
+            <ListItem key={materials.ID} >
                 <div style={{ width: "100%" }}>
                     {/* title */}
                     <Grid container spacing={3}>

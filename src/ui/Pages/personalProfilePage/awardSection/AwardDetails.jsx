@@ -56,7 +56,7 @@ class AwardDetail extends Component {
 
         // Note: Here we directly use this.props.educationExperience, It might result in bug(no data update), use state instead
         const awardList = awards.map((award, index) =>
-            <ListItem key={award._id} >
+            <ListItem key={award.ID} >
                 <div style={{ width: "100%" }}>
                     {/* title */}
                     <Grid container spacing={3}>
