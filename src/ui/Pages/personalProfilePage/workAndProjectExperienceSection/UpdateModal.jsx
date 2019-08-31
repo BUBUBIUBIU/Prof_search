@@ -10,7 +10,7 @@ import { Paper, Typography, Collapse, Button, withStyles, ToolBa, Modal, Checkbo
 import Icon from '@material-ui/core/Icon';
 import { Plus, Close } from 'mdi-material-ui';
 import SelectorOne from '../../../reusableComponents/textField/SelectorOne.jsx';
-import { years, months } from '../../../../config/years'
+
 
 //Ui
 import BootstrapStyleSearchBox from '../../../reusableComponents/BootstrapStyleSearchBox'
@@ -19,6 +19,10 @@ import ConfirmationDialog from '../../../reusableComponents/Dialog/ConfirmationD
 
 //api
 import { deleteExperience, addExperience } from '../../../../api/personalProfileApi';
+
+
+//config
+import { years, months } from '../../../../config/years'
 
 const styles = theme => ({
     paper: {
@@ -99,10 +103,12 @@ class WorkAndProjectModal extends Component {
                 CompanyName: this.state.CompanyName,
                 Title: this.state.Title,
                 Location: this.state.Location,
-                StartDate: "2006-01-02T15:04:05Z",
-                EndDate: "2018-01-02T15:04:05Z",
+                FromYear:this.state.FromYear,
+                FromMonth:this.state.FromMonth,
+                ToYear:this.state.FromYear,
+                ToMonth:this.state.ToYear,
                 Description: this.state.Description,
-                Materials: "hapi",
+                // Materials: "hapi",
             }
 
             console.log(data)
@@ -173,7 +179,7 @@ class WorkAndProjectModal extends Component {
                         <Typography variant="h1">
                             <div style={{ verticalAlign: "middle", height: "100%", float: "left" }}>
                                 Add Experience
-                </div>
+                    </div>
                             <Button style={{ float: "right", verticalAlign: "middle", color: "#000000" }} size="small" onClick={this.props.handleClose}>
                                 <Close />
                             </Button>
@@ -222,13 +228,15 @@ class WorkAndProjectModal extends Component {
                                 label="Start Date"
                                 isCompulsory={true}
                                 items={months}
-                                onChangeSelect={this.handleChange("fromMonth")}
+                                onChangeSelect={this.handleChange("FromMonth")}
+                                value = {this.state.FromMonth}
                             />
 
                             <SelectorOne
                                 items={years}
                                 isCompulso
-                                onChangeSelect={this.handleChange("fromYear")}
+                                onChangeSelect={this.handleChange("FromYear")}
+                                value = {this.state.FromYear}
                             />
                             </div>
                         </div>
@@ -239,12 +247,14 @@ class WorkAndProjectModal extends Component {
                                     label="End Date"
                                     isCompulsory={true}
                                     items={months}
-                                    onChangeSelect={this.handleChange("toMonth")}
+                                    onChangeSelect={this.handleChange("ToMonth")}
+                                    value = {this.state.ToMonth}
                                 />
 
                                 <SelectorOne
                                     items={years}
-                                    onChangeSelect={this.handleChange("toYear")}
+                                    onChangeSelect={this.handleChange("ToYear")}
+                                    value = {this.state.ToYear}
                                 />
                             </div>
                         </div>

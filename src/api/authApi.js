@@ -44,6 +44,7 @@ export function Login(data){
     return getDataFromServer(apiUrl.LOGIN, configObj);
 }
 
+
 /**
  * This method used for Check login status
  * Post method is implemented

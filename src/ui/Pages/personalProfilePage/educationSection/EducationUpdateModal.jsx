@@ -132,8 +132,8 @@ class EducationModal extends Component {
                 UniversityName: this.state.UniversityName,
                 Degree: this.state.Degree,
                 Major: this.state.Major,
-                FromYear: 2013,
-                ToYear: 2017,
+                FromYear: parseInt(this.state.FromYear),
+                ToYear: parseInt(this.state.ToYear),
                 Description: this.state.Description,
                 GPA: parseFloat(this.state.GPA),
                 GPAType: parseInt(this.state.GPAType)
@@ -211,14 +211,16 @@ class EducationModal extends Component {
                             style={{ flexGrow: 1 }}
                             label="From Year"
                             items={years}
-                            onChangeSelect={this.handleChange("fromYear")}
+                            value = {this.state.FromYear}
+                            onChangeSelect={this.handleChange("FromYear")}
                         />
 
                         <SelectorOne
                             style={{ flexGrow: 1 }}
                             label="To Year (or expected)"
                             items={years}
-                            onChangeSelect={this.handleChange("toYear")}
+                            onChangeSelect={this.handleChange("ToYear")}
+                            value = {this.state.ToYear}
                         />
                     </div>
 
@@ -234,7 +236,8 @@ class EducationModal extends Component {
                         <div style = {{flexGrow: 1, maxWidth: 200, margin: "0 10px 0 0 "}}>
                             <BootstrapStyleSearchBox
                                 placeHolder="Score"
-                                onChangeInput={this.handleChange("score")}
+                                onChangeInput={this.handleChange("GPA")}
+                                value = {this.state.GPA}
                             />
                         </div>
 
@@ -245,12 +248,13 @@ class EducationModal extends Component {
                         <div  style={{ flexGrow: 1, maxWidth: 200 , margin:'0 10px'}}>
                         <SelectorOne
                             items={gpa}
-                            onChangeSelect={this.handleChange("gpa")}
+                            onChangeSelect={this.handleChange("GPAType")}
+                            value = {this.state.GPAType}
                         />
                         </div>
                         
                         <Typography variant="h3" color="inherit" style ={{verticalAlign:"center",flexGrow: 1, maxWidth: 200,margin:"0 10px"}}>
-                                from
+                                out of 
                         </Typography>
 
                         <div style={{ flexGrow: 8 }}>
@@ -261,6 +265,13 @@ class EducationModal extends Component {
                         />
                         </div>
                     </div>
+
+                
+                <div style = {{margin:"7px 0 "}}>
+                <Button component="span" color = {"primary"} >
+                    Upload Transcrip
+                </Button>
+                </div>
 
                 <div style ={{marginTop:30}}>
                     <div style={{ float: "right", marginLeft:40 }}>

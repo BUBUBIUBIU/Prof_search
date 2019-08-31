@@ -1,8 +1,7 @@
-/**
- * @file this file is for adding work and project experience
- * @author Chenyang Lu(clu3842@gmail.com)
- * @description 
- *       
+/* Copyright (C) Profware Pty. Ltd. - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ * Written by [Chenyang Lu], [date:31th Aug 2019]
  */
 
 import React, { Component } from 'react'
@@ -83,37 +82,28 @@ class WorkAndProjectModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            company: '',
-            title: '',
-            location: '',
-            briefDescription: '',
-            material: '',
-
-            fromYear: 0,
-            toYear: 0,
-            fromMonth: '',
-            toMonth: ''
         };
     }
 
     handleSubmit = () => {
 
         //Check all requirement
-        if (this.state.company.replace(/(^s*)|(s*$)/g, "").length !== 0
-            && this.state.title.replace(/(^s*)|(s*$)/g, "").length !== 0
+        if (this.state.CompanyName.replace(/(^s*)|(s*$)/g, "").length !== 0
+            && this.state.Title.replace(/(^s*)|(s*$)/g, "").length !== 0
             //  && this.state.major.replace(/(^s*)|(s*$)/g, "").length !== 0
-            && this.state.location !== NaN
-            && this.state.briefDescription !== NaN) {
+            && this.state.Location !== NaN
+            && this.state.Description !== NaN) {
 
             const data = {
-                CompanyName: this.state.company,
-                Title: this.state.title,
-                Country: "Austrilia",
-                City: "Melbourne",
-                StartDate: "2006-01-02T15:04:05Z",
-                EndDate: "2018-01-02T15:04:05Z",
-                Description: "test",
-                Materials: "hapi",
+                CompanyName: this.state.CompanyName,
+                Title: this.state.Title,
+                Location: this.state.Location,
+                FromMonth: parseInt(this.state.FromMonth),
+                FromYear:parseInt(this.state.FromYear),
+                ToMonth:parseInt(this.state.ToMonth),
+                ToYear: parseInt(this.state.ToYear),
+                Description: this.state.Description,
+                Materials:this.state.Materials,
             }
 
             console.log(data)
@@ -163,21 +153,21 @@ class WorkAndProjectModal extends Component {
                     <BootstrapStyleSearchBox
                         label="Company"
                         placeHolder="Company Name"
-                        onChangeInput={this.handleChange("company")}
+                        onChangeInput={this.handleChange("CompanyName")}
                         compusory={true}
                     />
 
                     <BootstrapStyleSearchBox
                         label="Title"
                         placeHolder="Ex. Project Manager"
-                        onChangeInput={this.handleChange("title")}
+                        onChangeInput={this.handleChange("Title")}
                         compusory={true}
                     />
 
                     <BootstrapStyleSearchBox
                         label="Location"
                         placeHolder="Ex. Melbourne"
-                        onChangeInput={this.handleChange("location")}
+                        onChangeInput={this.handleChange("Location")}
                         compusory={true}
                     />
 
@@ -198,13 +188,15 @@ class WorkAndProjectModal extends Component {
                                 label="Start Date"
                                 isCompulsory={true}
                                 items={months}
-                                onChangeSelect={this.handleChange("fromMonth")}
+                                onChangeSelect={this.handleChange("FromMonth")}
+                                value= {this.state.FromMonth}
                             />
 
                             <SelectorOne
                                 items={years}
                                 isCompulso
-                                onChangeSelect={this.handleChange("fromYear")}
+                                onChangeSelect={this.handleChange("FromYear")}
+                                value= {this.state.FromYear}
                             />
                             </div>
                         </div>
@@ -215,12 +207,14 @@ class WorkAndProjectModal extends Component {
                                     label="End Date"
                                     isCompulsory={true}
                                     items={months}
-                                    onChangeSelect={this.handleChange("toMonth")}
+                                    onChangeSelect={this.handleChange("ToMonth")}
+                                    value = {this.state.ToMonth}
                                 />
 
                                 <SelectorOne
                                     items={years}
-                                    onChangeSelect={this.handleChange("toYear")}
+                                    onChangeSelect={this.handleChange("ToYear")}
+                                    value = {this.state.ToYear}
                                 />
                             </div>
                         </div>
@@ -229,13 +223,13 @@ class WorkAndProjectModal extends Component {
                     <BootstrapStyleSearchBox
                         label="Brief Description"
                         compusory={false}
-                        onChangeInput={this.handleChange("briefDescription")}
+                        onChangeInput={this.handleChange("Description")}
                     />
 
                     <BootstrapStyleSearchBox
                         label="Material"
                         placeHolder="Briefly describe your work here"
-                        onChangeInput={this.handleChange("material")}
+                        onChangeInput={this.handleChange("Material")}
                     // compusory={true}
                     />
 

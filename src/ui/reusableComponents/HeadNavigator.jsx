@@ -124,20 +124,20 @@ class HeadNavigator extends Component {
       this.setState({toAnotherPage:"SearchExpert"})
     }
 
-    logout = () =>{
+    signout = () =>{
       const temp = this
-    //method from login API, if succcusss, then store cookie, otherwise don't  
-    Logout()
-        .then(function(response){
-          alert("successful")
-          temp.props.logout();
-            cookie.remove('userId');
-            cookie.remove('token');            
-        },function(err){
-            alert("login failed")
-            console.log(err);
-        })
-        this.handleClose();
+      //method from logout api, if success, delete cookies, otherwise don't  
+      Logout()
+          .then(function(response){
+            alert("successful")
+            temp.props.logout();
+              cookie.remove('userId');
+              cookie.remove('token');            
+          },function(err){
+              alert("login failed")
+              console.log(err);
+          })
+          this.handleProfileClose()
 
     }
 
@@ -231,8 +231,8 @@ class HeadNavigator extends Component {
                   </Typography>
                   </MenuItem>
 
-                  <MenuItem onClick={this.handleProfileClose}>
-                  <Typography variant="h3" onClick = {this.logout}>
+                  <MenuItem onClick={this.signout}>
+                  <Typography variant="h3">
                     Log out
                   </Typography>
                   </MenuItem>

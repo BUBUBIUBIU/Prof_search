@@ -4,14 +4,6 @@ import {NativeSelect, withStyles, Typography, Paper} from '@material-ui/core';
 import PropTypes from 'prop-types';
 
 const styles = theme => ({
-    root:{
-        backgroundColor: theme.palette.common.white,
-        display: 'flex',
-        height: "40px",
-        marginBottom:"10px",
-        border:"solid 0.5px #cccccc",
-        // borderColor:"#fffff"
-    },
     inputLabel:{
         margin: "10px 0 6px 0",
         display: 'inline-block',
@@ -27,8 +19,9 @@ const styles = theme => ({
         height: "40px",
         padding: "0px 0 0px 11px",
         borderRadius: 4,
-        border: '1px solid #cccccc',
-        width:"90%"
+        marginBottom:"10px",
+        border: 'solid 0.5px   #cccccc',
+        width:"95%"
 
     },
 });
@@ -37,15 +30,21 @@ const styles = theme => ({
 class SelectorOne extends Component {
     constructor(props) {
         super(props);
+        const value = this.props.value ? this.props.value : 0 
         this.state = {
-            years: this.props.items[0]
+            years: this.props.items[0],
+            value:value
         };
     }
 
-    
+    componentDidUpdate(){
+        if(this.state.value !== this.props.value) this.setState({value: this.props.value})
+        
+    }
+
 
     handleChange = field => event => {
-        this.setState({ [field]: event.target.value })
+        // this.setState({ [field]: event.target.value })
         this.props.onChangeSelect(event);
 
     }
@@ -54,8 +53,8 @@ class SelectorOne extends Component {
     render(){
 
         const options = this.props.items.map((item) =>
-        <option value={item}>
-        {item}
+        <option value={item.value}>
+            {item.content}
         </option>
         );
         const {classes, isCompulsory} = this.props
@@ -67,12 +66,10 @@ class SelectorOne extends Component {
                     {isCompulsory && <span style={{ color: "#E4554D" }}> *</span>} {this.props.label}
                 </p>
             </Typography>
-            <Paper className={classes.root} elevation={0}>
-            <NativeSelect value={this.state.years} onChange={this.handleChange("years")}
+            <NativeSelect value={this.state.value} onChange={this.handleChange("years")}
                 className={classes.typeSelectBox} variant="outlined">
                     {options}
             </NativeSelect>
-            </Paper>
         </div>
 
         );
@@ -82,7 +79,9 @@ class SelectorOne extends Component {
 //Todo 
 SelectorOne.propTypes = {
     items: PropTypes.array,
-    onChangeSelect: PropTypes.func
+    onChangeSelect: PropTypes.func,
+    value:PropTypes.number,
+
 }
 
 export default withStyles(styles)(SelectorOne);

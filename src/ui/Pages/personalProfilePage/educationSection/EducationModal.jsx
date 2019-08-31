@@ -91,24 +91,24 @@ class EducationModal extends Component {
     handleSubmit = () => {
 
         //Check all requirement
-        if (this.state.universityName.replace(/(^s*)|(s*$)/g, "").length !== 0
-            && this.state.degree.replace(/(^s*)|(s*$)/g, "").length !== 0
-            && this.state.major.replace(/(^s*)|(s*$)/g, "").length !== 0
-            && this.state.fromYear !== NaN
-            && this.state.toYear !== NaN
-            && this.state.fromYear < this.state.toYear
-            && this.state.gpa !== NaN
-            && this.state.gpaType !== 0) {
+        if (this.state.UniversityName  && this.state.UniversityName.replace(/(^s*)|(s*$)/g, "").length !== 0
+            &&  this.state.Degree && this.state.Degree.replace(/(^s*)|(s*$)/g, "").length !== 0
+            && this.state.Major && this.state.Major.replace(/(^s*)|(s*$)/g, "").length !== 0
+            && this.state.FromYear
+            && this.state.ToYear
+            && this.state.FromYear <= this.state.ToYear
+            && this.state.GPA
+            && this.state.GPAType !== 0) {
             const data = {
-                UniversityName: this.state.universityName,
-                Degree: this.state.degree,
-                Major: this.state.major,
-                FromYear: parseInt(this.state.fromYear),
-                ToYear: parseInt(this.state.toYear),
-                Description: this.state.description,
+                UniversityName: this.state.UniversityName,
+                Degree: this.state.Degree,
+                Major: this.state.Major,
+                FromYear: parseInt(this.state.FromYear),
+                ToYear: parseInt(this.state.ToYear),
+                Description: this.state.Description,
 
-                GPA: parseFloat(this.state.gpa),
-                GPAType: parseInt(this.state.gpaType)
+                GPA: parseFloat(this.state.GPA),
+                GPAType: parseInt(this.state.GPAType)
             }
             console.log(data)
             const temp = this;
@@ -140,7 +140,7 @@ class EducationModal extends Component {
                         <Typography variant="h1">
                             <div style={{ verticalAlign: "middle", height: "100%", float: "left" }}>
                                 Add Degree
-                </div>
+                    </div>
                             <Button style={{ float: "right", verticalAlign: "middle", color: "#000000" }} size="small" onClick={this.props.handleClose}>
                                 <Close />
                             </Button>
@@ -153,36 +153,40 @@ class EducationModal extends Component {
                     <BootstrapStyleSearchBox
                         label="School"
                         placeHolder="University Name"
-                        onChangeInput={this.handleChange("universityName")}
+                        onChangeInput={this.handleChange("UniversityName")}
                         compusory={true}
                     />
 
                     <BootstrapStyleSearchBox
                         label="Degree"
                         placeHolder="Ex. Bachelor of Engineering"
-                        onChangeInput={this.handleChange("degree")}
+                        onChangeInput={this.handleChange("Degree")}
                         compusory={true}
                     />
                     <BootstrapStyleSearchBox
                         label="Major"
                         placeHolder="Ex. Design"
-                        onChangeInput={this.handleChange("major")}
+                        onChangeInput={this.handleChange("Major")}
                         compusory={true}
                     />
 
                     <div style={{ display: "flex", justifyContent: "space-around" }}>
                         <SelectorOne
                             style={{ flexGrow: 1 }}
+                            isCompulsory = {true}
                             label="From Year"
                             items={years}
-                            onChangeSelect={this.handleChange("fromYear")}
+                            onChangeSelect={this.handleChange("FromYear")}
+                            value = {this.state.fromYear}
                         />
 
                         <SelectorOne
                             style={{ flexGrow: 1 }}
+                            isCompulsory = {true}
                             label="To Year (or expected)"
                             items={years}
-                            onChangeSelect={this.handleChange("toYear")}
+                            onChangeSelect={this.handleChange("ToYear")}
+                            value = {this.state.toYear}
                         />
                     </div>
 
@@ -190,7 +194,7 @@ class EducationModal extends Component {
                     <BootstrapStyleSearchBox
                         label="Brief Description"
                         compusory={false}
-                        onChangeInput={this.handleChange("description")}
+                        onChangeInput={this.handleChange("Description")}
                     />
                     
                     <Typography variant="h3" color="inherit">
@@ -202,18 +206,20 @@ class EducationModal extends Component {
                         <div style = {{flexGrow: 1, maxWidth: 200, margin: "0 10px 0 0 "}}>
                             <BootstrapStyleSearchBox
                                 placeHolder="Score"
-                                onChangeInput={this.handleChange("score")}
+                                onChangeInput={this.handleChange("GPA")}
+                                value = {this.state.GPA}
                             />
                         </div>
 
-                        <Typography variant="h3" color="inherit" style ={{verticalAlign:"center",flexGrow: 1, maxWidth: 200,margin:"0 10px"}}>
-                                in
+                        <Typography variant="h3" color="inherit" style ={{verticalAlign:"center",flexGrow: 1, maxWidth: 250,margin:"0 10px"}}>
+                                out of 
                         </Typography>
                     
-                        <div  style={{ flexGrow: 1, maxWidth: 200 , margin:'0 10px'}}>
+                        <div  style={{ flexGrow: 2, maxWidth: 300 , margin:'0 10px'}}>
                         <SelectorOne
                             items={gpa}
-                            onChangeSelect={this.handleChange("gpa")}
+                            onChangeSelect={this.handleChange("GPAType")}
+                            value = {this.state.GPAType}
                         />
                         </div>
                         
@@ -225,12 +231,17 @@ class EducationModal extends Component {
                         <BootstrapStyleSearchBox
                             placeHolder="University Name"
                             onChangeInput={() => {}}
-                            value = {this.state.universityName}
+                            value = {this.state.UniversityName}
                         />
                         </div>
 
                     </div>
 
+                    <div style = {{margin:"7px 0 "}}>
+                    <Button component="span" color = {"primary"} >
+                        + Upload Transcrip
+                    </Button>
+                    </div>
                     <div style={{ float: "right" }}>
                         <Button variant="contained" color="primary" size="small" onClick={this.handleSubmit} >
                             Save

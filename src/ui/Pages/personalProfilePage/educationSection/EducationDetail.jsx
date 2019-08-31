@@ -15,6 +15,8 @@ import { Edit } from '@material-ui/icons/';
 //UI
 import EducationUpdateModal from './EducationUpdateModal'
 
+//config 
+import { gpa, findGpaType} from '../../../../config/gpaType'
 
 
 const styles = theme => ({
@@ -51,6 +53,7 @@ class EducationDetail extends Component {
         }
       }
     
+    
 
     openUpdateModal = index => event => {
         if (this.state.open !== true)
@@ -86,7 +89,7 @@ class EducationDetail extends Component {
                             {/* subtitle */}
                             <div style={{ margin: "10px" }}>
                                 <Typography variant="h2">
-                                    {education.UniversityName}
+                                    { education.UniversityName + "    (" + education.GPA + "/" + findGpaType(education.GPAType) + ")"}
                                 </Typography>
                             </div>
 

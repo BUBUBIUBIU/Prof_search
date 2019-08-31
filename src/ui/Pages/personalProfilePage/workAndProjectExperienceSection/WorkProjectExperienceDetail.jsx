@@ -94,7 +94,7 @@ class WorkAndProjectDetail extends Component {
                             {/* year and location */}
                             <div style={{ margin: "10px" }}>
                                 <Typography variant="body2">
-                                    {experience.yearAndLocation}
+                                    {experience.FromYear + "|" + experience.FromMonth + "  -  " +experience.ToYear + "|" + experience.ToMonth + "    " + experience.Location} 
                                 </Typography>
                             </div>
 
