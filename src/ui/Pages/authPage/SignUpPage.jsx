@@ -17,13 +17,16 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import InputLabel from '@material-ui/core/InputLabel';
 import ThirdHeader from "../../reusableComponents/ThirdHeader"
-
+import SelectorOne from '../../reusableComponents/textField/SelectorOne'
 
 //router 
 import { Redirect } from 'react-router-dom'
 
 //api
 import {signUp} from '../../../api/authApi.js'
+
+//config
+import {roles} from '../../../config/roles'
 
 
 const PASSWORD_INCORRECT= "PassWord must be at least 6 characters, and must contain one upperCase character and one number"
@@ -38,6 +41,8 @@ const styles = theme => ({
         backgroundColor: theme.palette.common.white,
         borderRadius: "4px",
         boxShadow: "0 2px 4px 0 rgba(215, 215, 215, 0.5)",
+        width:800,
+        margin:"auto"
         // width:"100%"
       },
       typeSelectBox:{
@@ -63,6 +68,10 @@ const styles = theme => ({
 
   });
 
+
+const role = {
+    
+}
 class SignUpPage extends Component {
     constructor(props) {
         super(props);
@@ -172,86 +181,96 @@ class SignUpPage extends Component {
           }
 
         return(
-<div>
-    <ThirdHeader />
-    <Card classes={{
-               root: classes.card, // class name, e.g. `classes-nesting-root-x`
-             }}style={{width:"50%",marginLeft:"300px"}}>
+        <div>
+            <ThirdHeader />
+            <Paper className ={classes.paper} >
+                <Tabs variant="fullWidth" value={value} onChange={this.handleTab} indicatorColor="primary">
+                    <Tab value="login" label="login" />
+                    <Tab value="signup" label="sign up" />
+                </Tabs>
+            </Paper>
 
-        <AppBar position="static" color="default" className={classes.cardAppBar}>
-            <Tabs variant="fullWidth" value={value} onChange={this.handleTab} indicatorColor="primary">
-                <Tab value="login" label="login" />
-                <Tab value="signup" label="sign up" />
-            </Tabs>
-        </AppBar>
-        <Divider />
-            {/*
-            <AuthPage authValue="signup" /> */}
-            <Paper className={classes.paper} style={{padding:"20px 50px 20px 30px",marginBottom:"10px",height:"900px"}}>
+            <Paper className={classes.paper} style = {{marginTop:2, paddingTop:30}}>
                 <div class="inline" style={{display:"flex", margin:"0 -5px"}}>
                     <div style={{flexGrow:1, margin:"0 5px"}}>
-                        <BootstrapStyleSearchBox label="First Name" placeHolder="Xiao" compusory={true}
-                            onChangeInput={this.handleChange("firstName")} />
+                        <BootstrapStyleSearchBox label="First Name" 
+                            placeHolder="Xiao" compusory={true}
+                            onChangeInput={this.handleChange("firstName")} 
+                        />
 
                     </div>
+
                     <div style={{flexGrow:1,margin:"0 5px"}}>
-                        <BootstrapStyleSearchBox label="Last Name" placeHolder="Wang" compusory={true}
-                            onChangeInput={this.handleChange("lastName")} />
+                        <BootstrapStyleSearchBox 
+                            label="Last Name" 
+                            placeHolder="Wang" 
+                            compusory={true}
+                            onChangeInput={this.handleChange("lastName")} 
+                        />
                     </div>
                 </div>
 
-                <FormControl required className={classes.formControl}>
+                <SelectorOne
+                    style={{ flexGrow: 1 }}
+                    isCompulsory = {true}
+                    label= "Role"
+                    items={roles}
+                    onChangeSelect={this.handleChange("role")}
+                    value = {this.state.toYear}
+                                        
+                />
 
-                    <InputLabel htmlFor="age-required">Role</InputLabel>
-                    <NativeSelect value={this.state.gpaType} onChange={this.handleChange("role")}
-                        className={classes.typeSelectBox} variant="outlined" label="Role" compulsory={true}>
-                        <option value={0} />
-                        <option value={1}>
-                            Student
-                        </option>
-                        <option value={2}>
-                            Teacher
-                        </option>
-                    </NativeSelect>
-                </FormControl>
+                <BootstrapStyleSearchBox 
+                    label="Organization/University" 
+                    placeHolder="e.g. University of Melbourne"
+                    onChangeInput={this.handleChange("organization")} 
+                    compusory={true} 
+                />
 
+                <div style = {{padding: "20px 0"}}>
                 <Divider variant="middle" />
-
-                <BootstrapStyleSearchBox label="Email" placeHolder="xxx@gmail.com"
-                    onChangeInput={this.handleChange("email")} compusory={true} />
-
+                </div>
+                <BootstrapStyleSearchBox 
+                    label="Email" 
+                    placeHolder="xxx@gmail.com"
+                    onChangeInput={this.handleChange("email")} 
+                    compusory={true} />
+                
                 {/* todo */}
-                <BootstrapStyleSearchBox label="Password" type="password" placeHolder="At least 8 characters"
-                    autoComplete="current-password" compusory={true} onChangeInput={this.handleChange("password")} />
-                <BootstrapStyleSearchBox label="Confirm Password" type="password" autoComplete="current-password"
-                    placeHolder="At least 8 characters" compusory={true}
+                <BootstrapStyleSearchBox 
+                    label="Password" 
+                    type="password" 
+                    placeHolder="At least 8 characters"
+                    autoComplete="current-password" 
+                    compusory={true} 
+                    onChangeInput={this.handleChange("password")} />
+
+                    
+                <BootstrapStyleSearchBox 
+                    label="Confirm Password" 
+                    type="password" 
+                    autoComplete="current-password"
+                    placeHolder="At least 8 characters" 
+                    compusory={true}
                     onChangeInput={this.handleChange("confirm_password")} />
 
-                <BootstrapStyleSearchBox label="Phone Number" compusory={false}
-                    onChangeInput={this.handleChange("phoneNumber")} />
-                <BootstrapStyleSearchBox label="Description" compusory={false}
-                    onChangeInput={this.handleChange("description")} />
-                <BootstrapStyleSearchBox label="Country" compusory={false}
-                    onChangeInput={this.handleChange("country")} />
-
-                <BootstrapStyleSearchBox label="City" compusory={false} onChangeInput={this.handleChange("city")} />
+                <div>
                 <FormControlLabel control={<Checkbox value="pwcheck" color="Primary" />}
                 classes ={{
                     label: classes.label
                 }}
                 label="I have read and agreed to the Service Agreement and Privacy Policy" />
+                </div>
 
-                <div style={{float: "right",paddingBottom:"20px"}}>
-                    <Button variant="contained" color="primary" size="small" onClick={this.submit}>
+                <div style={{ paddingBottom:20, marginTop:20}}>
+                    <Button variant="contained" color="primary" size="large" onClick={this.submit}>
                         Sign Up
                     </Button>
                 </div>
 
             </Paper>
 
-
-    </Card>
-</div>
+        </div>
 
 
 

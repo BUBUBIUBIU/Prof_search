@@ -87,13 +87,12 @@ class AwardModal extends Component {
     handleSubmit = () => {
         //Check all requirement
         if (this.state.Name.replace(/(^s*)|(s*$)/g, "").length !== 0 
-            && this.state.Organization.replace(/(^s*)|(s*$)/g, "").length !== 0
             && this.state.Description !== NaN) {
             const data = {
                 ID: this.state.ID,
                 Name: this.state.Name,
                 Organization: this.state.Organization,
-                Date: "2018-01-02T15:04:05Z",
+                Date: this.state.Date,
                 Description: this.state.Description
             }
             console.log(data)
@@ -175,7 +174,7 @@ class AwardModal extends Component {
                         label="Award Organization"
                         onChangeInput = {this.handleChange("Organization")}
                     // compusory={true}
-                    value = {this.state.Organization}
+                        value = {this.state.Organization}
                     />
 
                     <BootstrapStyleSearchBox

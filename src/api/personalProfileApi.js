@@ -20,6 +20,23 @@ export function getProfile(){
 
 
 /**
+ * This method used for gte personal Profile
+ * Get method is implemented
+ *
+ * @param {Object} data: detail in profile ApI
+ * @return {Object} 
+ */
+export function UploadAvatar(data){
+    const configObj = {
+        method: 'POST',
+        data,
+    }
+    return getDataFromServer(apiUrl.AVATAR, configObj);
+}
+
+
+
+/**
  * This method used for add experience
  * Post method is implemented
  *

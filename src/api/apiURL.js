@@ -17,4 +17,5 @@ export const EXPERIENCE  = '/api/student/company';
 export const PUBlICATION  = '/api/student/publication';
 export const AWARD  = '/api/student/award';
 export const OTHERMATERIAL  = '/api/student/material';
+export const AVATAR = 'api/student/avatar'
 // export const 

@@ -33,9 +33,10 @@ import PersonalProfilePage from '../Pages/personalProfilePage/PersonalProfilePag
 import ContactListPage from '../Pages/contactListPage/ContactListPage'
 import MessagePage from '../Pages/messagePage/MessagePage'
 
-import AuthSinglePage from '../Pages/authPage/AuthSinglePage'
 import LoginPage from '../Pages/authPage/LoginPage'
 import SignUpPage from '../Pages/authPage/SignUpPage'
+
+import NewSearchPage from '../Pages/newSearchPage/NewSearchPage'
 
 //api
 import {LoginCheck} from '../../api/authApi'
@@ -168,12 +169,12 @@ class RenderRouter extends Component {
           {/* <Provider store={store}> */}
             <BrowserRouter >
               <Switch>
-                <Route exact path="/" component={SearchExpertPage} />
-                <Route exact path="/SearchExpert" component={SearchExpertPage} />
-                <Route exact path="/SearchPhdPosition" component={SearchPhdPage} />
-                <Route exact path="/SearchResearchProjects" component={SearchResearchProjectsPage} />
-                <Route exact path="/SearchExpert/advancedSearchExpert" component={AdvancedSearchExpertPage} />
-                <Route exact path="/SearchPhdPosition/advancedSearchPhd" component={AdvancedSearchPhdPage} />
+                <Route exact path="/" component={NewSearchPage} />
+                <Route exact path="/search" component={NewSearchPage} />
+                {/* <Route exact path="/SearchPhdPosition" component={SearchPhdPage} />
+                <Route exact path="/SearchResearchProjects" component={SearchResearchProjectsPage} /> */}
+                <Route exact path="/search/searchResult" component={AdvancedSearchExpertPage} />
+                {/* <Route exact path="/SearchPhdPosition/advancedSearchPhd" component={AdvancedSearchPhdPage} /> */}
                 <Route exact path="/personalProfile" component={PersonalProfilePage} />
                 <Route exact path="/contactList" component={ContactListPage} />
                 <Route exact path="/message" component={MessagePage} />

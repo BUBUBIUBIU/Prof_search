@@ -29,3 +29,17 @@ ways to resolve: <br/>
 - For some dynamically created components through list, key are not assigned, this will result in some performance issues, due to react diff algorithm
 - For stateful react component, shouldComponentUpdate() should be introduced to improve performance.
 - For some reusable components, its better to make them stateless (create by function) to improve performance
+
+
+
+## Reusable Component
+
+Demo of BootstrapStyleSearchBox
+```
+    <BootstrapStyleSearchBox
+        label="Degree" //Input Label, optional
+        placeHolder="Ex. Bachelor of Engineering" //placeHolder compulsory
+        onChangeInput={this.handleChange("Degree")}  //pass function here
+        compusory={true} // if true, a '*' before label, default false
+    />
+```

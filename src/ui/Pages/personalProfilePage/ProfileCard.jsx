@@ -12,6 +12,9 @@ import BootstrapStyleSearchBox from '../../reusableComponents/BootstrapStyleSear
 // RouterDependencies
 // import { Redirect } from 'react-router-dom'
 
+//api
+import {UploadAvatar}  from '../../../api/personalProfileApi'
+
 const styles = theme => ({
     card:{
         backgroundColor: theme.palette.background.card,
@@ -113,6 +116,15 @@ class ProfileCard extends Component {
         this.setState({inputModal:false})
     }
 
+    submit = (e) =>{
+        e.preventDefault();
+        let formData = new FormData(e.target);
+        UploadAvatar(formData);
+
+
+
+    }
+
     render(){
 
         console.log(this.state)
@@ -125,7 +137,7 @@ class ProfileCard extends Component {
               }}>
                 <CardHeader 
                     avatar={ 
-                    <Avatar className={classes.bigAvatar} src = "43.240.97.130:8081/file/avatar_2?token=o0CgIdNpLuydwzXzRYCDO9cnxxK8HEcXm5dsobBF%2BUHTRZwx2EWgAhP86F6vMu6bS67icijVp0DcMxt5xRszTNiqoRN%2FsRciHjTg7spsKd4gNBe6jxrSP3sjh1ymQ29czghgpSlIseWFpxhhE1Ycqs871w%3D%3D.png"/> 
+                    <Avatar className={classes.bigAvatar} src = {"http://" + this.state.Avatar}/> 
                     }
                     action={
                     <Button color="primary" variant="contained" className ={classes.button} variant="outlined" onClick={this.directToContectList}>
@@ -152,9 +164,12 @@ class ProfileCard extends Component {
                         <Typography variant ="h2" inline>
                             <div style ={{fontWeight:600, margin:"15px",verticalAlign: "middle",textAlign: "center", display:"inline" }}>
                             contact info
+                            <form>
+                            </form>
                             </div>
                         </Typography>
                         </Button>
+                        
                     </CardContent>
 
             <Modal
@@ -238,8 +253,10 @@ class ProfileCard extends Component {
                 </div>
 
             </Modal>
-
-            
+            <form onSubmit={this.submit}>
+                <input  name="avatar"  type="file" accept="image/png,image/gif,image/jpeg,image/jpg"/>
+                <input type="submit" value="Upload"/>
+            </form>      
             </Card>
         )
     }

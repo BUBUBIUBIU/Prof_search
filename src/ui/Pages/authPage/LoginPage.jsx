@@ -30,13 +30,14 @@ import {loginSuccess} from '../../../redux/actions/index'
 
 
 const styles = theme => ({
-      paper:{
+    paper:{
         ...theme.mixins.gutters(),
         backgroundColor: theme.palette.common.white,
         borderRadius: "4px",
         boxShadow: "0 2px 4px 0 rgba(215, 215, 215, 0.5)",
+        width:800,
+        margin:"auto"
         // width:"100%"
-        
       },
 
   });
@@ -132,36 +133,37 @@ class LoginPage extends Component {
         return(
             <div>
                 <ThirdHeader />
-                <Card classes={{
-                        root: classes.card, // class name, e.g. `classes-nesting-root-x`
-                      }}style={{width:"50%",marginLeft:"300px"}}>
-
-                    <AppBar position="static" color="default" className={classes.cardAppBar}>
+                <Paper className ={classes.paper} >
                         <Tabs variant="fullWidth" value={value} onChange={this.handleTab} indicatorColor="primary">
                             <Tab value="login" label="login" />
-                            <Tab value="signup" label="sign up" />
+                            <Tab value="signup" label="sign up"/>
                         </Tabs>
-                    </AppBar>
-                    <Divider />
+                </Paper>
 
-                        <Paper className={classes.paper} style={{padding:"20px 30px",height:"200px"}}>
-                            <BootstrapStyleSearchBox label="Email Adress" placeHolder="xxx@gmail.com"
-                                onChangeInput={this.handleChange("email")} compusory={true} />
+                <Paper className={classes.paper} style = {{marginTop:2, paddingTop:30}}>
 
-                            {/* todo */}
-                            <BootstrapStyleSearchBox label="Password" type="password" autoComplete="current-password"
-                                placeHolder="Please enter your password" compusory={true}
-                                onChangeInput={this.handleChange("password")} />
+                    <BootstrapStyleSearchBox 
+                        label="Email Adress" 
+                        placeHolder="E.g. wangjiaoshou@gmail.com"
+                        onChangeInput={this.handleChange("email")} 
+                        compusory={true} />
+
+                    {/* todo */}
+                    <BootstrapStyleSearchBox 
+                        label="Password" 
+                        type="password" 
+                        autoComplete="current-password"
+                        placeHolder="At least 8 characters" 
+                        compusory={true}
+                        onChangeInput={this.handleChange("password")} />
 
 
-                            <div style={{float: "right"}}>
-                                <Button variant="contained" color="primary" size="small" onClick={this.submit}>
-                                    Log in
-                                </Button>
-                            </div>
-
-                        </Paper>
-                </Card>
+                    <div style={{ paddingBottom:20, marginTop:20}}>
+                        <Button variant="contained" color="primary" size="large" onClick={this.submit}>
+                            Log in
+                        </Button>
+                    </div>
+                </Paper>
 
             </div>
            
