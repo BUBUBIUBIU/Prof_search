@@ -125,7 +125,7 @@ class LoginPage extends Component {
           }
 
           if (this.state.value=="home") {
-            return <Redirect to ="/SearchExpert"/>
+            return <Redirect to ="/"/>
           }
 
         const {classes, profile} = this.props

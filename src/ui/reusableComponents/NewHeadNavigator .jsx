@@ -108,7 +108,7 @@ class HeadNavigator extends Component {
     }
 
     backToHomePage = () =>{
-      this.setState({toAnotherPage:"SearchExpert"})
+      this.setState({toAnotherPage:"home"})
     }
 
     signout = () =>{
@@ -130,20 +130,20 @@ class HeadNavigator extends Component {
 
 
     render() {
-        if(this.state.toAnotherPage == "SearchExpert"){
-            return <Redirect to ="/SearchExpert"/>
-        }
+        // if(this.state.toAnotherPage == "SearchExpert"){
+        //     return <Redirect to ="/SearchExpert"/>
+        // }
 
         if(this.state.toAnotherPage == "home"){
-          return <Redirect to ="/SearchExpert"/>
+          return <Redirect to ="/"/>
         }
 
-        if(this.state.toAnotherPage == "SearchPhd"){
-            return <Redirect to ="/SearchPhdPosition"/>
-        }
-        if(this.state.toAnotherPage == "SearchResearchProjects"){
-            return <Redirect to ="/SearchResearchProjects"/>
-        }
+        // if(this.state.toAnotherPage == "SearchPhd"){
+        //     return <Redirect to ="/SearchPhdPosition"/>
+        // }
+        // if(this.state.toAnotherPage == "SearchResearchProjects"){
+        //     return <Redirect to ="/SearchResearchProjects"/>
+        // }
         if(this.state.toAnotherPage == "personalProfile"){
           return <Redirect to ="/personalProfile"/>
         }
@@ -201,9 +201,9 @@ class HeadNavigator extends Component {
                       onClose={this.handleClose}>
 
                   <MenuItem onClick={this.jumpToProfilePage}>
-                  <Avatar className={classes.smallAvatar} 
-                      src = "https://scontent.fcbr1-1.fna.fbcdn.net/v/t1.0-0/p370x247/50229562_10157302245734739_2837044079051669504_n.jpg?_nc_cat=109&amp;_nc_ht=scontent.fcbr1-1.fna&amp;oh=9af7e41fe295e20bf12794a74726716b&amp;oe=5D53A962"> 
-                    </Avatar>
+                  <Avatar className={classes.smallAvatar} >
+                      {this.props.userInfo.name.substring(0,1)}
+                  </Avatar>
                   <Typography variant="h3" >
                     {this.props.userInfo.name}
                   </Typography>

@@ -142,7 +142,7 @@ class SignUpPage extends Component {
       }
 
       signUpInfoCheck = () =>{
-        return this.lastNameValidate() && this.firstNameValidate() && this.emailValidate() && this.passswordValidate() && this.passwordEqual()
+        return this.lastNameValidate() && this.firstNameValidate() && this.emailValidate() && this.passswordValidate() && this.passwordEqual() && this.descriptionValidate()
       }
       
       lastNameValidate = () =>{
@@ -157,6 +157,10 @@ class SignUpPage extends Component {
       emailValidate = () =>{
         var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(String(this.state.email).toLowerCase());
+      }
+
+      descriptionValidate = () =>{
+        return this.state.description.replace(/(^s*)|(s*$)/g, "").length !== 0
       }
 
 
@@ -221,9 +225,9 @@ class SignUpPage extends Component {
                 />
 
                 <BootstrapStyleSearchBox 
-                    label="Organization/University" 
+                    label="Description" 
                     placeHolder="e.g. University of Melbourne"
-                    onChangeInput={this.handleChange("organization")} 
+                    onChangeInput={this.handleChange("description")} 
                     compusory={true} 
                 />
 

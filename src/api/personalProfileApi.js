@@ -261,3 +261,35 @@ export function deleteOtherMaterial(data){
 }
 
 
+/**
+ * This method used for uploading CV
+ * post method is implemented
+ *
+ * @param {Object} data: detail in AddAward ApI, request Body 
+ * @return {Object} 
+ */
+export function uploadCV(data){
+    const configObj = {
+        method: 'POST',
+        data,
+    }
+    console.log(data);
+    return getDataFromServer(apiUrl.CV, configObj);
+}
+
+
+/**
+ * This method used for uploading CV
+ * post method is implemented
+ *
+ * @param {Object} data: detail in AddAward ApI, request Body 
+ * @return {Object} 
+ */
+export function deleteCV(){
+    const configObj = {
+        method: 'DELETE',
+    }
+    return getDataFromServer(apiUrl.CV, configObj);
+}
+
+

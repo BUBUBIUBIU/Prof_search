@@ -18,4 +18,5 @@ export const PUBlICATION  = '/api/student/publication';
 export const AWARD  = '/api/student/award';
 export const OTHERMATERIAL  = '/api/student/material';
 export const AVATAR = 'api/student/avatar'
+export const CV = 'api/student/cv'
 // export const 
