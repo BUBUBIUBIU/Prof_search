@@ -1,7 +1,7 @@
-/**
- * @file this is Award section
- * @author Shaochuan Luo(shaochuanl@student.unimelb.edu.au)
- * @description    
+/* Copyright (C) Profware Pty. Ltd. - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ * Written by [shaochuan Luo], [date:20th Aug 2019]
  */
 
 import React, { Component } from 'react'

@@ -154,6 +154,7 @@ class SearchExpertsSection extends Component{
         const request = this.state.expertExperties;
         const profiles = await searchExpert(request); //调用SearchExpert API向服务器请求数据 (api.jsx)
         // const response = await searchExpert(configObj);
+        console.log(profiles)
 
         if (profiles != undefined && profiles != []) {
             this.props.setScholarProfileVisibility({

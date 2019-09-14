@@ -18,7 +18,7 @@ import CardHeader from '../CardHeader'
 import ConfirmationDialog from '../../../reusableComponents/Dialog/ConfirmationDialog'
 
 //api
-import { deleteExperience, addExperience } from '../../../../api/personalProfileApi';
+import { deleteExperience, updateExperience } from '../../../../api/personalProfileApi';
 
 
 //config
@@ -100,23 +100,23 @@ class WorkAndProjectModal extends Component {
             ) {
 
             const data = {
+                ID: this.state.ID,
                 CompanyName: this.state.CompanyName,
                 Title: this.state.Title,
                 Location: this.state.Location,
-                FromYear:this.state.FromYear,
-                FromMonth:this.state.FromMonth,
-                ToYear:this.state.FromYear,
-                ToMonth:this.state.ToYear,
+                FromYear:parseInt(this.state.FromYear),
+                FromMonth:parseInt(this.state.FromMonth),
+                ToYear:parseInt(this.state.ToYear),
+                ToMonth:parseInt(this.state.ToMonth),
                 Description: this.state.Description,
                 // Materials: "hapi",
             }
 
             console.log(data)
             const temp = this
-            addExperience(data)
+            updateExperience(data)
                 .then(function (response) {
                     temp.props.handleClose()
-                    alert(response.message);
                 }, function (err) {
                     alert(err.message);
                     console.log(err);

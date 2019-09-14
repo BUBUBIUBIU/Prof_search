@@ -1,10 +1,18 @@
 //Dependencies
 import React, { Component } from 'react';
-import { Grid,Card,CardHeader,Button,withStyles,Avatar,Typography} from '@material-ui/core';
+import { Paper, withStyles,Avatar,Typography,Button, Checkbox} from '@material-ui/core';
+import { prototype } from 'stack-utils';
 
 //UI
 
 const styles = theme => ({
+    paper:{
+        ...theme.mixins.gutters(),
+        backgroundColor: theme.palette.common.white,
+        borderRadius: "4px",
+        boxShadow: "0 2px 4px 0 rgba(215, 215, 215, 0.5)",
+        width:"100%"
+    },
     card:{
         backgroundColor: theme.palette.background.card,
         width: "100%",
@@ -37,42 +45,63 @@ class MiniCard extends Component {
             
         };
     }
+
+    onClickMessage = () =>{
+        
+    }
+
+    handleCheck = name => event => {
+        this.setState({ [name]: event.target.checked });
+      };
+
+
     render(){
         const {classes} = this.props
         return(
-            <div>
-                <Card      classes={{
-                    root: classes.card, // class name, e.g. `classes-nesting-root-x`
-                  }}>
-                    <CardHeader 
-                        avatar={ 
-                        <Avatar className={classes.bigAvatar}> {this.props.simpleprofile.name[0]} </Avatar>
-                        }
-                        action={
-                        <Button color="primary" className ={classes.button} variant="outlined"> 
+            <div style = {{display:"flex", width: "100%"}}> 
+            <Paper className = {classes.paper} style = {{ padding:25, flex:"auto"}}>
+                <div style = {{display:"flex", alignItems:"center"}}>
+                    <div style= {{flex:"0 1 auto", maxWidth:200}}>
+                        <Avatar  className={classes.bigAvatar} src = {"http://" + this.state.Avatar}/>
+                    </div>
+                    <div  style= {{flex:"0 1 auto", padding: 30, marginRight:"auto"}}>
+                        <Typography variant="h1">
+                            Chenyang {" "} Lu
+                        </Typography>
+                        <Typography variant="body1">
+                            <p style={{fontWeight:500}}> Student</p>
+                            {/* <p style={{fontWeight:300}}> Melbourne ,Victoria, Australia </p> */}
+                        </Typography>
+                        <Typography variant="body1">
+                            Faculty of Life science
+                        </Typography>
+                    </div> 
+                    <div  style= {{flex:"0 1 auto", padding: 30}}>
+                        <Button  variant="outlined" color="primary" onClick = {this.onClickMessage}>
                             Message
                         </Button>
-                        }
+                    </div> 
+                </div>
+            </Paper>
 
-                        title = {
-                            <div className={classes.header}>
-                            <Typography variant = "h1" color="inherit">
-                            {this.props.simpleprofile.name}
-                            </Typography>
-                            </div>
-                        }
-                        subheader={ 
-                            <Typography variant = "body1" color="inherit">
-                            {this.props.simpleprofile.title}<br/>{this.props.simpleprofile.faculty} , {this.props.simpleprofile.University}
-                            </Typography>
-                        }
-
-                        />
-                </Card>
-            </div>
+            <Paper className = {classes.paper} style ={{maxWidth:40,flex: "0 1 auto" }} >
+                <Checkbox
+                    color = 'primary'
+                    checked={this.state.checkedA}
+                    onChange={this.handleCheck('checkedA')}
+                    value="checkedA"
+                    inputProps={{
+                    'aria-label': 'primary checkbox',
+                    }}
+                    style = {{position:"absolute", top:"40%"}}
+                />
+            </Paper>
+            </div> 
         )
 
     }
 };
+
+
 
 export default withStyles(styles)(MiniCard);

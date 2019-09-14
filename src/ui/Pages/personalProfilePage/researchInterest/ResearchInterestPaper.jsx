@@ -13,7 +13,6 @@ import { withStyles, Modal, } from '@material-ui/core';
 //Ui
 
 import CardHeader from '../CardHeader'
-import ResearchInterestDetail from './ResearchInterestDetail'
 import ResearchInterestModal from './ResearchInterestModal'
 
 

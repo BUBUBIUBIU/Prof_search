@@ -20,6 +20,23 @@ export function getProfile(){
 
 
 /**
+ * This method used for gte personal Profile
+ * Get method is implemented
+ *
+ * @param {Object} data: detail in profile ApI
+ * @return {Object} 
+ */
+export function UploadAvatar(data){
+    const configObj = {
+        method: 'POST',
+        data,
+    }
+    return getDataFromServer(apiUrl.AVATAR, configObj);
+}
+
+
+
+/**
  * This method used for add experience
  * Post method is implemented
  *
@@ -402,3 +419,35 @@ export function deleteOngoingProject(data){
     console.log(data);
     return getDataFromServer(apiUrl.OngoingProject, configObj);
 }
+/**
+ * This method used for uploading CV
+ * post method is implemented
+ *
+ * @param {Object} data: detail in AddAward ApI, request Body 
+ * @return {Object} 
+ */
+export function uploadCV(data){
+    const configObj = {
+        method: 'POST',
+        data,
+    }
+    console.log(data);
+    return getDataFromServer(apiUrl.CV, configObj);
+}
+
+
+/**
+ * This method used for uploading CV
+ * post method is implemented
+ *
+ * @param {Object} data: detail in AddAward ApI, request Body 
+ * @return {Object} 
+ */
+export function deleteCV(){
+    const configObj = {
+        method: 'DELETE',
+    }
+    return getDataFromServer(apiUrl.CV, configObj);
+}
+
+

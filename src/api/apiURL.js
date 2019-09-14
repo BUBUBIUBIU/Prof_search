@@ -20,4 +20,6 @@ export const OTHERMATERIAL  = '/api/student/material';
 export const ResearchInterest = 'api/';
 export const ResearchGrant  = 'api/';
 export const OngoingProject  = 'api/' 
+export const AVATAR = 'api/student/avatar'
+export const CV = 'api/student/cv'
 // export const 

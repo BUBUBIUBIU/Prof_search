@@ -48,7 +48,7 @@ class SecondHeader extends Component {
     }
 
     toHomePage = () =>{
-      this.setState({toAnotherPage:"SearchExpert"})
+      this.setState({toAnotherPage:"home"})
     }
 
     componentWillUnmount = () => {
@@ -63,8 +63,8 @@ class SecondHeader extends Component {
     
     render(){
 
-      if(this.state.toAnotherPage == "SearchExpert"){
-        return <Redirect to ="/SearchExpert"/>
+      if(this.state.toAnotherPage == "home"){
+        return <Redirect to ="/"/>
     }
 
     if(this.state.toAnotherPage == "profile"){
