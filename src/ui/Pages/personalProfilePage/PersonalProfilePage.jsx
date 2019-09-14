@@ -19,6 +19,11 @@ import Award from './awardSection/AwardPaper'
 import Publication from './publicationSection/Publication'
 import OtherMaterial from './otherMaterialSection/OtherMaterialPaper'
 
+import ResearchInterest from './researchInterest/ResearchInterestPaper'
+import ResearchGrant from './researchGrant/ResearchGrantPaper'
+import OngoingProject from './ongoingProject/ongoingProjectPaper'
+import AvailablePosition from './availablePosition/availablePositionPaper'
+
 //api
 import {getProfile} from '../../../api/personalProfileApi'
 
@@ -38,7 +43,9 @@ class PersonalProfilePage extends Component {
                 Companies:[],
                 Awards:[],
                 Materials: [],
-                Publications: []
+                Publications: [],
+                // new variable
+                Who: ''
             },
         };
     }
@@ -94,8 +101,14 @@ class PersonalProfilePage extends Component {
                             Phone = {profile.Phone}
                             Avatar = {profile.Avatar}/>
                 {/* <ProfileCard/>          */}
+
+                <ResearchInterest/>
+                <ResearchGrant/>
+                <OngoingProject/>
+                <AvailablePosition/>
+
                 <EducationPaper educations = {profile.Universities}
-                UpdateFile = {this.UpdateFile}/>
+                UpdateFile = {this.UpdateFile} who = {profile.Who}/>
                 
                 <WorkAndProjectExperience workAndExp = {profile.Companies}
                  UpdateFile = {this.UpdateFile}

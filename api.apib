@@ -287,10 +287,16 @@ APIs descriptions
                 "content": {
                     "ID": 15,
                     "Email": "peterparker@gmail.com",
+                    "Avatar": "www.whereavatarisstored.com?token=somerandomchars",
+                    "CV": "www.wherecvisstored.com?token=somerandomchars",
                     "Phone": "0412345678",
                     "FirstName": "Peter",
                     "LastName": "Parker",
                     "Description": "hello world",
+                    "Language1": 1,
+                    "Score1": 5,
+                    "Language2": 3,
+                    "Score2": 3,
                     "Universities": [
                         {
                             "ID": 3,
@@ -362,6 +368,50 @@ APIs descriptions
     
             {
                 "message": "Key: 'Edit.FirstName' Error:Field validation for 'FirstName' failed on the 'required' tag"
+            }
+
++ Response 401 (application/json)
+
+    + Body
+    
+            {
+                "message": "unauthorized"
+            }
+
+### Edit Language [POST /student/language]
+
++ Request (application/json)
+
+    + Headers
+            
+            id: user id
+            token: user token
+    
+    + Body
+    
+            {
+                "language1": 1, `optional`
+                "score1": 5, `optional`
+                "language2": 2, `optional`
+                "score2": 1, `optional`
+                "language3": 3, `optional`
+                "score3": 3, `optional`
+            }
+
++ Response 200 (application/json)
+
+    + Body
+    
+            {
+                "message": "Success!"
+            }
+
++ Response 400 (application/json)
+
+    + Body
+    
+            {
+                "message": "error"
             }
 
 + Response 401 (application/json)
@@ -473,6 +523,90 @@ APIs descriptions
 
             {
                 "message": "password length must between 6 and 16"
+            }
+
+### Upload Avatar [POST /student/avatar]
+
++ Request (multipart/form-data; boundary={boundary value})
+
+    + Headers
+            
+            id: user id
+            token: user token
+
+    + Body
+
+            --{boundary value}
+            Content-Disposition: form-data; name='avatar'; filename='avatar.jpg'
+            
+            {file content max 2m}
+            --{boundary value}--
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "message": "Success!"
+            }
+
+
++ Response 400 (application/json)
+
+    + Body
+    
+            {
+                "message": "error task"
+            }
+
++ Response 401 (application/json)
+
+    + Body
+    
+            {
+                "message": "unauthorized"
+            }
+
+### Upload CV [POST /student/cv]
+
++ Request (multipart/form-data; boundary={boundary value})
+
+    + Headers
+            
+            id: user id
+            token: user token
+
+    + Body
+
+            --{boundary value}
+            Content-Disposition: form-data; name='cv'; filename='cv.pdf'
+            
+            {file content max 10m}
+            --{boundary value}--
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "message": "Success!"
+            }
+
+
++ Response 400 (application/json)
+
+    + Body
+    
+            {
+                "message": "error task"
+            }
+
++ Response 401 (application/json)
+
+    + Body
+    
+            {
+                "message": "unauthorized"
             }
 
 ### Add University [POST /student/university]
@@ -805,8 +939,7 @@ APIs descriptions
             {
                 "CompanyName": "Unimelb",
                 "Title": "IT Tutor",
-                "Country": "Austrilia",
-                "City": "Melbourne",
+                "Location": "Melbourne Australia",
                 "StartDate": "2006-01-02T15:04:05Z",
                 "EndDate": "2018-01-02T15:04:05Z",
                 "Description": "boring works",
@@ -883,8 +1016,7 @@ APIs descriptions
                 "id": 4,
                 "CompanyName": "Monash",
                 "Title": "JAVA Tutor",
-                "Country": "Austrilia",
-                "City": "Melbourne",
+                "Location": "Melbourne Australia",
                 "StartDate": "2016-01-02T15:04:05Z",
                 "EndDate": "2018-01-02T15:04:05Z",
                 "Description": "funny works",
@@ -929,7 +1061,7 @@ APIs descriptions
             {
                 "Name": "IT super",
                 "Organization": "Monash",
-                "Date": "2018-01-02T15:04:05Z",
+                "Date": "2018-01-02",
                 "Description": "Haha"
             }
 
@@ -1000,9 +1132,10 @@ APIs descriptions
     + Body
 
             {
+                "id": 1,
                 "Name": "IT super",
                 "Organization": "UniMelb",
-                "Date": "2019-02-02T15:04:05Z",
+                "Date": "2019-02-02",
                 "Description": "Tired"
             }
 
@@ -1115,7 +1248,8 @@ APIs descriptions
     + Body
 
             {
-                "Title": "Chunyao, Chenyang tql",
+                "id": 1,
+                "Title": "Chenyang tql",
                 "Year": 2018,
                 "Description": "Na hai yong shuo? Qiang de ke pa.",
                 "Url": "myunimelb.edu.au"

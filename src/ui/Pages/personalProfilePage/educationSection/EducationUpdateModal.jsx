@@ -99,7 +99,6 @@ class EducationModal extends Component {
         this.handleDelete()
     }
 
-
     handleDelete = () => {
         const data = {
             ID: this.state.ID
@@ -139,7 +138,6 @@ class EducationModal extends Component {
                 GPAType: parseInt(this.state.GPAType)
             }
             const temp = this
-
 
             updateEducation(data)
                 .then(function (response) {

@@ -3,7 +3,6 @@
  * Proprietary and confidential
  * Written by [Shaochuan Luo], [date:1th Sep 2019]
  */
-
 //
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
@@ -16,9 +15,13 @@ import { Plus, Close } from 'mdi-material-ui';
 import BootstrapStyleSearchBox from '../../../reusableComponents/BootstrapStyleSearchBox';
 import P1 from './PublicationJournal';
 import  CardHeader from '../CardHeader'
-import PublicationJournal from './PublicationJournal';
+import PublicationJournal from './UpdateJournal';
 import PublicationConference from './PublicationConference';
 import PublicationBook from './PublicationBook';
+
+import UpdateJournal from './UpdateJournal'
+import UpdateConference from './UpdateConference' 
+import UpdateBook from './UpdateBook'
 
 const styles = theme => ({
     paper:{
@@ -56,37 +59,35 @@ function TabContainer(props) {
     ); 
 }
 
-class PublicationModal extends Component {
+class UpdatePublication extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            expand: false,
-            value: "Journal"
-        };
-    }
-
-    handleTab = (event,value) => {
-        this.setState({value});
+        // this.state.currentPublication = this.props.currentPublications;
+        this.state = this.props.currentPublications;
     }
 
     render(){
-        const {value} = this.state; 
+        const value = this.state.Type; 
         const {classes, profile} = this.props
+        console.log(this.state);
+        console.log(value);
         return(
 
             <div className = {classes.modal}>
                 <Paper className ={classes.paper} style ={{padding:"20px 30px 0px 30px", marginBottom:"3px",height:"80px"}} >
                     <div>
+
                         <Typography variant ="h1">
                             <div style ={{verticalAlign:"middle",height:"100%", float: "left"}}>
-                            Add Publication
+                            Edit Publication
                             </div>
                             <Button style= {{float: "right",verticalAlign:"middle", color:"#000000"}} size="small" onClick = {this.props.handleClose}>
                             <Close/>
                             </Button>
-                        </Typography >   
+                        </Typography > 
+
                         <AppBar position="static" color="default" className={classes.cardAppBar}>
-                            <Tabs variant="fullWidth" value={value} indicatorColor="primary" onChange={this.handleTab}>
+                            <Tabs variant="fullWidth" value={value} indicatorColor="primary">
                                 <Tab label="Journal" value = "Journal" />
                                 <Tab label="Conference" value = "Conference" />
                                 <Tab label="Book" value = "Book"/>  
@@ -95,20 +96,20 @@ class PublicationModal extends Component {
                     </div>
                 </Paper> 
 
-                {value === "Journal" && <PublicationJournal handleClose = {this.props.handleClose}/>}
+                {value === "Journal" && <UpdateJournal handleClose = {this.props.handleClose} currentJournal = {this.state}/>}
 
-                {value === "Conference" && <PublicationConference handleClose = {this.props.handleClose}/>}
+                {value === "Conference" && <UpdateConference handleClose = {this.props.handleClose} currentConference = {this.state}/>}
 
-                {value === "Book" && <PublicationBook handleClose = {this.props.handleClose}/>}
+                {value === "Book" && <UpdateBook handleClose = {this.props.handleClose} currentBook = {this.state}/>}
                 
             </div>
 
         )
     }
 }
-PublicationModal.propTypes = {
+UpdatePublication.propTypes = {
     handleClose: PropTypes.object
 }
 
 
-export default withStyles(styles)(PublicationModal);
+export default withStyles(styles)(UpdatePublication);

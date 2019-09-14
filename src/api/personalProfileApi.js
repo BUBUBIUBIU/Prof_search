@@ -131,15 +131,31 @@ export function addPublication(data){
 }
 
 /**
- * This method used for add publication
+ * This method used for update publication
  * Post method is implemented
  *
- * @param {Object} data: detail in AddPublication ApI, request Body 
+ * @param {Object} data: detail in UpdatePublication ApI, request Body 
  * @return {Object} 
  */
 export function updatePublication(data){
     const configObj = {
         method: 'PUT',
+        data,
+    }
+    console.log(data);
+    return getDataFromServer(apiUrl.PUBlICATION, configObj);
+}
+
+/**
+ * This method used for deleting publication
+ * Post method is implemented
+ *
+ * @param {Object} data: detail in deletePublication ApI, request Body 
+ * @return {Object} 
+ */
+export function deletePublication(data){
+    const configObj = {
+        method: 'DELETE',
         data,
     }
     console.log(data);
@@ -243,4 +259,146 @@ export function deleteOtherMaterial(data){
     return getDataFromServer(apiUrl.OTHERMATERIAL, configObj);
 }
 
+/**
+ * This method used for add research interest
+ * Post method is implemented
+ *
+ * @param {Object} data: detail in addResearchInterest ApI, request Body 
+ * @return {Object} 
+ */
+export function addResearchInterest(data){
+    const configObj = {
+        method: 'POST',
+        data,
+    }
+    console.log(data);
+    return getDataFromServer(apiUrl.ResearchInterest, configObj);
+}
 
+/**
+ * This method used for update research interest
+ * Post method is implemented
+ *
+ * @param {Object} data: detail in UPdateResearchInterest ApI, request Body 
+ * @return {Object} 
+ */
+export function updateResearchInterest(data){
+    const configObj = {
+        method: 'PUT',
+        data,
+    }
+    console.log(data);
+    return getDataFromServer(apiUrl.ResearchInterest, configObj);
+}
+
+/**
+ * This method used for delte other material
+ * Delete method is implemented
+ *
+ * @param {Object} data: detail in AddAward ApI, request Body 
+ * @return {Object} 
+ */
+export function deleteResearchInterest(data){
+    const configObj = {
+        method: 'DELETE',
+        data,
+    }
+    console.log(data);
+    return getDataFromServer(apiUrl.ResearchInterest, configObj);
+}
+
+/**
+ * This method used for add research grant
+ * Post method is implemented
+ *
+ * @param {Object} data: detail in AddResearchGrant ApI, request Body 
+ * @return {Object} 
+ */
+export function addResearchGrant(data){
+    const configObj = {
+        method: 'POST',
+        data,
+    }
+    console.log(data);
+    return getDataFromServer(apiUrl.ResearchGrant, configObj);
+}
+
+/**
+ * This method used for update research grant
+ * Post method is implemented
+ *
+ * @param {Object} data: detail in UpdateResearchGrant ApI, request Body 
+ * @return {Object} 
+ */
+export function updateResearchGrant(data){
+    const configObj = {
+        method: 'Put',
+        data,
+    }
+    console.log(data);
+    return getDataFromServer(apiUrl.ResearchGrant, configObj);
+}
+
+/**
+ * This method used for delte research grant
+ * Delete method is implemented
+ *
+ * @param {Object} data: detail in AddResearchGrant ApI, request Body 
+ * @return {Object} 
+ */
+export function deleteResearchGrant(data){
+    const configObj = {
+        method: 'DELETE',
+        data,
+    }
+    console.log(data);
+    return getDataFromServer(apiUrl.ResearchGrant, configObj);
+}
+
+/**
+ * This method used for add ongoing project
+ * Post method is implemented
+ *
+ * @param {Object} data: detail in addOngoingProject ApI, request Body 
+ * @return {Object} 
+ */
+export function addOngoingProject(data){
+    const configObj = {
+        method: 'POST',
+        data,
+    }
+    console.log(data);
+    return getDataFromServer(apiUrl.OngoingProject, configObj);
+}
+
+/**
+ * This method used for update ongoing project
+ * Post method is implemented
+ *
+ * @param {Object} data: detail in UpdateOngoingProject ApI, request Body 
+ * @return {Object} 
+ */
+export function updateOngoingProject(data){
+    const configObj = {
+        method: 'Put',
+        data,
+    }
+    console.log(data);
+    return getDataFromServer(apiUrl.OngoingProject, configObj);
+}
+
+/**
+ * This method used for delete ongoing project
+ * Delete method is implemented
+ *
+ * @param {Object} data: detail in delete ongoing project ApI, request Body 
+ * @return {Object} 
+ */
+export function deleteOngoingProject(data){
+    const configObj = {
+        method: 'DELETE',
+        data,
+    }
+    console.log(data);
+    return getDataFromServer(apiUrl.OngoingProject, configObj);
+}

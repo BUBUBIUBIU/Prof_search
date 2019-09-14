@@ -2,6 +2,10 @@ import React, { Component } from 'react'
 import { Paper, Button, withStyles,ToolBar, Modal,FormControl,NativeSelect,InputBase  } from '@material-ui/core';
 import BootstrapStyleSearchBox from '../../../reusableComponents/BootstrapStyleSearchBox';
 import { addPublication } from '../../../../api/personalProfileApi';
+import SelectorOne from '../../../reusableComponents/textField/SelectorOne.jsx';
+
+//config
+import { years } from '../../../../config/years'
 
 const styles = theme => ({
     paper:{
@@ -20,47 +24,36 @@ class PublicationJournal extends Component {
         super(props);
         this.state = {
             expand: false,
-            title: '',
-            authors: '',
-            publicationDate: '',
-            journal: '',
-            volumn: '',
-            issue: '',
-            pages: '',
-            publisher: '',
-            url: '',
+            Title: '',
+            Authors: '',
+            PublicationDate: '',
+            PublicationName: '',
+            Volumn: '',
+            Issue: '',
+            Pages: '',
+            Publisher: '',
+            Url: '',
         };
     }
-
-    // "Type":"Journal",
-    // "Title":"title",
-    // "PublicationDate":"date",     `optional`
-    // "PublicationName":"string",     `optional`
-    // "Volumn":"string",     `optional`
-    // "Issue":"string",     `optional`
-    // "Pages":"string",     `optional`
-    // "Publisher":"string",     `optional`
-    // "Url": "url",     `optional`
-    // "Authors": "Parker"
 
     handleSubmit = () => {
 
         //Check all requirement
-        if (this.state.authors.replace(/(^s*)|(s*$)/g, "").length !== 0
-            && this.state.title.replace(/(^s*)|(s*$)/g, "").length !== 0
-            && this.state.url !== NaN) {
-
+        if (
+            this.state.Title.replace(/(^\s*)|(\s*$)/g, "").length !== 0
+            && this.state.Authors.replace(/(^\s*)|(\s*$)/g, "").length !== 0
+            ) {
             const data = {
                 Type: "Journal",
-                Title: this.state.title,
-                PublicationDate: null,
-                PublicationName: "string",
-                Volumn: this.state.volumn,
-                Issue: this.state.issue,
-                Pages: this.state.pages,
-                Publisher: this.state.publisher,
-                Url: this.state.url,
-                Authors: this.state.authors
+                Title: this.state.Title,
+                Authors: this.state.Authors,
+                PublicationYear: parseInt(this.state.PublicationDate),
+                PublicationName: this.state.PublicationName,
+                Volumn: this.state.Volumn,
+                Issue: this.state.Issue,
+                Pages: this.state.Pages,
+                Publisher: this.state.Publisher,
+                Url: this.state.Url
             }
 
             console.log(data)
@@ -95,51 +88,54 @@ class PublicationJournal extends Component {
                     <BootstrapStyleSearchBox
                         label = "Title"
                         placeHolder = "Publication Name"
-                        onChangeInput={this.handleChange("title")}
+                        onChangeInput={this.handleChange("Title")}
                         compusory = {true}
                     />
 
                     <BootstrapStyleSearchBox
                         label = "Authors"
                         placeHolder = "EX: John"
-                        onChangeInput={this.handleChange("authors")}
+                        onChangeInput={this.handleChange("Authors")}
                         compusory = {true}
                     />
 
-                    <BootstrapStyleSearchBox
-                        label = "Publication date"
-                        onChangeInput={this.handleChange("publicationDate")}
-                        placeHolder = "EX: 2013-3"
+                    <SelectorOne
+                        style={{ flexGrow: 1 }}
+                        label="Publication Year"
+                        items={years}
+                        onChangeSelect={this.handleChange("PublicationDate")}
+                        value = {this.state.PublicationDate}
                     />
 
+                    {/* ? */}
                     <BootstrapStyleSearchBox
                         label = "Journal"
-                        onChangeInput={this.handleChange("journal")}
+                        onChangeInput={this.handleChange("PublicationName")}
                     />
 
                     <BootstrapStyleSearchBox
                         label = "Volumn"
-                        onChangeInput={this.handleChange("volumn")}
+                        onChangeInput={this.handleChange("Volumn")}
                     />
 
                     <BootstrapStyleSearchBox
                         label = "Issue"
-                        onChangeInput={this.handleChange("issue")}
+                        onChangeInput={this.handleChange("Issue")}
                     />
 
                     <BootstrapStyleSearchBox
                         label = "Pages"
-                        onChangeInput={this.handleChange("pages")}
+                        onChangeInput={this.handleChange("Pages")}
                     />
 
                     <BootstrapStyleSearchBox
                         label = "Publisher"
-                        onChangeInput={this.handleChange("publisher")}
+                        onChangeInput={this.handleChange("Publisher")}
                     />
 
                     <BootstrapStyleSearchBox
                         label = "URL"
-                        onChangeInput={this.handleChange("url")}
+                        onChangeInput={this.handleChange("Url")}
                     />
 
                     <Button style = {{color: 'red'}}>Add file</Button>

@@ -1,7 +1,7 @@
 /* Copyright (C) Profware Pty. Ltd. - All Rights Reserved
  * Unauthorized copying of this file, via any medium is strictly prohibited
  * Proprietary and confidential
- * Written by [Chenyang Lu], [date:20th Aug 2019]
+ * Written by [Shaochuan Luo], [date:31th Aug 2019]
  */
 
 import React, { Component } from 'react'
@@ -13,8 +13,8 @@ import { withStyles, Modal, } from '@material-ui/core';
 //Ui
 
 import CardHeader from '../CardHeader'
-import EducationModal from './EducationModal'
-import EducationDetail from './EducationDetail'
+import ResearchInterestDetail from './ResearchInterestDetail'
+import ResearchInterestModal from './ResearchInterestModal'
 
 
 
@@ -78,16 +78,15 @@ const styles = theme => ({
 });
 
 
-class EducationPaper extends Component {
+class researchInterestPaper extends Component {
   constructor(props) {
     super(props);
     this.state = {
       expand: false,
-      currentEducations: this.props.educations,
-      who: true
+      // currentEducations: this.props.educations
     };
-    console.log(this.props.educations)
-    console.log(this.state.currentEducations)
+    // console.log(this.props.educations)
+    // console.log(this.state.currentEducations)
   }
 
   componentDidUpdate(){
@@ -98,54 +97,43 @@ class EducationPaper extends Component {
     }
   }
 
-
   handleOpen = () => {
     this.setState({ open: true });
   };
 
   handleClose = () => {
     this.setState({ open: false });
-    this.props.UpdateFile();
+    // this.props.UpdateFile();
   };
 
-
   render() {
-    const { currentEducations } = this.state;
-    const { who } = this.state
-    console.log(currentEducations)
+    // const { currentEducations } = this.state;
+    // console.log(currentEducations)
     return (
       <div>
-        {
-          who === false && <CardHeader title={"Education"}/>
-        }
-        {
-          who && <CardHeader title={"Education"} handleOpen={this.handleOpen} isCompulsory={true} buttonName={"Add Degree"} />
-        }
+        <CardHeader title={"Research Interest"} handleOpen={this.handleOpen} isCompulsory={false} buttonName={"Add Interest"} />
         
-        {currentEducations &&
-          <EducationDetail educationExperience={currentEducations} UpdateFile = {this.props.UpdateFile}/>
-        }
+        {/* <ResearchInterestDetail educationExperience={currentEducations} UpdateFile = {this.props.UpdateFile}/> */}
+        
         <Modal
           aria-labelledby="simple-modal-title"
           aria-describedby="simple-modal-description"
           open={this.state.open}
           onClose={this.handleClose}
         >
-          <EducationModal handleClose={this.handleClose} />
+          <ResearchInterestModal handleClose={this.handleClose} />
         </Modal>
       </div>
 
     )
   }
-
 }
 
 
-EducationPaper.propTypes = {
-  educations: PropTypes.object,
-  who: PropTypes.string
+researchInterestPaper.propTypes = {
+  educations: PropTypes.object
 };
 
 
 
-export default withStyles(styles)(EducationPaper);
+export default withStyles(styles)(researchInterestPaper);

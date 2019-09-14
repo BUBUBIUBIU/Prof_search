@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types';
 import { Paper, Button, withStyles,ToolBar, Modal,FormControl,NativeSelect,InputBase  } from '@material-ui/core';
 import BootstrapStyleSearchBox from '../../../reusableComponents/BootstrapStyleSearchBox';
-import { addPublication } from '../../../../api/personalProfileApi';
+import { updatePublication, deletePublication } from '../../../../api/personalProfileApi';
 import SelectorOne from '../../../reusableComponents/textField/SelectorOne.jsx';
 
 //config
 import { years } from '../../../../config/years'
+import ConfirmationDialog from '../../../reusableComponents/Dialog/ConfirmationDialog'
 
 const styles = theme => ({
     paper:{
@@ -19,21 +21,10 @@ const styles = theme => ({
     },
 });
 
-class PublicationConference extends Component {
+class PublicationBook extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            expand: false,
-            Title: '',
-            Authors: '',
-            PublicationDate: '',
-            PublicationName: '',
-            Conference: '',
-            Volumn: '',
-            Issue: '',
-            Pages: '',
-            Url: '',
-        };
+        this.state = this.props.currentBook;
     }
 
     handleSubmit = () => {
@@ -43,22 +34,21 @@ class PublicationConference extends Component {
             this.state.Title.replace(/(^s*)|(s*$)/g, "").length !== 0
             && this.state.Authors.replace(/(^s*)|(s*$)/g, "").length !== 0
             ) {
+
             const data = {
-                Type: "Conference",
+                ID: this.state.ID,
+                Type: "Book",
                 Title: this.state.Title,
-                Authors: this.state.Authors,
                 PublicationYear: parseInt(this.state.PublicationDate),
-                PublicationName: this.state.PublicationName,
                 Volumn: this.state.Volumn,
-                Issue: this.state.Issue,
                 Pages: this.state.Pages,
-                Url: this.state.Url
+                Url: this.state.Url,
+                Authors: this.state.Authors,
             }
 
             console.log(data)
             const temp = this
-
-            addPublication(data)
+            updatePublication(data)
                 .then(function (response) {
                     temp.props.handleClose()
                 }, function (err) {
@@ -71,24 +61,52 @@ class PublicationConference extends Component {
         }
     }
 
-    handleChange = field => event => {
-        this.setState({ [field]: event.target.value })
+    handleDialogOpen= () => {
+        this.setState({ModalOpen:true})
     }
 
-    handleCheck = (event) => {
-        this.setState({ currentWorking: event.target.checked })
+    handleDialogClose = () =>{
+        this.setState({ModalOpen:false})
+    }
+
+    handleAgreeAction = () => {
+        this.handleDialogClose()
+        this.handleDelete()
+    }
+
+    handleDelete = () => {
+        const data = {
+            ID: this.state.ID
+        }
+        const temp = this
+
+        deletePublication(data)
+        .then(function (response) {
+            temp.props.handleClose()
+        }, function (err) {
+            alert(err.message);
+            console.log(err);
+        })
+
+    }
+
+    // Old function
+    handleChange = field => event => {
+        this.setState({ [field]: event.target.value })
     }
 
     render(){
         const {classes} = this.props
         return(
+            <div>
             <Paper className ={classes.paper} style = {{ height:500, overflowY: "scroll"}}>
-                
+                    
                     <BootstrapStyleSearchBox
                         label = "Title"
                         placeHolder = "Publication Name"
                         onChangeInput={this.handleChange("Title")}
                         compusory = {true}
+                        value = {this.state.Title}
                     />
 
                     <BootstrapStyleSearchBox
@@ -96,6 +114,7 @@ class PublicationConference extends Component {
                         placeHolder = "EX: John"
                         onChangeInput={this.handleChange("Authors")}
                         compusory = {true}
+                        value = {this.state.Authors}
                     />
 
                     <SelectorOne
@@ -107,38 +126,52 @@ class PublicationConference extends Component {
                     />
 
                     <BootstrapStyleSearchBox
-                        label = "Conference"
-                        onChangeInput={this.handleChange("Conference")}
-                    />
-
-                    <BootstrapStyleSearchBox
                         label = "Volumn"
-                        onChangeInput={this.handleChange("volumn")}
-                    />
-
-                    <BootstrapStyleSearchBox
-                        label = "Issue"
-                        onChangeInput={this.handleChange("Issue")}
+                        onChangeInput={this.handleChange("Volumn")}
+                        value = {this.state.Volumn}
                     />
 
                     <BootstrapStyleSearchBox
                         label = "Pages"
                         onChangeInput={this.handleChange("Pages")}
+                        value = {this.state.Pages}
                     />
 
                     <BootstrapStyleSearchBox
                         label = "URL"
                         onChangeInput={this.handleChange("Url")}
+                        value = {this.state.Url}
                     />
 
                     <Button style = {{color: 'red'}}>Add file</Button>
                     <br/>
-                    <Button style= {{float: "right", marginBottom:"10px"}} onClick={this.handleSubmit} variant="contained" color="primary" size="small">
+
+                    <Button style= {{float: "right", marginBottom: "10px"}} onClick={this.handleSubmit} variant="contained" color="primary" size="small">
                         Save
                     </Button>
-                </Paper>
+
+                    <Button style= {{float: "right", margin: "0 10px 10px 0"}} onClick={this.handleDialogOpen} variant="contained" color="primary" size="small">
+                        Delete
+                    </Button>
+            </Paper>
+            
+            <ConfirmationDialog 
+                open = {this.state.ModalOpen}
+                handleAgreeAction = {this.handleAgreeAction}
+                handleClose = {this.handleDialogClose}
+                text = "Are you sure you want to delete this degree?"
+                header = "Notification"
+            />
+            </div>
+
         )
     }
 }
 
-export default withStyles(styles)(PublicationConference);
+PublicationBook.propTypes = {
+    handleClose: PropTypes.object
+}
+
+export default withStyles(styles)(PublicationBook);
+
+

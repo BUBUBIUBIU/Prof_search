@@ -80,6 +80,10 @@ const theme = createMuiTheme({
           subtitle1:{
               fontSize: 20,
           },
+          h5: {
+            fontSize: 18,
+            fontWeight: 600
+        },
           subtitle2:{
               fontSize: 12,
           },

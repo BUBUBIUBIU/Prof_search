@@ -2,7 +2,10 @@ import React, { Component } from 'react'
 import { Paper, Button, withStyles, ToolBar, Modal, FormControl, NativeSelect, InputBase } from '@material-ui/core';
 import BootstrapStyleSearchBox from '../../../reusableComponents/BootstrapStyleSearchBox';
 import { addPublication } from '../../../../api/personalProfileApi';
+import SelectorOne from '../../../reusableComponents/textField/SelectorOne.jsx';
 
+//config
+import { years } from '../../../../config/years'
 const styles = theme => ({
     paper: {
         ...theme.mixins.gutters(),
@@ -20,30 +23,30 @@ class PublicationBook extends Component {
         super(props);
         this.state = {
             expand: false,
-            title: '',
-            authors: '',
-            publicationDate: '',
-            volumn: '',
-            pages: '',
-            url: '',
+            Title: '',
+            Authors: '',
+            PublicationDate: '',
+            Volumn: '',
+            Pages: '',
+            Url: '',
         };
     }
 
     handleSubmit = () => {
 
         //Check all requirement
-        if (this.state.authors.replace(/(^s*)|(s*$)/g, "").length !== 0
-            && this.state.title.replace(/(^s*)|(s*$)/g, "").length !== 0
-            && this.state.url !== NaN) {
-
+        if (
+            this.state.Title.replace(/(^s*)|(s*$)/g, "").length !== 0
+            && this.state.Authors.replace(/(^s*)|(s*$)/g, "").length !== 0
+            ) {
             const data = {
                 Type: "Book",
-                Title: this.state.title,
-                PublicationDate: null,
-                Volumn: this.state.volumn,
-                Pages: this.state.pages,
-                Url: this.state.url,
-                Authors: this.state.authors,
+                Title: this.state.Title,
+                PublicationYear: parseInt(this.state.PublicationDate),
+                Volumn: this.state.Volumn,
+                Pages: this.state.Pages,
+                Url: this.state.Url,
+                Authors: this.state.Authors,
             }
 
             console.log(data)
@@ -77,36 +80,38 @@ class PublicationBook extends Component {
                 <BootstrapStyleSearchBox
                     label="Title"
                     placeHolder="Publication Name"
-                    onChangeInput={this.handleChange("title")}
+                    onChangeInput={this.handleChange("Title")}
                     compusory={true}
                 />
 
                 <BootstrapStyleSearchBox
                     label="Authors"
                     placeHolder="EX: John"
-                    onChangeInput={this.handleChange("authors")}
+                    onChangeInput={this.handleChange("Authors")}
                     compusory={true}
                 />
 
-                <BootstrapStyleSearchBox
-                    label="Publication date"
-                    placeHolder="EX: 2013-3"
-                    onChangeInput={this.handleChange("publicationDate")}
+                <SelectorOne
+                        style={{ flexGrow: 1 }}
+                        label="Publication Year"
+                        items={years}
+                        onChangeSelect={this.handleChange("PublicationDate")}
+                        value = {this.state.PublicationDate}
                 />
 
                 <BootstrapStyleSearchBox
                     label="Volumn"
-                    onChangeInput={this.handleChange("volumn")}
+                    onChangeInput={this.handleChange("Volumn")}
                 />
 
                 <BootstrapStyleSearchBox
                     label="Pages"
-                    onChangeInput={this.handleChange("pages")}
+                    onChangeInput={this.handleChange("Pages")}
                 />
 
                 <BootstrapStyleSearchBox
                     label="URL"
-                    onChangeInput={this.handleChange("url")}
+                    onChangeInput={this.handleChange("Url")}
                 />
 
                 <Button style={{ color: 'red' }}>Add file</Button>

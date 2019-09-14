@@ -8,8 +8,11 @@
 //Dependencies
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Paper,Typography, withStyles, List, ListItem, Divider,Grid,IconButton } from '@material-ui/core';
+import { Paper,Typography, withStyles, List, ListItem, Divider,Grid,IconButton, Modal } from '@material-ui/core';
 import { Edit } from '@material-ui/icons/';
+
+// UI
+import PublicationUpdateModal from './PublicationUpdateModal'
 
 const styles = theme => ({
     paper:{
@@ -29,24 +32,36 @@ const styles = theme => ({
 class EducationDetailComponent extends Component {
     constructor(props) {
         super(props);
-        this.state = {        
+        this.state = {
+            publication: this.props.publications,
+            publicationWaitingForUpdate:{},
+            index:0,        
         };
+    }
+
+    componentDidUpdate(){
+        if (this.props.publications !== this.state.publication) {
+          this.setState({
+            publication: this.props.publications,
+          })
+        }
     }
 
     openUpdateModal = index => event => {
         if (this.state.open !== true)
-            this.setState({ index,educationWaitingForUpdate:this.state.educationExperience[index], open: true});
+            this.setState({ index, publicationWaitingForUpdate: this.state.publication[index], open: true});
     }
 
     handleCloseModal= () => {
         this.setState({open: false})
+        this.props.UpdateFile()
     }
     
-    handleUpdate = (obj) =>{
-        let tempProfile =  this.state.educationExperience;
-        tempProfile[this.state.index] = obj;
-        this.setState({educationExperience: tempProfile})
-    }
+    // handleUpdate = (obj) =>{
+    //     let tempProfile =  this.state.educationExperience;
+    //     tempProfile[this.state.index] = obj;
+    //     this.setState({educationExperience: tempProfile})
+    // }
 
 
     render(){
@@ -60,8 +75,8 @@ class EducationDetailComponent extends Component {
                     <Grid item xs={11}>
 
                     <div style ={{margin:"10px"}}>
-                    <Typography variant ="h2">
-                        {publication.Title}
+                    <Typography variant ="h5">
+                    ({publication.PublicationYear}) {publication.Title}
                     </Typography>
                     </div>
 
@@ -73,11 +88,11 @@ class EducationDetailComponent extends Component {
                     </div>
 
                     <div style ={{margin:"10px"}}>
-                    {/* Describetion */}
-                    <Typography variant ="body2">
-                    {publication.Url}
-                    </Typography>
+                        <Typography variant ="body2">
+                            {publication.PublicationName && `${publication.PublicationName} `}{publication.Volumn && `(${publication.Volumn}) `}{publication.Pages && `${publication.Pages} `}{publication.Publisher && `${publication.Publisher} `}
+                        </Typography>
                     </div>
+                  
                     {publications.length -1 !== index && <Divider variant = "fullWidth"/>}
                     </Grid>
                     <Grid item xs={1}>
@@ -90,15 +105,26 @@ class EducationDetailComponent extends Component {
             </div>
         </ListItem>
         );
-        
 
         return(
-            <Paper className = {classes.paper} style ={{marginTop:"2px", padding:"20px 20px 20px 30px"}}>
-            {/* title */}
-            <List>
-                    {publicationList}
-            </List>
-            </Paper>
+            <div>
+                <Paper className = {classes.paper} style ={{marginTop:"2px", padding:"20px 20px 20px 30px"}}>
+                {/* title */}
+                    <List>
+                        {publicationList}
+                    </List>
+                </Paper>
+
+                <Modal
+                    aria-labelledby="simple-modal-title"
+                    aria-describedby="simple-modal-description"
+                    open={this.state.open}
+                    onClose={this.handleClose}
+                >
+                    <PublicationUpdateModal handleClose={this.handleCloseModal} currentPublications = {this.state.publicationWaitingForUpdate}/>
+                </Modal>
+            </div>
+            
         )
 
     }

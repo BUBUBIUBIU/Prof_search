@@ -11,7 +11,6 @@ import { Paper,Typography,Collapse, Button, withStyles,ToolBar, Modal,FormContro
 import Icon from '@material-ui/core/Icon';
 import { Plus, Close } from 'mdi-material-ui';
 
-
 //UI
 import BootstrapStyleSearchBox from '../../../reusableComponents/BootstrapStyleSearchBox'
 import  CardHeader from '../CardHeader'
@@ -102,7 +101,7 @@ class Publication extends Component {
             {/* Pop-up Modal */}
 
             {publication &&
-                <PublicationDetail publications = {publication}/>
+                <PublicationDetail publications = {publication} UpdateFile = {this.props.UpdateFile}/>
             }
 
             <Modal

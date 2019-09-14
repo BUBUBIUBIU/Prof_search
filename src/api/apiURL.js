@@ -17,4 +17,7 @@ export const EXPERIENCE  = '/api/student/company';
 export const PUBlICATION  = '/api/student/publication';
 export const AWARD  = '/api/student/award';
 export const OTHERMATERIAL  = '/api/student/material';
+export const ResearchInterest = 'api/';
+export const ResearchGrant  = 'api/';
+export const OngoingProject  = 'api/' 
 // export const 

@@ -19,56 +19,58 @@ const styles = theme => ({
     },
 });
 
-class PublicationConference extends Component {
+class availablePositionPhD extends Component {
     constructor(props) {
         super(props);
         this.state = {
             expand: false,
-            Title: '',
-            Authors: '',
-            PublicationDate: '',
-            PublicationName: '',
-            Conference: '',
-            Volumn: '',
-            Issue: '',
-            Pages: '',
-            Url: '',
+            // Title: '',
+            // Authors: '',
+            // PublicationDate: '',
+            // PublicationName: '',
+            // Volumn: '',
+            // Issue: '',
+            // Pages: '',
+            // Publisher: '',
+            // Url: '',
         };
     }
 
     handleSubmit = () => {
 
         //Check all requirement
-        if (
-            this.state.Title.replace(/(^s*)|(s*$)/g, "").length !== 0
-            && this.state.Authors.replace(/(^s*)|(s*$)/g, "").length !== 0
-            ) {
-            const data = {
-                Type: "Conference",
-                Title: this.state.Title,
-                Authors: this.state.Authors,
-                PublicationYear: parseInt(this.state.PublicationDate),
-                PublicationName: this.state.PublicationName,
-                Volumn: this.state.Volumn,
-                Issue: this.state.Issue,
-                Pages: this.state.Pages,
-                Url: this.state.Url
-            }
+        // if (
+        //     this.state.Title.replace(/(^\s*)|(\s*$)/g, "").length !== 0
+        //     && this.state.Authors.replace(/(^\s*)|(\s*$)/g, "").length !== 0
+        //     ) {
+            
 
-            console.log(data)
-            const temp = this
+        // } else {
+        //     alert("please fullfill all required files")
+        // }
 
-            addPublication(data)
-                .then(function (response) {
-                    temp.props.handleClose()
-                }, function (err) {
-                    alert(err.message);
-                    console.log(err);
-                })
-
-        } else {
-            alert("please fullfill all required files")
+        const data = {
+            Type: "PhD",
+            // Title: this.state.Title,
+            // Authors: this.state.Authors,
+            // PublicationYear: parseInt(this.state.PublicationDate),
+            // PublicationName: this.state.PublicationName,
+            // Volumn: this.state.Volumn,
+            // Issue: this.state.Issue,
+            // Pages: this.state.Pages,
+            // Publisher: this.state.Publisher,
+            // Url: this.state.Url
         }
+
+        console.log(data)
+        const temp = this
+        addPublication(data)
+            .then(function (response) {
+                temp.props.handleClose()
+            }, function (err) {
+                alert(err.message);
+                console.log(err);
+            })
     }
 
     handleChange = field => event => {
@@ -79,11 +81,12 @@ class PublicationConference extends Component {
         this.setState({ currentWorking: event.target.checked })
     }
 
+
     render(){
         const {classes} = this.props
         return(
             <Paper className ={classes.paper} style = {{ height:500, overflowY: "scroll"}}>
-                
+                    
                     <BootstrapStyleSearchBox
                         label = "Title"
                         placeHolder = "Publication Name"
@@ -106,14 +109,15 @@ class PublicationConference extends Component {
                         value = {this.state.PublicationDate}
                     />
 
+                    {/* ? */}
                     <BootstrapStyleSearchBox
-                        label = "Conference"
-                        onChangeInput={this.handleChange("Conference")}
+                        label = "Journal"
+                        onChangeInput={this.handleChange("PublicationName")}
                     />
 
                     <BootstrapStyleSearchBox
                         label = "Volumn"
-                        onChangeInput={this.handleChange("volumn")}
+                        onChangeInput={this.handleChange("Volumn")}
                     />
 
                     <BootstrapStyleSearchBox
@@ -124,6 +128,11 @@ class PublicationConference extends Component {
                     <BootstrapStyleSearchBox
                         label = "Pages"
                         onChangeInput={this.handleChange("Pages")}
+                    />
+
+                    <BootstrapStyleSearchBox
+                        label = "Publisher"
+                        onChangeInput={this.handleChange("Publisher")}
                     />
 
                     <BootstrapStyleSearchBox
@@ -141,4 +150,6 @@ class PublicationConference extends Component {
     }
 }
 
-export default withStyles(styles)(PublicationConference);
+export default withStyles(styles)(availablePositionPhD);
+
+
