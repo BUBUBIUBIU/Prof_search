@@ -70,7 +70,7 @@ class OtherMaterial extends Component {
   
         return(
             <div>
-            <CardHeader title = {"Other Material"} handleOpen ={this.handleOpen} isCompulsory= {false} buttonName = {"Add Material"}/>
+            <CardHeader title = {"Other Material"} handleOpen ={this.handleOpen} isCompulsory= {false} buttonName = {"Add Material"} editable = {this.props.editable}/>
             
             {otherMaterials &&
                 <OtherMaterialDetails otherMaterials = {otherMaterials} UpdateFile = {this.props.UpdateFile}/>

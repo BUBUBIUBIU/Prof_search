@@ -1,5 +1,4 @@
 import axios from 'axios';
-import cookie from 'react-cookies';
 import * as apiUrl from './apiURL';
 
 const key = 'keepOnlyOne';
@@ -32,9 +31,9 @@ export function getDataFromServer(apiUrl, configObj) {
             data: data,
             timeout: timeout,
             headers: {
-                'Content-Type': 'application/json',
-                'token': cookie.load("token"),
-                'id':cookie.load("userId")
+                // 'Content-Type': 'application/json',
+                // 'token': cookie.load("token"),
+                // 'id':cookie.load("userId")
             }
         }).then(function (response) {
             if(response){

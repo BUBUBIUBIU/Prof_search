@@ -10,7 +10,7 @@ class NotFoundPage extends Component {
       const pStyle = { color: 'red' };
       return (
         <div>
-          <p style={pStyle}>Cannot find the web page.</p>
+          <p style={pStyle}>Cannot find the web page. Please contact professor wang through https://github.com/wcy16</p>
         </div>
       );
     }

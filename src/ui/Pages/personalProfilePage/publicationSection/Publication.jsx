@@ -97,7 +97,7 @@ class Publication extends Component {
         const {publication} = this.state
         return(
             <div>
-            <CardHeader title = {"Publication"} handleOpen ={this.handleOpen} isCompulsory= {false} buttonName = {"Add Publication"}/>
+            <CardHeader title = {"Publication"} handleOpen ={this.handleOpen} isCompulsory= {false} buttonName = {"Add Publication"} editable = {this.props.editable}/>
             {/* Pop-up Modal */}
 
             {publication &&

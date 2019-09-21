@@ -6,13 +6,11 @@
 
 //redundancy
 import React, { Component } from 'react'
-import cookie from 'react-cookies';
 import PropTypes from 'prop-types';
 
 //@materail design
-import { Paper,Divider,AppBar,Card,Tab, Tabs, CardContent, Typography,Collapse, Button, withStyles,ToolBar, Modal,FormControl,NativeSelect,InputBase  } from '@material-ui/core';
-import Icon from '@material-ui/core/Icon';
-import { Plus, Close, ConsoleNetwork } from 'mdi-material-ui';
+import { Paper,Tab, Tabs, Button, withStyles } from '@material-ui/core';
+
 
 //Ui
 import BootstrapStyleSearchBox from '../../reusableComponents/BootstrapStyleSearchBox'
@@ -46,11 +44,8 @@ class LoginPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            value:"login",
-            email: "",
-            password: "",
+            value: this.props.authValue
         };
-        this.emailInput = this.emailInput.bind(this);
     }
 
     componentDidUpdate(){
@@ -59,15 +54,9 @@ class LoginPage extends Component {
         }
     }
 
-    handleOpen = () => {
-        this.setState({ open: true });
-      };
+
     
-      handleClose = () => {
-        this.setState({ open: false });
-      };
-    
-      emailInput(text){
+      emailInput = (text) => {
           console.log(text)
       }
 
@@ -81,23 +70,23 @@ class LoginPage extends Component {
                 email:this.state.email,
                 password: this.state.password
             }
-            const loginSuccessful =(name) => this.props.loginSuccess(name);
 
-            const temp = this;
+            const that = this;
             //method from login API, if succcusss, then store cookie, otherwise don't  
             Login(data)
                 .then(function(response){
-                    cookie.save('userId', response.content.id);
-                    cookie.save('token', response.content.token);
                     let name = response.content.FirstName + response.content.LastName
-                    loginSuccessful(name);
-                    temp.setState({value:"home"})
-                    
+                    that.props.loginSuccess(name,response.content.Identity); //Redux action
+                    // cookie.save('userId', response.content.id);
+                    // cookie.save('token', response.content.token);
+                    // cookie.save('identity', response.content.Identity)
+                    // that.setState({value:"home"})
                 },function(err){
                     alert("login failed")
                     console.log(err);
-                })
-                this.handleClose();
+                });
+            this.setState({value:"home"})
+            
           }else{
             alert("email address or password incorrect")
           }
@@ -120,15 +109,16 @@ class LoginPage extends Component {
 
 
     render(){
-        if (this.state.value=="signup") {
+        console.log(this.state.value)
+        if (this.state.value === "signup") {
             return <Redirect to='../signup' />
           }
 
-          if (this.state.value=="home") {
-            return <Redirect to ="/"/>
-          }
+        if(this.state.value === "home"){
+            return <Redirect to = '/'/>
+        }
 
-        const {classes, profile} = this.props
+        const {classes} = this.props
         const {value} = this.state
         return(
             <div>
@@ -173,7 +163,7 @@ class LoginPage extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-    loginSuccess: (name)=> dispatch(loginSuccess(name)),
+    loginSuccess: (name, identity)=> dispatch(loginSuccess(name,identity)),
     dispatch
 });
 

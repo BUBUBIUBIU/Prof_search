@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 
 //UI
-import HeadNavigator from '../../reusableComponents/HeadNavigator.jsx'
+import NewHeadNavigator from '../../reusableComponents/NewHeadNavigator '
 import SearchExpertsSection from './SearchExpertsSection'
 
 class SearchExpertPage extends Component {
@@ -15,7 +15,7 @@ class SearchExpertPage extends Component {
     render(){
         return(
             <div>
-            <HeadNavigator tabValue = "SearchExpert"/>
+            <NewHeadNavigator tabValue = "SearchExpert"/>
             <SearchExpertsSection />
             </div>
 

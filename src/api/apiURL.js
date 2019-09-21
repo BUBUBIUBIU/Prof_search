@@ -1,15 +1,14 @@
 // import apiIP from './apiIp';
 import {publicIp} from './apiIp';
 // 登录
-// export const LOGIN = `${apiIP}/index/captcha`;
 
 //search experts by expertise or name
 // export const SEARCHEXPERTS = `${publicIp}/api/search/experts`;
 export const SEARCHEXPERTS = '/api/search/experts';
 export const SIGNUP = '/api/student/signup';
-export const LOGIN ='/api/student/signin';
+export const LOGIN ='/api/signin';
 export const SIGNOUT = '/api/student/signout'
-export const CHECKLOGIN ='/api/student/checksignin';
+export const CHECKLOGIN ='/api/checksignin';
 export const UNIVERSITY ='/api/student/university';
 export const PROFILE ='/api/student/profile';
 export const COMPANY = './api/student/company'
@@ -22,4 +21,10 @@ export const ResearchGrant  = 'api/';
 export const OngoingProject  = 'api/' 
 export const AVATAR = 'api/student/avatar'
 export const CV = 'api/student/cv'
-// export const 
+
+
+// PROFESSOR API
+export const EXPERT_PROFILE = '/api/expert/profile'
+export const EXPERT_CHECKLOGIN ='/api/expert/checksignin';
+export const EXPERT_SIGNOUT ='/api/expert/signout';
+

@@ -7,7 +7,6 @@ import {rootReducer} from '../../redux/reducer/index.js';
 
 //UI
 import RenderRouter from './renderRouter'
-import {loginSuccess} from '../../redux/actions/index'
 
 
 

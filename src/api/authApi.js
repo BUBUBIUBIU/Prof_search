@@ -1,5 +1,4 @@
 import axios from 'axios';
-import cookie from 'react-cookies';
 import * as apiUrl from './apiURL';
 import {getDataFromServer} from './api';
 
@@ -22,7 +21,7 @@ export function signUp(data){
         .then(function(data){
             alert("Sign-up successful") 
         },function(err){
-            alert(err.data.message) 
+            alert(err.message) 
             console.log(err)
         })
 }
@@ -68,10 +67,14 @@ export function LoginCheck(){
  * @param {Object} data:{"email": String, "password": String}
  * @return {Object} check Signup Api
  */
-export function Logout(){
+export function Logout(identity){
     const configObj = {
         method: 'POST'
     }
+    let api = (identity.toLowerCase() === 'student'? apiUrl.SIGNOUT : apiUrl.EXPERT_SIGNOUT)
+    console.log("Loginout Api is " + api)
 
-    return getDataFromServer(apiUrl.SIGNOUT, configObj);
+    return getDataFromServer(api, configObj);
 }
+
+

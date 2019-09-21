@@ -16,7 +16,7 @@ const styles = theme =>({
     root:{
         paddingLeft:100,
         paddingRight:100,
-        paddingTop:10,
+        paddingTop:30,
         paddingBottom: 20,
         background:theme.palette.common.white,
         margin:0,

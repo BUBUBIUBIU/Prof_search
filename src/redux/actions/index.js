@@ -37,13 +37,15 @@ export const recieveScholorInformation = (scholarProfileList) => ({
     language:language
   })
 
-  export const loginSuccess = (name) => ({
+  export const loginSuccess = (name, identity) => ({
     type:'LOGIN_SUCCESS',
     name:name,
+    identity: identity
   })
 
   export const loginFail = () => ({
     type:'LOGIN_Fail',
+    
   })
 
   export const logout = () => ({
@@ -51,12 +53,5 @@ export const recieveScholorInformation = (scholarProfileList) => ({
   })
 
 
-  // export const searchPhd_ScholarInformationClear = ()  => ({
-  //   type: 'SEARCH_PHD_RECEIVE_SCHOLAR_INFORMATION',
-  //   filter
-  // })
-  // export const searchResearchProject_ScholarInformationClear = ()  => ({
-  //   type: 'SEARCH_Research_PROJECT_RECEIVE_SCHOLAR_INFORMATION',
-  //   filter
-  // })
+
   

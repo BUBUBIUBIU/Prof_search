@@ -120,7 +120,7 @@ class WorkAndProjectExperience extends Component {
     const {workAndExperience} = this.state
     return (
       <div>
-        <CardHeader title={"Work/Project Experience"} handleOpen={this.handleOpen} isCompulsory={false} buttonName={"Add Experience"} />
+        <CardHeader title={"Work/Project Experience"} handleOpen={this.handleOpen} isCompulsory={false} buttonName={"Add Experience"} editable = {this.props.editable}/>
 
         {workAndExperience &&
           <WorkProjectExperienceDetail 

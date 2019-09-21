@@ -77,7 +77,8 @@ class SearchExpertsSection extends Component{
     // }
 
     handleChange = name => event => {
-        this.setState({ [name]: event.target.checked });
+        this.setState({ [name]: event.target.value });
+        console.log(this.state.expertExperties)
       };
     
 

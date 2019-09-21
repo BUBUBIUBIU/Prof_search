@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { Route, Link, Switch, BrowserRouter} from 'react-router-dom';
+import { Route, Link, Switch, BrowserRouter,Redirect} from 'react-router-dom';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import createBrowserHistory from 'history/createBrowserHistory';
-
 
 //Redux Dependencies
 import { connect } from 'react-redux'
@@ -106,8 +105,13 @@ const theme = createMuiTheme({
       },
       MuiButton: {
           root: {
-            fontFamily: 'Montserrat'
+            fontFamily: 'Montserrat',
+            textTransform: "capitalize",
+            // boxShadow: "none"
           },
+          contained:{
+            boxShadow: "none"
+          }
       },
       MuiFormLabel: {
           root: {
@@ -119,6 +123,8 @@ const theme = createMuiTheme({
 });
 
 addLocaleData([...en, ...zh]);
+
+
 
 // const store = createStore(rootReducer);
 
@@ -135,17 +141,22 @@ class RenderRouter extends Component {
 
   componentDidMount(){
     // Check Login status
-    const loginSuccessful =(name) => this.props.loginSuccess(name);
+    const loginSuccessful = (name, identity) => this.props.loginSuccess(name,identity);
+
+    console.log("Check login")
     LoginCheck()
       .then(function(response){
         let name = response.content.FirstName +" " + response.content.LastName;
-        loginSuccessful(name);
+        console.log("Check log in ")
+        console.log(response)
+        loginSuccessful(name, response.content.Identity);
       },function(err){
         console.log("not logged in")
       }
       )
-
+      
   }
+
 
   componentDidUpdate(){
     console.log("app re-render")
@@ -154,7 +165,8 @@ class RenderRouter extends Component {
   render(){
       // from redux, language has two value, 'en' or 'zh'
         const {
-          language
+          language,
+          userInfo
         } = this.props; 
 
         let locale;
@@ -166,6 +178,16 @@ class RenderRouter extends Component {
           locale = 'en';
           messages = en_US;
         }
+      
+
+      // For private routes, if not logged in, navigate to login page
+      const PrivateRoute = ({ component: Component, ...rest }) => (
+          <Route {...rest} render={(props) => (
+            userInfo.status === 1
+              ? <Component {...props} />
+              : <Redirect to='/login' />
+          )} />
+        )
 
     return(
       <IntlProvider locale={locale} messages={messages}>
@@ -175,17 +197,20 @@ class RenderRouter extends Component {
               <Switch>
                 <Route exact path="/" component={NewSearchPage} />
                 <Route exact path="/search" component={NewSearchPage} />
-                {/* <Route exact path="/SearchPhdPosition" component={SearchPhdPage} />
-                <Route exact path="/SearchResearchProjects" component={SearchResearchProjectsPage} /> */}
                 <Route exact path="/search/searchResult" component={AdvancedSearchExpertPage} />
-                {/* <Route exact path="/SearchPhdPosition/advancedSearchPhd" component={AdvancedSearchPhdPage} /> */}
-                <Route exact path="/personalProfile" component={PersonalProfilePage} />
-                <Route exact path="/contactList" component={ContactListPage} />
-                <Route exact path="/message" component={MessagePage} />
                 <Route exact path="/login" component={ props => <LoginPage authValue = "login"/>} />
                 <Route exact path="/signup" component={ props => <SignUpPage authValue = "signup"/>} />
-                {/* <Route exact path="/authsingle" component={AuthSinglePage} /> */}
+                <Route exact path="/personalProfile" component= { props => <PersonalProfilePage identity = {userInfo.identity} editable = {true}/>} />
+                <Route exact path="/contactList" component={ContactListPage} />
                 <Route path="*" component={NotFoundPage} />
+
+                
+                {/* ----------------Pages below are reserved for furture use -------------------------------*/}
+                {/* <Route exact path="/message" component={MessagePage} /> */}
+                {/* <Route exact path="/SearchPhdPosition/advancedSearchPhd" component={AdvancedSearchPhdPage} /> */}
+                {/* <Route exact path="/SearchPhdPosition" component={SearchPhdPage} />
+                <Route exact path="/SearchResearchProjects" component={SearchResearchProjectsPage} /> */}
+                {/* <Route exact path="/authsingle" component={AuthSinglePage} /> */}
               </Switch>
             </BrowserRouter>
           {/* </Provider> */}
@@ -199,10 +224,12 @@ class RenderRouter extends Component {
 
 const mapStateToProps = state => ({
   language: state.language,
+  userInfo: state.userInfo
+
 })
 
 const mapDispatchToProps = dispatch => ({
-  loginSuccess: (name)=> dispatch(loginSuccess(name)),
+  loginSuccess: (name, identity)=> dispatch(loginSuccess(name,identity)),
   dispatch
 });
 

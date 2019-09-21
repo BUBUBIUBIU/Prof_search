@@ -12,17 +12,21 @@ import MessageModal from './MessageModal'
 
 const tempProfiles = [
     {
-        id:0,
+        id:0 ,
         name:"Rui Zhang",
         title:"Professor",
         faculty:"Faulty of Engineering and IT",
-        University:"University of Melbourne"
+        University:"University of Melbourne",
+        status:"pending",
+        applicationMessage:"Hello, Rui, this is.....",
     },{
         id:0,
         name:"Trevor Cohn",
         title:"Associate Professor",
         faculty:"Faulty of Engineering and IT",
-        University:"University of Melbourne"
+        University:"University of Melbourne",
+        status:"accept",
+        applicationMessage:"Hello, Rui, this is.....",
     },{
         id:0,
         name:"Egeman Tanin",

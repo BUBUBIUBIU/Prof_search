@@ -59,11 +59,13 @@ class PersonalProfilePage extends Component {
     }
 
     componentDidMount(){
-        const temp = this;
+        console.log(this.props.identity)
+        console.log(this.props.editable)
 
-        getProfile()
+        const that = this;
+        getProfile("student")
         .then(function(response){
-            temp.setState({profile: response.content})
+            that.setState({profile: response.content})
             console.log(response.content)
         },function(err){
 
@@ -72,13 +74,11 @@ class PersonalProfilePage extends Component {
 
     UpdateFile= () => {
         const temp = this;
-
-        getProfile()
+        getProfile(this.props.identity)
         .then(function(response){
             temp.setState({profile: response.content})
             console.log(response.content)
         },function(err){
-
         })
     }
 
@@ -136,11 +136,11 @@ class PersonalProfilePage extends Component {
                                 <Typography variant="h1">
                                     {profile.FirstName} {" "} {profile.LastName}
                                 </Typography>
-                                <Typography variant="body1">
-                                    <p style={{fontWeight:500}}> Student</p>
+                                <Typography variant="body1" style={{fontWeight:500}}>>
+                                    Student
                                 </Typography>
                             </div> 
-
+                            {this.props.editable &&
                             <div style= {{flex:"0 1 auto", maxWidth:500, padding: 30, display:"flex", flexDirection:"column", justifyContent:"center"}}>
                                 <Typography style= {{margin:"auto", fontWeight:500, fontSize:18,color: "#9b9b9b"}}>
                                     Completeness
@@ -152,6 +152,7 @@ class PersonalProfilePage extends Component {
                                     Detail <ArrowRight/>
                                 </Button>
                             </div>
+                            }
                         </div>
 
                         <div style = {{paddingLeft: 10}}>
@@ -165,41 +166,50 @@ class PersonalProfilePage extends Component {
                         </div>
                     </Paper>
 
-                    <ResearchInterest/>
-                    <ResearchGrant/>
-                    <OngoingProject/>
-                    <AvailablePosition/>
-
+                    {this.props.identity === 'expert' &&  <ResearchInterest/> }
+                    {this.props.identity === 'expert' &&   <ResearchGrant/> }
+                    {this.props.identity === 'expert' &&   <OngoingProject/> }
+                    {this.props.identity === 'expert' &&   <AvailablePosition/> }
+                   
+                    
                     <EducationPaper 
                         educations = {profile.Universities}
                         UpdateFile = {this.UpdateFile}
+                        editable = {this.props.editable}
                     />
                     
                     <WorkAndProjectExperience 
                         workAndExp = {profile.Companies}
                         UpdateFile = {this.UpdateFile}
+                        editable = {this.props.editable}
                     />
                     
+                    {this.props.identity === 'student' &&
                     <CV
                     id = "cv"
                     UpdateFile = {this.UpdateFile}
                     CV = {profile.CV}
                     CVName = {profile.CVName}
+                    editable = {this.props.editable}
                     />
+                    }
 
                     <Award 
                         awards = {profile.Awards}
                         UpdateFile = {this.UpdateFile}
+                        editable = {this.props.editable}
                     />
 
                     <Publication 
                         publications = {profile.Publications}
                         UpdateFile = {this.UpdateFile}
+                        editable = {this.props.editable}
                     />
 
                     <OtherMaterial 
                         otherMaterial = {profile.Materials}
                         UpdateFile = {this.UpdateFile}
+                        editable = {this.props.editable}
                     />
                 </div>
 
