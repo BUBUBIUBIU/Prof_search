@@ -114,7 +114,7 @@ class EducationPaper extends Component {
     const { who } = this.state
     console.log(currentEducations)
     return (
-      <div>
+      <div className = 'section-education'>
         {
           who === false && <CardHeader title={"Education"}/>
         }
