@@ -1,5 +1,4 @@
 import axios from 'axios';
-import cookie from 'react-cookies';
 import * as apiUrl from './apiURL';
 import {getDataFromServer} from './api';
 
@@ -11,11 +10,13 @@ import {getDataFromServer} from './api';
  * @param {Object} data: detail in profile ApI
  * @return {Object} 
  */
-export function getProfile(){
+export function getProfile(identity){
     const configObj = {
         method: 'get'
     }
-    return getDataFromServer(apiUrl.PROFILE, configObj);
+    var api = (identity.toLowerCase() === 'student'?  apiUrl.PROFILE : apiUrl.EXPERT_PROFILE)
+    // PROFESSORPROFILE
+    return getDataFromServer(api, configObj);
 }
 
 
@@ -419,6 +420,7 @@ export function deleteOngoingProject(data){
     console.log(data);
     return getDataFromServer(apiUrl.OngoingProject, configObj);
 }
+
 /**
  * This method used for uploading CV
  * post method is implemented

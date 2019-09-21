@@ -77,7 +77,7 @@ class ThirdHeader extends Component {
                     PROFSEARCH 
                     </Typography>
 
-                    <Button variant="outlined" color="secondary" className={classes.button} size="small" 
+                    {/* <Button variant="outlined" color="secondary" className={classes.button} size="small" 
                     aria-owns={anchorEl ? 'simple-menu' : undefined} aria-haspopup="true"
                     onClick={this.handleLanguageButtonClick}>
                     <FormattedMessage id="navigator_changeLangugae" defaultMessage="English" />
@@ -85,7 +85,7 @@ class ThirdHeader extends Component {
                   <Menu id="simple-menu" color="secondary" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={this.handleClose}>
                     <MenuItem onClick={this.setEnglish}>English</MenuItem>
                     <MenuItem onClick={this.setChinese}>简体中文</MenuItem>
-                  </Menu>
+                  </Menu> */}
                 </Toolbar>
             </AppBar>
         </div>

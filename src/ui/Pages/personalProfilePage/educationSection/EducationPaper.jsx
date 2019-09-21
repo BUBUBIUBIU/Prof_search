@@ -115,12 +115,10 @@ class EducationPaper extends Component {
     console.log(currentEducations)
     return (
       <div>
-        {
-          who === false && <CardHeader title={"Education"}/>
-        }
-        {
-          who && <CardHeader title={"Education"} handleOpen={this.handleOpen} isCompulsory={true} buttonName={"Add Degree"} />
-        }
+
+
+        <CardHeader title={"Education"} handleOpen={this.handleOpen} isCompulsory={true} buttonName={"Add Degree"} editable = {this.props.editable}/>
+
         
         {currentEducations &&
           <EducationDetail educationExperience={currentEducations} UpdateFile = {this.props.UpdateFile}/>

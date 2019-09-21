@@ -37,10 +37,11 @@ class CardHeader extends Component {
                 </div>
                 </Typography >    
 
-
+                {this.props.editable && 
                 <Button color="primary" style= {{marginRight: "20px",float: "right",verticalAlign:"middle"}} size="small" onClick = {this.props.handleOpen}>
                 <Plus/> {buttonName}
                 </Button> 
+                }
                 </div>
             </Paper>
             </div>

@@ -20,7 +20,7 @@ const styles = theme => ({
     searchSectionPaper:{
         padding: "15px",
         backgroundColor:"#f2f6fa",
-        height: "327px",
+        height: 200,
         marginTop: "30px",
         width:"360px",
         borderRadius:'4px',
@@ -74,12 +74,7 @@ class LeftPannel extends Component{
 
     async handleOnclickSearch(){
         const request = this.state.searchText;
-        const configObj ={
-            method: 'GET',
-            params: {
-                q:request}
-        }
-        const profiles = await searchExpert(configObj);
+        const profiles = await searchExpert(request);
         if (profiles != undefined && profiles != []) {
             // this.setState({profileList: profiles});
             this.props.recieveScholorInformation(profiles)//this action listened by two reducer, for detail info, please see redux documentation
@@ -103,11 +98,11 @@ class LeftPannel extends Component{
                         Search
                     </div>
                     </Typography>
-                    <Typography variant="h4" color="inherit">
+                    {/* <Typography variant="h4" color="inherit">
                     <div style ={{fontWeight: 300,marginBottom:"5px"}}>
-                        Total 50 results relavant
+                        Total 0 results relavant
                     </div>
-                    </Typography>
+                    </Typography> */}
                     <p className={classes.inputLabel}>
                         <Typography variant="h3" color="inherit">
                             <FormattedMessage id="AdvancedSearchExperts_nameOrExpertise"
@@ -118,14 +113,14 @@ class LeftPannel extends Component{
                         <InputBase className={classes.input} value={this.state.searchText} onChange= {this.handleSearchTextChange} />
                     </Paper>
 
-                    <p className={classes.inputLabel}>
+                    {/* <p className={classes.inputLabel}>
                         <Typography variant="h3" color="inherit" fontWeight={700}>
                             <FormattedMessage id="AdvancedSearchExperts_location" defaultMessage="Location" />
                         </Typography>
-                    </p>
-                    <Paper className={classes.searchBox} elevation={0}>
+                    </p> */}
+                    {/* <Paper className={classes.searchBox} elevation={0}>
                         <InputBase className={classes.input} value="University Of Melbourne" />
-                    </Paper>
+                    </Paper> */}
 
                     <p styles={{marginTop:"50px 0 0 0"}} >
                     <Button variant="contained" color="primary" size="small"  onClick={this.handleOnclickSearch} style = {{boxShadow: 'none'}}>
@@ -134,7 +129,7 @@ class LeftPannel extends Component{
                     </p>
                 </Paper>
 
-            <ScholarProfileFilter/>
+            {/* <ScholarProfileFilter/> */}
 
             </div>
         )

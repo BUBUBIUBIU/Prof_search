@@ -72,11 +72,12 @@ const styles = theme => ({
 const role = {
     
 }
+
 class SignUpPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            value:"signup",
+            value: this.props.authValue,
             toAnotherPage:"",
             open: this.props.open,
             email: "",
@@ -173,7 +174,6 @@ class SignUpPage extends Component {
 
     handleTab = (event,value) => {
         this.setState({value});
-
     }
 
     render(){

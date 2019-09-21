@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {AppBar,Toolbar,Typography,Button,Tabs,Tab, withStyles,withTheme, spacing,Avatar, Menu, ClickAwayListener, Grid,ButtonBase, MenuItem, Paper} from '@material-ui/core';
 import { FormattedMessage, injectIntl, intlShape, FormattedRelative } from 'react-intl';
 import PropTypes from 'prop-types';
-import cookie from 'react-cookies';
 
 //redux Dependencies
 import { connect } from 'react-redux'
@@ -12,7 +11,7 @@ import {backToHomePage,changeLanguage, logout} from '../../redux/actions/index.j
 import { Redirect } from 'react-router-dom'
 
 //API
-import {LoginCheck, Logout} from '../../api/authApi'
+import {Logout} from '../../api/authApi'
 
 
 
@@ -112,16 +111,14 @@ class HeadNavigator extends Component {
     }
 
     signout = () =>{
-      const temp = this
+      const that = this
       //method from logout api, if success, delete cookies, otherwise don't  
-      Logout()
+      Logout("student")
           .then(function(response){
             alert("successful")
-            temp.props.logout();
-              cookie.remove('userId');
-              cookie.remove('token');            
+            that.props.logout();          
           },function(err){
-              alert("login failed")
+              alert("logout failed")
               console.log(err);
           })
           this.handleProfileClose()
@@ -135,7 +132,9 @@ class HeadNavigator extends Component {
         // }
 
         if(this.state.toAnotherPage == "home"){
+          if (window.location.pathname != "/" && window.location.pathname != "/search"){
           return <Redirect to ="/"/>
+          }
         }
 
         // if(this.state.toAnotherPage == "SearchPhd"){

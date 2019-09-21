@@ -47,10 +47,6 @@ class SecondHeader extends Component {
         };
     }
 
-    toHomePage = () =>{
-      this.setState({toAnotherPage:"home"})
-    }
-
     componentWillUnmount = () => {
       this.setState({toAnotherPage:""})
     }
@@ -58,6 +54,16 @@ class SecondHeader extends Component {
     //   this.setState({toAnotherPage:""})
     // }
 
+    toContactListPage = () => {
+      this.setState({toAnotherPage:"contactList"})
+    }
+
+    toHomePage = () => {
+      this.setState({toAnotherPage:"home"})
+    }
+    toProfilePage = () => {
+      this.setState({toAnotherPage:"personalProfile"})
+    }
 
 
     
@@ -67,9 +73,14 @@ class SecondHeader extends Component {
         return <Redirect to ="/"/>
     }
 
-    if(this.state.toAnotherPage == "profile"){
+    if(this.state.toAnotherPage == "contactList"){
+      if (window.location.pathname != "/contactList")
+      return <Redirect to ="/contactList"/>
+    }
+    if(this.state.toAnotherPage == "personalProfile"){
+      if (window.location.pathname != "/personalProfile")
       return <Redirect to ="/personalProfile"/>
-  }
+    }
 
         const {classes} = this.props;
         return(
@@ -80,19 +91,19 @@ class SecondHeader extends Component {
                     PROFSEARCH 
                     </Typography>
 
-                    <Button  color="secondary" className={classes.button} size="small" onClick = {this.toProfilePage}>
+                    <Button  color="secondary" className={classes.button} size="small" onClick = {this.toContactListPage}>
                     <div style= {{float:"left", align:"middle", displa:"block",textAlign:"center"}}>
                     <AccountCardDetailsOutline/> <p style = {{padding:"0", margin:"0", fontSize:"12px"}}>contactlist</p>
                     </div>
                     </Button>
-
+{/* 
                     <Button color="secondary" className={classes.button} size="small">
                     <div style= {{float:"left", align:"middle", displa:"block",textAlign:"center"}}>
                     <EmailOutline/> <p style = {{padding:"0", margin:"0", fontSize:"12px"}}>Message</p>
                     </div>
-                    </Button>
+                    </Button> */}
 
-                    <Button color="secondary" className={classes.button} size="small">
+                    <Button color="secondary" className={classes.button} size="small" onClick = {this.toProfilePage}>
                     <div style= {{float:"left", align:"middle", displa:"block",textAlign:"center"}}>
                     <AccountOutline/> <p style = {{padding:"0", margin:"0", fontSize:"12px"}}>Profile</p>
                     </div>

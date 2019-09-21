@@ -92,7 +92,7 @@ class ScholarProfileCard extends Component {
             // profile.ResearchOverview = []
             // profile.ResearchOverview.replace("\n", "<br/>");
             const {value} = this.state; 
-            const publicationAndCount = "publications(" + profile.Publications.length.toString()+ ")";
+            const publicationAndCount = profile.Publications? "publications(" + profile.Publications.length.toString()+ ")" : "publications(0)"
             const profileBriefInfo = profile.Organization + ", University of Melbourne" 
             const avatar = profile.FirstName.substring(0,1)
 

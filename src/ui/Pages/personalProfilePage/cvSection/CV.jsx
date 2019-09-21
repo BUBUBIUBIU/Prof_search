@@ -88,7 +88,7 @@ class CV extends Component {
         const {classes} = this.props
         return(
             <div>
-            <CardHeader title = {"CV"} handleOpen ={this.handleOpen} isCompulsory= {false} buttonName = {"Add CV"}/>
+            <CardHeader title = {"CV"} handleOpen ={this.handleOpen} isCompulsory= {false} buttonName = {"Add CV"} editable = {this.props.editable}/>
 
             <Modal
                 aria-labelledby="simple-modal-title"

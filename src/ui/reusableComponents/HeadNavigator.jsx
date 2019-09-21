@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {AppBar,Toolbar,Typography,Button,Tabs,Tab, withStyles,withTheme, spacing,Avatar, Menu, ClickAwayListener, Grid,ButtonBase, MenuItem, Paper} from '@material-ui/core';
 import { FormattedMessage, injectIntl, intlShape, FormattedRelative } from 'react-intl';
 import PropTypes from 'prop-types';
-import cookie from 'react-cookies';
 
 //redux Dependencies
 import { connect } from 'react-redux'
@@ -12,7 +11,7 @@ import {backToHomePage,changeLanguage, logout} from '../../redux/actions/index.j
 import { Redirect } from 'react-router-dom'
 
 //API
-import {LoginCheck, Logout} from '../../api/authApi'
+import {Logout} from '../../api/authApi'
 
 
 
@@ -126,13 +125,11 @@ class HeadNavigator extends Component {
 
     signout = () =>{
       const temp = this
-      //method from logout api, if success, delete cookies, otherwise don't  
+      //method from logout api, if success, empty the user info in redux
       Logout()
           .then(function(response){
             alert("successful")
-            temp.props.logout();
-              cookie.remove('userId');
-              cookie.remove('token');            
+            temp.props.logout();      
           },function(err){
               alert("login failed")
               console.log(err);

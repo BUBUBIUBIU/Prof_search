@@ -68,7 +68,7 @@ class Award extends Component {
         const {award} = this.state
         return(
             <div>
-            <CardHeader title = {"Award"} handleOpen ={this.handleOpen} isCompulsory= {false} buttonName = {"Add Award"}/>
+            <CardHeader title = {"Award"} handleOpen ={this.handleOpen} isCompulsory= {false} buttonName = {"Add Award"} editable = {this.props.editable}/>
 
             {award &&
             <AwardDetails awards = {award} UpdateFile = {this.props.UpdateFile}/>
