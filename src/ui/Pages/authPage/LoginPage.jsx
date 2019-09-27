@@ -6,7 +6,6 @@
 
 //redundancy
 import React, { Component } from 'react'
-import PropTypes from 'prop-types';
 
 //@materail design
 import { Paper,Tab, Tabs, Button, withStyles } from '@material-ui/core';
@@ -49,7 +48,7 @@ class LoginPage extends Component {
     }
 
     componentDidUpdate(){
-        if(this.props.open != this.state.open){
+        if(this.props.open !== this.state.open){
             this.setState({open:this.props.open})
         }
     }

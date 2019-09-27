@@ -55,7 +55,11 @@ class SecondHeader extends Component {
     // }
 
     toContactListPage = () => {
-      this.setState({toAnotherPage:"contactList"})
+      if(this.props.userInfo.identity === "student"){
+        this.setState({toAnotherPage:"contactList"})
+      }else{
+        this.setState({toAnotherPage:"applicationList"})
+      }
     }
 
     toHomePage = () => {
@@ -69,16 +73,25 @@ class SecondHeader extends Component {
     
     render(){
 
-      if(this.state.toAnotherPage == "home"){
+      if(this.state.toAnotherPage === "home"){
         return <Redirect to ="/"/>
     }
 
-    if(this.state.toAnotherPage == "contactList"){
-      if (window.location.pathname != "/contactList")
+    if(this.state.toAnotherPage === "contactList"){
+      if (window.location.pathname !== "/contactList")
       return <Redirect to ="/contactList"/>
     }
-    if(this.state.toAnotherPage == "personalProfile"){
-      if (window.location.pathname != "/personalProfile")
+
+    
+    if(this.state.toAnotherPage === "applicationList"){
+      if (window.location.pathname !== "/applicationList")
+      return <Redirect to ="/applicationList"/>
+    }
+
+
+
+    if(this.state.toAnotherPage === "personalProfile"){
+      if (window.location.pathname !== "/personalProfile")
       return <Redirect to ="/personalProfile"/>
     }
 
@@ -93,7 +106,11 @@ class SecondHeader extends Component {
 
                     <Button  color="secondary" className={classes.button} size="small" onClick = {this.toContactListPage}>
                     <div style= {{float:"left", align:"middle", displa:"block",textAlign:"center"}}>
-                    <AccountCardDetailsOutline/> <p style = {{padding:"0", margin:"0", fontSize:"12px"}}>contactlist</p>
+                    <AccountCardDetailsOutline/> <p style = {{padding:"0", margin:"0", fontSize:"12px"}}>
+                      {this.props.userInfo.identity === "student" && "Contact List"}
+                      {this.props.userInfo.identity === "expert" && "Application List"}
+
+                      </p>
                     </div>
                     </Button>
 {/* 
@@ -116,4 +133,12 @@ class SecondHeader extends Component {
     }
 };
 
-export default withStyles(styles)(SecondHeader);
+const mapStateToProps = state => ({
+  userInfo: state.userInfo
+
+})
+
+
+
+
+export default connect(mapStateToProps,null)(withStyles(styles)(SecondHeader));

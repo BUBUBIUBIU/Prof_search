@@ -1,6 +1,13 @@
+/* Copyright (C) Profware Pty. Ltd. - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ * Written by [Chenyang Lu], [date:26th March 2019]
+ */
+
+
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { Route, Link, Switch, BrowserRouter,Redirect} from 'react-router-dom';
+import { Route, Switch, BrowserRouter,Redirect} from 'react-router-dom';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import createBrowserHistory from 'history/createBrowserHistory';
 
@@ -13,7 +20,7 @@ import {loginSuccess} from '../../redux/actions/index'
 
 
 //local dependencies
-import {FormattedMessage, addLocaleData, IntlProvider} from 'react-intl';
+import { addLocaleData, IntlProvider} from 'react-intl';
 import en from 'react-intl/locale-data/en';
 import zh from 'react-intl/locale-data/zh';
 import zh_CN from '../../locale/zh_CN.js';
@@ -31,11 +38,10 @@ import AdvancedSearchPhdPage from '../Pages/advanceSearchPhdPage/AdvancedSearchP
 import PersonalProfilePage from '../Pages/personalProfilePage/PersonalProfilePage'
 import ContactListPage from '../Pages/contactListPage/ContactListPage'
 import MessagePage from '../Pages/messagePage/MessagePage'
-
 import LoginPage from '../Pages/authPage/LoginPage'
 import SignUpPage from '../Pages/authPage/SignUpPage'
-
 import NewSearchPage from '../Pages/newSearchPage/NewSearchPage'
+import ApplicationListPage from '../Pages/applicationList/ApplicationListPage'
 
 //api
 import {LoginCheck} from '../../api/authApi'
@@ -201,7 +207,8 @@ class RenderRouter extends Component {
                 <Route exact path="/login" component={ props => <LoginPage authValue = "login"/>} />
                 <Route exact path="/signup" component={ props => <SignUpPage authValue = "signup"/>} />
                 <Route exact path="/personalProfile" component= { props => <PersonalProfilePage identity = {userInfo.identity} editable = {true}/>} />
-                <Route exact path="/contactList" component={ContactListPage} />
+                <Route exact path="/contactList"  component={ContactListPage} />
+                <Route exact path="/applicationList"  component={ApplicationListPage} />
                 <Route path="*" component={NotFoundPage} />
 
                 

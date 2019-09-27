@@ -1,3 +1,14 @@
+# Project Structure
+- src/api: All the api url and api methods
+- src/config: config files
+- src/locale: multi-language support
+- src/redux: redux gobal store
+- src/ui: all the ui files
+  - src/ui/app: entry point and router
+  - src/ui/pages: main pages
+  - src/ui/reusableComponents: some reusable components
+
+
 # Important dependencies
 
 ## Redux
@@ -24,7 +35,15 @@ response with {"message": success, "content":{id:15, token:"", FirstName:"", Las
 request with "id" and "token" 
 response with:{"message": success, "content":{id:15, token:"", FirstName:"", LastName:"", identity:""}}
 
-## Redux cooperation
+### User Identity
+In current system (2019.09.10), we have two different user identity including student and expert.
+
+Different identity results in different page display. In current system, only two page displayed differently:
+- Edit profile page (/src/ui/pages/persoProfilePage)
+- Contact List page (src/pages/contactListPage)
+
+
+## Redux and router cooperation
 ### Login
 1. Once login, will execute redux action (src/redux/action/index/loginSuccess)
 2. Then the redux reducer, userInfo will be updated to the current user's name, user's identity, and login status:1 
@@ -48,6 +67,9 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 ```
 <PrivateRoute path='/protected' component={Protected} />
 ```
+
+### Authority based on identity
+
 
 
 
@@ -96,6 +118,15 @@ Demo of BootstrapStyleSearchBox
         compusory={true} // if true, a '*' before label, default false
     />
 ```
+
+# Contact List
+
+Status 0 : added
+Status 1: pending
+status 2: expert offered
+status 3 : expert reject
+status 4: student accept
+status 5 : student reject 
 
 
 

@@ -58,12 +58,16 @@ class PersonalProfilePage extends Component {
         };
     }
 
+    componentDidUpdate(){
+        console.log(this.state)
+    }
+
     componentDidMount(){
         console.log(this.props.identity)
         console.log(this.props.editable)
 
         const that = this;
-        getProfile("student")
+        getProfile()
         .then(function(response){
             that.setState({profile: response.content})
             console.log(response.content)
@@ -72,14 +76,19 @@ class PersonalProfilePage extends Component {
         })
     }
 
+
     UpdateFile= () => {
         const temp = this;
-        getProfile(this.props.identity)
+        getProfile()
         .then(function(response){
             temp.setState({profile: response.content})
             console.log(response.content)
         },function(err){
         })
+    }
+
+    changeAvatar = () =>{
+        console.log("Hello")
     }
 
     completeness = () => {
@@ -117,6 +126,10 @@ class PersonalProfilePage extends Component {
     handleOpen = field => event =>{
         this.setState({ [field]: true })
     }
+
+    capitalizeFirstLetter = (string) => {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
     
     render(){
         const {profile} = this.state
@@ -129,14 +142,14 @@ class PersonalProfilePage extends Component {
                 <div style ={{maxWidth: 1000, margin: "auto"}}>
                     <Paper className = {classes.paper} style = {{ padding:25}}>
                         <div style = {{display:"flex", alignItems:"center"}}>
-                            <div style= {{flex:"0 1 auto", maxWidth:200}}>
+                            <div style= {{flex:"0 1 auto", maxWidth:200}} onClick = {this.changeAvatar}>
                                 <Avatar  className={classes.bigAvatar} src = {"http://" + profile.Avatar}/>
                             </div>
                             <div  style= {{flex:"0 1 auto", maxWidth:500, padding: 30, marginRight:"auto"}}>
                                 <Typography variant="h1">
                                     {profile.FirstName} {" "} {profile.LastName}
                                 </Typography>
-                                <Typography variant="body1" style={{fontWeight:500}}>>
+                                <Typography variant="body1" style={{fontWeight:500, marginTop: 20}}>
                                     Student
                                 </Typography>
                             </div> 
@@ -215,13 +228,23 @@ class PersonalProfilePage extends Component {
 
                 
                 <Modal
-                    aria-labelledby="simple-modal-title"
-                    aria-describedby="simple-modal-description"
+                    aria-labelledby="completeness-modal"
+                    aria-describedby="show-the-completion"
                     open={this.state.completenessModal}
                     onClose={this.handleClose}
                 >   
                 <CompletenessModal handleClose ={this.handleClose("completenessModal")} />
                 </Modal>
+
+{/* 
+                <Modal
+                    aria-labelledby="completeness-modal"
+                    aria-describedby="changeAvatar"
+                    open={this.state.avatarModal}
+                    onClose={this.handleClose}
+                >   
+                <CompletenessModal handleClose ={this.handleClose("completenessModal")} />
+                </Modal> */}
 
             </div>
         )

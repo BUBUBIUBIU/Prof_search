@@ -2,9 +2,8 @@
 import React, { Component } from 'react';
 import { loadCSS } from 'fg-loadcss/src/loadCSS';
 import { Button ,Typography, withStyles} from '@material-ui/core';
-import { FormattedMessage, injectIntl} from 'react-intl';
+import {  injectIntl} from 'react-intl';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 
 //Redux Dependencies
 import { connect } from 'react-redux'
@@ -54,11 +53,6 @@ class SearchExpertsSection extends Component{
         super(props);
         this.state = {
             expertExperties: '',
-            // expandAdvancedSearch : false,
-            // professor: true,
-            // assProfessor: true,
-            // doctor: true,
-            // lecturer: true,
             redirectToAdvancedPage:false
         }; 
         this.handleOnclickSearch = this.handleOnclickSearch.bind(this);

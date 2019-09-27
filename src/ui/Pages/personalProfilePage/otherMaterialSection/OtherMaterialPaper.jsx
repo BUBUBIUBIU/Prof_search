@@ -30,7 +30,6 @@ const styles = theme => ({
 
 class OtherMaterial extends Component {
     constructor(props) {
-        console.log(123);
         super(props);
         this.state = {
             expand: false,

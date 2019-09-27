@@ -6,12 +6,7 @@
  */
 
 import React, { Component } from 'react'
-import PropTypes from 'prop-types';
-import { withStyles,Modal, Paper, Button } from '@material-ui/core';
-import Icon from '@material-ui/core/Icon';
-import { Plus } from 'mdi-material-ui'
-import Description from '@material-ui/icons/Description';
-import Clear from '@material-ui/icons/Clear';
+import { withStyles,Modal, Paper} from '@material-ui/core';
 
 //UI
 import  CardHeader from '../CardHeader'
@@ -45,7 +40,7 @@ class CV extends Component {
     }
 
     handleOnclick = () =>{
-        if (this.state.expand == false){
+        if (this.state.expand === false){
             this.setState({expand:true})
         }else{
             this.setState({expand:false})

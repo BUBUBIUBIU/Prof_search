@@ -1,3 +1,10 @@
+/* Copyright (C) Profware Pty. Ltd. - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ * Written by [Chenyang Lu, Shaochuan Luo], [date:10th Aug 2019]
+ */
+
+
 import axios from 'axios';
 import * as apiUrl from './apiURL';
 import {getDataFromServer} from './api';

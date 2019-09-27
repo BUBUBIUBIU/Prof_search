@@ -1,8 +1,8 @@
 // Dependencies
 import React, { Component } from 'react';
 import { withStyles, Grid,Paper, Menu, Button, MenuItem } from '@material-ui/core';
-import { FormattedMessage, injectIntl} from 'react-intl';
 import Sort from '@material-ui/icons/Sort'
+import { FormattedMessage, injectIntl} from 'react-intl';
 
 //redux Dependencies
 import { connect } from 'react-redux'

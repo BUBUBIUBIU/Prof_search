@@ -1,14 +1,14 @@
 /* Copyright (C) Profware Pty. Ltd. - All Rights Reserved
  * Unauthorized copying of this file, via any medium is strictly prohibited
  * Proprietary and confidential
- * Written by [shaochuan Luo], [date:20th Aug 2019]
+ * Written by [Chenyang Lu], [date:26th Sep 2019]
  */
 
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import { Paper, Typography, Button, withStyles,InputBase ,Avatar, Divider} from '@material-ui/core';
 import { Close } from 'mdi-material-ui';
-
+import  {SendApplication} from '../../../api/contactAPI'
 
 
 const styles = theme => ({
@@ -47,6 +47,7 @@ class MessageModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            message:""
         };
     }
 
@@ -55,10 +56,65 @@ class MessageModal extends Component {
         this.setState({ [field]: event.target.value })
     }
 
+    apply = () =>{
+        let ExpertID =  this.props.recieverList.map(reciever => reciever.ID)
+        console.log(ExpertID)
+        const applicationMessage = {
+            ExpertID,
+            Message:this.state.message
+        }
+        const that = this;
+        SendApplication(applicationMessage).then(function(response){
+            console.log(response);
+            that.props.handleClose();
+        }, function(reject){
+            alert(reject)
+        })
+
+    }
+
 
 
     render() {
-        const { classes } = this.props
+        const { classes} = this.props
+        // for(let item in expert){
+        //     if (item.ID in messageList && messageList[item.ID] === true){
+        //         recieverListInfo.push(item)
+        //     }
+        // }
+        console.log(this.props.recieverList)
+
+        const recieverList = this.props.recieverList.map((reciever, index) =>
+        <div>
+            <div style = {{display:"flex", alignItems:"center", marginTop:10}}> 
+
+                {index !== 0 &&
+                <Typography style = {{flex:"0 1 auto", marginRight:"10px", fontWeight:"bold", visibility:"hidden"}}> 
+                    To
+                </Typography>}
+
+                {index === 0 &&
+                <Typography style = {{flex:"0 1 auto", marginRight:"10px", fontWeight:"bold"}}> 
+                    To
+                </Typography>}
+                <div style = {{maxWdith: "20px", padding:"0 10px"}}>
+                <Avatar style ={{width:40, height:40, borderRadius:4}}>
+                    T
+                </Avatar>
+                </div>
+                <div style = {{display: "flex", flex:"0 1 auto", flexDirection:"column"}}>
+                <Typography style = {{flex:"0 1 auto", fontSize: "16px", fontWeight: 600}}> 
+                    {reciever.Expert.FirstName}  {" "}  {reciever.Expert.LastName}
+                </Typography>
+                <Typography style = {{flex:"0 1 auto", fontSize: "12px"}}> 
+                    Professor | University of Melbourne
+                </Typography>
+                </div>
+            </div>
+            {index ===  this.props.recieverList.length - 1 && <Divider style = {{margin:20}}/>}
+            </div>
+
+        );
         return (
             <div className={classes.modal}>
 
@@ -76,32 +132,13 @@ class MessageModal extends Component {
                 </Paper>
 
                 <Paper className={classes.paper} style={{ padding: "50px 30px", height: 600 }}>
-                    <div style = {{display:"flex", alignItems:"center"}}> 
-                    <Typography style = {{flex:"0 1 auto", marginRight:"10px", fontWeight:"bold"}}> 
-                        To:
-                    </Typography>
-                    <div style = {{maxWdith: "20px", padding:"0 10px"}}>
-                    <Avatar style ={{width:40, height:40, borderRadius:4}}>
-                        T
-                    </Avatar>
-                    </div>
-                    <div style = {{display: "flex", flex:"0 1 auto", flexDirection:"column"}}>
-                    <Typography style = {{flex:"0 1 auto", fontSize: "16px", fontWeight: 600}}> 
-                        Prfessor Rui Zhang
-                    </Typography>
-                    <Typography style = {{flex:"0 1 auto", fontSize: "12px"}}> 
-                        Professor | University of Melbourne
-                    </Typography>
-                    </div>
-                    </div>
+                    {recieverList}
 
-                    <Divider style = {{margin:20}}/>
-
-                    <textarea className = {classes.textarea}
+                    <textarea className = {classes.textarea} value = {this.state.message} onChange = {this.handleChange("message")}
                     placeholder="Write your application description">
 
                     </textarea>
-                    <Button variant = "contained" color = "primary" style = {{float:"right"}}>
+                    <Button variant = "contained" color = "primary" style = {{float:"right"}} onClick = {this.apply}>
                         Send
                     </Button>
                 </Paper>

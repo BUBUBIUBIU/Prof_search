@@ -1,7 +1,7 @@
 //Dependencies
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Grid,Paper,Typography, Button,withStyles } from '@material-ui/core';
+import {Paper,Typography, Button,withStyles } from '@material-ui/core';
 import { Plus} from 'mdi-material-ui';
 
 const styles = theme => ({

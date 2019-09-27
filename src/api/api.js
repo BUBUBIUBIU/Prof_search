@@ -50,7 +50,7 @@ export function getDataFromServer(apiUrl, configObj) {
             }
         }).catch(function (error) { // when the response.status != 2xx, error will be catched
             if(error.response){
-                console.log(error.response.data.message)
+                console.log(error.response.data)
                 reject(error.response.data);
             }else{
                 console.log('Error without response:', error.message)

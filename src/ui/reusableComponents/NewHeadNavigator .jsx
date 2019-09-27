@@ -54,7 +54,6 @@ class HeadNavigator extends Component {
         super(props);
         this.state = {
             value: this.props.tabValue,
-            anchorEl: null,
             profileAnchorEl: null,
             toAnotherPage:"",
             openSignUpModal: false,
@@ -62,9 +61,9 @@ class HeadNavigator extends Component {
             authValue:""         
            
         };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleLanguageButtonClick = this.handleLanguageButtonClick.bind(this);
-    this.handleClose = this.handleClose.bind(this);
+    // this.handleChange = this.handleChange.bind(this);
+    // this.handleLanguageButtonClick = this.handleLanguageButtonClick.bind(this);
+    // this.handleClose = this.handleClose.bind(this);
     }
 
     handleChange = (event,value) => {
@@ -74,17 +73,12 @@ class HeadNavigator extends Component {
     }
 
 
-
-    handleLanguageButtonClick = event => {
-      this.setState({ anchorEl: event.currentTarget });
-    };
-
     handleProfileClick = event => {
       this.setState({ profileAnchorEl: event.currentTarget });
     };
   
     handleClose = () => {
-      this.setState({ anchorEl: null });
+      this.setState({ profileAnchorEl: null });
     };
 
     handleProfileClose = () => {
@@ -127,9 +121,6 @@ class HeadNavigator extends Component {
 
 
     render() {
-        // if(this.state.toAnotherPage == "SearchExpert"){
-        //     return <Redirect to ="/SearchExpert"/>
-        // }
 
         if(this.state.toAnotherPage == "home"){
           if (window.location.pathname != "/" && window.location.pathname != "/search"){
@@ -137,12 +128,6 @@ class HeadNavigator extends Component {
           }
         }
 
-        // if(this.state.toAnotherPage == "SearchPhd"){
-        //     return <Redirect to ="/SearchPhdPosition"/>
-        // }
-        // if(this.state.toAnotherPage == "SearchResearchProjects"){
-        //     return <Redirect to ="/SearchResearchProjects"/>
-        // }
         if(this.state.toAnotherPage == "personalProfile"){
           return <Redirect to ="/personalProfile"/>
         }
@@ -156,7 +141,7 @@ class HeadNavigator extends Component {
         
   
 
-        const {value, anchorEl,profileAnchorEl} = this.state;
+        const {value, profileAnchorEl} = this.state;
         const {classes, theme, intl} = this.props;
         
         return (
@@ -184,7 +169,7 @@ class HeadNavigator extends Component {
                   <Button variant="outlined" 
                     color="secondary" 
                     aria-controls="personal-profile" 
-                    aria-owns={anchorEl ? 'personal-profile' : undefined} 
+                    aria-owns={profileAnchorEl ? 'personal-profile' : undefined} 
                     className={classes.button} 
                     size="small"
                     aria-haspopup="true"

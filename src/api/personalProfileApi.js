@@ -10,13 +10,12 @@ import {getDataFromServer} from './api';
  * @param {Object} data: detail in profile ApI
  * @return {Object} 
  */
-export function getProfile(identity){
+export function getProfile(){
     const configObj = {
         method: 'get'
     }
-    var api = (identity.toLowerCase() === 'student'?  apiUrl.PROFILE : apiUrl.EXPERT_PROFILE)
     // PROFESSORPROFILE
-    return getDataFromServer(api, configObj);
+    return getDataFromServer(apiUrl.PROFILE, configObj);
 }
 
 
