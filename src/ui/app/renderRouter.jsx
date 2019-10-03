@@ -55,7 +55,7 @@ const theme = createMuiTheme({
     paperBackground: { main: "#F8FCFF" }, 
     appBar: { main: 'linear-gradient(45deg, #D4145A 30%, #FBB03B 90%)' }, 
     background:{
-        paper:"#F8FCFF",
+        paper:"#FFFFFF",
         card: "#ffffff",
     }
   },
