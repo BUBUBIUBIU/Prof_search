@@ -14,6 +14,29 @@
 ## Redux
 
 ## React router
+Tutorial available at https://reacttraining.com/react-router/web/guides/quick-start.
+It is worth take about 3 hours go through the tutorial.
+After went through react router tutorial, I think you can comes out with a better solution for where we put the header (i.e. src/ui/resuableComponents/NewHeadNavigator)....
+### Redirect (i.e. Link to another page) using react router
+Take src/ui/reusableComponents/NewHeadNavigator.jsx as an example, when we want to redirect:
+1. Set a new state (e.g. line 91)
+2. redirect (In "render lifecycle", Check the state, then use redirect to redirect to another page) sample code shown below:
+```
+    if(this.state.toAnotherPage === "home"){
+      if (window.location.pathname !== "/" && window.location.pathname != "/search"){
+      return <Redirect push to ="/" /> 
+      }
+    }
+``` 
+Please Note, We can choose to use either:
+-  ``` <Redirect push to = '/pathname' />> ``` 
+-  ``` <Redirect to = '/pathname' />> ``` 
+if we use push to, it means the previous page will be put in history (so when we click back arrow in browser, we can go back to previous page)
+if we use to, it means the current page will be replaced (so when we click back arrow in browser, we will not go back to previous page)
+
+
+
+
 
 ## Material-UI
 

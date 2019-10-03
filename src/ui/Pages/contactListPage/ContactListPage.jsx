@@ -13,12 +13,11 @@
 
 //Dependencies
 import React, { Component } from 'react';
-import { Grid,Paper,Button,Menu,MenuItem,withStyles,List,ListItem, Checkbox,FormControlLabel,Typography,Modal} from '@material-ui/core';
+import { Paper,Button,Menu,MenuItem,withStyles,List,ListItem, Checkbox,Typography,Modal} from '@material-ui/core';
 import Sort from '@material-ui/icons/Sort'
 
 //UI
-import ScholarProfileFilter from '../../reusableComponents/scholarProfileFilter/ScholarProfileFilter'
-import SecondHeader from "../../reusableComponents/SecondHeader"
+import Header from '../../reusableComponents/NewHeadNavigator'
 import MiniCard from './MiniCard'
 import SearchBox from '../../reusableComponents/textField/SearchBox'
 import MessageModal from './MessageModal'
@@ -26,7 +25,6 @@ import MessageModal from './MessageModal'
 
 //api
 import {GetContactList} from '../../../api/contactAPI'
-import { TreasureChest } from 'mdi-material-ui';
 
 
 const styles = theme =>({
@@ -48,15 +46,19 @@ const styles = theme =>({
 
 });
 
+const DATE = "Date"
+const NAME = "Name"
+const OFFERED = "Status"
 
 
 class ContactList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            experts:[],
-            messageList:{},
-            recieverList:[]
+            contactList:[],
+            messageList:{}, // {1: false, 2: false, 3: false, 4: true} -- the selected contacts that waiting to send message
+            recieverList:[],
+            sortBy:DATE
         };
     }
 
@@ -67,11 +69,11 @@ class ContactList extends Component {
     refreshContactList = () =>{
         const that = this;
         GetContactList().then(function(response){
-            that.setState({experts: response.content})   // [{Experts:{ID:0, Avatar:url, FirstName:"",LastName:""}, ID: 0, Status:0 },{}]
+            that.setState({contactList: response.content})   // [{Experts:{ID:0, Avatar:url, FirstName:"",LastName:""}, ID: 0, Status:0 },{}]
+            that.sortContactList(that.state.sortBy) // sort agin based on previous sort value
             console.log("The contact List responsed from server:")
             console.log(response)
-            // use a dictionary to maintain the list that waiting for sending application message
-            let messageList = {}
+            let messageList = {} // use a dictionary to maintain the list that waiting for sending application message
             for(let item of response.content){
                 if (item.Status === 0){ // message list only for those with status 0 (i.e. haven't send application message)
                 messageList[item.ID] = false
@@ -122,11 +124,12 @@ class ContactList extends Component {
 
     
     // send message to all selected professors
+    // 
     handleSendAllMessageClick = () =>{
-        const {experts, messageList} = this.state
+        const {contactList, messageList} = this.state
 
         // filter the reciver list
-        let recieverList = experts.filter((item)=>{
+        let recieverList = contactList.filter((item)=>{
             if(item.ID in messageList && messageList[item.ID]){
                 return true
             }else{
@@ -145,7 +148,7 @@ class ContactList extends Component {
     // send message to individual
     handleSendMessageClick = (ID) =>{
         // filter the reciver list
-        let recieverList = this.state.experts.filter((item)=>{
+        let recieverList = this.state.contactList.filter((item)=>{
             if(item.ID  === ID){
                 return true
             }else{
@@ -159,12 +162,67 @@ class ContactList extends Component {
     handleClose = () => {
         this.setState({open:false});
         this.refreshContactList();
+    }
 
+    handleCloseMenu = () => {
+        this.setState({anchorEl:null})
+    }
+
+    handleClickSortMenu = (event) =>{
+        this.setState({ anchorEl: event.currentTarget });
+    }
+
+
+    handleSort = (sortBy) => {
+        this.setState({sortBy: sortBy});
+        this.sortContactList(sortBy);
+        this.handleCloseMenu();
+    }
+
+
+    sortContactList = (sortBy) =>{
+        let contactList = this.state.contactList;
+
+        if(sortBy === NAME){
+            contactList.sort(function(a,b){
+                let nameA = a.Expert.FirstName.toUpperCase();
+                let nameB = b.Expert.LastName.toUpperCase();
+                if(nameA < nameB){
+                    return -1;
+                }
+                if (nameA > nameB){
+                    return 1;
+                }
+                return 0;
+            })
+
+        }
+        else if(sortBy === OFFERED){
+            contactList.sort(function(a,b){
+                let statusA = a.Status;
+                let statusB = b.Status;
+                if(statusA > statusB){
+                    return -1;
+                }
+                if (statusA < statusB){
+                    return 1;
+                }
+                return 0;
+            })
+            
+        }
+        else{
+            contactList.sort(function(a,b){
+                return a.ID - b.ID
+            })
+        }
+        this.setState({contactList:contactList})
     }
 
     render(){
         const {classes} = this.props;
-        const contactList = this.state.experts.map((expert) =>
+        const { anchorEl } = this.state;
+        const contactList = this.state.contactList.map((expert) =>
         <ListItem key={expert._id} style = {{padding:"16px 0" }}>
             <MiniCard simpleprofile = {expert} 
                         check = {this.state.messageList[expert.ID]} 
@@ -177,25 +235,27 @@ class ContactList extends Component {
         
         return(
             <div>
-                <SecondHeader/>
+                <Header/>
                 <div style = {{margin:"auto", maxWidth: 900}}>
                     <Typography variant = "h3" style = {{fontWeight:600, color: "#4a4a4a"}} >
                         Contact List
                     </Typography>
                     <Typography variant = "h3" style = {{fontWeight:"normal", color: "#4a4a4a", marginTop:5}}>
-                        total {this.state.experts.length} contacts added
+                        total {this.state.contactList.length} contacts added
                     </Typography>
                     <div style = {{display:"flex", marginTop: 15 }}>
                         <Paper className = {classes.paper} style = {{flex: "1 1 auto", display:"flex", height:60, paddingTop: 5,alignItems:"baseline"}}>
                                 <div style = {{flex: "1 1 auto", maxWidth: 180, minWidth:110 }}>
-                                <Sort style={{verticalAlign:"middle"}}/>
-                                <Button >
-                                    Default
+                                
+                                <Button aria-owns={anchorEl ? 'sort-menu' : undefined} aria-haspopup="true"
+                                        onClick={this.handleClickSortMenu} >
+                                <Sort style={{verticalAlign:"middle"}} />
+                                    Sort by {this.state.sortBy}
                                 </Button>
-                                <Menu id="simple-menu">
-                                    <MenuItem >Default Sort</MenuItem>
-                                    <MenuItem>Name</MenuItem>
-                                    <MenuItem >Number Of Publications</MenuItem>
+                                <Menu id="sort-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} keepMounted onClose={this.handleClose}>
+                                    <MenuItem onClick = {() => this.handleSort(DATE)}>Date</MenuItem> {/*()=> this.function 这种写法可以避免onClick事件在render时自动触发 */}
+                                    <MenuItem onClick = {() => this.handleSort(NAME)}>Name</MenuItem>
+                                    <MenuItem onClick = {() => this.handleSort(OFFERED)}>Status</MenuItem>
                                 </Menu>
                                 </div>
                                 <div  style = {{flex: "2 1 auto", marginRight:"auto", maxWidth:270, height:40}}>

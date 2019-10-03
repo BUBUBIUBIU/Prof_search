@@ -14,6 +14,9 @@ import { prototype } from 'stack-utils';
 //api
 import {AcceptOffer,RejectOffer} from '../../../api/contactAPI'
 
+//Router
+import { Redirect } from 'react-router-dom'
+
 const styles = theme => ({
     paper:{
         ...theme.mixins.gutters(),
@@ -102,10 +105,21 @@ class MiniCard extends Component {
             }
         )
     }
+
+    navigateToDetailProfile = () =>{
+        const destinationID = "/expertProfile/" + this.props.simpleprofile.Expert.ID;
+        this.setState({redirect:destinationID})
+
+    }
     
     
 
     render(){
+        if(this.state.redirect){
+            // let history = useHistory();
+            return <Redirect push to = {this.state.redirect}/>
+        }
+
         const {classes,simpleprofile} = this.props
         const ExpertInfo = simpleprofile.Expert; //Neccessary information of expert
         const ID = simpleprofile.ID;
@@ -122,7 +136,7 @@ class MiniCard extends Component {
                                 </Avatar>
                             </div>
                             <div style={{flex:"0 1 auto", padding: 30, marginRight:"auto"}}>
-                                <Typography variant="h1">
+                                <Typography variant="h1"  onClick = {this.navigateToDetailProfile}>
                                     {ExpertInfo.FirstName} {" "}  {ExpertInfo.LastName}
                                 </Typography>
                                 <Typography variant="body1">

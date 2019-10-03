@@ -176,7 +176,7 @@ class SearchExpertsSection extends Component{
     render(){
 
         if(this.state.redirectToAdvancedPage){
-            return <Redirect to ="/SearchExpert/advancedSearchExpert"/>
+            return <Redirect push to ="/SearchExpert/advancedSearchExpert"/>
         }
 
         const {classes, intl} = this.props;

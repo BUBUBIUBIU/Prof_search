@@ -12,7 +12,6 @@ import {Contacts} from '@material-ui/icons'
 import React, { Component } from 'react';
 
 //UI
-import SecondHeader from "../../reusableComponents/SecondHeader"
 import EducationPaper from './educationSection/EducationPaper'
 import WorkAndProjectExperience from './workAndProjectExperienceSection/WorkAndProjectExperience'
 import CV from './cvSection/CV'
@@ -24,10 +23,12 @@ import ResearchInterest from './researchInterest/ResearchInterestPaper'
 import ResearchGrant from './researchGrant/ResearchGrantPaper'
 import OngoingProject from './ongoingProject/ongoingProjectPaper'
 import AvailablePosition from './availablePosition/availablePositionPaper'
+import Header from '../../reusableComponents/NewHeadNavigator'
 
 //api
 import {getProfile} from '../../../api/personalProfileApi'
-
+import {GetExpertProfile} from '../../../api/generalAPI'
+import {GetStudentProfile} from '../../../api/generalAPI'
 
 const styles = theme => ({
     bigAvatar: {
@@ -58,22 +59,54 @@ class PersonalProfilePage extends Component {
         };
     }
 
-    componentDidUpdate(){
-        console.log(this.state)
-    }
 
     componentDidMount(){
         console.log(this.props.identity)
         console.log(this.props.editable)
-
+        console.log(this.props)
         const that = this;
-        getProfile()
-        .then(function(response){
-            that.setState({profile: response.content})
-            console.log(response.content)
-        },function(err){
+        if (this.props.editable) {
+            getProfile()
+                .then(function (response) {
+                    that.setState({
+                        profile: response.content
+                    })
+                    console.log(response.content)
+                }, function (err) {
 
-        })
+                })
+        }else{
+            if (this.props.identity ===  "student"){
+                const id = that.getID();
+                console.log(id)
+                GetStudentProfile(id)
+                .then(function (response) {
+                    that.setState({
+                        profile: response.content
+                    })
+                    console.log(response.content)
+                }, function (err) {
+
+                })
+
+            }
+            //otherwise it will be expert 
+            else if (this.props.identity ===  "expert") {
+                const id = that.getID();
+                console.log(id)
+                GetExpertProfile(id)
+                .then(function (response) {
+                    that.setState({
+                        profile: response.content
+                    })
+                    console.log(response.content)
+                }, function (err) {
+
+                })
+
+            }
+
+        }
     }
 
 
@@ -89,6 +122,14 @@ class PersonalProfilePage extends Component {
 
     changeAvatar = () =>{
         console.log("Hello")
+    }
+
+    getID = () => {
+        let pathname = window.location.pathname;
+        pathname  = pathname.split('/')
+        const id = pathname[pathname.length-1] 
+        return id
+
     }
 
     completeness = () => {
@@ -131,14 +172,58 @@ class PersonalProfilePage extends Component {
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
     
+    // handle visibility logic for components that's only in expert profile
+    showExpertComponenet= (componentName) => {
+        if(this.props.identity === "expert"){
+            if(this.props.editable === true){
+                return true
+            }else if (this.props.editable=== false && this.state.profile[componentName] ){
+                return true
+            }else{
+                return false
+            }
+
+        }else{
+            return false;
+        }
+    }
+
+    // handle visibility logic for components that's only in student profile
+    showStudentComponent = (componentName) => {
+        if(this.props.identity === "expert"){
+            if(this.props.editable === true){
+                return true
+            }else if (this.props.editable=== false && this.state.profile[componentName] ){
+                return true
+            }else{
+                return false
+            }
+
+        }else{
+            return false;
+        }
+
+    }
+
+        // handle visibility logic for components that's only in both student and expert profile
+    showCommonComponent = (componentName) =>{
+        if(this.props.editable == true){
+            return true;
+        }else if (this.props.editable=== false && this.state.profile[componentName]){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     render(){
         const {profile} = this.state
         const {classes} = this.props
         
-        // console.log(profile.Materials);
+        // console.log(profile.Materials);s
         return(
             <div>
-                <SecondHeader/>
+                <Header/>
                 <div style ={{maxWidth: 1000, margin: "auto"}}>
                     <Paper className = {classes.paper} style = {{ padding:25}}>
                         <div style = {{display:"flex", alignItems:"center"}}>
@@ -150,7 +235,7 @@ class PersonalProfilePage extends Component {
                                     {profile.FirstName} {" "} {profile.LastName}
                                 </Typography>
                                 <Typography variant="body1" style={{fontWeight:500, marginTop: 20}}>
-                                    Student
+                                    {this.props.identity}
                                 </Typography>
                             </div> 
                             {this.props.editable &&
@@ -179,7 +264,7 @@ class PersonalProfilePage extends Component {
                         </div>
                     </Paper>
 
-                    {this.props.identity === 'expert' &&  <ResearchInterest/> }
+                    {this.props.identity === 'expert' &&   <ResearchInterest/> }
                     {this.props.identity === 'expert' &&   <ResearchGrant/> }
                     {this.props.identity === 'expert' &&   <OngoingProject/> }
                     {this.props.identity === 'expert' &&   <AvailablePosition/> }
@@ -199,11 +284,11 @@ class PersonalProfilePage extends Component {
                     
                     {this.props.identity === 'student' &&
                     <CV
-                    id = "cv"
-                    UpdateFile = {this.UpdateFile}
-                    CV = {profile.CV}
-                    CVName = {profile.CVName}
-                    editable = {this.props.editable}
+                        id = "cv"
+                        UpdateFile = {this.UpdateFile}
+                        CV = {profile.CV}
+                        CVName = {profile.CVName}
+                        editable = {this.props.editable}
                     />
                     }
 

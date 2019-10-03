@@ -42,6 +42,7 @@ import LoginPage from '../Pages/authPage/LoginPage'
 import SignUpPage from '../Pages/authPage/SignUpPage'
 import NewSearchPage from '../Pages/newSearchPage/NewSearchPage'
 import ApplicationListPage from '../Pages/applicationList/ApplicationListPage'
+import CoodinatorPage from '../Pages/coordinatorPage/CoordinatorPage'
 
 //api
 import {LoginCheck} from '../../api/authApi'
@@ -200,15 +201,19 @@ class RenderRouter extends Component {
         <MuiThemeProvider theme={theme}>
           {/* <Provider store={store}> */}
             <BrowserRouter >
-              <Switch>
+            {/* we use switch keyword, so only one component below will be rendered */}
+              <Switch> 
                 <Route exact path="/" component={NewSearchPage} />
                 <Route exact path="/search" component={NewSearchPage} />
                 <Route exact path="/search/searchResult" component={AdvancedSearchExpertPage} />
                 <Route exact path="/login" component={ props => <LoginPage authValue = "login"/>} />
+                <Route path="/studentProfile/:id" component= { props => <PersonalProfilePage identity = {"student"} editable = {false}/>}  />
+                <Route path="/expertProfile/:id" component= { props => <PersonalProfilePage identity = {"expert"} editable = {false}/>}  />
                 <Route exact path="/signup" component={ props => <SignUpPage authValue = "signup"/>} />
                 <Route exact path="/personalProfile" component= { props => <PersonalProfilePage identity = {userInfo.identity} editable = {true}/>} />
                 <Route exact path="/contactList"  component={ContactListPage} />
                 <Route exact path="/applicationList"  component={ApplicationListPage} />
+                <Route exact path="/coordinatorpage"  component={CoodinatorPage} />
                 <Route path="*" component={NotFoundPage} />
 
                 
