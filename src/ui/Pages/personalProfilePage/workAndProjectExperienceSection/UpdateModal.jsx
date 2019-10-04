@@ -95,9 +95,7 @@ class WorkAndProjectModal extends Component {
     handleSubmit = () => {
 
         //Check all requirement
-        if (this.state.CompanyName.replace(/(^s*)|(s*$)/g, "").length !== 0
-            && this.state.Title.replace(/(^s*)|(s*$)/g, "").length !== 0
-            ) {
+        if (this.experienceInfoCheck()) {
 
             const data = {
                 ID: this.state.ID,
@@ -133,6 +131,46 @@ class WorkAndProjectModal extends Component {
 
     handleCheck = (event) => {
         this.setState({ currentWorking: event.target.checked })
+    }
+
+    experienceInfoCheck = () => {
+        return this.titleValidate() && this.companyNameValidate() && this.fromYearAndToYearValidate() && this.locationValidate() && this.descriptionValidate();
+    }
+
+    titleValidate(){
+        try{
+            return this.state.Title.replace(/(^s*)|(s*$)/g, "").length !== 0;
+        }catch(error){
+            return false;
+        }
+    }
+
+    companyNameValidate(){
+        try{
+            return this.state.CompanyName.replace(/(^s*)|(s*$)/g, "").length !== 0;
+        }catch(error){
+            return false;
+        }
+    }
+
+    locationValidate(){
+        return this.state.Location !== NaN;
+    }
+
+    descriptionValidate(){
+        return this.state.Description !== NaN;
+    }
+
+    fromYearAndToYearValidate = () =>{
+        if (this.state.ToYear === this.state.FromYear) {
+            return (this.state.FromMonth !== 0
+            && this.state.ToMonth !== 0
+            && this.state.FromMonth <= this.state.ToMonth) 
+        }else {
+            return (this.state.FromYear !== 0
+            && this.state.ToYear !== 0
+            && this.state.FromYear <= this.state.ToYear)   
+        }
     }
 
 

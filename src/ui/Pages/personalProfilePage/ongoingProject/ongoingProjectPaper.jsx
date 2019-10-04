@@ -14,7 +14,7 @@ import { withStyles, Modal, } from '@material-ui/core';
 
 import CardHeader from '../CardHeader'
 // import ResearchInterestDetail from './ResearchInterestDetail'
-import OngoingProjectModal from './ongoingProjectModal'
+import OngoingProjectModal from './OngoingProjectModal'
 
 
 const styles = theme => ({
@@ -76,7 +76,7 @@ const styles = theme => ({
 });
 
 
-class ongoingPapaerPaper extends Component {
+class ongoingProjectPaper extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -110,7 +110,7 @@ class ongoingPapaerPaper extends Component {
     // console.log(currentEducations)
     return (
       <div>
-        <CardHeader title={"ongoingProject"} handleOpen={this.handleOpen} isCompulsory={false} buttonName={"Add Project"} />
+        <CardHeader title={"OngoingProject"} handleOpen={this.handleOpen} isCompulsory={false} buttonName={"Add Project"} />
         
         {/* <ResearchInterestDetail educationExperience={currentEducations} UpdateFile = {this.props.UpdateFile}/> */}
         
@@ -129,10 +129,10 @@ class ongoingPapaerPaper extends Component {
 }
 
 
-ongoingPapaerPaper.propTypes = {
-  educations: PropTypes.object
+ongoingProjectPaper.propTypes = {
+  projects: PropTypes.object
 };
 
 
 
-export default withStyles(styles)(ongoingPapaerPaper);
+export default withStyles(styles)(ongoingProjectPaper);

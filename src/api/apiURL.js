@@ -17,8 +17,9 @@ export const PUBlICATION  = '/api/student/publication';
 export const AWARD  = '/api/student/award';
 export const OTHERMATERIAL  = '/api/student/material';
 export const ResearchInterest = 'api/';
-export const ResearchGrant  = 'api/';
-export const OngoingProject  = 'api/' 
+export const ResearchGrant  = 'api/expert/grant';
+export const OngoingProject  = 'api/expert/ongoing_project';
+export const AvailablePosition = 'api/expert/position'; 
 export const AVATAR = 'api/student/avatar'
 export const CV = 'api/student/cv'
 

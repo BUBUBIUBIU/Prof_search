@@ -23,6 +23,11 @@
   color: #61dafb;
 }
 
+.App-t1:hover,
+.App-t1:active {
+  background-color: #ffa14f;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

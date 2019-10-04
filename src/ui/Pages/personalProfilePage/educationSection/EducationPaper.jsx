@@ -111,12 +111,9 @@ class EducationPaper extends Component {
 
   render() {
     const { currentEducations } = this.state;
-    const { who } = this.state
     console.log(currentEducations)
     return (
-      <div>
-
-
+      <div className='section-education'>
         <CardHeader title={"Education"} handleOpen={this.handleOpen} isCompulsory={true} buttonName={"Add Degree"} editable = {this.props.editable}/>
 
         

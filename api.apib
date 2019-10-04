@@ -82,6 +82,38 @@ APIs descriptions
 
 ## General [/general]
 
+### Sign in [POST /signin]
+
++ Request (application/json)
+
+            {
+                "Email": "peterparker@gmail.com",
+                "Password": "123456"
+            }
+            
++ Response 200 (application/json)
+
+    + Body
+    
+            {
+                "message": "Success!",
+                "content": {
+                    "id": 15,
+                    "token": "mZqalNkEjkLYyXqkHJcDMaDeLxdloEhJSIIObYnsRQZPoOhMOKsCEJdHstzeDTvK",
+                    "FirstName": "Peter",
+                    "LastName": "Parker",
+                    "Identity": "student or expert",
+                }
+            }
+
++ Response 403 (application/json)
+
+    + Body
+    
+            {
+                "message": "wrong email or password"
+            }
+
 ## Get universities list [GET /universities]
 
 + Response 200 (application/json)
@@ -181,37 +213,6 @@ APIs descriptions
 
             {
                 "message": "record not found"
-            }
-
-### Sign in [POST /student/signin]
-
-+ Request (application/json)
-
-            {
-                "Email": "peterparker@gmail.com",
-                "Password": "123456"
-            }
-            
-+ Response 200 (application/json)
-
-    + Body
-    
-            {
-                "message": "Success!",
-                "content": {
-                    "id": 15,
-                    "token": "mZqalNkEjkLYyXqkHJcDMaDeLxdloEhJSIIObYnsRQZPoOhMOKsCEJdHstzeDTvK",
-                    "FirstName": "Peter",
-                    "LastName": "Parker"
-                }
-            }
-
-+ Response 403 (application/json)
-
-    + Body
-    
-            {
-                "message": "wrong email or password"
             }
 
 ### Check Sign in status [POST /student/checksignin]
@@ -609,6 +610,42 @@ APIs descriptions
                 "message": "unauthorized"
             }
 
+### Delete CV [DELETE /student/cv]
+
++ Request
+
+    + Headers
+            
+            id: user id
+            token: user token
+
+    + Body
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "message": "Success!"
+            }
+
+
++ Response 400 (application/json)
+
+    + Body
+    
+            {
+                "message": "ahhhhhhhh"
+            }
+
++ Response 401 (application/json)
+
+    + Body
+    
+            {
+                "message": "unauthorized"
+            }
+
 ### Add University [POST /student/university]
 
 + Request (application/json)
@@ -749,7 +786,7 @@ APIs descriptions
             {
                 "Type":"Journal",
                 "Title":"title",
-                "PublicationDate":"date",     `optional`
+                "PublicationYear":2019,     `optional`
                 "PublicationName":"string",     `optional`
                 "Volumn":"string",     `optional`
                 "Issue":"string",     `optional`
@@ -762,7 +799,7 @@ APIs descriptions
             {
                 "Type":"Conference",
                 "Title":"title",
-                "PublicationDate":"date",     `optional`
+                "PublicationYear":2019,     `optional`
                 "PublicationName":"string",     `optional`
                 "Volumn":"string",     `optional`
                 "Issue":"string",     `optional`
@@ -774,7 +811,7 @@ APIs descriptions
             {
                 "Type":"Book",
                 "Title":"title",
-                "PublicationDate":"date",     `optional`
+                "PublicationYear":2019,     `optional`
                 "Volumn":"string",     `optional`
                 "Pages":"string",     `optional`
                 "Url": "url",     `optional`
@@ -787,6 +824,9 @@ APIs descriptions
         
             {
                 "message": "Success!"
+                "content": {
+                    "id": 1
+                }
             }
 
 + Response 400 (application/json)
@@ -940,10 +980,11 @@ APIs descriptions
                 "CompanyName": "Unimelb",
                 "Title": "IT Tutor",
                 "Location": "Melbourne Australia",
-                "StartDate": "2006-01-02T15:04:05Z",
-                "EndDate": "2018-01-02T15:04:05Z",
-                "Description": "boring works",
-                "Materials": "hapi"
+                "FromYear": 2016,
+                "FromMonth": 12,
+                "ToYear": 2017,
+                "ToMonth": 10,
+                "Description": "boring works"
             }
 
 + Response 200 (application/json)
@@ -951,7 +992,10 @@ APIs descriptions
     + Body
 
             {
-                "message": "Success!"
+                "message": "Success!",
+                "content": {
+                    "id": 1
+                }
             }
 
 + Response 400 (application/json)
@@ -1014,13 +1058,14 @@ APIs descriptions
 
             {
                 "id": 4,
-                "CompanyName": "Monash",
-                "Title": "JAVA Tutor",
+                "CompanyName": "Unimelb",
+                "Title": "IT Tutor",
                 "Location": "Melbourne Australia",
-                "StartDate": "2016-01-02T15:04:05Z",
-                "EndDate": "2018-01-02T15:04:05Z",
-                "Description": "funny works",
-                "Materials": "chuizi"
+                "FromYear": 2016,
+                "FromMonth": 12,
+                "ToYear": 2017,
+                "ToMonth": 10,
+                "Description": "boring works",
             }
 
 + Response 200 (application/json)
@@ -1047,6 +1092,26 @@ APIs descriptions
                 "message": "unauthorized"
             }
 
+### Add company attachment [POST /student/company/:id]
+
++ Request
+
+    + Body
+
+            file name: company
+
++ Response 200
+
+### Delete company attachment [DELETE /student/company/:id]
+
++ Request
+
+    + Body
+
+            {}
+
++ Response 200
+
 ### Add Award [POST /student/award]
 
 + Request (application/json)
@@ -1070,7 +1135,10 @@ APIs descriptions
     + Body
 
             {
-                "message": "Success!"
+                "message": "Success!",
+                "content": {
+                    "id": 1
+                }
             }
 
 + Response 400 (application/json)
@@ -1186,7 +1254,10 @@ APIs descriptions
     + Body
 
             {
-                "message": "Success!"
+                "message": "Success!",
+                "content": {
+                    "id": 1
+                }
             }
 
 + Response 400 (application/json)
@@ -1269,6 +1340,1276 @@ APIs descriptions
 
             {
                 "message": "json: cannot unmarshal string into Go struct field StudentMaterials.Year of type uint"
+            }
+
++ Response 401 (application/json)
+
+    + Body
+
+            {
+                "message": "unauthorized"
+            }
+
+### Add material attachment [POST /student/material/{id}]
+
++ Parameters
+    + id - Material id
+
++ Request (multipart/form-data; boundary={boundary value})
+
+    + Headers
+            
+            id: user id
+            token: user token
+
+    + Body
+
+            --{boundary value}
+            Content-Disposition: form-data; name='material'; filename='material.pdf'
+            
+            {file content max 10m}
+            --{boundary value}--
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "message": "Success!"
+            }
+
+
++ Response 400 (application/json)
+
+    + Body
+    
+            {
+                "message": "error task"
+            }
+
++ Response 401 (application/json)
+
+    + Body
+    
+            {
+                "message": "unauthorized"
+            }
+
+### Delete material attachment [DELETE /student/material/{id}]
+
++ Parameters
+    + id - Material id
+
++ Request
+
+    + Headers
+            
+            id: user id
+            token: user token
+
+    + Body
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "message": "Success!"
+            }
+
+
++ Response 400 (application/json)
+
+    + Body
+    
+            {
+                "message": "ahhhhhhhhh"
+            }
+
++ Response 401 (application/json)
+
+    + Body
+    
+            {
+                "message": "unauthorized"
+            }
+
+### Add to contactlist [POST /student/contactlist]
+
++ Request (application/json)
+
+    + Body
+
+            {
+                "ExpertID":[1, 2, 3]
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "message":"Success!"
+            }
+
++ Response 400 (application/json)
+
+    + Body
+
+            {
+                "message": "ahhhhhhhhhhhhh"
+            }
+
++ Response 401 (application/json)
+
+    + Body
+
+            {
+                "message": "unauthorized"
+            }
+
+### Get contactlist [GET /student/contactlist]
+
++ Request (application/json)
+
+    + Body
+
+            {
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "message":"Success!"
+                "content":{
+                    // contact list
+                }
+            }
+
++ Response 400 (application/json)
+
+    + Body
+
+            {
+                "message": "ahhhhhhhhhhhhh"
+            }
+
++ Response 401 (application/json)
+
+    + Body
+
+            {
+                "message": "unauthorized"
+            }
+
+### Apply [POST /student/application]
+
++ Request (application/json)
+
+    + Body
+
+            {
+                "ExpertID":[1, 2, 3],
+                "Message": "ljstql",
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "message":"Success!"
+            }
+
++ Response 400 (application/json)
+
+    + Body
+
+            {
+                "message": "ahhhhhhhhhhhhh"
+            }
+
++ Response 401 (application/json)
+
+    + Body
+
+            {
+                "message": "unauthorized"
+            }
+
+### Get applications [GET /student/application]
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "message":"Success!"
+            }
+
++ Response 400 (application/json)
+
+    + Body
+
+            {
+                "message": "ahhhhhhhhhhhhh"
+            }
+
++ Response 401 (application/json)
+
+    + Body
+
+            {
+                "message": "unauthorized"
+            }
+
+### Accept/reject offer [POST /student/application/accept /student/application/reject]
+
++ Request (application/json)
+
+    + Body
+
+            {
+                "id": 1     # application id
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "message":"Success!"
+            }
+
++ Response 400 (application/json)
+
+    + Body
+
+            {
+                "message": "ahhhhhhhhhhhhh"
+            }
+
++ Response 401 (application/json)
+
+    + Body
+
+            {
+                "message": "unauthorized"
+            }
+
+## Expert [/expert]
+
+### Sign up (todo) [POST /expert/signup]
+
++ Request (application/json)
+
+    + Body
+
+            {
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "message": "Success!"
+            }
+
++ Response 400 (application/json)
+
+    + Body
+
+            {
+                "message": "error message"
+            }
+
+### Verify [GET /expert/verify/{token}]
+
++ Parameters
+
+    + token - the token to verify
+
++ Response 200 (application/json)
+
+    + Body
+    
+            {
+                "message": "Success!"
+            }
+
++ Response 400 (application/json)
+
+    + Body
+    
+            {
+                "message": "expired"
+            }
+
++ Response 404 (application/json)
+
+    + Body
+
+            {
+                "message": "record not found"
+            }
+
+### Check Sign in status [POST /expert/checksignin]
+
++ Request
+
+    + Headers
+            
+            id: user id
+            token: user token
+    
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "message": "Success"
+                "content": {
+                    "id": 15,
+                    "FirstName": "Peter",
+                    "LastName": "Parker"
+                }
+            }
+
++ Response 401 (application/json)
+
+    + Body
+    
+            {
+                "message": "unauthorized"
+            }
+
+### Sign out [POST /expert/signout]
+
++ Request
+
+    + Headers
+            
+            id: user id
+            token: user token
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "message": "Success"
+            }
+
++ Response 401 (application/json)
+
+    + Body
+    
+            {
+                "message": "unauthorized"
+            }
+
+### Upload Avatar [POST /expert/avatar]
+
++ Request (multipart/form-data; boundary={boundary value})
+
+    + Headers
+
+            id: user id
+            token: user token
+
+    + Body
+
+            --{boundary value}
+            Content-Disposition: form-data; name='avatar'; filename='avatar.jpg'
+
+            {file content max 2m}
+            --{boundary value}--
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "message": "Success!"
+            }
+
+
++ Response 400 (application/json)
+
+    + Body
+
+            {
+                "message": "error task"
+            }
+
++ Response 401 (application/json)
+
+    + Body
+
+            {
+                "message": "unauthorized"
+            }
+
+### Get profile [GET /expert/profile]
+
++ Request
+
+    + Headers
+            
+            id: user id
+            token: user token
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "message": "Success!",
+                "content": {
+                    "ID": 1,
+                    "Email": "chenyangl5@student.unimelb.edu.au",
+                    "Phone": "0412345678",
+                    "FirstName": "Chenyang",
+                    "LastName": "Lu",
+                    "PersonID": "",
+                    "Name": "",
+                    "Fax": "",
+                    "LocationUri": "hangzhou.cn",
+                    "LocationLabel": "",
+                    "Biography": "master lu",
+                    "Biography2": "",
+                    "ResearchOverview": "",
+                    "SupervisorText": "wo yao da shi ge",
+                    "SupervisorText2": "",
+                    "SupervisorAvailability": "",
+                    "SubjectArea": "",
+                    "Media": "",
+                    "Video": "",
+                    "Awards": "",
+                    "Position": "",
+                    "Organization": "",
+                    "GoogleScholarLink": "",
+                    "Publications": [],
+                    "Grants": []
+                }
+            }
+
++ Response 401 (application/json)
+
+    + Body
+    
+            {
+                "message": "unauthorized"
+            }
+
+### Edit profile [PUT /expert/profile]
+
++ Request (application/json)
+
+    + Headers
+            
+            id: user id
+            token: user token
+    
+    + Body
+    
+            {
+                "Email": "ljsnb@gmail.com",
+                "Phone": "0412345678",
+                "FirstName": "Chenyang",
+                "LastName": "Lu",
+                "Description": "",
+                "Country": "",
+                "City": "",
+                "Position": 
+                "Organization": 
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "message": "Success!"
+            }
+
++ Response 400 (application/json)
+
+    + Body
+    
+            {
+                "message": "Key: 'Edit.FirstName' Error:Field validation for 'FirstName' failed on the 'required' tag"
+            }
+
++ Response 401 (application/json)
+
+    + Body
+    
+            {
+                "message": "unauthorized"
+            }
+
+### Edit Language [POST /expert/language]
+
++ Request (application/json)
+
+    + Headers
+            
+            id: user id
+            token: user token
+    
+    + Body
+    
+            {
+                "language1": 1, `optional`
+                "score1": 5, `optional`
+                "language2": 2, `optional`
+                "score2": 1, `optional`
+                "language3": 3, `optional`
+                "score3": 3, `optional`
+            }
+
++ Response 200 (application/json)
+
+    + Body
+    
+            {
+                "message": "Success!"
+            }
+
++ Response 400 (application/json)
+
+    + Body
+    
+            {
+                "message": "error"
+            }
+
++ Response 401 (application/json)
+
+    + Body
+    
+            {
+                "message": "unauthorized"
+            }
+
+### Change Password [POST /expert/password] 
+
++ Request (application/json)
+
+    + Headers
+            
+            id: user id
+            token: user token
+    
+    + Body
+    
+            {
+                "old": "old password",
+                "new": "new password"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+    
+            {
+                "message": "Success!"
+            }
+
++ Response 401 (application/json)
+
+    + Body
+    
+            {
+                "message": "unauthorized"
+            }
+
++ Response 403 (application/json)
+
+    + Body
+    
+            {
+                "message": "wrong password"
+            }
+
++ Response 406 (application/json)
+
+    + Body
+    
+            {
+                "message": "password length must between 6 and 16"
+            }    
+
+### Request Password Reset [POST /expert/password/forget]
+
++ Request (application/json)
+    
+    + Body
+    
+            {
+                "email": "peterparker@gmail.com",
+                "FirstName": "Peter",
+                "LastName": "Parker"
+            }
+            
++ Response 200 (application/json)
+
+    + Body
+    
+            {
+                "message": "Success!"
+            }
+
+### Password Reset [POST /expert/password/reset]
+
++ Request (application/json)
+    
+    + Body
+    
+            {
+                "token": "jwt token",
+                "new": "123456"
+            }
+            
++ Response 200 (application/json)
+
+    + Body
+    
+            {
+                "message": "Success!"
+            }
+
++ Response 400 (application/json)
+
+    + Body
+    
+            {
+                "message": "invalid token"
+            }
+            
++ Response 406 (application/json)
+
+    + Body
+
+            {
+                "message": "password length must between 6 and 16"
+            }
+
+### Add grant [POST /expert/grant]
+
++ Request (application/json)
+
+    + Body
+
+            {
+                "Title": "HUAWEI",
+                "FromYear": 2014,
+                "ToYear": 2017,
+                "FundingBody": "QIANG",
+                "Description": "tql",
+                "Url": "www.huawei.com"
+            }
+
++ Response 200
+
++ Response 400
+
++ Response 401
+
+### Delete grant [DELETE /expert/grant]
+
++ Request (application/json)
+
+    + Body
+
+            {
+                "id":1
+            }
+
++ Response 200
+
++ Response 400
+
++ Response 401
+
+### Edit grant [PUT /expert/grant]
+
++ Request (application/json)
+
+    + Body
+
+            {
+                "id": 1,
+                "Title": "HUAWEI",
+                "FromYear": 2014,
+                "ToYear": 2017,
+                "FundingBody": "QIANG",
+                "Description": "tql",
+                "Url": "www.huawei.com"
+            }
+
++ Response 200
+
++ Response 400
+
++ Response 401
+
+### Add grant attachment [POST /expert/grant/{id}]
+
++ Parameters
+    + id - Grant id
+
++ Request (multipart/form-data; boundary={boundary value})
+
+    + Headers
+            
+            id: user id
+            token: user token
+
+    + Body
+
+            --{boundary value}
+            Content-Disposition: form-data; name='grant'; filename='grant.pdf'
+            
+            {file content max 10m}
+            --{boundary value}--
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "message": "Success!"
+            }
+
+
++ Response 400 (application/json)
+
+    + Body
+    
+            {
+                "message": "error task"
+            }
+
++ Response 401 (application/json)
+
+    + Body
+    
+            {
+                "message": "unauthorized"
+            }
+
+### Delete grant attachment [DELETE /expert/grant/{id}]
+
++ Parameters
+    + id - Grant id
+
++ Request
+
+    + Headers
+            
+            id: user id
+            token: user token
+
+    + Body
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "message": "Success!"
+            }
+
+
++ Response 400 (application/json)
+
+    + Body
+    
+            {
+                "message": "ahhhhhhhhh"
+            }
+
++ Response 401 (application/json)
+
+    + Body
+    
+            {
+                "message": "unauthorized"
+            }
+
+### Add university [POST /expert/university]
+
++ Request (application/json)
+
+    + Body
+
+            {
+                "UniversityID": 1,  `can be null`
+                "UniversityName": "",   `must be set if university id is null`
+                "Degree": "B.Eng",
+                "Major": "Electrical Engineering",
+                "FromYear": 2013,
+                "ToYear": 2017,
+                "Description": "some descriptions, optional",
+                "GPA": 3.7,
+                "GPAType": 1
+            }
+
++ Response 200
+
+### Delete university [DELETE /expert/university]
+
++ Request (application/json)
+
+    + Body
+
+            {
+                "id": 1
+            }
+
++ Response 200
+
+### Edit university [PUT /expert/university]
+
++ Request (application/json)
+
+    + Body
+
+            {
+                "id": 1,
+                "UniversityID": 1,  `can be null`
+                "UniversityName": "",   `must be set if university id is null`
+                "Degree": "B.Eng",
+                "Major": "Electrical Engineering",
+                "FromYear": 2013,
+                "ToYear": 2017,
+                "Description": "some descriptions, optional",
+                "GPA": 3.7,
+                "GPAType": 1
+            }
+
++ Response 200
+
+### Add company [POST /expert/company]
+
++ Request (application/json)
+
+    + Body
+
+            {
+                "CompanyName": "Unimelb",
+                "Title": "IT Tutor",
+                "Location": "Melbourne Australia",
+                "FromYear": 2016,
+                "FromMonth": 12,
+                "ToYear": 2017,
+                "ToMonth": 10,
+                "Description": "boring works"
+            }
+
++ Response 200
+
+### Delete company [DELETE /expert/company]
+
++ Request (application/json)
+
+    + Body
+
+            {
+                "id": 1
+            }
+
++ Response 200
+
+### Edit company [PUT /expert/company]
+
++ Request (application/json)
+
+    + Body
+
+            {
+                "id": 1,
+                "CompanyName": "Unimelb",
+                "Title": "IT Tutor",
+                "Location": "Melbourne Australia",
+                "FromYear": 2016,
+                "FromMonth": 12,
+                "ToYear": 2017,
+                "ToMonth": 10,
+                "Description": "boring works"
+            }
+
++ Response 200
+
+### Add publication [POST /expert/publication]
+
++ Request
+
+    + Body
+
+            the same with student publication
+
++ Response 200
+
+### Delete publication [DELETE /expert/publication]
+
++ Request
+
+    + Body
+
+            the same with student publication
+
++ Response 200
+
+### Edit publication [PUT /expert/publication]
+
++ Request
+
+    + Body
+
+            the same with student publication
+
++ Response 200
+
+### Add award [POST /expert/award]
+
++ Request
+
+    + Body
+
+            {
+                "AwardName"            string `binding:"required"`
+                "AwardingOrganization" string
+                "Date"                 string `binding:"required"`
+                "Description"          string
+            }
+
++ Response 200
+
+### Delete award [DELETE /expert/award]
+
++ Request
+
+    + Body
+
+            {
+                "id": 1
+            }
+
++ Response 200
+
+### Edit award [PUT /expert/award]
+
++ Request
+
+    + Body
+
+            {
+                "id": 1,
+                "AwardName"            string `binding:"required"`
+                "AwardingOrganization" string
+                "Date"                 string `binding:"required"`
+                "Description"          string
+            }
+
++ Response 200
+
+### Add material [POST /expert/material]
+
++ Request
+
+    + Body
+
+            the same with student material
+
++ Response 200
+
+### Delete material [DELETE /expert/material]
+
++ Request
+
+    + Body
+
+            the same with student material
+
++ Response 200
+
+### Edit material [PUT /expert/material]
+
++ Request
+
+    + Body
+
+            the same with student material
+
++ Response 200
+
+### Add ongoing_project [POST /expert/ongoing_project]
+
++ Request
+
+    + Body
+
+            {
+                "ProjectName" string `binding:"required"`
+                "FromYear"    uint   `binding:"required,numeric"`
+                "ToYear"      uint   `binding:"required"`
+                "Description" string
+                "Url"         string
+            }
+
++ Response 200
+
+### Delete ongoing_project [DELETE /expert/ongoing_project]
+
++ Request
+
+    + Body
+
+            {
+                "id": 1
+            }
+
++ Response 200
+
+### Edit ongoing_project [PUT /expert/ongoing_project]
+
++ Request
+
+    + Body
+
+            {
+                "id": 1,
+                "ProjectName" string `binding:"required"`
+                "FromYear"    uint   `binding:"required,numeric"`
+                "ToYear"      uint   `binding:"required"`
+                "Description" string
+                "Url"         string
+            }
+
++ Response 200
+
+### Add position [POST /expert/position]
+
++ Request
+
+    + Body
+
+            {
+                "Position"    int `binding:"required"`  // 1 phd, 2 ta, 3 ra, 4 postdoc
+                "Salary"      uint         `binding:"required,numeric"`
+                "Content"     string       `binding:"required"`
+                "Requirement" string
+            }
+
++ Response 200
+
+### Delete position [DELETE /expert/position]
+
++ Request
+
+    + Body
+
+            {
+                "id": 1
+            }
+
++ Response 200
+
+### Edit position [PUT /expert/position]
+
++ Request
+
+    + Body
+
+            {
+                "id": 1,
+                "Position"    int `binding:"required"`  // 1 phd, 2 ta, 3 ra, 4 postdoc
+                "Salary"      uint         `binding:"required,numeric"`
+                "Content"     string       `binding:"required"`
+                "Requirement" string
+            }
+
++ Response 200
+
+### Add research_student [POST /expert/research_student]
+
++ Request
+
+    + Body
+
+            {
+                "StudentName" string `binding:"required"`
+                "FromYear"    uint   `gorm:"type:year" binding:"required,numeric"`
+                "ToYear"      uint   `gorm:"type:year" binding:"required,numeric"`
+                "Program"     string `binding:"required"`
+                "Topic"       string
+                "Employment"  string
+                "Internship"  string
+            }
+
++ Response 200
+
+### Delete research_student [DELETE /expert/research_student]
+
++ Request
+
+    + Body
+
+            {
+                "id": 1
+            }
+
++ Response 200
+
+### Edit research_student [PUT /expert/research_student]
+
++ Request
+
+    + Body
+
+            {
+                "id": 1,
+                "StudentName" string `binding:"required"`
+                "FromYear"    uint   `gorm:"type:year" binding:"required,numeric"`
+                "ToYear"      uint   `gorm:"type:year" binding:"required,numeric"`
+                "Program"     string `binding:"required"`
+                "Topic"       string
+                "Employment"  string
+                "Internship"  string
+            }
+
++ Response 200
+
+
+### Edit google scholar link [POST /expert/google_scholar]
+
++ Request
+
+    + Body
+
+            {
+                "Link": "http://"
+            }
+
++ Response 200
+
+### Edit research interest [POST /expert/research_interest]
+
++ Request
+
+    + Body
+
+            {
+                "ResearchInterest": "Big Data\nNLP\nData Mining"
+            }
+
++ Response 200
+
+### Edit contact info  [POST /expert/contact_info]
+
++ Request
+
+    + Body
+
+            {
+                "Email": "a@gmail.com",
+                "Phone": 123456
+            }
+
++ Response 200
+
+### Get contactlist [GET /expert/contactlist]
+
++ Request (application/json)
+
+    + Body
+
+            {
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "message":"Success!"
+                "content":{
+                    // contact list
+                }
+            }
+
++ Response 400 (application/json)
+
+    + Body
+
+            {
+                "message": "ahhhhhhhhhhhhh"
+            }
+
++ Response 401 (application/json)
+
+    + Body
+
+            {
+                "message": "unauthorized"
+            }
+
+### Get applications [GET /expert/application]
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "message":"Success!"
+            }
+
++ Response 400 (application/json)
+
+    + Body
+
+            {
+                "message": "ahhhhhhhhhhhhh"
+            }
+
++ Response 401 (application/json)
+
+    + Body
+
+            {
+                "message": "unauthorized"
+            }
+
+### Accept/reject offer [POST /expert/application/accept /student/application/reject]
+
++ Request (application/json)
+
+    + Body
+
+            {
+                "id": 1     # application id
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "message":"Success!"
+            }
+
++ Response 400 (application/json)
+
+    + Body
+
+            {
+                "message": "ahhhhhhhhhhhhh"
             }
 
 + Response 401 (application/json)

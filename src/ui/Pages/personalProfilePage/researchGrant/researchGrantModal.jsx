@@ -83,40 +83,14 @@ class ResearchGrantModal extends Component {
         this.state = {
         };
     }
-
-
-    // handleSubmit = () => {
-
-    //     //Check all requirement
-    //     if (this.state.Title.replace(/(^s*)|(s*$)/g, "").length !== 0
-    //         && this.state.FromYear !== NaN
-    //         && this.state.ToYear !== NaN
-    //         && this.state.FromYear < this.state.toYear
-    //         && this.state.FundingBody !== NaN
-    //         && this.state.BriefDescription !== NaN
-    //         && this.state.URL !== NaN) {
-    //         const data = {
-    //             Title: this.state.Title,
-    //             FromYear: parseInt(this.state.FromYear),
-    //             ToYear: parseInt(this.state.ToYear),
-    //             FundingBody: this.state.FundingBody,
-    //             BriefDescription: this.state.BriefDescription,
-    //             Url: this.state.Url
-    //         }
-    //         console.log(data)
-    //         const temp = this;
-    //         addResearchGrant(data)
-    //             .then(function (response) {
-    //                 console.log(response.message)
-    //                 temp.props.handleClose()
-    //             }, function (err) {
-    //                 alert(err.message);
-    //                 console.log(err);
-    //             })
-    //     } else {
-    //         alert("Some error with your input")
-    //     }
-    // }
+    // {
+    //     "Title": "HUAWEI",
+    //     "FromYear": 2014,
+    //     "ToYear": 2017,
+    //     "FundingBody": "QIANG",
+    //     "Description": "tql",
+    //     "Url": "www.huawei.com"
+    //   }
 
     submit = () => {
         if(this.researchGrantInfoCheck()){
@@ -125,14 +99,14 @@ class ResearchGrantModal extends Component {
                 FromYear: parseInt(this.state.FromYear),
                 ToYear: parseInt(this.state.ToYear),
                 FundingBody: this.state.FundingBody,
-                BriefDescription: this.state.BriefDescription,
+                Description: this.state.BriefDescription,
                 Url: this.state.Url
             }
-            console.log(data)
+            // console.log(data)
             const temp = this;
             addResearchGrant(data)
                 .then(function (response) {
-                    console.log(response.message)
+                    // console.log(response.message)
                     temp.props.handleClose()
                 }, function (err) {
                     alert(err.message);
@@ -148,13 +122,23 @@ class ResearchGrantModal extends Component {
     }
 
     titleValidate = () =>{
-        return this.state.Title.replace(/(^s*)|(s*$)/g, "").length !== 0
+        try{
+            return this.state.Title.replace(/(^s*)|(s*$)/g, "").length !== 0;
+        }catch(error){
+            return false;
+        }
     }
 
     fromYearAndToYearValidate = () =>{
-        return (this.state.FromYear.replace(/(^s*)|(s*$)/g, "").length !== 0
-        && this.state.ToYear.replace(/(^s*)|(s*$)/g, "").length !== 0
-        && this.state.FromYear <= this.state.ToYear)   
+        if (this.state.ToYear === this.state.FromYear) {
+            return (this.state.FromMonth !== 0
+            && this.state.ToMonth !== 0
+            && this.state.FromMonth <= this.state.ToMonth) 
+        }else {
+            return (this.state.FromYear !== 0
+            && this.state.ToYear !== 0
+            && this.state.FromYear <= this.state.ToYear)   
+        }
     }
 
     handleChange = field => event => {
@@ -232,7 +216,7 @@ class ResearchGrantModal extends Component {
                     <Button style = {{color: 'red'}}>Add File</Button>
                     <br/>
                     <div style={{ float: "right" }}>
-                        <Button variant="contained" color="primary" size="small" onClick={this.handleSubmit} >
+                        <Button variant="contained" color="primary" size="small" onClick={this.submit} >
                             Save
                         </Button>
                     </div>

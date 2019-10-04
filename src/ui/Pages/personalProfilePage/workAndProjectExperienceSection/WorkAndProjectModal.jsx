@@ -82,18 +82,13 @@ class WorkAndProjectModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            currentWorking: false,
         };
     }
 
     handleSubmit = () => {
-
         //Check all requirement
-        if (this.state.CompanyName.replace(/(^s*)|(s*$)/g, "").length !== 0
-            && this.state.Title.replace(/(^s*)|(s*$)/g, "").length !== 0
-            //  && this.state.major.replace(/(^s*)|(s*$)/g, "").length !== 0
-            && this.state.Location !== NaN
-            && this.state.Description !== NaN) {
-
+        if (this.experienceInfoCheck()) {
             const data = {
                 CompanyName: this.state.CompanyName,
                 Title: this.state.Title,
@@ -104,6 +99,8 @@ class WorkAndProjectModal extends Component {
                 ToYear: parseInt(this.state.ToYear),
                 Description: this.state.Description,
                 Materials:this.state.Materials,
+
+                CheckProps: this.state.CheckProps
             }
 
             console.log(data)
@@ -119,6 +116,46 @@ class WorkAndProjectModal extends Component {
 
         } else {
             alert("please fullfill all required files")
+        }
+    }
+
+    experienceInfoCheck = () => {
+        return this.titleValidate() && this.companyNameValidate() && this.fromYearAndToYearValidate() && this.locationValidate() && this.descriptionValidate();
+    }
+
+    titleValidate(){
+        try{
+            return this.state.Title.replace(/(^s*)|(s*$)/g, "").length !== 0;
+        }catch(error){
+            return false;
+        }
+    }
+
+    companyNameValidate(){
+        try{
+            return this.state.CompanyName.replace(/(^s*)|(s*$)/g, "").length !== 0;
+        }catch(error){
+            return false;
+        }
+    }
+
+    locationValidate(){
+        return this.state.Location !== NaN;
+    }
+
+    descriptionValidate(){
+        return this.state.Description !== NaN;
+    }
+
+    fromYearAndToYearValidate = () =>{
+        if (this.state.ToYear === this.state.FromYear) {
+            return (this.state.FromMonth !== 0
+            && this.state.ToMonth !== 0
+            && this.state.FromMonth <= this.state.ToMonth) 
+        }else {
+            return (this.state.FromYear !== 0
+            && this.state.ToYear !== 0
+            && this.state.FromYear <= this.state.ToYear)   
         }
     }
 
@@ -172,18 +209,14 @@ class WorkAndProjectModal extends Component {
                     />
 
                     <div>
-                        <FormControlLabel
-                            control={
-                                <Checkbox checked={this.state.currentWorking} onChange={this.handleCheck} value="checkedA" />
-                            }
-                            label="I am currently working in this role"
-                        />
+                        <Checkbox checked={this.state.currentWorking} onChange={this.handleCheck} value="checkedA" color="primary"/>
+                        I am currently working in this role
                     </div>
+                    
 
+                    <div style = {{display:"flex", flexDirection:"row", flexWrap: "wrap", overflow: "auto"}}>
 
-                    <div style = {{display:"flex",flex:1,  flexDirection:"row", flexWrap: "wrap", overflow: "auto"}}>
-                        <div style={{ flex : "1 1 auto"}}>
-                            <div style ={{display: "flex" , flexDirection:"column", }}>
+                        <div style={{ flex : "1 1 50%", display: "flex" , flexDirection:"column"}}>
                             <SelectorOne
                                 label="Start Date"
                                 isCompulsory={true}
@@ -198,11 +231,9 @@ class WorkAndProjectModal extends Component {
                                 onChangeSelect={this.handleChange("FromYear")}
                                 value= {this.state.FromYear}
                             />
-                            </div>
                         </div>
 
-                        <div style={{flex : "1 1 auto", overflow: "auto"}}>
-                            <div style ={{display: "flex" , flexDirection:"column", }}>
+                        {!this.state.currentWorking && <div style={{ flex : "1 1 50%", display: "flex" , flexDirection:"column"}}>
                                 <SelectorOne
                                     label="End Date"
                                     isCompulsory={true}
@@ -216,8 +247,16 @@ class WorkAndProjectModal extends Component {
                                     onChangeSelect={this.handleChange("ToYear")}
                                     value = {this.state.ToYear}
                                 />
-                            </div>
-                        </div>
+                        </div>}
+
+                        {this.state.currentWorking && <div style={{ flex : "1 1 50%", display: "flex" , flexDirection:"column"}}>
+                            <Typography variant="h3">
+                                <p className={classes.inputLabel}>
+                                    <span style={{ color: "#E4554D" }}> *</span> End Date <br/><br/> present
+                                </p>
+                            </Typography>
+                        </div>}
+
                     </div>
 
                     <BootstrapStyleSearchBox

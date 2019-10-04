@@ -13,8 +13,8 @@ import { withStyles, Modal, } from '@material-ui/core';
 //Ui
 
 import CardHeader from '../CardHeader'
-// import ResearchInterestDetail from './ResearchInterestDetail'
-import ResearchGrantModal from './researchGrantModal'
+import ResearchGrantDetail from './ResearchGrantDetail'
+import ResearchGrantModal from './ResearchGrantModal'
 
 
 
@@ -83,19 +83,19 @@ class researchGrantPaper extends Component {
     super(props);
     this.state = {
       expand: false,
-      // currentEducations: this.props.educations
+      currentResearchGrants: this.props.researchGrants
     };
     // console.log(this.props.educations)
     // console.log(this.state.currentEducations)
   }
 
-  // componentDidUpdate(){
-  //   if (this.props.educations != this.state.currentEducations) {
-  //     this.setState({
-  //       currentEducations: this.props.educations,
-  //     })
-  //   }
-  // }
+  componentDidUpdate(){
+    if (this.props.researchGrants !== this.state.currentResearchGrants) {
+      this.setState({
+        currentResearchGrants: this.props.researchGrants,
+      })
+    }
+  }
 
   handleOpen = () => {
     this.setState({ open: true });
@@ -108,13 +108,15 @@ class researchGrantPaper extends Component {
 
 
   render() {
-    // const { currentEducations } = this.state;
-    // console.log(currentEducations)
+    const { currentResearchGrants } = this.state;
+    console.log('currentResearchGrants:' + currentResearchGrants)
     return (
       <div>
         <CardHeader title={"Research Grant"} handleOpen={this.handleOpen} isCompulsory={false} buttonName={"Add Grant"} />
-        
-        {/* <ResearchInterestDetail educationExperience={currentEducations} UpdateFile = {this.props.UpdateFile}/> */}
+
+        {currentResearchGrants &&
+          <ResearchGrantDetail researchGrantExperience={currentResearchGrants} UpdateFile = {this.props.UpdateFile}/>
+        }
         
         <Modal
           aria-labelledby="simple-modal-title"
@@ -132,7 +134,7 @@ class researchGrantPaper extends Component {
 
 
 researchGrantPaper.propTypes = {
-  educations: PropTypes.object
+  researchGrants: PropTypes.object
 };
 
 

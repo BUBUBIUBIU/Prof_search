@@ -422,6 +422,22 @@ export function deleteOngoingProject(data){
 }
 
 /**
+ * This method used for add available position
+ * Post method is implemented
+ *
+ * @param {Object} data: detail in addAvailablePosition ApI, request Body 
+ * @return {Object} 
+ */
+export function addAvailablePosition(data){
+    const configObj = {
+        method: 'POST',
+        data,
+    }
+    console.log(data);
+    return getDataFromServer(apiUrl.AvailablePosition, configObj);
+}
+
+/**
  * This method used for uploading CV
  * post method is implemented
  *

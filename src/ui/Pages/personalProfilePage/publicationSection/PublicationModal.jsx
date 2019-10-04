@@ -48,13 +48,13 @@ const styles = theme => ({
     }, 
   });
 
-function TabContainer(props) {
-    return (
-    <Typography variant = "body1">
-        {props.children}
-    </Typography>
-    ); 
-}
+// function TabContainer(props) {
+//     return (
+//     <Typography variant = "body1">
+//         {props.children}
+//     </Typography>
+//     ); 
+// }
 
 class PublicationModal extends Component {
     constructor(props) {
@@ -71,7 +71,7 @@ class PublicationModal extends Component {
 
     render(){
         const {value} = this.state; 
-        const {classes, profile} = this.props
+        const {classes} = this.props
         return(
 
             <div className = {classes.modal}>

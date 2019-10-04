@@ -14,7 +14,7 @@ import { withStyles, Modal, } from '@material-ui/core';
 
 import CardHeader from '../CardHeader'
 // import ResearchInterestDetail from './ResearchInterestDetail'
-import AvailablePositionModal from './availablePositionModal'
+import AvailablePositionModal from './AvailablePositionModal'
 
 
 const styles = theme => ({

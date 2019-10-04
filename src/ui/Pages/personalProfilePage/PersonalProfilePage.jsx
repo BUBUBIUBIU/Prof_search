@@ -22,8 +22,8 @@ import OtherMaterial from './otherMaterialSection/OtherMaterialPaper'
 import CompletenessModal from './modals/CompletenessModal'
 import ResearchInterest from './researchInterest/ResearchInterestPaper'
 import ResearchGrant from './researchGrant/ResearchGrantPaper'
-import OngoingProject from './ongoingProject/ongoingProjectPaper'
-import AvailablePosition from './availablePosition/availablePositionPaper'
+import OngoingProject from './ongoingProject/OngoingProjectPaper'
+import AvailablePosition from './availablePosition/AvailablePositionPaper'
 
 //api
 import {getProfile} from '../../../api/personalProfileApi'
@@ -170,8 +170,25 @@ class PersonalProfilePage extends Component {
                     {this.props.identity === 'expert' &&   <ResearchGrant/> }
                     {this.props.identity === 'expert' &&   <OngoingProject/> }
                     {this.props.identity === 'expert' &&   <AvailablePosition/> }
-                   
-                    
+                
+                    <AvailablePosition
+                        projects = {profile.Position}
+                        UpdateFile = {this.UpdateFile}
+                        editable = {this.props.editable}
+                    />
+
+                    <OngoingProject
+                        projects = {profile.OngoingProjects}
+                        UpdateFile = {this.UpdateFile}
+                        editable = {this.props.editable}
+                    />
+
+                    <ResearchGrant 
+                        researchGrants = {profile.Grants}
+                        UpdateFile = {this.UpdateFile}
+                        editable = {this.props.editable}
+                    />
+
                     <EducationPaper 
                         educations = {profile.Universities}
                         UpdateFile = {this.UpdateFile}
@@ -230,3 +247,34 @@ class PersonalProfilePage extends Component {
 };
 
 export default withStyles(styles)(PersonalProfilePage);
+
+// "message": "Success!",
+// "content": {
+//   "ID": 1,
+//   "Email": "chenyangl5@student.unimelb.edu.au",
+//   "Phone": "0412345678",
+//   "FirstName": "Chenyang",
+//   "LastName": "Lu",
+//   "PersonID": "",
+//   "Name": "",
+//   "Fax": "",
+//   "LocationUri": "hangzhou.cn",
+//   "LocationLabel": "",
+//   "Biography": "master lu",
+//   "Biography2": "",
+//   "ResearchOverview": "",
+//   "SupervisorText": "wo yao da shi ge",
+//   "SupervisorText2": "",
+//   "SupervisorAvailability": "",
+//   "SubjectArea": "",
+//   "Media": "",
+//   "Video": "",
+//   "Awards": "",
+//   "Position": "",
+//   "Organization": "",
+//   "GoogleScholarLink": "",
+//   "Publications": [],
+//   "Grants": []
+
+
+
