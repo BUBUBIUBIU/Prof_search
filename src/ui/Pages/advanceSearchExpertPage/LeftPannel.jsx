@@ -1,9 +1,13 @@
+/* Copyright (C) Profware Pty. Ltd. - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ * Written by [Chenyang Lu], [date:26th March 2019]
+ */
+
 // Dependencies
 import React, { Component } from 'react';
-import { withStyles, InputBase,Typography,Paper, FormGroup, FormControlLabel, Checkbox, Button,Grid} from '@material-ui/core';
+import { withStyles, InputBase,Typography,Paper, Button} from '@material-ui/core';
 import { FormattedMessage, injectIntl} from 'react-intl';
-import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
-import CheckBoxIcon from '@material-ui/icons/CheckBox';
 
 //redux Dependencies
 import { connect } from 'react-redux' 
@@ -75,7 +79,7 @@ class LeftPannel extends Component{
     async handleOnclickSearch(){
         const request = this.state.searchText;
         const profiles = await searchExpert(request);
-        if (profiles != undefined && profiles != []) {
+        if (profiles !== undefined && profiles !== []) {
             // this.setState({profileList: profiles});
             this.props.recieveScholorInformation(profiles)//this action listened by two reducer, for detail info, please see redux documentation
         }

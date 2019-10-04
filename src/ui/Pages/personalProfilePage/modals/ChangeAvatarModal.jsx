@@ -1,19 +1,19 @@
 /* Copyright (C) Profware Pty. Ltd. - All Rights Reserved
  * Unauthorized copying of this file, via any medium is strictly prohibited
  * Proprietary and confidential
- * Written by [Chenyang Lu], [date:20th Aug 2019]
+ * Written by [Chenyang Lu], [date 3th Oct 2019]
  */
 
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
-import { Paper, Typography, Button, withStyles, FormControl, NativeSelect, InputBase } from '@material-ui/core';
+import { Paper, Typography, Button, withStyles, ListItem, Divider, Avatar } from '@material-ui/core';
 import Icon from '@material-ui/core/Icon';
 import { Close } from 'mdi-material-ui';
 import Description from '@material-ui/icons/Description';
-import FileButton from '../../../reusableComponents/button/FileButton'
+
 
 //api
-import {uploadCV} from '../../../../api/personalProfileApi'
+import {UploadAvatar} from '../../../../api/personalProfileApi'
 
 const styles = theme => ({
     paper: {
@@ -33,44 +33,7 @@ const styles = theme => ({
         left: "300px",
         borderRadius: "4px",
     },
-    inputLabel: {
-        margin: "28px 0 6px 0",
-        display: 'inline-block',
-    },
-    inlineWord: {
-        // margin: "18px 0 5px 0",
-        verticalAlign: "middle",
-        textAlign: "center",
-        paddingTop: "15px"
-
-    },
-    inputBoxroot: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        backgroundColor: theme.palette.common.white,
-        height: "40px",
-        padding: "0 5px 0 11px",
-        borderRadius: 4,
-        border: '1px solid #ced4da',
-    },
-    universityBox: {
-        width: "333px",
-    },
-    typeSelectBox: {
-        backgroundColor: theme.palette.common.white,
-        transition: theme.transitions.create(['border-color', 'box-shadow']),
-        '&:focus': {
-            borderRadius: 4,
-            borderColor: '#80bdff',
-            boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
-        },
-        height: "40px",
-        width: "128px",
-        padding: "0px 0 0px 11px",
-        borderRadius: 4,
-        border: '1px solid #cccccc',
-
-    },
+   
 });
 
 class AwardModal extends Component {
@@ -85,11 +48,12 @@ class AwardModal extends Component {
         this.setState({ [field]: event.target.value })
     }
 
-    uploadCV = (e) =>{
+    uploadAvatar = (e) =>{
+        if (this.state.url){
         e.preventDefault();
         let formData = new FormData(e.target);
         const temp = this;
-        uploadCV(formData).
+        UploadAvatar(formData).
             then(function(response){
                 temp.props.handleClose();
             },
@@ -99,18 +63,35 @@ class AwardModal extends Component {
             }
             
             );
-    }
+        }else{
+            alert("please choose a picture first!")
+        }
 
-    fileChoosen = (event) => {
+    }
+    
+    pictureChosen = event => {
         console.log(event.target.files[0]);
         let file = event.target.files[0];
-        let url = window.webkitURL.createObjectURL(file); 
-        this.setState({file,url})
-
+        let url = window.webkitURL.createObjectURL(file); // get the url of picture that uploaded 
+        this.setState({url});
     }
 
+
+    
+
     render() {
+        console.info(document.getElementById("avatar-form"))
         const { classes } = this.props
+        const temp =[
+            {"Update Education": true},
+            {"Update Your Avatar": true},
+            {"Update Contact info": false},
+            {"Update Work/ Project Experience": false},
+            {"Update Contact Info": false}
+        ]
+
+
+
         return (
             <div className={classes.modal}>
 
@@ -118,8 +99,8 @@ class AwardModal extends Component {
                     <div>
                         <Typography variant="h1">
                             <div style={{ verticalAlign: "middle", height: "100%", float: "left" }}>
-                                Add CV
-                </div>
+                                Change Avatar
+                    </div>
                             <Button style={{ float: "right", verticalAlign: "middle", color: "#000000" }} size="small" onClick={this.props.handleClose}>
                                 <Close />
                             </Button>
@@ -130,61 +111,50 @@ class AwardModal extends Component {
 
 
                 <Paper className={classes.paper} style={{ padding: "20px 30px" }}>
-
-                {!this.state.file  &&
+                    {this.state.url  &&
+                    <Avatar src = {this.state.url} style={{margin:"auto", width:200, height:200, borderRadius:"13px"}}/>}
+                    {!this.state.url  &&
                     <Typography variant = "h2" style = {{fontWeight:"normal", marginLeft:5}}  >
-                        Choose file to upload, supported file type: pdf, docx, doc
+                        Choose your Avatar file to upload
                     </Typography>
                     }
-                {this.state.file  &&
-                <div>
-                    <Typography variant = "h2" style = {{fontWeight:"normal", marginLeft:5, color: "red"}}  >
-                        {this.state.file.name + " has been uploaded, please click save"} 
-                    </Typography>
-                </div>
-                    }
 
-                    <form onSubmit={this.uploadCV} id = "file-form">        
-                        <div style = {{marginTop:20}}>
-                            <input
-                            accept=".doc,.docx, .pdf"
-                            style={{ display: 'none' }}
-                            id="raised-button-file"
-                            name="cv" 
-                            type="file"
-                            onChange = {this.fileChoosen}
-                            />
 
-                        <label htmlFor="raised-button-file">
+
+                    <div style = {{marginTop:20}}>
+
+                    <form onSubmit={this.uploadAvatar} id = "avatar-form" encType="multipart/form-data">
+                        {/* choose avatar button */}
+                        <input accept="image/*"  style={{ display: 'none' }} id="choose-avatar" name="avatar" type="file" onChange={this.pictureChosen}/>
+                        <label htmlFor="choose-avatar">
                             <Button 
                                 color="primary" 
                                 size="small" 
                                 component="span"
                             >
-                                Choose File
+                                Add File
                             </Button> 
                         </label>
-                    </div>
 
-                    <div style = {{marginBottom:20}}>
+                        {/* upload avatar form */}
+                        <div style = {{marginBottom:20}}>
                         <input type="submit" value="Upload" id="submit-file" style={{ display: 'none' }}/>
                         <label htmlFor="submit-file">
                             <Button 
                                 color="primary" 
-                                style= {{marginRight: "20px",float: "right",verticalAlign:"middle"}} 
+                                style= {{float:"right",verticalAlign:"middle"}} 
                                 size="small" 
-                                onClick = {this.props.uploadCV}
+                                // onClick = {this.props.uploadCV}
                                 component="span"
                                 variant="contained"
                             >
                                 Save
                             </Button> 
                         </label>
-
-                    </div>
+                        </div>
 
                     </form> 
-                
+                </div>
                 </Paper>
                 
             </div>

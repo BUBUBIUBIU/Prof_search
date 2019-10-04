@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import {AppBar,Toolbar,Typography,Button,Tabs,Tab, withStyles,withTheme, spacing,Avatar, Menu, ClickAwayListener, Grid,ButtonBase, MenuItem, Paper} from '@material-ui/core';
-import { FormattedMessage, injectIntl, intlShape, FormattedRelative } from 'react-intl';
-import PropTypes from 'prop-types';
+import {AppBar,Toolbar,Typography,Button,Tabs,Tab, withStyles,Avatar, Menu, MenuItem} from '@material-ui/core';
+import { FormattedMessage, injectIntl } from 'react-intl';
+import { AccountCardDetailsOutline} from 'mdi-material-ui';
+
 
 //redux Dependencies
 import { connect } from 'react-redux'
-import {backToHomePage,changeLanguage, logout} from '../../redux/actions/index.js'
+import {backToHomePage, logout} from '../../redux/actions/index.js'
 
 // RouterDependencies
 import { Redirect } from 'react-router-dom'
@@ -37,7 +38,7 @@ const styles = theme => ({
     background: 'linear-gradient(45deg, #D4145A 30%, #FBB03B 90%)',
     paddingLeft:100,
     paddingRight:100,
-    margin:0,
+    marginBottom: "30px"
 
   },
   smallAvatar:{
@@ -45,7 +46,7 @@ const styles = theme => ({
     width: 25,
     height: 25,
     borderRadius:"5px"
-  }
+  },
 });
 
 
@@ -54,7 +55,6 @@ class HeadNavigator extends Component {
         super(props);
         this.state = {
             value: this.props.tabValue,
-            anchorEl: null,
             profileAnchorEl: null,
             toAnotherPage:"",
             openSignUpModal: false,
@@ -62,9 +62,6 @@ class HeadNavigator extends Component {
             authValue:""         
            
         };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleLanguageButtonClick = this.handleLanguageButtonClick.bind(this);
-    this.handleClose = this.handleClose.bind(this);
     }
 
     handleChange = (event,value) => {
@@ -74,17 +71,12 @@ class HeadNavigator extends Component {
     }
 
 
-
-    handleLanguageButtonClick = event => {
-      this.setState({ anchorEl: event.currentTarget });
-    };
-
     handleProfileClick = event => {
       this.setState({ profileAnchorEl: event.currentTarget });
     };
   
     handleClose = () => {
-      this.setState({ anchorEl: null });
+      this.setState({ profileAnchorEl: null });
     };
 
     handleProfileClose = () => {
@@ -110,6 +102,14 @@ class HeadNavigator extends Component {
       this.setState({toAnotherPage:"home"})
     }
 
+    toContactListPage = () => {
+      if(this.props.userInfo.identity === "student"){
+        this.setState({toAnotherPage:"contactList"})
+      }else{
+        this.setState({toAnotherPage:"applicationList"})
+      }
+    }
+
     signout = () =>{
       const that = this
       //method from logout api, if success, delete cookies, otherwise don't  
@@ -122,50 +122,64 @@ class HeadNavigator extends Component {
               console.log(err);
           })
           this.handleProfileClose()
+    }
+
+    displayTabs = () => {
+      if (window.location.pathname === '/' || window.location.pathname === '/search' || 
+      window.location.pathname === '/browse'|| window.location.pathname === '/search/searchResult' ){
+        return true;
+      }else{
+        return false;
+      }
 
     }
 
 
     render() {
-        // if(this.state.toAnotherPage == "SearchExpert"){
-        //     return <Redirect to ="/SearchExpert"/>
-        // }
 
-        if(this.state.toAnotherPage == "home"){
-          if (window.location.pathname != "/" && window.location.pathname != "/search"){
-          return <Redirect to ="/"/>
+        if(this.state.toAnotherPage === "home"){
+          if (window.location.pathname !== "/" && window.location.pathname != "/search"){
+          return <Redirect push to ="/"/>
           }
         }
 
-        // if(this.state.toAnotherPage == "SearchPhd"){
-        //     return <Redirect to ="/SearchPhdPosition"/>
-        // }
-        // if(this.state.toAnotherPage == "SearchResearchProjects"){
-        //     return <Redirect to ="/SearchResearchProjects"/>
-        // }
-        if(this.state.toAnotherPage == "personalProfile"){
-          return <Redirect to ="/personalProfile"/>
+        if(this.state.toAnotherPage === "personalProfile"){
+          if (window.location.pathname !== "/personalProfile" && window.location.pathname != "/search"){
+            return <Redirect push to ="/personalProfile"/>
+          }
         }
-        if (this.state.authValue == "login") {
+
+        if (this.state.toAnotherPage === "contactList") {
+          if (window.location.pathname !== "/contactList")
+            return <Redirect push to = "/contactList" />
+        }
+  
+  
+        if (this.state.toAnotherPage === "applicationList") {
+          if (window.location.pathname !== "/applicationList")
+            return <Redirect push to = "/applicationList" />
+        }
+  
+
+
+        if (this.state.authValue === "login") {
           return <Redirect to='../login' />
         }
 
-        if (this.state.authValue=="signup") {
+        if (this.state.authValue==="signup") {
           return <Redirect to='../signup' />
         }
         
   
 
-        const {value, anchorEl,profileAnchorEl} = this.state;
+        const {value, profileAnchorEl} = this.state;
         const {classes, theme, intl} = this.props;
         
         return (
           <div>
               <AppBar position="static" className={classes.appBar}>
                 <Toolbar>
-
-
-                  <Typography variant="h4" color="inherit" className = {classes.grow} onClick = {this.backToHomePage}>
+                  <Typography variant="h4" color="inherit" className = {classes.grow} onClick = {this.backToHomePage} style = {{marginRight: "auto"}}>
                   PROFSEARCH 
                   </Typography>
 
@@ -179,18 +193,37 @@ class HeadNavigator extends Component {
                   <Button variant="outlined" color="secondary" className={classes.button} size="small" onClick = {this.login}>
                   <FormattedMessage id="navigator_log_in" defaultMessage="Log in" />
                   </Button>}
+                  
+                  {this.props.userInfo.status === 1 &&
+                  <Button color="secondary" className={classes.button} size="small" onClick={this.toContactListPage}>
+                    <div style={{float:"left", align:"middle", display:"block",textAlign:"center"}}>
+                      <AccountCardDetailsOutline />
+                      <p style={{padding:"0", margin:"0", fontSize:"12px"}}>
+                        {this.props.userInfo.identity === "student" && "Contact List"}
+                        {this.props.userInfo.identity === "expert" && "Application List"}
+                      </p>
+                    </div>
+                  </Button>
+                  }
+
 
                   {this.props.userInfo.status === 1 &&
-                  <Button variant="outlined" 
+                  <Button 
                     color="secondary" 
                     aria-controls="personal-profile" 
-                    aria-owns={anchorEl ? 'personal-profile' : undefined} 
+                    aria-owns={profileAnchorEl ? 'personal-profile' : undefined} 
                     className={classes.button} 
                     size="small"
                     aria-haspopup="true"
                     onClick={this.handleProfileClick}>
-                  {this.props.userInfo.name}
-                  
+                    <div style={{align:"middle", display:"block",textAlign:"center"}}>
+                    <Avatar style = {{width:27, height:27, marginBottom:6}}>
+                      {this.props.userInfo.name.substring(0,1)}
+                    </Avatar>
+                      <p style={{padding:"0", margin:"0", fontSize:"12px"}}>
+                        Me
+                      </p>
+                    </div>
                   </Button>
                 }
                 <Menu id="personal-profile" 
@@ -200,7 +233,7 @@ class HeadNavigator extends Component {
                       onClose={this.handleClose}>
 
                   <MenuItem onClick={this.jumpToProfilePage}>
-                  <Avatar className={classes.smallAvatar} >
+                  <Avatar className={classes.smallAvatar}>
                       {this.props.userInfo.name.substring(0,1)}
                   </Avatar>
                   <Typography variant="h3" >
@@ -222,10 +255,14 @@ class HeadNavigator extends Component {
 
                 </Menu>
                 </Toolbar>
+
+                {/* only show the following in tabs in search pages */}
+                {this.displayTabs() &&
                 <Tabs value={value} onChange={this.handleChange}>
                   <Tab value="search" label= "Search" />
                   <Tab value="browse" label= "Browse" />
                 </Tabs>
+                }
               </AppBar>
 
           </div>
@@ -239,7 +276,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     backHome: () => dispatch(backToHomePage()),
-    changeLanguage: (language) => dispatch(changeLanguage(language)),
     logout: ()=> dispatch(logout()),
     dispatch
 });

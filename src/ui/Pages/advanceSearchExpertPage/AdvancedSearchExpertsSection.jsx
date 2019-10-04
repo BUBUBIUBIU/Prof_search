@@ -1,3 +1,9 @@
+/* Copyright (C) Profware Pty. Ltd. - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ * Written by [Chenyang Lu], [date:26th March 2019]
+ */
+
 // Dependencies
 import React, { Component } from 'react';
 import { withStyles, Grid,Paper, Menu, Button, MenuItem} from '@material-ui/core';
@@ -20,7 +26,8 @@ const styles = theme =>({
         paddingBottom: 20,
         background:theme.palette.common.white,
         margin:0,
-        anchorEl: null
+        anchorEl: null,
+        // maxWidth: 1200,
     },
 
 });
@@ -61,28 +68,21 @@ class AdvancedSearchExpertsSection extends Component{
         const { anchorEl } = this.state;
         return(
             <div className={classes.root}>
-                <Grid container spacing={24}>
-                    <Grid item xs={3}>
-                        <LeftPannel />
-                    </Grid>
-                    <Grid item xs={1} />
-                    <Grid item xs={7}>
-                        <Paper style={{width: "742px", height:"55px", padding:"5px 0 0 10px", backgroundColor:"#FFFFFF"}}>
-                            <Sort style={{verticalAlign:"middle"}}/>
-                            <Button aria-owns={anchorEl ? 'simple-menu' : undefined} aria-haspopup="true"
-                                onClick={this.handleClick}>
-                                {this.state.buttonName}
-                            </Button>
-                            <Menu id="simple-menu" anchorEl={anchorEl} open={Boolean(anchorEl)}>
-                                <MenuItem onClick={() => this.handleChangeSortingClick("default", "Default Sort")}>Default Sort</MenuItem>
-                                <MenuItem onClick={() => this.handleChangeSortingClick("name", "Name")}>Name</MenuItem>
-                                <MenuItem onClick={() => this.handleChangeSortingClick("numberOfPublications" , "Number Of Publications")}>Number Of Publications</MenuItem>
-                            </Menu>
-                        </Paper>
-                        <ScholarProfileContainer/>
-                    </Grid>
-                    <Grid item xs={1} />
-                </Grid>
+                    <div style = {{maxWidth: 1200, margin:"auto"}}>
+                    <Paper style={{width: "742px", height:"55px", padding:"5px 0 0 10px", backgroundColor:"#FFFFFF"}}>
+                        <Button aria-owns={anchorEl ? 'simple-menu' : undefined} aria-haspopup="true"
+                            onClick={this.handleClick}>
+                                <Sort style={{verticalAlign:"middle"}}/>
+                            {this.state.buttonName}
+                        </Button>
+                        <Menu id="simple-menu" anchorEl={anchorEl} open={Boolean(anchorEl)}>
+                            <MenuItem onClick={() => this.handleChangeSortingClick("default", "Default Sort")}>Default Sort</MenuItem>
+                            <MenuItem onClick={() => this.handleChangeSortingClick("name", "Name")}>Name</MenuItem>
+                            <MenuItem onClick={() => this.handleChangeSortingClick("numberOfPublications" , "Number Of Publications")}>Number Of Publications</MenuItem>
+                        </Menu>
+                    </Paper>
+                    <ScholarProfileContainer/>
+                </div>
             </div>
             )
     }

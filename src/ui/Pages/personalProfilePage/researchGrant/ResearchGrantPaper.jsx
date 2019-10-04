@@ -103,7 +103,7 @@ class researchGrantPaper extends Component {
 
   handleClose = () => {
     this.setState({ open: false });
-    // this.props.UpdateFile();
+    this.props.UpdateFile();
   };
 
 

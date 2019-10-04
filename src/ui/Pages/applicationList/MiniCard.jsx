@@ -1,7 +1,7 @@
 /* Copyright (C) Profware Pty. Ltd. - All Rights Reserved
  * Unauthorized copying of this file, via any medium is strictly prohibited
  * Proprietary and confidential
- * Written by [Chenyang Lu], [date:26th Sep 2019]
+ * Written by [Chenyang Lu], [date:27th Sep 2019]
  */
 
 
@@ -12,7 +12,7 @@ import { Paper, withStyles,Avatar,Typography,Button, Checkbox, Divider} from '@m
 import { prototype } from 'stack-utils';
 
 //api
-import {AcceptOffer,RejectOffer} from '../../../api/contactAPI'
+import {AcceptApplication, RejectApplication} from '../../../api/applicationAPI'
 
 //Router
 import { Redirect } from 'react-router-dom'
@@ -52,18 +52,18 @@ const styles = theme => ({
 
 const ADDED_TO_CONTACT_LIST = 0;
 const PENDING = 1;
-const OFFERED = 2;
-const EXPERT_REJECT = 3;
-const ACCEPT = 4;
-const STUDENT_REJECT = 5;
+const OFFERED_TO_STUDENT = 2;
+const REFUSED_STUDENT = 3;
+const ACCEPTED_BY_STUDENT = 4;
+const REJECT_BY_STUDENT = 5;
 
 const statusDictionary = {
     0: "Added to contact List",
     1: "pending",
-    2: "offered",
-    3: "Rejected by expert",
-    4: "accepted",
-    5: "rejected"
+    2: "offered, waiting for student's response",
+    3: "Reject",
+    4: "accepted by student",
+    5: "rejected by student"
 }
 
 class MiniCard extends Component {
@@ -74,32 +74,28 @@ class MiniCard extends Component {
         };
     }
 
-    onClickMessage = () =>{
-        this.props.handleSendMessageClick(this.props.simpleprofile.ID)
-    }
-
-    acceptOffer = () => {
+    acceptApplication = () => {
         const data = {
             "id": this.props.simpleprofile.ID
         }
         const that = this;
-        AcceptOffer().then(
+        AcceptApplication().then(
             function(response){
-                that.props.refreshContactList();
+                that.props.refreshApplicationList();
             }, function(err){
                 alert("Error happens, accept offer unsuccessful")
             }
         )
     }
 
-    rejectOffer = () => {
+    rejectApplication = () => {
         const data = {
             "id": this.props.simpleprofile.ID
         }
         const that = this;
-        RejectOffer().then(
+        RejectApplication(data).then(
             function(response){
-                that.props.refreshContactList();
+                that.props.refreshApplicationList();
             }, function(err){
                 alert("Error happens, accept offer unsuccessful")
             }
@@ -107,11 +103,10 @@ class MiniCard extends Component {
     }
 
     navigateToDetailProfile = () =>{
-        const destinationID = "/expertProfile/" + this.props.simpleprofile.Expert.ID;
+        const destinationID = "/studentProfile/" + this.props.simpleprofile.Student.ID;
         this.setState({redirect:destinationID})
 
     }
-    
     
 
     render(){
@@ -119,12 +114,11 @@ class MiniCard extends Component {
             // let history = useHistory();
             return <Redirect push to = {this.state.redirect}/>
         }
-
         const {classes,simpleprofile} = this.props
-        const ExpertInfo = simpleprofile.Expert; //Neccessary information of expert
+        const StudentInfo = simpleprofile.Student; //Neccessary information of student
         const ID = simpleprofile.ID;
         const Status = simpleprofile.Status
-        const switched  = this.props.check || false
+
         return(
             <div style={{ width: "100%"}}>
                 <div style={{display:"flex", width: "100%", alignItems:"flex-start"}}>
@@ -132,39 +126,28 @@ class MiniCard extends Component {
                         <div style={{display:"flex", alignItems:"center"}}>
                             <div style={{flex:"0 1 auto", maxWidth:200}}>
                                 <Avatar className={classes.bigAvatar}>
-                                    {ExpertInfo.FirstName[0]}
+                                    {StudentInfo.FirstName[0]}
                                 </Avatar>
                             </div>
-                            <div style={{flex:"0 1 auto", padding: 30, marginRight:"auto"}}>
-                                <Typography variant="h1"  onClick = {this.navigateToDetailProfile}>
-                                    {ExpertInfo.FirstName} {" "}  {ExpertInfo.LastName}
+                            <div style={{flex:"0 1 auto", padding: 30, marginRight:"auto"}} onClick = {this.navigateToDetailProfile}>
+                                <Typography variant="h1">
+                                    {StudentInfo.FirstName} {" "}  {StudentInfo.LastName}
+
                                 </Typography>
                                 <Typography variant="body1">
-                                    <p style={{fontWeight:500}}> Professor</p>
+                                    <p style={{fontWeight:500}}> Student</p>
                                     {/* <p style={{fontWeight:300}}> Melbourne ,Victoria, Australia </p> */}
                                 </Typography>
                                 <Typography variant="body1">
-                                    Faculty of Life science
+                                    Master  Score:  80
+                                </Typography>
+                                <Typography variant="body1">
+                                    Bachelor  Score: 80
                                 </Typography>
                             </div>
 
-                            {Status !== ADDED_TO_CONTACT_LIST &&
-                            <div style={{flex:"0 1 auto", padding: 30}}>
-                                <Typography style={{fontWeight:300, fontSize: 17}}>
-                                    Message Sent
-                                </Typography>
-                            </div>
-                            }
-
-                            {Status === ADDED_TO_CONTACT_LIST &&
-                            <div style={{flex:"0 1 auto", padding: 30}}>
-                                <Button variant="outlined" color="primary" onClick={this.onClickMessage}>
-                                    Message
-                                </Button>
-                            </div>}
                         </div>
 
-                        { Status !== ADDED_TO_CONTACT_LIST &&
                         <div>
                             <Divider style={{ boxShadow: "0 2px 4px 0 rgba(215, 215, 215, 0.5)"}} />
                             <div style={{display:"flex",  padding: 30}}>
@@ -181,12 +164,12 @@ class MiniCard extends Component {
                                     <Typography variant="subtitle1" style={{color: "#4a4a4a", fontWeight:600}}>
                                         status: <span style={{fontWeight:300}}>{statusDictionary[Status]}</span>
                                     </Typography>
-                                    {Status === OFFERED &&
+                                    {Status === PENDING &&
                                     <div>
-                                        <Button variant="contained" color="primary" style={{marginRight:10, height:30, width:50}} onClick = {this.acceptOffer}>
+                                        <Button variant="contained" color="primary" style={{marginRight:10, height:30, width:50}} onClick = {this.acceptApplication}> 
                                             Accept
                                         </Button>
-                                        <Button variant="outlined" color="primary" style={{height:30, width:50}} onClick = {this.rejectOffer}>
+                                        <Button variant="outlined" color="primary" style={{height:30, width:50}} onClick = {this.rejectApplication}>
                                             Reject
                                         </Button>
                                     </div>
@@ -194,24 +177,10 @@ class MiniCard extends Component {
                                 </div>
                             </div>
                         </div>
-                        }
+                        
                     </Paper>
                     
 
-                    {/* right part */}
-                    { Status === ADDED_TO_CONTACT_LIST &&
-                    <Paper className={classes.paper} style={{maxWidth:40, height:220,marginLeft:5, flex: "0 1 auto", }}>
-                        <Checkbox 
-                            color='primary' 
-                            checked={switched} // here, we did not use this.props.check, instead, we make switch = this.props.check; 
-                                                //Not sure why, but if we directly use this.prop.check, it can not render correctly...
-                            onChange={this.props.handleCheck(ID)}
-                            style = {{top:"45%"}}
-                             inputProps={{
-                                'aria-label': 'primary checkbox',
-                                }}  />
-                    </Paper>
-                    }
                 </div>
 
             </div>

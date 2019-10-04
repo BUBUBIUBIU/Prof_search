@@ -176,6 +176,18 @@ class ProfileCard extends Component {
             </Paper>
 
 
+
+
+            <Modal
+                    aria-labelledby="changeAvatarModal"
+                    aria-describedby="changeAvatar"
+                    open={this.state.completenessModal}
+                    onClose={this.handleClose}
+                >   
+                Hello
+            </Modal>
+
+
                 <Modal
                     aria-labelledby="simple-modal-title"
                     aria-describedby="simple-modal-description"
@@ -255,7 +267,6 @@ class ProfileCard extends Component {
                         </Paper>
 
                     </div>
-
                 </Modal>
             
             </div>

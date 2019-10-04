@@ -5,9 +5,14 @@ import { Card, Typography,FormattedMessage, AppBar,Tabs,Tab, List, ListItem,Expa
 //import UI
 import ListItems from "./ListItems";
 import Publications  from './Publications'
+
 // RouterDependencies
 import { Redirect } from 'react-router-dom'
 
+
+//api
+
+import {AddToContactList} from '../../../api/contactAPI'
 
 const styles = theme => ({
     pannel:{
@@ -71,8 +76,9 @@ class ScholarProfileCard extends Component {
         console.log(this.props.profile)
     }
 
-    directToContectList = () =>{
-        this.setState({toContactList:true})
+    addToContectList = () =>{
+        AddToContactList([this.props.profile.ID]);
+        // this.setState({toContactList:true})
     }
 
     handleTab = (event,value) => {
@@ -85,12 +91,6 @@ class ScholarProfileCard extends Component {
             } 
 
             const {classes, profile} = this.props
-            // profile.Publications = []
-            // profile.Organization ="fake"
-            // profile.Position ="fake"
-            // profile.SubjectArea.replace("\n", "<br/>");
-            // profile.ResearchOverview = []
-            // profile.ResearchOverview.replace("\n", "<br/>");
             const {value} = this.state; 
             const publicationAndCount = profile.Publications? "publications(" + profile.Publications.length.toString()+ ")" : "publications(0)"
             const profileBriefInfo = profile.Organization + ", University of Melbourne" 
@@ -107,7 +107,7 @@ class ScholarProfileCard extends Component {
                         <Avatar className={classes.bigAvatar}> {avatar} </Avatar>
                         }
                         action={
-                        <Button color="primary" className ={classes.button} variant="outlined" onClick={this.directToContectList}> 
+                        <Button color="primary" className ={classes.button} variant="outlined" onClick={this.addToContectList}> 
                             Add to list to contact
                         </Button>
                         }
