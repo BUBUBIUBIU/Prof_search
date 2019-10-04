@@ -24,7 +24,7 @@ import ResearchGrant from './researchGrant/ResearchGrantPaper'
 import OngoingProject from './ongoingProject/ongoingProjectPaper'
 import AvailablePosition from './availablePosition/availablePositionPaper'
 import Header from '../../reusableComponents/NewHeadNavigator'
-
+import ChangeAvatarModal from './modals/ChangeAvatarModal'
 //api
 import {getProfile} from '../../../api/personalProfileApi'
 import {GetExpertProfile} from '../../../api/generalAPI'
@@ -162,6 +162,7 @@ class PersonalProfilePage extends Component {
 
     handleClose = field => event => {
         this.setState({ [field]: false })
+        this.UpdateFile()
     }
 
     handleOpen = field => event =>{
@@ -216,6 +217,10 @@ class PersonalProfilePage extends Component {
         }
     }
 
+    changeAvatar = () =>{
+        this.setState({avatarModal:true})
+    }
+
     render(){
         const {profile} = this.state
         const {classes} = this.props
@@ -228,7 +233,7 @@ class PersonalProfilePage extends Component {
                     <Paper className = {classes.paper} style = {{ padding:25}}>
                         <div style = {{display:"flex", alignItems:"center"}}>
                             <div style= {{flex:"0 1 auto", maxWidth:200}} onClick = {this.changeAvatar}>
-                                <Avatar  className={classes.bigAvatar} src = {"http://" + profile.Avatar}/>
+                                <Avatar  className={classes.bigAvatar} src = {"http://" + profile.Avatar} onClick = {this.changeAvatar}/>
                             </div>
                             <div  style= {{flex:"0 1 auto", maxWidth:500, padding: 30, marginRight:"auto"}}>
                                 <Typography variant="h1">
@@ -316,20 +321,20 @@ class PersonalProfilePage extends Component {
                     aria-labelledby="completeness-modal"
                     aria-describedby="show-the-completion"
                     open={this.state.completenessModal}
-                    onClose={this.handleClose}
+                    onClose={this.handleClose("completenessModal")}
                 >   
                 <CompletenessModal handleClose ={this.handleClose("completenessModal")} />
                 </Modal>
 
-{/* 
+
                 <Modal
                     aria-labelledby="completeness-modal"
                     aria-describedby="changeAvatar"
                     open={this.state.avatarModal}
-                    onClose={this.handleClose}
+                    onClose={this.handleClose("avatarModal")}
                 >   
-                <CompletenessModal handleClose ={this.handleClose("completenessModal")} />
-                </Modal> */}
+                <ChangeAvatarModal handleClose ={this.handleClose("avatarModal")} />
+                </Modal> 
 
             </div>
         )
