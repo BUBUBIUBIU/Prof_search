@@ -13,7 +13,7 @@ import { Edit } from '@material-ui/icons/';
 
 
 //UI
-import ResearchGrantUpdateModal from './ResearchGrantUpdateModal'
+import OngoingProjectUpdateModal from './OngoingProjectUpdateModal'
 
 //config 
 // import { gpa, findGpaType} from '../../../../config/gpaType'
@@ -34,20 +34,20 @@ const styles = theme => ({
     },
 });
 
-class ResearchGrantDetail extends Component {
+class OngoingProjectDetail extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            researchGrantExperience: this.props.researchGrantExperience,
-            grantWaitingForUpdate:{},
+            ongoingProjects: this.props.ongoingProjects,
+            ProjectWaitingForUpdate:{},
             index:0,
         };
     }
 
     componentDidUpdate(){
-        if (this.props.researchGrantExperience !== this.state.researchGrantExperience) {
+        if (this.props.ongoingProjects !== this.state.ongoingProjects) {
           this.setState({
-            researchGrantExperience: this.props.researchGrantExperience,
+            ongoingProjects: this.props.ongoingProjects,
           })
         }
       }
@@ -57,7 +57,7 @@ class ResearchGrantDetail extends Component {
     openUpdateModal = index => event => {
         console.log('index:', index);
         if (this.state.open !== true)
-            this.setState({ index,grantWaitingForUpdate:this.state.researchGrantExperience[index], open: true});
+            this.setState({ index,ProjectWaitingForUpdate:this.state.ongoingProjects[index], open: true});
     }
 
 
@@ -70,13 +70,13 @@ class ResearchGrantDetail extends Component {
 
     render() {
         const { classes } = this.props
-        // const { researchGrantExperience } =  this.state
-        const { researchGrantExperience } = this.state
-        // console.log(researchGrantExperience)
+        // const { ongoingProjects } =  this.state
+        const { ongoingProjects } = this.state
+        // console.log(ongoingProjects)
 
-        // Note: Here we directly use this.props.researchGrantExperience, It might result in bug(no data update), use state instead
-        const researchGrantList = researchGrantExperience.map((researchGrant, index) =>
-            <ListItem key={researchGrant.ID} >
+        // Note: Here we directly use this.props.ongoingProjects, It might result in bug(no data update), use state instead
+        const projectList = ongoingProjects.map((proj, index) =>
+            <ListItem key={proj.ID} >
                 <div style={{ width: "100%"}}>
                     {/* title */}
                     <Grid container spacing={2} style = {{flexGrow:1}}>
@@ -85,28 +85,21 @@ class ResearchGrantDetail extends Component {
                             {/* subtitle */}
                             <div style={{ margin: "10px" }}>
                                 <Typography variant="h2">
-                                    { researchGrant.Title }
-                                </Typography>
-                            </div>
-
-                            {/* subtitle */}
-                            <div style={{ margin: "10px" }}>
-                                <Typography variant="h2">
-                                    { researchGrant.FundingBody }
+                                    { proj.ProjectName }
                                 </Typography>
                             </div>
 
                             {/* year and location */}
                             <div style={{ margin: "10px" }}>
                                 <Typography variant="body2">
-                                    {researchGrant.FromYear} - {researchGrant.ToYear}
+                                    {proj.FromYear} - {proj.ToYear}
                                 </Typography>
                             </div>
 
                             <div style={{ margin: "25px 10px 25px 10px" }}>
                                 {/* Describetion */}
                                 <Typography variant="body2">
-                                    {researchGrant.Description}
+                                    {proj.Description}
                                 </Typography>
                             </div>
                         </Grid>
@@ -117,7 +110,7 @@ class ResearchGrantDetail extends Component {
                         </IconButton>
                         </Grid>
                     </Grid>
-                    {this.props.researchGrantExperience.length - 1 !== index && <Divider variant="inset" />}
+                    {this.props.ongoingProjects.length - 1 !== index && <Divider variant="inset" />}
                 </div>
             </ListItem>
         );
@@ -128,7 +121,7 @@ class ResearchGrantDetail extends Component {
             <Paper className={classes.paper} style={{ marginTop: "2px", padding: "25px 20px 50px 30px" }}>
                 {/* title */}
                 <List>
-                    {researchGrantList}
+                    {projectList}
                 </List>
             </Paper>
                                 
@@ -138,7 +131,7 @@ class ResearchGrantDetail extends Component {
                 open={this.state.open}
                 onClose={this.handleClose}
             >
-                <ResearchGrantUpdateModal handleClose={this.handleCloseModal} currentResearchGrant = {this.state.grantWaitingForUpdate}/>
+                <OngoingProjectUpdateModal handleClose={this.handleCloseModal} currentProjects = {this.state.ProjectWaitingForUpdate}/>
             </Modal>
             </div>
         )
@@ -148,4 +141,4 @@ class ResearchGrantDetail extends Component {
 
 
 
-export default withStyles(styles)(ResearchGrantDetail);
+export default withStyles(styles)(OngoingProjectDetail);

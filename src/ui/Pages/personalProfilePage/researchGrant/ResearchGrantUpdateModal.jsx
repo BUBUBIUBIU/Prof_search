@@ -1,19 +1,22 @@
 /* Copyright (C) Profware Pty. Ltd. - All Rights Reserved
  * Unauthorized copying of this file, via any medium is strictly prohibited
  * Proprietary and confidential
- * Written by [Shaochuan Luo], [date:31th Aug 2019]
+ * Written by [Chenyang Lu], [date:2th Aug 2019]
  */
 
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Paper, Typography, Button, withStyles, FormControl, NativeSelect, InputBase } from '@material-ui/core';
 import { Close } from 'mdi-material-ui';
+
+
 //Ui
 import BootstrapStyleSearchBox from '../../../reusableComponents/BootstrapStyleSearchBox'
+import ConfirmationDialog from '../../../reusableComponents/Dialog/ConfirmationDialog'
 import SelectorOne from '../../../reusableComponents/textField/SelectorOne.jsx';
 
 //api
-import { addResearchGrant } from '../../../../api/personalProfileApi';
+import { updateResearchGrant, deleteResearchGrant } from '../../../../api/personalProfileApi'
 
 //config
 import { years } from '../../../../config/years'
@@ -37,7 +40,7 @@ const styles = theme => ({
         borderRadius: "4px",
     },
     inputLabel: {
-        margin: "12px 0 6px 0",
+        margin: "28px 0 6px 0",
         display: 'inline-block',
     },
     inlineWord: {
@@ -76,17 +79,45 @@ const styles = theme => ({
     },
 });
 
-
 class ResearchGrantModal extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-        };
+        this.state = this.props.currentResearchGrant;
+    }
+
+    handleDialogOpen= () => {
+        this.setState({ModalOpen:true})
+    }
+
+    handleDialogClose = () =>{
+        this.setState({ModalOpen:false})
+    }
+
+    handleAgreeAction = () => {
+        this.handleDialogClose()
+        this.handleDelete()
+    }
+
+    handleDelete = () => {
+        const data = {
+            ID: this.state.ID
+        }
+        const temp = this
+
+        deleteResearchGrant(data)
+        .then(function (response) {
+            temp.props.handleClose()
+        }, function (err) {
+            alert(err.message);
+            console.log(err);
+        })
+
     }
 
     submit = () => {
         if(this.researchGrantInfoCheck()){
             const data = {
+                ID: this.state.ID,
                 Title: this.state.Title,
                 FromYear: parseInt(this.state.FromYear),
                 ToYear: parseInt(this.state.ToYear),
@@ -94,9 +125,10 @@ class ResearchGrantModal extends Component {
                 Description: this.state.Description,
                 Url: this.state.Url
             }
-            // console.log(data)
+            
+            console.log('data is:', data);
             const temp = this;
-            addResearchGrant(data)
+            updateResearchGrant(data)
                 .then(function (response) {
                     // console.log(response.message)
                     temp.props.handleClose()
@@ -131,14 +163,19 @@ class ResearchGrantModal extends Component {
             && this.state.ToYear !== 0
             && this.state.FromYear <= this.state.ToYear)   
         }
-    }
+    }    
+    
 
     handleChange = field => event => {
         this.setState({ [field]: event.target.value })
+
     }
 
+
+
+
     render() {
-        const { classes } = this.props
+        const { classes} = this.props
 
         return (
             <div className={classes.modal}>
@@ -163,6 +200,7 @@ class ResearchGrantModal extends Component {
                         placeHolder="Grant Name"
                         onChangeInput={this.handleChange("Title")}
                         compusory={true}
+                        value = {this.state.Title}
                     />
 
                     <div style={{ display: "flex", justifyContent: "space-around" }}>
@@ -190,6 +228,7 @@ class ResearchGrantModal extends Component {
                         placeHolder="Briefly describe what grant is it"
                         onChangeInput={this.handleChange("FundingBody")}
                         compusory={false}
+                        value = {this.state.FundingBody}
                     />
 
                     <BootstrapStyleSearchBox
@@ -197,12 +236,14 @@ class ResearchGrantModal extends Component {
                         placeHolder="Briefly describe what grant is it"
                         onChangeInput={this.handleChange("Description")}
                         compusory={false}
+                        value = {this.state.Description}
                     />
 
                     <BootstrapStyleSearchBox
                         label="URL"
                         onChangeInput={this.handleChange("URL")}
                         compusory={false}
+                        value = {this.state.Url}
                     />
 
                     <Button style = {{color: 'red'}}>Add File</Button>
@@ -213,16 +254,30 @@ class ResearchGrantModal extends Component {
                         </Button>
                     </div>
 
+                    <div style={{ float: "right" }}>
+                        <Button  size="small" onClick={this.handleDialogOpen} >
+                            Delete
+                        </Button>
+                    </div>
+
                 </Paper>
+
+                <ConfirmationDialog 
+                    open = {this.state.ModalOpen}
+                    handleAgreeAction = {this.handleAgreeAction}
+                    handleClose = {this.handleDialogClose}
+                    text = "Are you sure you want to delete this degree?"
+                    header = "Notification"
+                />
             </div>
         )
     }
+
 }
 
 ResearchGrantModal.propTypes = {
     handleClose: PropTypes.object
 }
 
+
 export default withStyles(styles)(ResearchGrantModal);
-
-

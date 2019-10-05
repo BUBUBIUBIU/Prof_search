@@ -1,19 +1,22 @@
 /* Copyright (C) Profware Pty. Ltd. - All Rights Reserved
  * Unauthorized copying of this file, via any medium is strictly prohibited
  * Proprietary and confidential
- * Written by [Shaochuan Luo], [date:31th Aug 2019]
+ * Written by [Chenyang Lu], [date:2th Aug 2019]
  */
 
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Paper, Typography, Button, withStyles, FormControl, NativeSelect, InputBase } from '@material-ui/core';
 import { Close } from 'mdi-material-ui';
+
+
 //Ui
 import BootstrapStyleSearchBox from '../../../reusableComponents/BootstrapStyleSearchBox'
+import ConfirmationDialog from '../../../reusableComponents/Dialog/ConfirmationDialog'
 import SelectorOne from '../../../reusableComponents/textField/SelectorOne.jsx';
 
 //api
-import { addResearchGrant } from '../../../../api/personalProfileApi';
+import { updateOngoingProject, deleteOngoingProject } from '../../../../api/personalProfileApi'
 
 //config
 import { years } from '../../../../config/years'
@@ -37,7 +40,7 @@ const styles = theme => ({
         borderRadius: "4px",
     },
     inputLabel: {
-        margin: "12px 0 6px 0",
+        margin: "28px 0 6px 0",
         display: 'inline-block',
     },
     inlineWord: {
@@ -76,27 +79,55 @@ const styles = theme => ({
     },
 });
 
-
 class ResearchGrantModal extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-        };
+        this.state = this.props.currentProjects;
+    }
+
+    handleDialogOpen= () => {
+        this.setState({ModalOpen:true})
+    }
+
+    handleDialogClose = () =>{
+        this.setState({ModalOpen:false})
+    }
+
+    handleAgreeAction = () => {
+        this.handleDialogClose()
+        this.handleDelete()
+    }
+
+    handleDelete = () => {
+        const data = {
+            ID: this.state.ID
+        }
+        const temp = this
+
+        deleteOngoingProject(data)
+        .then(function (response) {
+            temp.props.handleClose()
+        }, function (err) {
+            alert(err.message);
+            console.log(err);
+        })
+
     }
 
     submit = () => {
-        if(this.researchGrantInfoCheck()){
+        if(this.ongoingProjectInfoCheck()){
             const data = {
-                Title: this.state.Title,
+                ID: this.state.ID,
+                ProjectName: this.state.ProjectName,
                 FromYear: parseInt(this.state.FromYear),
                 ToYear: parseInt(this.state.ToYear),
-                FundingBody: this.state.FundingBody,
                 Description: this.state.Description,
                 Url: this.state.Url
             }
-            // console.log(data)
+            
+
             const temp = this;
-            addResearchGrant(data)
+            updateOngoingProject(data)
                 .then(function (response) {
                     // console.log(response.message)
                     temp.props.handleClose()
@@ -109,36 +140,34 @@ class ResearchGrantModal extends Component {
         }
     }
 
-    researchGrantInfoCheck = () => {
-        return this.titleValidate() && this.fromYearAndToYearValidate()
+    ongoingProjectInfoCheck = () => {
+        return this.projectNameValidate() && this.fromYearAndToYearValidate()
     }
 
-    titleValidate = () =>{
+    projectNameValidate = () =>{
         try{
-            return this.state.Title.replace(/(^s*)|(s*$)/g, "").length !== 0;
+            return this.state.ProjectName.replace(/(^s*)|(s*$)/g, "").length !== 0
         }catch(error){
             return false;
-        }
+        }      
     }
 
     fromYearAndToYearValidate = () =>{
-        if (this.state.ToYear === this.state.FromYear) {
-            return (this.state.FromMonth !== 0
-            && this.state.ToMonth !== 0
-            && this.state.FromMonth <= this.state.ToMonth) 
-        }else {
-            return (this.state.FromYear !== 0
+        return (this.state.FromYear !== 0
             && this.state.ToYear !== 0
-            && this.state.FromYear <= this.state.ToYear)   
-        }
+            && this.state.FromYear <= this.state.ToYear) 
     }
+    
 
     handleChange = field => event => {
         this.setState({ [field]: event.target.value })
     }
 
+
+
+
     render() {
-        const { classes } = this.props
+        const { classes} = this.props
 
         return (
             <div className={classes.modal}>
@@ -147,7 +176,7 @@ class ResearchGrantModal extends Component {
                     <div>
                         <Typography variant="h1">
                             <div style={{ verticalAlign: "middle", height: "100%", float: "left" }}>
-                                Add Research Grant
+                                Add Ongoing Project
                 </div>
                             <Button style={{ float: "right", verticalAlign: "middle", color: "#000000" }} size="small" onClick={this.props.handleClose}>
                                 <Close />
@@ -159,17 +188,18 @@ class ResearchGrantModal extends Component {
                 <Paper className={classes.paper} style={{ padding: "50px 30px" }}>
                    
                     <BootstrapStyleSearchBox            
-                        label="Title"
-                        placeHolder="Grant Name"
-                        onChangeInput={this.handleChange("Title")}
+                        label="Project Name"
+                        placeHolder="Ex: Chatbot development project"
+                        onChangeInput={this.handleChange("ProjectName")}
                         compusory={true}
+                        value = {this.state.ProjectName}
                     />
 
                     <div style={{ display: "flex", justifyContent: "space-around" }}>
                         <SelectorOne
                             style={{ flexGrow: 1 }}
                             label="From Year"
-                            isCompulsory = {true}
+                            isCompulsory={true}
                             items={years}
                             onChangeSelect={this.handleChange("FromYear")}
                             value = {this.state.FromYear}
@@ -178,33 +208,29 @@ class ResearchGrantModal extends Component {
                         <SelectorOne
                             style={{ flexGrow: 1 }}
                             label="To Year (or expected)"
-                            isCompulsory = {true}
                             items={years}
+                            isCompulsory={true}
                             onChangeSelect={this.handleChange("ToYear")}
                             value = {this.state.ToYear}
                         />
                     </div>
 
                     <BootstrapStyleSearchBox
-                        label="Funding Body"
-                        placeHolder="Briefly describe what grant is it"
-                        onChangeInput={this.handleChange("FundingBody")}
-                        compusory={false}
-                    />
-
-                    <BootstrapStyleSearchBox
                         label="Brief description"
                         placeHolder="Briefly describe what grant is it"
                         onChangeInput={this.handleChange("Description")}
                         compusory={false}
+                        value = {this.state.Description}
                     />
 
                     <BootstrapStyleSearchBox
                         label="URL"
-                        onChangeInput={this.handleChange("URL")}
+                        onChangeInput={this.handleChange("Url")}
                         compusory={false}
+                        value = {this.state.Url}
                     />
 
+                
                     <Button style = {{color: 'red'}}>Add File</Button>
                     <br/>
                     <div style={{ float: "right" }}>
@@ -213,16 +239,30 @@ class ResearchGrantModal extends Component {
                         </Button>
                     </div>
 
+                    <div style={{ float: "right" }}>
+                        <Button  size="small" onClick={this.handleDialogOpen} >
+                            Delete
+                        </Button>
+                    </div>
+
                 </Paper>
+
+                <ConfirmationDialog 
+                    open = {this.state.ModalOpen}
+                    handleAgreeAction = {this.handleAgreeAction}
+                    handleClose = {this.handleDialogClose}
+                    text = "Are you sure you want to delete this degree?"
+                    header = "Notification"
+                />
             </div>
         )
     }
+
 }
 
 ResearchGrantModal.propTypes = {
     handleClose: PropTypes.object
 }
 
+
 export default withStyles(styles)(ResearchGrantModal);
-
-

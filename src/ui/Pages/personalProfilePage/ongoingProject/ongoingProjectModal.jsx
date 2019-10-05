@@ -92,7 +92,7 @@ class ongoingProjectModal extends Component {
                 ProjectName: this.state.ProjectName,
                 FromYear: parseInt(this.state.FromYear),
                 ToYear: parseInt(this.state.ToYear),
-                BriefDescription: this.state.BriefDescription,
+                Description : this.state.Description,
                 Url: this.state.Url
             }
             console.log(data)
@@ -111,8 +111,6 @@ class ongoingProjectModal extends Component {
     }
 
     ongoingProjectInfoCheck = () => {
-        console.log(this.projectNameValidate())
-        console.log(this.fromYearAndToYearValidate())
         return this.projectNameValidate() && this.fromYearAndToYearValidate()
     }
 
@@ -183,13 +181,13 @@ class ongoingProjectModal extends Component {
                     <BootstrapStyleSearchBox
                         label="Brief description"
                         placeHolder="Briefly describe what grant is it"
-                        onChangeInput={this.handleChange("BriefDescription")}
+                        onChangeInput={this.handleChange("Description")}
                         compusory={false}
                     />
 
                     <BootstrapStyleSearchBox
                         label="URL"
-                        onChangeInput={this.handleChange("url")}
+                        onChangeInput={this.handleChange("Url")}
                         compusory={false}
                     />
 

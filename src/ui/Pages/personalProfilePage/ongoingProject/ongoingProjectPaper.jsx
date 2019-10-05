@@ -13,7 +13,7 @@ import { withStyles, Modal, } from '@material-ui/core';
 //Ui
 
 import CardHeader from '../CardHeader'
-// import ResearchInterestDetail from './ResearchInterestDetail'
+import OngoingProjectDetail from './OngoingProjectDetail'
 import OngoingProjectModal from './OngoingProjectModal'
 
 
@@ -76,21 +76,20 @@ const styles = theme => ({
 });
 
 
-class ongoingProjectPaper extends Component {
+class OngoingProjectPaper extends Component {
   constructor(props) {
     super(props);
     this.state = {
       expand: false,
-      // currentEducations: this.props.educations
+      currentProj: this.props.projects
     };
-    // console.log(this.props.educations)
-    // console.log(this.state.currentEducations)
+    console.log(45, this.props)
   }
 
   componentDidUpdate(){
-    if (this.props.educations != this.state.currentEducations) {
+    if (this.props.projects !== this.state.currentProj) {
       this.setState({
-        currentEducations: this.props.educations,
+        currentProj: this.props.projects,
       })
     }
   }
@@ -101,18 +100,20 @@ class ongoingProjectPaper extends Component {
 
   handleClose = () => {
     this.setState({ open: false });
-    // this.props.UpdateFile();
+    this.props.UpdateFile();
   };
 
 
   render() {
-    // const { currentEducations } = this.state;
-    // console.log(currentEducations)
+    const projects = this.state.currentProj;
     return (
       <div>
         <CardHeader title={"OngoingProject"} handleOpen={this.handleOpen} isCompulsory={false} buttonName={"Add Project"} />
         
-        {/* <ResearchInterestDetail educationExperience={currentEducations} UpdateFile = {this.props.UpdateFile}/> */}
+        {
+          projects  &&
+          <OngoingProjectDetail ongoingProjects={projects} UpdateFile = {this.props.UpdateFile}/>
+        }
         
         <Modal
           aria-labelledby="simple-modal-title"
@@ -129,10 +130,10 @@ class ongoingProjectPaper extends Component {
 }
 
 
-ongoingProjectPaper.propTypes = {
+OngoingProjectPaper.propTypes = {
   projects: PropTypes.object
 };
 
 
 
-export default withStyles(styles)(ongoingProjectPaper);
+export default withStyles(styles)(OngoingProjectPaper);

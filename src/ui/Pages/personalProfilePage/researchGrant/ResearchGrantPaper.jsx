@@ -78,7 +78,7 @@ const styles = theme => ({
 });
 
 
-class researchGrantPaper extends Component {
+class ResearchGrantPaper extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -86,7 +86,7 @@ class researchGrantPaper extends Component {
       currentResearchGrants: this.props.researchGrants
     };
     // console.log(this.props.educations)
-    // console.log(this.state.currentEducations)
+    console.log(77, this.state.currentResearchGrants)
   }
 
   componentDidUpdate(){
@@ -109,7 +109,6 @@ class researchGrantPaper extends Component {
 
   render() {
     const { currentResearchGrants } = this.state;
-    console.log('currentResearchGrants:' + currentResearchGrants)
     return (
       <div>
         <CardHeader title={"Research Grant"} handleOpen={this.handleOpen} isCompulsory={false} buttonName={"Add Grant"} />
@@ -133,10 +132,10 @@ class researchGrantPaper extends Component {
 }
 
 
-researchGrantPaper.propTypes = {
+ResearchGrantPaper.propTypes = {
   researchGrants: PropTypes.object
 };
 
 
 
-export default withStyles(styles)(researchGrantPaper);
+export default withStyles(styles)(ResearchGrantPaper);

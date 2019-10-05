@@ -62,9 +62,9 @@ class PersonalProfilePage extends Component {
 
 
     componentDidMount(){
-        console.log(this.props.identity)
-        console.log(this.props.editable)
-        console.log(this.props)
+        // console.log(this.props.identity)
+        // console.log(this.props.editable)
+        // console.log(this.props)
         const that = this;
         if (this.props.editable) {
             getProfile()
@@ -210,7 +210,7 @@ class PersonalProfilePage extends Component {
 
         // handle visibility logic for components that's only in both student and expert profile
     showCommonComponent = (componentName) =>{
-        if(this.props.editable == true){
+        if(this.props.editable === true){
             return true;
         }else if (this.props.editable=== false && this.state.profile[componentName]){
             return true;
@@ -227,7 +227,7 @@ class PersonalProfilePage extends Component {
         const {profile} = this.state
         const {classes} = this.props
         
-        // console.log(profile.Materials);s
+        console.log('profile in PersonalProfilePage:', profile);
         return(
             <div>
                 <Header/>
@@ -271,19 +271,20 @@ class PersonalProfilePage extends Component {
                         </div>
                     </Paper>
 
-                    {this.props.identity === 'expert' &&   <ResearchInterest/> }
+                    {/* {this.props.identity === 'expert' &&   <ResearchInterest/> }
                     {this.props.identity === 'expert' &&   <ResearchGrant/> }
                     {this.props.identity === 'expert' &&   <OngoingProject/> }
-                    {this.props.identity === 'expert' &&   <AvailablePosition/> }
-                
+                    {this.props.identity === 'expert' &&   <AvailablePosition/> } */}
+
+                    
                     <AvailablePosition
-                        projects = {profile.Position}
+                        positions = {profile.AvailablePositions}
                         UpdateFile = {this.UpdateFile}
                         editable = {this.props.editable}
                     />
 
                     <OngoingProject
-                        projects = {profile.OngoingProjects}
+                        projects = {profile.OngoingProjects} 
                         UpdateFile = {this.UpdateFile}
                         editable = {this.props.editable}
                     />
@@ -385,7 +386,7 @@ export default withStyles(styles)(PersonalProfilePage);
 //   "Media": "",
 //   "Video": "",
 //   "Awards": "",
-//   "Position": "",
+//   "Position": "", --------
 //   "Organization": "",
 //   "GoogleScholarLink": "",
 //   "Publications": [],
