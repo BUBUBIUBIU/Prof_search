@@ -3,7 +3,6 @@
  * Proprietary and confidential
  * Written by [Shaochuan Luo], [date:1th Sep 2019]
  */
-
 //
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
@@ -13,12 +12,10 @@ import { Plus, Close } from 'mdi-material-ui';
 
 
 //UI
-import BootstrapStyleSearchBox from '../../../reusableComponents/BootstrapStyleSearchBox';
-import P1 from './PublicationJournal';
-import  CardHeader from '../CardHeader'
-import PublicationJournal from './PublicationJournal';
-import PublicationConference from './PublicationConference';
-import PublicationBook from './PublicationBook';
+import UpdatePhD from './UpdatePhD'
+import UpdateTA from './UpdateTA' 
+import UpdataRA from './UpdataRA'
+import UpdatePostDoc from './UpdatePostDoc'
 
 const styles = theme => ({
     paper:{
@@ -48,38 +45,26 @@ const styles = theme => ({
     }, 
   });
 
-// function TabContainer(props) {
-//     return (
-//     <Typography variant = "body1">
-//         {props.children}
-//     </Typography>
-//     ); 
-// }
 
-class PublicationModal extends Component {
+class UpdateAvailablePosition extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            expand: false,
-            value: "Journal"
-        };
-    }
-
-    handleTab = (event,value) => {
-        this.setState({value});
+        this.state = this.props.currentPositions;
     }
 
     render(){
-        const {value} = this.state; 
-        const {classes} = this.props
+        const value = this.state.Position.toString(); 
+        const {classes} = this.props;
+        
+        console.log(value);
         return(
 
             <div className = {classes.modal}>
-                <Paper className ={classes.paper} style ={{padding:"20px 30px 0px 30px", marginBottom:"3px",height:"80px"}} >
+                <Paper className ={classes.paper} style ={{padding:"20px 30px 0px 30px", height:"89px"}} >
                     <div>
                         <Typography variant ="h1">
                             <div style ={{verticalAlign:"middle",height:"100%", float: "left"}}>
-                            Add Publication
+                            Add Available Position
                             </div>
                             <Button style= {{float: "right",verticalAlign:"middle", color:"#000000"}} size="small" onClick = {this.props.handleClose}>
                             <Close/>
@@ -87,28 +72,31 @@ class PublicationModal extends Component {
                         </Typography >   
                         <AppBar position="static" color="default" className={classes.cardAppBar}>
                             <Tabs variant="fullWidth" value={value} indicatorColor="primary" onChange={this.handleTab}>
-                                <Tab label="Journal" value = "Journal" />
-                                <Tab label="Conference" value = "Conference" />
-                                <Tab label="Book" value = "Book"/>  
+                                <Tab label="PhD" value = '1' />
+                                <Tab label="Teaching Assistant" value = "2" />
+                                <Tab label="Research Assistant" value = "3"/>  
+                                <Tab label="Post Doc/ Research Fellow" value = "4"/>  
                             </Tabs>
                         </AppBar>
                     </div>
                 </Paper> 
 
-                {value === "Journal" && <PublicationJournal handleClose = {this.props.handleClose}/>}
+                {value === "1" && <UpdatePhD handleClose = {this.props.handleClose} currentPhD = {this.state}/>}
 
-                {value === "Conference" && <PublicationConference handleClose = {this.props.handleClose}/>}
+                {value === "2" && <UpdateTA handleClose = {this.props.handleClose} currentTA = {this.state}/>}
 
-                {value === "Book" && <PublicationBook handleClose = {this.props.handleClose}/>}
+                {value === "3" && <UpdataRA handleClose = {this.props.handleClose} currentRA = {this.state} />}
+
+                {value === "4" && <UpdatePostDoc handleClose = {this.props.handleClose} currentPostDoc = {this.state}/>}
                 
             </div>
 
         )
     }
 }
-PublicationModal.propTypes = {
+UpdateAvailablePosition.propTypes = {
     handleClose: PropTypes.object
 }
 
 
-export default withStyles(styles)(PublicationModal);
+export default withStyles(styles)(UpdateAvailablePosition);

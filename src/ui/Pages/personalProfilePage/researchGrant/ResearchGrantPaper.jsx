@@ -13,8 +13,8 @@ import { withStyles, Modal, } from '@material-ui/core';
 //Ui
 
 import CardHeader from '../CardHeader'
-// import ResearchInterestDetail from './ResearchInterestDetail'
-import ResearchGrantModal from './researchGrantModal'
+import ResearchGrantDetail from './ResearchGrantDetail'
+import ResearchGrantModal from './ResearchGrantModal'
 
 
 
@@ -78,24 +78,24 @@ const styles = theme => ({
 });
 
 
-class researchGrantPaper extends Component {
+class ResearchGrantPaper extends Component {
   constructor(props) {
     super(props);
     this.state = {
       expand: false,
-      // currentEducations: this.props.educations
+      currentResearchGrants: this.props.researchGrants
     };
     // console.log(this.props.educations)
-    // console.log(this.state.currentEducations)
+    console.log(77, this.state.currentResearchGrants)
   }
 
-  // componentDidUpdate(){
-  //   if (this.props.educations != this.state.currentEducations) {
-  //     this.setState({
-  //       currentEducations: this.props.educations,
-  //     })
-  //   }
-  // }
+  componentDidUpdate(){
+    if (this.props.researchGrants !== this.state.currentResearchGrants) {
+      this.setState({
+        currentResearchGrants: this.props.researchGrants,
+      })
+    }
+  }
 
   handleOpen = () => {
     this.setState({ open: true });
@@ -103,18 +103,19 @@ class researchGrantPaper extends Component {
 
   handleClose = () => {
     this.setState({ open: false });
-    // this.props.UpdateFile();
+    this.props.UpdateFile();
   };
 
 
   render() {
-    // const { currentEducations } = this.state;
-    // console.log(currentEducations)
+    const { currentResearchGrants } = this.state;
     return (
       <div>
         <CardHeader title={"Research Grant"} handleOpen={this.handleOpen} isCompulsory={false} buttonName={"Add Grant"} />
-        
-        {/* <ResearchInterestDetail educationExperience={currentEducations} UpdateFile = {this.props.UpdateFile}/> */}
+
+        {currentResearchGrants &&
+          <ResearchGrantDetail researchGrantExperience={currentResearchGrants} UpdateFile = {this.props.UpdateFile}/>
+        }
         
         <Modal
           aria-labelledby="simple-modal-title"
@@ -131,10 +132,10 @@ class researchGrantPaper extends Component {
 }
 
 
-researchGrantPaper.propTypes = {
-  educations: PropTypes.object
+ResearchGrantPaper.propTypes = {
+  researchGrants: PropTypes.object
 };
 
 
 
-export default withStyles(styles)(researchGrantPaper);
+export default withStyles(styles)(ResearchGrantPaper);

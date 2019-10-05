@@ -3,7 +3,8 @@ import { Paper, Button, withStyles,ToolBar, Modal,FormControl,NativeSelect,Input
 import BootstrapStyleSearchBox from '../../../reusableComponents/BootstrapStyleSearchBox';
 
 //api
-import { addAvailablePosition } from '../../../../api/personalProfileApi';
+import { updateAvailablePosition, deleteAvailablePosition } from '../../../../api/personalProfileApi';
+import ConfirmationDialog from '../../../reusableComponents/Dialog/ConfirmationDialog';
 
 const styles = theme => ({
     paper:{
@@ -17,24 +18,23 @@ const styles = theme => ({
     },
 });
 
-class AvailablePositionPhD extends Component {
+class UpdatePhD extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            expand: false,
-        };
+        this.state = this.props.currentPhD;
     }
 
     submit = () => {
         if(this.positionPhdInfoCheck()){
             const data = {
+                ID: this.state.ID,
                 Position: 1,
                 Salary: parseInt(this.state.Salary), 
                 Content: this.state.Content,
                 Requirement: this.state.Requirement
             }
             const temp = this;
-            addAvailablePosition(data)
+            updateAvailablePosition(data)
                 .then(function (response) {
                     temp.props.handleClose()
                 }, function (err) {
@@ -54,26 +54,60 @@ class AvailablePositionPhD extends Component {
         this.setState({ [field]: event.target.value })
     }
 
-    handleCheck = (event) => {
-        this.setState({ currentWorking: event.target.checked })
+    handleDialogOpen= () => {
+        this.setState({ModalOpen:true})
+    }
+
+    handleDialogClose = () =>{
+        this.setState({ModalOpen:false})
+    }
+
+    handleAgreeAction = () => {
+        this.handleDialogClose()
+        this.handleDelete()
+    }
+
+    handleDelete = () => {
+        const data = {
+            ID: this.state.ID
+        }
+        const temp = this
+
+        deleteAvailablePosition(data)
+        .then(function (response) {
+            temp.props.handleClose()
+        }, function (err) {
+            alert(err.message);
+            console.log(err);
+        })
+
+    }
+
+    // Old function
+    handleChange = field => event => {
+        this.setState({ [field]: event.target.value })
     }
 
 
     render(){
-        const {classes} = this.props
+        const {classes} = this.props;
+        // console.log('In UpdatePhD:', this.state);
         return(
+            <div>
             <Paper className ={classes.paper} style = {{ height:380}}>
                     
                     <BootstrapStyleSearchBox
                         label = "Scholarship Amount Per Year"
                         placeHolder = "Ex: $60000 per year"
                         onChangeInput={this.handleChange("Salary")}
+                        value = {this.state.Salary}
                     />
 
                     <BootstrapStyleSearchBox
                         label = "Topic"
                         placeHolder = "Ex: Design"
                         onChangeInput={this.handleChange("Content")}
+                        value = {this.state.Content}
                     />
 
 
@@ -81,6 +115,7 @@ class AvailablePositionPhD extends Component {
                         label = "Requirement"
                         placeHolder = 'Briefly describe your requirement here '
                         onChangeInput={this.handleChange("Requirement")}
+                        value = {this.state.Requirement}
                     />
 
                     <Button style = {{color: 'red'}}>Add file</Button>
@@ -88,12 +123,25 @@ class AvailablePositionPhD extends Component {
                     <Button style= {{float: "right", marginBottom:"10px"}} onClick={this.submit} variant="contained" color="primary" size="small">
                         Save
                     </Button>
+
+                    <Button style= {{float: "right", margin: "0 10px 10px 0"}} onClick={this.handleDialogOpen} size="small">
+                        Delete
+                    </Button>
                 </Paper>
+
+                <ConfirmationDialog 
+                open = {this.state.ModalOpen}
+                handleAgreeAction = {this.handleAgreeAction}
+                handleClose = {this.handleDialogClose}
+                text = "Are you sure you want to delete this degree?"
+                header = "Notification"
+                />
+        </div>
         )
     }
 }
 
-export default withStyles(styles)(AvailablePositionPhD);
+export default withStyles(styles)(UpdatePhD);
 
 // "Position"    int `binding:"required"`  // 1 phd, 2 ta, 3 ra, 4 postdoc
 // "Salary"      uint         `binding:"required,numeric"`

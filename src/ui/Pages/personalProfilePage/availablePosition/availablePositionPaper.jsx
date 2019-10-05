@@ -13,8 +13,8 @@ import { withStyles, Modal, } from '@material-ui/core';
 //Ui
 
 import CardHeader from '../CardHeader'
-// import ResearchInterestDetail from './ResearchInterestDetail'
-import AvailablePositionModal from './availablePositionModal'
+import AvailablePositionDetail from './AvailablePositionDetail'
+import AvailablePositionModal from './AvailablePositionModal'
 
 
 const styles = theme => ({
@@ -81,16 +81,16 @@ class AvailablePositionPaper extends Component {
     super(props);
     this.state = {
       expand: false,
-      // currentEducations: this.props.educations
+      positions: this.props.positions
     };
     // console.log(this.props.educations)
     // console.log(this.state.currentEducations)
   }
 
   componentDidUpdate(){
-    if (this.props.educations != this.state.currentEducations) {
+    if (this.props.positions !== this.state.positions) {
       this.setState({
-        currentEducations: this.props.educations,
+        positions: this.props.positions,
       })
     }
   }
@@ -106,13 +106,17 @@ class AvailablePositionPaper extends Component {
 
 
   render() {
-    // const { currentEducations } = this.state;
-    // console.log(currentEducations)
+    const { positions } = this.state;
+    // console.log('positions in paper:', positions)
+    // console.log('props in paper:', this.props)
     return (
       <div>
         <CardHeader title={"Available Position"} handleOpen={this.handleOpen} isCompulsory={false} buttonName={"Add Position"} />
         
-        {/* <ResearchInterestDetail educationExperience={currentEducations} UpdateFile = {this.props.UpdateFile}/> */}
+        {
+          positions &&
+          <AvailablePositionDetail positions={positions} UpdateFile = {this.props.UpdateFile}/>
+        }
         
         <Modal
           aria-labelledby="simple-modal-title"

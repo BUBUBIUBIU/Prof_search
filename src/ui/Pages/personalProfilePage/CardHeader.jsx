@@ -26,7 +26,7 @@ class CardHeader extends Component {
 
 
     render(){
-        const {classes, isCompulsory, title,buttonName} = this.props
+        const {classes, isCompulsory, title, buttonName} = this.props
         return(
             <div>
                 <Paper className = {classes.paper} style ={{marginTop:"20px", padding:"25px 20px 0 30px", height:"40px"}}>
@@ -37,11 +37,16 @@ class CardHeader extends Component {
                 </div>
                 </Typography >    
 
-                {this.props.editable && 
+                {/* {this.props.editable && 
                 <Button color="primary" style= {{marginRight: "20px",float: "right",verticalAlign:"middle"}} size="small" onClick = {this.props.handleOpen}>
                 <Plus/> {buttonName}
                 </Button> 
-                }
+                } */}
+
+                <Button color="primary" style= {{marginRight: "20px",float: "right",verticalAlign:"middle"}} size="small" onClick = {this.props.handleOpen}>
+                <Plus/> {buttonName}
+                </Button> 
+
                 </div>
             </Paper>
             </div>

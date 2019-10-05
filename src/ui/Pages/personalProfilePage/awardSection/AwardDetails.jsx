@@ -44,12 +44,6 @@ class AwardDetail extends Component {
         if(this.props.awards !== this.state.awards)
             this.setState({awards: this.props.awards})
     }
-    
-    // handleUpdate = (obj) =>{
-    //     let tempProfile =  this.state.educationExperience;
-    //     tempProfile[this.state.index] = obj;
-    //     this.setState({educationExperience: tempProfile})
-    // }
 
     render() {
         const { classes, awards } = this.props

@@ -12,7 +12,7 @@ import { Paper,Typography, withStyles, List, ListItem, Divider,Grid,IconButton, 
 import { Edit } from '@material-ui/icons/';
 
 // UI
-import PublicationUpdateModal from './PublicationUpdateModal'
+import AvailablePositionUpdateModal from './AvailablePositionUpdateModal'
 
 const styles = theme => ({
     paper:{
@@ -29,27 +29,27 @@ const styles = theme => ({
       },
 });
 
-class EducationDetailComponent extends Component {
+class AvailablePositionDetail extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            publication: this.props.publications,
-            publicationWaitingForUpdate:{},
+            positions: this.props.positions,
+            positionWaitingForUpdate:{},
             index:0,        
         };
     }
 
     componentDidUpdate(){
-        if (this.props.publications !== this.state.publication) {
+        if (this.props.positions !== this.state.positions) {
           this.setState({
-            publication: this.props.publications,
+            positions: this.props.positions,
           })
         }
     }
 
     openUpdateModal = index => event => {
         if (this.state.open !== true)
-            this.setState({ index, publicationWaitingForUpdate: this.state.publication[index], open: true});
+            this.setState({ index, positionWaitingForUpdate: this.state.positions[index], open: true});
     }
 
     handleCloseModal= () => {
@@ -58,36 +58,54 @@ class EducationDetailComponent extends Component {
     }
     
     render(){
-        const {classes, publications} = this.props
+        const {classes, positions} = this.props
 
         // Note: Here we directly use this.props.educationExperience, It might result in bug(no data update), use state instead
-        const publicationList = publications.map((publication, index) =>
-        <ListItem key={publication._id} >
+        const positionList = positions.map((position, index) =>
+        <ListItem key={position._id} >
             <div style ={{width: "100%"}}>
             <Grid container spacing={3} style = {{flexGrow:1}}>
                     <Grid item xs={11}>
 
                     <div style ={{margin:"10px"}}>
                     <Typography variant ="h5">
-                    ({publication.PublicationYear}) {publication.Title}
+                        {position.Position}
                     </Typography>
                     </div>
 
                     {/* subtitle */}
                     <div style ={{margin:"10px"}}>
                     <Typography variant ="body2">
-                    {publication.Authors}
+                        Scholarship amount per year {position.Salary}
                     </Typography>
                     </div>
 
+                    {/* subtitle */}
                     <div style ={{margin:"10px"}}>
-                        <Typography variant ="body2">
-                            {publication.PublicationName && `${publication.PublicationName} `}{publication.Volumn && `(${publication.Volumn}) `}{publication.Pages && `${publication.Pages} `}{publication.Publisher && `${publication.Publisher} `}
-                        </Typography>
+                    <Typography variant ="body2">
+                        Topic {position.Content}
+                    </Typography>
                     </div>
-                  
-                    {publications.length -1 !== index && <Divider variant = "fullWidth"/>}
+
+                    {/* subtitle */}
+                    <div style ={{margin:"10px"}}>
+                    <Typography variant ="body2">
+                        Requirement 
+                    </Typography>
+                    </div>
+
+                    <br/>
+
+                    {/* subtitle */}
+                    <div style ={{margin:"10px"}}>
+                    <Typography variant ="body2">
+                        {position.requirement}
+                    </Typography>
+                    </div>
+
+                    {positions.length -1 !== index && <Divider variant = "fullWidth"/>}
                     </Grid>
+
                     <Grid item xs={1}>
                         <IconButton onClick={this.openUpdateModal(index)} >
                                 <Edit/>
@@ -104,7 +122,7 @@ class EducationDetailComponent extends Component {
                 <Paper className = {classes.paper} style ={{marginTop:"2px", padding:"20px 20px 20px 30px"}}>
                 {/* title */}
                     <List>
-                        {publicationList}
+                        {positionList}
                     </List>
                 </Paper>
 
@@ -114,7 +132,7 @@ class EducationDetailComponent extends Component {
                     open={this.state.open}
                     onClose={this.handleClose}
                 >
-                    <PublicationUpdateModal handleClose={this.handleCloseModal} currentPublications = {this.state.publicationWaitingForUpdate}/>
+                    <AvailablePositionUpdateModal handleClose={this.handleCloseModal} currentPositions = {this.state.positionWaitingForUpdate}/>
                 </Modal>
             </div>
             
@@ -124,9 +142,9 @@ class EducationDetailComponent extends Component {
 };
 
 //Todo 
-EducationDetailComponent.propTypes = {
+AvailablePositionDetail.propTypes = {
     isCompulsory: PropTypes.bool,
     title: PropTypes.string,
 }
 
-export default withStyles(styles)(EducationDetailComponent);
+export default withStyles(styles)(AvailablePositionDetail);

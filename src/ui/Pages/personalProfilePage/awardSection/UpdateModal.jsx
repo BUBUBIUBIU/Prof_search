@@ -193,7 +193,7 @@ class AwardModal extends Component {
                     <Button style={{ color: 'red' }}>Add file</Button>
 
                     <div style ={{marginTop:30}}>
-                <div style={{ float: "right", marginLeft:40 }}>
+                    <div style={{ float: "right", marginLeft:40 }}>
                         <Button variant="contained" color="primary" size="small" onClick={this.handleSubmit} >
                             Save
                         </Button>

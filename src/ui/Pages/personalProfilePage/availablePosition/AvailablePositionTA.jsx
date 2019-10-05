@@ -17,7 +17,7 @@ const styles = theme => ({
     },
 });
 
-class AvailablePositionPhD extends Component {
+class AvailablePositionTA extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -26,9 +26,9 @@ class AvailablePositionPhD extends Component {
     }
 
     submit = () => {
-        if(this.positionPhdInfoCheck()){
+        if(this.positionTAInfoCheck()){
             const data = {
-                Position: 1,
+                Position: 2,
                 Salary: parseInt(this.state.Salary), 
                 Content: this.state.Content,
                 Requirement: this.state.Requirement
@@ -46,7 +46,7 @@ class AvailablePositionPhD extends Component {
         }
     }
 
-    positionPhdInfoCheck = () => {
+    positionTAInfoCheck = () => {
         return true;
     }
 
@@ -93,7 +93,7 @@ class AvailablePositionPhD extends Component {
     }
 }
 
-export default withStyles(styles)(AvailablePositionPhD);
+export default withStyles(styles)(AvailablePositionTA);
 
 // "Position"    int `binding:"required"`  // 1 phd, 2 ta, 3 ra, 4 postdoc
 // "Salary"      uint         `binding:"required,numeric"`

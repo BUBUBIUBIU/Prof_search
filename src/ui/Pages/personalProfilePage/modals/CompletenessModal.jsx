@@ -10,7 +10,7 @@ import { Paper, Typography, Button, withStyles, ListItem, Divider } from '@mater
 import Icon from '@material-ui/core/Icon';
 import { Close } from 'mdi-material-ui';
 import Description from '@material-ui/icons/Description';
-
+import '../../../../App.css';
 
 //api
 import {uploadCV} from '../../../../api/personalProfileApi'
@@ -32,11 +32,17 @@ const styles = theme => ({
         top: "20px",
         left: "300px",
         borderRadius: "4px",
-    },
-   
+    }
 });
 
+const div1 = {
+    width: "100%",
+}
+
+
+
 class AwardModal extends Component {
+    
     constructor(props) {
         super(props);
         this.state = {
@@ -47,6 +53,12 @@ class AwardModal extends Component {
     handleChange = field => event => {
         this.setState({ [field]: event.target.value })
     }
+
+    // handleMix = name => {
+    //     this.props.handleClose();
+    //     // console.log(1);
+    //     console.log(6);      
+    // }    
 
     uploadCV = (e) =>{
         e.preventDefault();
@@ -76,14 +88,14 @@ class AwardModal extends Component {
         ]
 
         const completenessLise = temp.map((item, index) =>
-        <ListItem key={index} >
-            <div style={{ width: "100%" }}>
+        <ListItem key={index} className='App-t1'>
+            <div style={div1}>
                 <div style = {{display:"flex", padding:"10 0"}}>
                 <Typography style = {{flex: "0 1 auto", marginRight:"auto"}}>
                     {Object.keys(item)[0]}
                 </Typography>
                 <div style = {{flex: "0 1 auto"}}>
-                    <Button color ="primary" classes = {{text: classes.buttonText}} href = "#cv">
+                    <Button color ="primary" className='js--scroll-to-education' onClick={this.props.handleClose} classes = {{text: classes.buttonText}} href = "#cv">
                         Upload
                     </Button>
                 </div>

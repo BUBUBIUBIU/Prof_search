@@ -349,7 +349,7 @@ export function addResearchGrant(data){
  */
 export function updateResearchGrant(data){
     const configObj = {
-        method: 'Put',
+        method: 'PUT',
         data,
     }
     console.log(data);
@@ -418,6 +418,54 @@ export function deleteOngoingProject(data){
     }
     console.log(data);
     return getDataFromServer(apiUrl.OngoingProject, configObj);
+}
+
+/**
+ * This method used for add available position
+ * Post method is implemented
+ *
+ * @param {Object} data: detail in addAvailablePosition ApI, request Body 
+ * @return {Object} 
+ */
+export function addAvailablePosition(data){
+    const configObj = {
+        method: 'POST',
+        data,
+    }
+    console.log(data);
+    return getDataFromServer(apiUrl.AvailablePosition, configObj);
+}
+
+/**
+ * This method used for update AvailablePosition
+ * Delete method is implemented
+ *
+ * @param {Object} data: detail in update AvailablePosition ApI, request Body 
+ * @return {Object} 
+ */
+export function updateAvailablePosition(data){
+    const configObj = {
+        method: 'PUT',
+        data,
+    }
+    console.log(data);
+    return getDataFromServer(apiUrl.AvailablePosition, configObj);
+}
+
+/**
+ * This method used for delete AvailablePosition
+ * Delete method is implemented
+ *
+ * @param {Object} data: detail in delete AvailablePosition ApI, request Body 
+ * @return {Object} 
+ */
+export function deleteAvailablePosition(data){
+    const configObj = {
+        method: 'DELETE',
+        data,
+    }
+    console.log(data);
+    return getDataFromServer(apiUrl.AvailablePosition, configObj);
 }
 
 /**

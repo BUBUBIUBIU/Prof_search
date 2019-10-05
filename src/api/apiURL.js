@@ -29,8 +29,8 @@ export const EXPERIENCE  = '/api/student/company';
 export const PUBlICATION  = '/api/student/publication';
 export const AWARD  = '/api/student/award';
 export const OTHERMATERIAL  = '/api/student/material';
-export const AVATAR = '/api/student/avatar'
-export const CV = '/api/student/cv'
+export const AVATAR = 'api/student/avatar'
+export const CV = 'api/student/cv'
 
 //student contact List api
 export const CONTACTLIST = '/api/student/contactlist'
@@ -44,9 +44,10 @@ export const REJECT_OFFER = 'api/student/application/reject'
 export const EXPERT_PROFILE = '/api/expert/profile'
 export const EXPERT_CHECKLOGIN ='/api/expert/checksignin';
 export const EXPERT_SIGNOUT ='/api/expert/signout';
-export const ResearchInterest = '/api/';
-export const ResearchGrant  = '/api/';
-export const OngoingProject  = '/api/' 
+export const ResearchInterest = 'api/';
+export const ResearchGrant  = 'api/expert/grant';
+export const OngoingProject  = 'api/expert/ongoing_project';
+export const AvailablePosition = 'api/expert/position'; 
 
 
 //professor Application API

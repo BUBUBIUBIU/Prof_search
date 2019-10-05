@@ -21,8 +21,9 @@ import OtherMaterial from './otherMaterialSection/OtherMaterialPaper'
 import CompletenessModal from './modals/CompletenessModal'
 import ResearchInterest from './researchInterest/ResearchInterestPaper'
 import ResearchGrant from './researchGrant/ResearchGrantPaper'
-import OngoingProject from './ongoingProject/ongoingProjectPaper'
-import AvailablePosition from './availablePosition/availablePositionPaper'
+
+import OngoingProject from './ongoingProject/OngoingProjectPaper'
+import AvailablePosition from './availablePosition/AvailablePositionPaper'
 import Header from '../../reusableComponents/NewHeadNavigator'
 import ChangeAvatarModal from './modals/ChangeAvatarModal'
 //api
@@ -61,9 +62,9 @@ class PersonalProfilePage extends Component {
 
 
     componentDidMount(){
-        console.log(this.props.identity)
-        console.log(this.props.editable)
-        console.log(this.props)
+        // console.log(this.props.identity)
+        // console.log(this.props.editable)
+        // console.log(this.props)
         const that = this;
         if (this.props.editable) {
             getProfile()
@@ -107,6 +108,7 @@ class PersonalProfilePage extends Component {
             }
 
         }
+        console.log(this.state.profile)
     }
 
 
@@ -208,7 +210,7 @@ class PersonalProfilePage extends Component {
 
         // handle visibility logic for components that's only in both student and expert profile
     showCommonComponent = (componentName) =>{
-        if(this.props.editable == true){
+        if(this.props.editable === true){
             return true;
         }else if (this.props.editable=== false && this.state.profile[componentName]){
             return true;
@@ -225,7 +227,7 @@ class PersonalProfilePage extends Component {
         const {profile} = this.state
         const {classes} = this.props
         
-        // console.log(profile.Materials);s
+        console.log('profile in PersonalProfilePage:', profile);
         return(
             <div>
                 <Header/>
@@ -269,12 +271,30 @@ class PersonalProfilePage extends Component {
                         </div>
                     </Paper>
 
-                    {this.props.identity === 'expert' &&   <ResearchInterest/> }
+                    {/* {this.props.identity === 'expert' &&   <ResearchInterest/> }
                     {this.props.identity === 'expert' &&   <ResearchGrant/> }
                     {this.props.identity === 'expert' &&   <OngoingProject/> }
-                    {this.props.identity === 'expert' &&   <AvailablePosition/> }
-                   
+                    {this.props.identity === 'expert' &&   <AvailablePosition/> } */}
+
                     
+                    <AvailablePosition
+                        positions = {profile.AvailablePositions}
+                        UpdateFile = {this.UpdateFile}
+                        editable = {this.props.editable}
+                    />
+
+                    <OngoingProject
+                        projects = {profile.OngoingProjects} 
+                        UpdateFile = {this.UpdateFile}
+                        editable = {this.props.editable}
+                    />
+
+                    <ResearchGrant 
+                        researchGrants = {profile.Grants}
+                        UpdateFile = {this.UpdateFile}
+                        editable = {this.props.editable}
+                    />
+
                     <EducationPaper 
                         educations = {profile.Universities}
                         UpdateFile = {this.UpdateFile}
@@ -343,3 +363,34 @@ class PersonalProfilePage extends Component {
 };
 
 export default withStyles(styles)(PersonalProfilePage);
+
+// "message": "Success!",
+// "content": {
+//   "ID": 1,
+//   "Email": "chenyangl5@student.unimelb.edu.au",
+//   "Phone": "0412345678",
+//   "FirstName": "Chenyang",
+//   "LastName": "Lu",
+//   "PersonID": "",
+//   "Name": "",
+//   "Fax": "",
+//   "LocationUri": "hangzhou.cn",
+//   "LocationLabel": "",
+//   "Biography": "master lu",
+//   "Biography2": "",
+//   "ResearchOverview": "",
+//   "SupervisorText": "wo yao da shi ge",
+//   "SupervisorText2": "",
+//   "SupervisorAvailability": "",
+//   "SubjectArea": "",
+//   "Media": "",
+//   "Video": "",
+//   "Awards": "",
+//   "Position": "", --------
+//   "Organization": "",
+//   "GoogleScholarLink": "",
+//   "Publications": [],
+//   "Grants": []
+
+
+

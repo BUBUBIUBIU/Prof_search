@@ -86,48 +86,13 @@ class ongoingProjectModal extends Component {
         };
     }
 
-
-    // handleSubmit = () => {
-
-    //     //Check all requirement
-    //     if (this.state.title.replace(/(^s*)|(s*$)/g, "").length !== 0
-    //         && this.state.fromYear !== NaN
-    //         && this.state.toYear !== NaN
-    //         && this.state.fromYear < this.state.toYear
-    //         && this.state.fundingBody !== NaN
-    //         && this.state.briefDescription !== NaN
-    //         && this.state.url !== NaN) {
-    //         const data = {
-    //             Title: this.state.title,
-    //             FromYear: parseInt(this.state.fromYear),
-    //             ToYear: parseInt(this.state.toYear),
-    //             FundingBody: this.state.fundingBody,
-    //             BriefDescription: this.state.briefDescription,
-    //             URL: this.state.url
-    //         }
-    //         console.log(data)
-    //         const temp = this;
-    //         addOngoingProject(data)
-    //             .then(function (response) {
-    //                 console.log(response.message)
-    //                 temp.props.handleClose()
-    //             }, function (err) {
-    //                 alert(err.message);
-    //                 console.log(err);
-    //             })
-
-    //     } else {
-    //         alert("Some error with your input")
-    //     }
-    // }
-
     submit = () => {
         if(this.ongoingProjectInfoCheck()){
             const data = {
                 ProjectName: this.state.ProjectName,
                 FromYear: parseInt(this.state.FromYear),
                 ToYear: parseInt(this.state.ToYear),
-                BriefDescription: this.state.BriefDescription,
+                Description : this.state.Description,
                 Url: this.state.Url
             }
             console.log(data)
@@ -150,13 +115,17 @@ class ongoingProjectModal extends Component {
     }
 
     projectNameValidate = () =>{
-        return this.state.ProjectName.replace(/(^s*)|(s*$)/g, "").length !== 0
+        try{
+            return this.state.ProjectName.replace(/(^s*)|(s*$)/g, "").length !== 0
+        }catch(error){
+            return false;
+        }      
     }
 
     fromYearAndToYearValidate = () =>{
-        return (this.state.FromYear.replace(/(^s*)|(s*$)/g, "").length !== 0
-        && this.state.ToYear.replace(/(^s*)|(s*$)/g, "").length !== 0
-        && this.state.FromYear <= this.state.ToYear)   
+        return (this.state.FromYear !== 0
+            && this.state.ToYear !== 0
+            && this.state.FromYear <= this.state.ToYear) 
     }
 
     handleChange = field => event => {
@@ -187,7 +156,7 @@ class ongoingProjectModal extends Component {
                     <BootstrapStyleSearchBox            
                         label="Project Name"
                         placeHolder="Ex: Chatbot development project"
-                        onChangeInput={this.handleChange("title")}
+                        onChangeInput={this.handleChange("ProjectName")}
                         compusory={true}
                     />
 
@@ -197,7 +166,7 @@ class ongoingProjectModal extends Component {
                             label="From Year"
                             isCompulsory={true}
                             items={years}
-                            onChangeSelect={this.handleChange("fromYear")}
+                            onChangeSelect={this.handleChange("FromYear")}
                         />
 
                         <SelectorOne
@@ -205,27 +174,27 @@ class ongoingProjectModal extends Component {
                             label="To Year (or expected)"
                             items={years}
                             isCompulsory={true}
-                            onChangeSelect={this.handleChange("toYear")}
+                            onChangeSelect={this.handleChange("ToYear")}
                         />
                     </div>
 
                     <BootstrapStyleSearchBox
                         label="Brief description"
                         placeHolder="Briefly describe what grant is it"
-                        onChangeInput={this.handleChange("briefDescription")}
+                        onChangeInput={this.handleChange("Description")}
                         compusory={false}
                     />
 
                     <BootstrapStyleSearchBox
                         label="URL"
-                        onChangeInput={this.handleChange("url")}
+                        onChangeInput={this.handleChange("Url")}
                         compusory={false}
                     />
 
                     <Button style = {{color: 'red'}}>Add File</Button>
                     <br/>
                     <div style={{ float: "right" }}>
-                        <Button variant="contained" color="primary" size="small" onClick={this.handleSubmit} >
+                        <Button variant="contained" color="primary" size="small" onClick={this.submit} >
                             Save
                         </Button>
                     </div>
@@ -244,5 +213,4 @@ ongoingProjectModal.propTypes = {
 
 
 export default withStyles(styles)(ongoingProjectModal);
-
 
