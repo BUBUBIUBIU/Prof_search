@@ -1,3 +1,8 @@
+/* Copyright (C) Profware Pty. Ltd. - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ * Written by [wiwi lin], [date 3th Oct 2019]
+ */
 
 
 import React, { Component } from 'react'
@@ -42,9 +47,9 @@ const styles = theme => ({
         // boxShadow: "0 2px 4px 0 rgba(215, 215, 215, 0.5)",
         boxShadow: "none",
         // width:800,
-        width:"60%",
-        margin:"auto"
-
+        maxWidth:1000,
+        margin:"auto",
+        padding:30
       },
       typeSelectBox:{
         backgroundColor: theme.palette.common.white,
@@ -173,7 +178,7 @@ class ProjectFull extends Component {
             <ThirdHeader />
 
 
-            <Paper className={classes.paper} style = {{marginTop:2, paddingTop:30,paddingRight:200}}>
+            <Paper className={classes.paper}>
 
                        
                 <Typography variant="h1">

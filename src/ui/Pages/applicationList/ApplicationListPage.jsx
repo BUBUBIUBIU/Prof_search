@@ -21,8 +21,6 @@ import Header from '../../reusableComponents/NewHeadNavigator'
 import SearchBox from '../../reusableComponents/textField/SearchBox'
 import MiniCard from './MiniCard'
 
-
-
 //api
 import {GetApplicationList} from '../../../api/applicationAPI'
 
@@ -191,7 +189,10 @@ class ApplicationList extends Component {
                          {applications}
                      </List> 
                 </div>
+
             </div>
+
+            
         )
     }
 };

@@ -83,7 +83,7 @@ class MiniCard extends Component {
             "id": this.props.simpleprofile.ID
         }
         const that = this;
-        AcceptOffer().then(
+        AcceptOffer(data).then(
             function(response){
                 that.props.refreshContactList();
             }, function(err){
@@ -97,7 +97,7 @@ class MiniCard extends Component {
             "id": this.props.simpleprofile.ID
         }
         const that = this;
-        RejectOffer().then(
+        RejectOffer(data).then(
             function(response){
                 that.props.refreshContactList();
             }, function(err){

@@ -14,6 +14,10 @@ import { prototype } from 'stack-utils';
 //api
 import {AcceptApplication, RejectApplication} from '../../../api/applicationAPI'
 
+
+//Ui
+import ConfirmationDialog from '../../reusableComponents/Dialog/ConfirmationDialog'
+
 //Router
 import { Redirect } from 'react-router-dom'
 
@@ -78,8 +82,9 @@ class MiniCard extends Component {
         const data = {
             "id": this.props.simpleprofile.ID
         }
+        console.log(data)
         const that = this;
-        AcceptApplication().then(
+        AcceptApplication(data).then(
             function(response){
                 that.props.refreshApplicationList();
             }, function(err){
@@ -87,6 +92,16 @@ class MiniCard extends Component {
             }
         )
     }
+
+    attemptToAccepetOffer = () =>[
+        this.setState({acceprtOfferModal:true})
+    ]
+
+
+    attemptToRejectOffer = () => {
+        this.setState({rejecrOfferModal:true})
+    }
+
 
     rejectApplication = () => {
         const data = {
@@ -101,6 +116,10 @@ class MiniCard extends Component {
             }
         )
     }
+
+    handleDialogClose = field => event => {
+        this.setState({[field]:true})
+      }
 
     navigateToDetailProfile = () =>{
         const destinationID = "/studentProfile/" + this.props.simpleprofile.Student.ID;
@@ -182,6 +201,24 @@ class MiniCard extends Component {
                     
 
                 </div>
+
+                
+                <ConfirmationDialog 
+                    open = {this.state.acceprtOfferModal}
+                    handleAgreeAction = {this.acceptApplication}
+                    handleClose = {this.handleDialogClose("acceprtOfferModal")}
+                    text = {"Are you sure you want to send an offer to " + StudentInfo.FirstName + " " + StudentInfo.LastName + "?"}
+                    header = "Notification"
+                />
+
+                <ConfirmationDialog 
+                    open = {this.state.rejecrOfferModal}
+                    handleAgreeAction = {this.rejectApplication}
+                    handleClose = {this.handleDialogClose("rejecrOfferModal")}
+                    text = { "Are you sure you want to reject " + StudentInfo.FirstName + " " + StudentInfo.LastName + "?"}
+                    header = "Notification"
+                />
+
 
             </div>
         )
