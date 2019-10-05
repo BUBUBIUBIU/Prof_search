@@ -70,9 +70,9 @@ class AdvancedSearchExpertsSection extends Component{
             <div className={classes.root}>
                     <div style = {{maxWidth: 1200, margin:"auto"}}>
                     <Paper style={{width: "742px", height:"55px", padding:"5px 0 0 10px", backgroundColor:"#FFFFFF"}}>
-                        <Sort style={{verticalAlign:"middle"}}/>
                         <Button aria-owns={anchorEl ? 'simple-menu' : undefined} aria-haspopup="true"
                             onClick={this.handleClick}>
+                                <Sort style={{verticalAlign:"middle"}}/>
                             {this.state.buttonName}
                         </Button>
                         <Menu id="simple-menu" anchorEl={anchorEl} open={Boolean(anchorEl)}>

@@ -54,4 +54,6 @@ export const APPLICATIONS = '/api/expert/application'
 export const ACCEPT_APPLICATION = '/api/expert/application/accept'
 export const REJECT_APPLICATION =  '/api/expert/application/reject'
 
-
+//Get Student/ Expert profile
+export const GET_EXPERT_PROFILE=  '/api/profile/expert/'
+export const GET_STUDENT_PROFILE = '/api/profile/student/'

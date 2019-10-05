@@ -12,8 +12,10 @@ import { Paper, withStyles,Avatar,Typography,Button, Checkbox, Divider} from '@m
 import { prototype } from 'stack-utils';
 
 //api
-
 import {AcceptApplication, RejectApplication} from '../../../api/applicationAPI'
+
+//Router
+import { Redirect } from 'react-router-dom'
 
 const styles = theme => ({
     paper:{
@@ -91,7 +93,7 @@ class MiniCard extends Component {
             "id": this.props.simpleprofile.ID
         }
         const that = this;
-        RejectApplication().then(
+        RejectApplication(data).then(
             function(response){
                 that.props.refreshApplicationList();
             }, function(err){
@@ -99,11 +101,19 @@ class MiniCard extends Component {
             }
         )
     }
-    
-    
+
+    navigateToDetailProfile = () =>{
+        const destinationID = "/studentProfile/" + this.props.simpleprofile.Student.ID;
+        this.setState({redirect:destinationID})
+
+    }
     
 
     render(){
+        if(this.state.redirect){
+            // let history = useHistory();
+            return <Redirect push to = {this.state.redirect}/>
+        }
         const {classes,simpleprofile} = this.props
         const StudentInfo = simpleprofile.Student; //Neccessary information of student
         const ID = simpleprofile.ID;
@@ -119,9 +129,10 @@ class MiniCard extends Component {
                                     {StudentInfo.FirstName[0]}
                                 </Avatar>
                             </div>
-                            <div style={{flex:"0 1 auto", padding: 30, marginRight:"auto"}}>
+                            <div style={{flex:"0 1 auto", padding: 30, marginRight:"auto"}} onClick = {this.navigateToDetailProfile}>
                                 <Typography variant="h1">
                                     {StudentInfo.FirstName} {" "}  {StudentInfo.LastName}
+
                                 </Typography>
                                 <Typography variant="body1">
                                     <p style={{fontWeight:500}}> Student</p>

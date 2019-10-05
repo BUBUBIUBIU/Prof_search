@@ -9,7 +9,7 @@
 import React, { Component } from 'react';
 
 //UI
-import NewHeadNavigator from '../../reusableComponents/NewHeadNavigator '
+import NewHeadNavigator from '../../reusableComponents/NewHeadNavigator'
 import AdvancedSearchExpertsSection from './AdvancedSearchExpertsSection'
 
 class AdvancedSearchExpertPage extends Component {

@@ -1,7 +1,7 @@
 /* Copyright (C) Profware Pty. Ltd. - All Rights Reserved
  * Unauthorized copying of this file, via any medium is strictly prohibited
  * Proprietary and confidential
- * Written by [shaochuan Luo], [date:20th Aug 2019]
+ * Written by [Chenyang Lu], [date:20th Aug 2019]
  */
 
 import React, { Component } from 'react'
@@ -10,7 +10,7 @@ import { Paper, Typography, Button, withStyles, FormControl, NativeSelect, Input
 import Icon from '@material-ui/core/Icon';
 import { Close } from 'mdi-material-ui';
 import Description from '@material-ui/icons/Description';
-
+import FileButton from '../../../reusableComponents/button/FileButton'
 
 //api
 import {uploadCV} from '../../../../api/personalProfileApi'
@@ -99,6 +99,13 @@ class AwardModal extends Component {
             }
             
             );
+    }
+
+    fileChoosen = (event) => {
+        console.log(event.target.files[0]);
+        let file = event.target.files[0];
+        let url = window.webkitURL.createObjectURL(file); 
+        this.setState({file,url})
 
     }
 
@@ -111,7 +118,7 @@ class AwardModal extends Component {
                     <div>
                         <Typography variant="h1">
                             <div style={{ verticalAlign: "middle", height: "100%", float: "left" }}>
-                                Add Award
+                                Add CV
                 </div>
                             <Button style={{ float: "right", verticalAlign: "middle", color: "#000000" }} size="small" onClick={this.props.handleClose}>
                                 <Close />
@@ -122,24 +129,35 @@ class AwardModal extends Component {
 
 
 
-                <Paper className={classes.paper} style={{ padding: "50px 30px" }}>
-                    <form onSubmit={this.uploadCV} id = "file-form">
-                    <div style = {{display: "flex", justifyContent:"center"}}>             
-                        <div style = {{flex: "0 1 auto"}}>
+                <Paper className={classes.paper} style={{ padding: "20px 30px" }}>
+
+                {!this.state.file  &&
+                    <Typography variant = "h2" style = {{fontWeight:"normal", marginLeft:5}}  >
+                        Choose file to upload, supported file type: pdf, docx, doc
+                    </Typography>
+                    }
+                {this.state.file  &&
+                <div>
+                    <Typography variant = "h2" style = {{fontWeight:"normal", marginLeft:5, color: "red"}}  >
+                        {this.state.file.name + " has been uploaded, please click save"} 
+                    </Typography>
+                </div>
+                    }
+
+                    <form onSubmit={this.uploadCV} id = "file-form">        
+                        <div style = {{marginTop:20}}>
                             <input
                             accept=".doc,.docx, .pdf"
-                            // className={classes.input}
                             style={{ display: 'none' }}
                             id="raised-button-file"
                             name="cv" 
-                            // multiple
                             type="file"
+                            onChange = {this.fileChoosen}
                             />
 
                         <label htmlFor="raised-button-file">
                             <Button 
                                 color="primary" 
-                                style= {{marginRight: "20px",float: "right",verticalAlign:"middle"}} 
                                 size="small" 
                                 component="span"
                             >
@@ -148,7 +166,7 @@ class AwardModal extends Component {
                         </label>
                     </div>
 
-                    <div style = {{flex: "0 1 auto"}}>
+                    <div style = {{marginBottom:20}}>
                         <input type="submit" value="Upload" id="submit-file" style={{ display: 'none' }}/>
                         <label htmlFor="submit-file">
                             <Button 
@@ -157,21 +175,15 @@ class AwardModal extends Component {
                                 size="small" 
                                 onClick = {this.props.uploadCV}
                                 component="span"
+                                variant="contained"
                             >
-                                Upload
+                                Save
                             </Button> 
                         </label>
 
                     </div>
-                    </div>
+
                     </form> 
-                    {document.getElementById("file-form") &&
-                    <div style = {{margin: "0 auto"}}>
-                        <Button>
-                            <Description color = "primary"/> PDF
-                        </Button>
-                    </div>
-                    }
                 
                 </Paper>
                 
