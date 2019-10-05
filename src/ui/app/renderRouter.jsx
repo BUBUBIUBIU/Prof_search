@@ -40,8 +40,11 @@ import ContactListPage from '../Pages/contactListPage/ContactListPage'
 import MessagePage from '../Pages/messagePage/MessagePage'
 import LoginPage from '../Pages/authPage/LoginPage'
 import SignUpPage from '../Pages/authPage/SignUpPage'
+import ProjectFull from '../Pages/ProjectPage/ProjectFull'
+import SetNewPasswd from '../Pages/authPage/SetNewPasswd'
 import NewSearchPage from '../Pages/newSearchPage/NewSearchPage'
 import ApplicationListPage from '../Pages/applicationList/ApplicationListPage'
+
 
 //api
 import {LoginCheck} from '../../api/authApi'
@@ -206,6 +209,8 @@ class RenderRouter extends Component {
                 <Route exact path="/search/searchResult" component={AdvancedSearchExpertPage} />
                 <Route exact path="/login" component={ props => <LoginPage authValue = "login"/>} />
                 <Route exact path="/signup" component={ props => <SignUpPage authValue = "signup"/>} />
+                <Route exact path="/projectfull" component={ProjectFull} />
+                <Route exact path="/setnewpasswd" component={SetNewPasswd} />
                 <Route exact path="/personalProfile" component= { props => <PersonalProfilePage identity = {userInfo.identity} editable = {true}/>} />
                 <Route exact path="/contactList"  component={ContactListPage} />
                 <Route exact path="/applicationList"  component={ApplicationListPage} />

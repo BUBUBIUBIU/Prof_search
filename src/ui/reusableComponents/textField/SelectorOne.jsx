@@ -60,7 +60,7 @@ class SelectorOne extends Component {
         const {classes, isCompulsory} = this.props
         return(
 
-        <div style ={{width:"100%"}}>
+        <div style ={{width:"104%"}}>
             <Typography variant="h3" color="inherit">
                 <p className={classes.inputLabel}>
                     {isCompulsory && <span style={{ color: "#E4554D" }}> *</span>} {this.props.label}
