@@ -1,16 +1,13 @@
+/* Copyright (C) Profware Pty. Ltd. - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ * Written by [wiwi lin], [date 3th Oct 2019]
+ */
+
+
 import React, { Component } from 'react';
-import {AppBar,Toolbar,Typography,Button,Tabs,Tab, withStyles,withTheme, spacing, Menu, ClickAwayListener, MenuItem, Paper} from '@material-ui/core';
-import { FormattedMessage, injectIntl, intlShape, FormattedRelative } from 'react-intl';
-import PropTypes from 'prop-types';
-import {ContactMail,MailOutline,PermContactCalendar} from '@material-ui/icons/';
-import { Plus,AccountCardDetailsOutline, EmailOutline, AccountOutline } from 'mdi-material-ui';
+import {AppBar,Toolbar,Typography,withStyles} from '@material-ui/core';
 
-//redux Dependencies
-import { connect } from 'react-redux'
-import {backToHomePage} from '../../redux/actions/index.js'
-
-// RouterDependencies
-import { Redirect } from 'react-router-dom'
 
 const styles = theme => ({
     button: {
@@ -77,15 +74,6 @@ class ThirdHeader extends Component {
                     PROFSEARCH 
                     </Typography>
 
-                    {/* <Button variant="outlined" color="secondary" className={classes.button} size="small" 
-                    aria-owns={anchorEl ? 'simple-menu' : undefined} aria-haspopup="true"
-                    onClick={this.handleLanguageButtonClick}>
-                    <FormattedMessage id="navigator_changeLangugae" defaultMessage="English" />
-                  </Button>
-                  <Menu id="simple-menu" color="secondary" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={this.handleClose}>
-                    <MenuItem onClick={this.setEnglish}>English</MenuItem>
-                    <MenuItem onClick={this.setChinese}>简体中文</MenuItem>
-                  </Menu> */}
                 </Toolbar>
             </AppBar>
         </div>
