@@ -145,6 +145,12 @@ const theme = createMuiTheme({
             fontSize:14
           },
       },
+      MuiPaper:{
+        root:{
+          boxShadow: "0 2px 4px 0 rgba(215, 215, 215, 0.5)",
+          backgroundColor: "#ffffff"
+        }
+      }
     },
 });
 

@@ -82,33 +82,29 @@ class CV extends Component {
         const {classes} = this.props
         return(
             <div>
+            <Paper style = {{ boxShadow: "0 2px 4px 0 rgba(215, 215, 215, 0.5)"}}>
             <CardHeader title = {"CV"} handleOpen ={this.handleOpen} isCompulsory= {false} buttonName = {"Add CV"} editable = {this.props.editable}/>
-
+            {this.props.CV && 
+            <Paper className={classes.paper} style ={{paddingBottom: 10, paddingLeft: 40}}>
+                <FileButton
+                name = {this.props.CVName}
+                url = {this.props.CV}
+                handleDelete = {this.handleDelete}
+                editable = {this.props.editable}
+                />
+            </Paper>
+            }
+            
+            </Paper>   
             <Modal
                 aria-labelledby="simple-modal-title"
                 aria-describedby="simple-modal-description"
                 open={this.state.open}
                 onClose={this.handleClose}
-            >   
+            >
             <CVModal handleClose ={this.handleClose} />
             </Modal>
-            {this.props.CV && 
-            <Paper className={classes.paper} style ={{paddingBottom: 10, paddingLeft: 40}}>
-                 {/* <Button variant="outlined" href ={"http://" + this.props.CV} style ={{width:150, borderRadius: "5px 0 0 5px", borderRightWidth: 0}}>
-                    <Description color = "primary"/> {this.props.CVName}
-                </Button>
-                <Button variant="outlined" href ={"http://" + this.props.CV} style ={{width:10, borderRadius: "0px 5px 5px 0px", borderLeftWidth: 0}}>
-                    <Clear color = "primary"/> 
-                </Button> */}
-                <FileButton
-                name = {this.props.CVName}
-                url = {this.props.CV}
-                handleDelete = {this.handleDelete}
-                />
-            </Paper>
-            }
 
-            
             </div>
         )
     }

@@ -134,11 +134,13 @@ class AvailablePositionDetail extends Component {
                     {positions.length -1 !== index && <Divider variant = "fullWidth"/>}
                     </Grid>
 
+                    {this.props.editable &&
                     <Grid item xs={1}>
                         <IconButton onClick={this.openUpdateModal(index)} >
                                 <Edit/>
                         </IconButton>
                     </Grid>
+                    }
 
             </Grid>
             </div>

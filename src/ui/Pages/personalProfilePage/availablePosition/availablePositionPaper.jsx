@@ -6,7 +6,7 @@
 
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
-import { withStyles, Modal, } from '@material-ui/core';
+import { withStyles, Modal,Paper } from '@material-ui/core';
 
 
 
@@ -17,7 +17,7 @@ import AvailablePositionDetail from './AvailablePositionDetail'
 import AvailablePositionModal from './AvailablePositionModal'
 
 
-const styles = theme => ({
+const styles = theme => ({ 
   paper: {
     ...theme.mixins.gutters(),
     backgroundColor: theme.palette.common.white,
@@ -111,12 +111,14 @@ class AvailablePositionPaper extends Component {
     // console.log('props in paper:', this.props)
     return (
       <div>
-        <CardHeader title={"Available Position"} handleOpen={this.handleOpen} isCompulsory={false} buttonName={"Add Position"} />
+        <Paper style = {{ boxShadow: "0 2px 4px 0 rgba(215, 215, 215, 0.5)"}}>
+        <CardHeader title={"Available Position"} handleOpen={this.handleOpen} isCompulsory={false} buttonName={"Add Position"} editable = {this.props.editable}/>
         
         {
           positions &&
-          <AvailablePositionDetail positions={positions} UpdateFile = {this.props.UpdateFile}/>
+          <AvailablePositionDetail positions={positions} UpdateFile = {this.props.UpdateFile} editable = {this.props.editable}/>
         }
+        </Paper>
         
         <Modal
           aria-labelledby="simple-modal-title"

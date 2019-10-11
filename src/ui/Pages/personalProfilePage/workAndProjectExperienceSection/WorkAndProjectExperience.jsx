@@ -120,15 +120,18 @@ class WorkAndProjectExperience extends Component {
     const {workAndExperience} = this.state
     return (
       <div>
-        <CardHeader title={"Work/Project Experience"} handleOpen={this.handleOpen} isCompulsory={false} buttonName={"Add Experience"} editable = {this.props.editable}/>
+        <Paper style = {{ boxShadow: "0 2px 4px 0 rgba(215, 215, 215, 0.5)"}}>
+          <CardHeader title={"Work/Project Experience"} handleOpen={this.handleOpen} isCompulsory={false} buttonName={"Add Experience"} editable = {this.props.editable}/>
 
-        {workAndExperience &&
-          <WorkProjectExperienceDetail 
-            workAndProjectExperiences = {workAndExperience} 
-            UpdateFile = {this.props.UpdateFile}
-            identity = {this.props.identity}
-          />
-        }
+          {workAndExperience &&
+            <WorkProjectExperienceDetail 
+              workAndProjectExperiences = {workAndExperience} 
+              UpdateFile = {this.props.UpdateFile}
+              identity = {this.props.identity}
+              editable = {this.props.editable}
+            />
+          }
+        </Paper>
         <Modal
           aria-labelledby="simple-modal-title"
           aria-describedby="simple-modal-description"
@@ -136,7 +139,7 @@ class WorkAndProjectExperience extends Component {
           currentWorking={this.state.currentWorking}
           onClose={this.handleClose}
         >
-          <WorkExperienceModal handleClose={this.handleClose} identity = {this.props.identity}/>
+          <WorkExperienceModal handleClose={this.handleClose} identity = {this.props.identity} />
         </Modal>
 
       </div>

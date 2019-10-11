@@ -18,9 +18,7 @@ class SearchExpertPage extends Component {
             <NewHeadNavigator tabValue = "SearchExpert"/>
             <SearchExpertsSection />
             </div>
-
         )
-
     }
 };
 

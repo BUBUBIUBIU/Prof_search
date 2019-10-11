@@ -5,6 +5,18 @@
  */
 
 
+ /*Readme
+This component is used in multiple situation:
+1. Expert open its own profile page and edit expert personal profile
+2. Student open its own profile page and edit student personal profile
+3. Expert view students profile page
+4. Student view experts profile page
+
+Under different situation, the 
+
+ */
+
+
 //Dependencies
 import { ArrowRight} from '@material-ui/icons/';
 import { Typography,Paper, Avatar, withStyles,Button, Modal} from '@material-ui/core';
@@ -226,7 +238,7 @@ class PersonalProfilePage extends Component {
         // console.log('this.state.id:', this.state.identity);
         console.log('profile in PersonalProfilePage:', profile);
         return(
-            <div>
+            <div style = {{backgroundColor: "#fdfdfd"}}>
                 <Header/>
                 <div style ={{maxWidth: 1000, margin: "auto"}}>
                     <Paper className = {classes.paper} style = {{ padding:25}}>
@@ -362,33 +374,6 @@ class PersonalProfilePage extends Component {
 
 export default withStyles(styles)(PersonalProfilePage);
 
-// "message": "Success!",
-// "content": {
-//   "ID": 1,
-//   "Email": "chenyangl5@student.unimelb.edu.au",
-//   "Phone": "0412345678",
-//   "FirstName": "Chenyang",
-//   "LastName": "Lu",
-//   "PersonID": "",
-//   "Name": "",
-//   "Fax": "",
-//   "LocationUri": "hangzhou.cn",
-//   "LocationLabel": "",
-//   "Biography": "master lu",
-//   "Biography2": "",
-//   "ResearchOverview": "",
-//   "SupervisorText": "wo yao da shi ge",
-//   "SupervisorText2": "",
-//   "SupervisorAvailability": "",
-//   "SubjectArea": "",
-//   "Media": "",
-//   "Video": "",
-//   "Awards": "",
-//   "Position": "", --------
-//   "Organization": "",
-//   "GoogleScholarLink": "",
-//   "Publications": [],
-//   "Grants": []
 
 
 

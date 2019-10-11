@@ -6,9 +6,7 @@
 
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
-import { Paper,Typography,Collapse, Button, withStyles,ToolBar, Modal } from '@material-ui/core';
-import Icon from '@material-ui/core/Icon';
-import { Plus } from 'mdi-material-ui'
+import { Paper, withStyles, Modal } from '@material-ui/core';
 
 //UI 
 import  CardHeader from '../CardHeader'
@@ -68,11 +66,13 @@ class Award extends Component {
         const {award} = this.state
         return(
             <div>
-            <CardHeader title = {"Award"} handleOpen ={this.handleOpen} isCompulsory= {false} buttonName = {"Add Award"} editable = {this.props.editable}/>
+            <Paper style = {{ boxShadow: "0 2px 4px 0 rgba(215, 215, 215, 0.5)"}}>
+                <CardHeader title = {"Award"} handleOpen ={this.handleOpen} isCompulsory= {false} buttonName = {"Add Award"} editable = {this.props.editable}/>
 
-            {award &&
-            <AwardDetails awards = {award} UpdateFile = {this.props.UpdateFile} identity = {this.props.identity}/>
-            }
+                {award &&
+                <AwardDetails awards = {award} UpdateFile = {this.props.UpdateFile} identity = {this.props.identity} editable = {this.props.editable}/>
+                }
+            </Paper>
 
             {/* 没有detials */}
             <Modal
