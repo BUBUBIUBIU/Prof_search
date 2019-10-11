@@ -81,24 +81,24 @@ class OngoingProjectDetail extends Component {
                     {/* title */}
                     <Grid container spacing={2} style = {{flexGrow:1}}>
 
-                        <Grid item xs={10}>
+                        <Grid item xs={11}>
                             {/* subtitle */}
                             <div style={{ margin: "10px" }}>
-                                <Typography variant="h2">
+                                <Typography variant="h1s">
                                     { proj.ProjectName }
                                 </Typography>
                             </div>
 
                             {/* year and location */}
                             <div style={{ margin: "10px" }}>
-                                <Typography variant="body2">
+                                <Typography variant="h2s">
                                     {proj.FromYear} - {proj.ToYear}
                                 </Typography>
                             </div>
 
-                            <div style={{ margin: "25px 10px 25px 10px" }}>
+                            <div style={{ margin: "10px" }}>
                                 {/* Describetion */}
-                                <Typography variant="body2">
+                                <Typography variant="p1">
                                     {proj.Description}
                                 </Typography>
                             </div>

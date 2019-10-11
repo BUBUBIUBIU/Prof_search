@@ -118,7 +118,7 @@ class EducationPaper extends Component {
 
         
         {currentEducations &&
-          <EducationDetail educationExperience={currentEducations} UpdateFile = {this.props.UpdateFile}/>
+          <EducationDetail educationExperience={currentEducations} UpdateFile = {this.props.UpdateFile} identity = {this.props.identity}/>
         }
         <Modal
           aria-labelledby="simple-modal-title"
@@ -126,7 +126,7 @@ class EducationPaper extends Component {
           open={this.state.open}
           onClose={this.handleClose}
         >
-          <EducationModal handleClose={this.handleClose} />
+          <EducationModal handleClose={this.handleClose} identity = {this.props.identity}/>
         </Modal>
       </div>
 

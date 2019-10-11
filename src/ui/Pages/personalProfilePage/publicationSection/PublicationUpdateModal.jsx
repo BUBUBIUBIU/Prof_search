@@ -96,11 +96,11 @@ class UpdatePublication extends Component {
                     </div>
                 </Paper> 
 
-                {value === "Journal" && <UpdateJournal handleClose = {this.props.handleClose} currentJournal = {this.state}/>}
+                {value === "Journal" && <UpdateJournal handleClose = {this.props.handleClose} currentJournal = {this.state} identity={this.props.identity}/>}
 
-                {value === "Conference" && <UpdateConference handleClose = {this.props.handleClose} currentConference = {this.state}/>}
+                {value === "Conference" && <UpdateConference handleClose = {this.props.handleClose} currentConference = {this.state} identity={this.props.identity}/>}
 
-                {value === "Book" && <UpdateBook handleClose = {this.props.handleClose} currentBook = {this.state}/>}
+                {value === "Book" && <UpdateBook handleClose = {this.props.handleClose} currentBook = {this.state} identity={this.props.identity}/>}
                 
             </div>
 

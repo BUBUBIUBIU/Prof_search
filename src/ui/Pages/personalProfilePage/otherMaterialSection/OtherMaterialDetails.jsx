@@ -132,7 +132,7 @@ class OtherMaterialDetails extends Component {
                 onClose={this.handleClose}
                 >
 
-                <UpdateModal handleClose={this.handleCloseModal} currentMaterial = {this.state.materialsWaitingForUpdate}/>
+                <UpdateModal handleClose={this.handleCloseModal} currentMaterial = {this.state.materialsWaitingForUpdate} identity={this.props.identity}/>
             </Modal> 
             </div>
         )

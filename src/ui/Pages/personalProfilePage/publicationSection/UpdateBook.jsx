@@ -48,7 +48,7 @@ class PublicationBook extends Component {
 
             console.log(data)
             const temp = this
-            updatePublication(data)
+            updatePublication(data, this.props.identity)
                 .then(function (response) {
                     temp.props.handleClose()
                 }, function (err) {
@@ -80,7 +80,7 @@ class PublicationBook extends Component {
         }
         const temp = this
 
-        deletePublication(data)
+        deletePublication(data, this.props.identity)
         .then(function (response) {
             temp.props.handleClose()
         }, function (err) {

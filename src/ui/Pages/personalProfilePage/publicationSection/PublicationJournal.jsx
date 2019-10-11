@@ -56,9 +56,9 @@ class PublicationJournal extends Component {
                 Url: this.state.Url
             }
 
-            console.log(data)
+            console.log('identity in PJ:', data)
             const temp = this
-            addPublication(data)
+            addPublication(data, this.props.identity)
                 .then(function (response) {
                     temp.props.handleClose()
                 }, function (err) {

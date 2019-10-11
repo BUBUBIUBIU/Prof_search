@@ -83,7 +83,6 @@ class EducationModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
         };
     }
 
@@ -112,7 +111,7 @@ class EducationModal extends Component {
             }
             console.log(data)
             const temp = this;
-            addEducation(data)
+            addEducation(data, this.props.identity)
                 .then(function (response) {
                     console.log(response.message)
                     temp.props.handleClose()

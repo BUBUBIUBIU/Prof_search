@@ -83,7 +83,6 @@ class OngoingProjectPaper extends Component {
       expand: false,
       currentProj: this.props.projects
     };
-    console.log(45, this.props)
   }
 
   componentDidUpdate(){

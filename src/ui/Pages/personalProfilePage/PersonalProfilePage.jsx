@@ -49,17 +49,14 @@ const styles = theme => ({
 
   });
 
-
-
 class PersonalProfilePage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            profile: {
-            },
+            profile: {},
+            // identity: this.props.identity
         };
     }
-
 
     componentDidMount(){
         // console.log(this.props.identity)
@@ -108,7 +105,7 @@ class PersonalProfilePage extends Component {
             }
 
         }
-        console.log(this.state.profile)
+        console.log('this/state/profile in personal page:', this.state.profile)
     }
 
 
@@ -226,7 +223,7 @@ class PersonalProfilePage extends Component {
     render(){
         const {profile} = this.state
         const {classes} = this.props
-        
+        // console.log('this.state.id:', this.state.identity);
         console.log('profile in PersonalProfilePage:', profile);
         return(
             <div>
@@ -271,68 +268,69 @@ class PersonalProfilePage extends Component {
                         </div>
                     </Paper>
 
-                    {/* {this.props.identity === 'expert' &&   <ResearchInterest/> }
-                    {this.props.identity === 'expert' &&   <ResearchGrant/> }
-                    {this.props.identity === 'expert' &&   <OngoingProject/> }
-                    {this.props.identity === 'expert' &&   <AvailablePosition/> } */}
-
+                    {/* {this.props.identity === 'expert' &&   <ResearchInterest/> } */}
                     
-                    <AvailablePosition
-                        positions = {profile.AvailablePositions}
-                        UpdateFile = {this.UpdateFile}
-                        editable = {this.props.editable}
-                    />
-
-                    <OngoingProject
-                        projects = {profile.OngoingProjects} 
-                        UpdateFile = {this.UpdateFile}
-                        editable = {this.props.editable}
-                    />
-
-                    <ResearchGrant 
+                    {this.props.identity === 'expert' &&   <ResearchGrant 
                         researchGrants = {profile.Grants}
                         UpdateFile = {this.UpdateFile}
                         editable = {this.props.editable}
-                    />
+                    /> }
+
+                    {this.props.identity === 'expert' &&   <OngoingProject
+                        projects = {profile.OngoingProjects} 
+                        UpdateFile = {this.UpdateFile}
+                        editable = {this.props.editable}
+                    /> }
+
+                    {this.props.identity === 'expert' &&   <AvailablePosition
+                        positions = {profile.AvailablePositions}
+                        UpdateFile = {this.UpdateFile}
+                        editable = {this.props.editable}
+                    />}
 
                     <EducationPaper 
                         educations = {profile.Universities}
                         UpdateFile = {this.UpdateFile}
                         editable = {this.props.editable}
+                        identity = {this.props.identity}
                     />
                     
                     <WorkAndProjectExperience 
                         workAndExp = {profile.Companies}
                         UpdateFile = {this.UpdateFile}
                         editable = {this.props.editable}
+                        identity = {this.props.identity}
                     />
                     
                     {this.props.identity === 'student' &&
-                    <CV
-                        id = "cv"
-                        UpdateFile = {this.UpdateFile}
-                        CV = {profile.CV}
-                        CVName = {profile.CVName}
-                        editable = {this.props.editable}
-                    />
+                        <CV
+                            id = "cv"
+                            UpdateFile = {this.UpdateFile}
+                            CV = {profile.CV}
+                            CVName = {profile.CVName}
+                            editable = {this.props.editable}
+                        />
                     }
 
                     <Award 
                         awards = {profile.Awards}
                         UpdateFile = {this.UpdateFile}
                         editable = {this.props.editable}
+                        identity = {this.props.identity}
                     />
 
                     <Publication 
                         publications = {profile.Publications}
                         UpdateFile = {this.UpdateFile}
                         editable = {this.props.editable}
+                        identity = {this.props.identity}
                     />
 
                     <OtherMaterial 
                         otherMaterial = {profile.Materials}
                         UpdateFile = {this.UpdateFile}
                         editable = {this.props.editable}
+                        identity = {this.props.identity}
                     />
                 </div>
 

@@ -4,7 +4,6 @@
  * Written by [Chenyang Lu, Shaochuan Luo], [date:10th Aug 2019]
  */
 
-
 // 登录
 
 //search experts by expertise or name
@@ -16,7 +15,7 @@ export const SEARCHEXPERTS = '/api/search/experts';
 export const LOGIN ='/api/signin';
 export const CHECKLOGIN ='/api/checksignin';
 export const SIGNUP = '/api/student/signup';
-export const SIGNOUT = '/api/student/signout'
+export const SIGNOUT = '/api/signout'
 
 
 //profile
@@ -38,12 +37,15 @@ export const APPLY = '/api/student/application'
 export const ACCEPT_OFFER = 'api/student/application/accept'
 export const REJECT_OFFER = 'api/student/application/reject'
 
-
-
 // PROFESSOR Profile API
 export const EXPERT_PROFILE = '/api/expert/profile'
 export const EXPERT_CHECKLOGIN ='/api/expert/checksignin';
 export const EXPERT_SIGNOUT ='/api/expert/signout';
+export const EXPERT_PUBlICATION  = '/api/expert/publication';
+export const EXPERT_OTHERMATERIAL  = '/api/expert/material';
+export const EXPERT_UNIVERSITY  = '/api/expert/university';
+export const EXPERT_EXPERIENCE  = '/api/expert/company';
+export const EXPERT_AWARD = '/api/expert/award';
 export const ResearchInterest = 'api/';
 export const ResearchGrant  = 'api/expert/grant';
 export const OngoingProject  = 'api/expert/ongoing_project';

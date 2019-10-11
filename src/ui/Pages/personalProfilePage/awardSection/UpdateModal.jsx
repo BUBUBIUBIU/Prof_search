@@ -98,7 +98,7 @@ class AwardModal extends Component {
             console.log(data)
             const temp = this
 
-            updateAward(data)
+            updateAward(data, this.props.identity)
                 .then(function (response) {
                     temp.props.handleClose()
                 }, function (err) {
@@ -134,7 +134,7 @@ class AwardModal extends Component {
         }
         const temp = this
 
-        deleteAward(data)
+        deleteAward(data, this.props.identity)
         .then(function (response) {
             temp.props.handleClose()
         }, function (err) {

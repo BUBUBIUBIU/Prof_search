@@ -105,7 +105,7 @@ class EducationModal extends Component {
         }
         const temp = this
 
-        deleteEducation(data)
+        deleteEducation(data, this.props.identity)
         .then(function (response) {
             temp.props.handleClose()
         }, function (err) {
@@ -139,7 +139,7 @@ class EducationModal extends Component {
             }
             const temp = this
 
-            updateEducation(data)
+            updateEducation(data, this.props.identity)
                 .then(function (response) {
                     temp.props.handleClose()
                 }, function (err) {

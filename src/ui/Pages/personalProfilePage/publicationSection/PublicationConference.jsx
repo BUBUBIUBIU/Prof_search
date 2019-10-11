@@ -58,7 +58,7 @@ class PublicationConference extends Component {
             console.log(data)
             const temp = this
 
-            addPublication(data)
+            addPublication(data, this.props.identity)
                 .then(function (response) {
                     temp.props.handleClose()
                 }, function (err) {

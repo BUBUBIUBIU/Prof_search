@@ -49,9 +49,10 @@ class PublicationJournal extends Component {
                 Url: this.state.Url
             }
 
-            console.log(data)
+            // console.log(data)
+            // console.log('identity in update step:', this.props.identity);
             const temp = this
-            updatePublication(data)
+            updatePublication(data, this.props.identity)
                 .then(function (response) {
                     temp.props.handleClose()
                 }, function (err) {
@@ -83,7 +84,7 @@ class PublicationJournal extends Component {
         }
         const temp = this
 
-        deletePublication(data)
+        deletePublication(data, this.props.identity)
         .then(function (response) {
             temp.props.handleClose()
         }, function (err) {

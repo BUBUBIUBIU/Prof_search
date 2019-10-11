@@ -71,7 +71,7 @@ class Award extends Component {
             <CardHeader title = {"Award"} handleOpen ={this.handleOpen} isCompulsory= {false} buttonName = {"Add Award"} editable = {this.props.editable}/>
 
             {award &&
-            <AwardDetails awards = {award} UpdateFile = {this.props.UpdateFile}/>
+            <AwardDetails awards = {award} UpdateFile = {this.props.UpdateFile} identity = {this.props.identity}/>
             }
 
             {/* 没有detials */}
@@ -81,7 +81,7 @@ class Award extends Component {
             open={this.state.open}
             onClose={this.handleClose}
             >   
-            <AwardModal handleClose ={this.handleClose} />
+            <AwardModal handleClose ={this.handleClose} identity = {this.props.identity}/>
             </Modal>
             </div>
         )

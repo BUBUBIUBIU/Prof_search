@@ -48,14 +48,6 @@ const styles = theme => ({
     }, 
   });
 
-// function TabContainer(props) {
-//     return (
-//     <Typography variant = "body1">
-//         {props.children}
-//     </Typography>
-//     ); 
-// }
-
 class PublicationModal extends Component {
     constructor(props) {
         super(props);
@@ -72,6 +64,7 @@ class PublicationModal extends Component {
     render(){
         const {value} = this.state; 
         const {classes} = this.props
+        console.log('identity in PM:', this.props);
         return(
 
             <div className = {classes.modal}>
@@ -95,11 +88,11 @@ class PublicationModal extends Component {
                     </div>
                 </Paper> 
 
-                {value === "Journal" && <PublicationJournal handleClose = {this.props.handleClose}/>}
+                {value === "Journal" && <PublicationJournal handleClose = {this.props.handleClose} identity = {this.props.identity}/>}
 
-                {value === "Conference" && <PublicationConference handleClose = {this.props.handleClose}/>}
+                {value === "Conference" && <PublicationConference handleClose = {this.props.handleClose} identity = {this.props.identity}/>}
 
-                {value === "Book" && <PublicationBook handleClose = {this.props.handleClose}/>}
+                {value === "Book" && <PublicationBook handleClose = {this.props.handleClose} identity = {this.props.identity}/>}
                 
             </div>
 

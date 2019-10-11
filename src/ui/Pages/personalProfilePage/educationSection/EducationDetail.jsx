@@ -143,7 +143,7 @@ class EducationDetail extends Component {
                 onClose={this.handleClose}
             >
 
-            <EducationUpdateModal handleClose={this.handleCloseModal} currentUniversity = {this.state.educationWaitingForUpdate}/>
+            <EducationUpdateModal handleClose={this.handleCloseModal} currentUniversity = {this.state.educationWaitingForUpdate} identity={this.props.identity}/>
             </Modal>
             </div>
         )

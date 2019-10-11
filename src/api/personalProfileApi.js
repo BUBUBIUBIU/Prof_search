@@ -43,12 +43,16 @@ export function UploadAvatar(data){
  * @param {Object} data: detail in AddUniversity ApI, request Body 
  * @return {Object} 
  */
-export function addEducation(data){
+export function addEducation(data, identity){
     const configObj = {
         method: 'POST',
         data,
     }
-    return getDataFromServer(apiUrl.UNIVERSITY, configObj);
+    let UNIVERSITY = apiUrl.UNIVERSITY;
+    if( identity === 'expert' ){
+        UNIVERSITY = apiUrl.EXPERT_UNIVERSITY;
+    }
+    return getDataFromServer(UNIVERSITY, configObj);
 }
 
 /**
@@ -58,12 +62,16 @@ export function addEducation(data){
  * @param {Object} data: detail in AddUniversity ApI, request Body 
  * @return {Object} 
  */
-export function updateEducation(data){
+export function updateEducation(data, identity){
     const configObj = {
         method: 'PUT',
         data,
     }
-    return getDataFromServer(apiUrl.UNIVERSITY, configObj);
+    let UNIVERSITY = apiUrl.UNIVERSITY;
+    if( identity === 'expert' ){
+        UNIVERSITY = apiUrl.EXPERT_UNIVERSITY;
+    }
+    return getDataFromServer(UNIVERSITY, configObj);
 }
 
 /**
@@ -73,12 +81,16 @@ export function updateEducation(data){
  * @param {Object} data: detail in AddUniversity ApI, request Body 
  * @return {Object} 
  */
-export function deleteEducation(data){
+export function deleteEducation(data, identity){
     const configObj = {
         method: 'DELETE',
         data,
     }
-    return getDataFromServer(apiUrl.UNIVERSITY, configObj);
+    let UNIVERSITY = apiUrl.UNIVERSITY;
+    if( identity === 'expert' ){
+        UNIVERSITY = apiUrl.EXPERT_UNIVERSITY;
+    }
+    return getDataFromServer(UNIVERSITY, configObj);
 }
 
 
@@ -89,13 +101,17 @@ export function deleteEducation(data){
  * @param {Object} data: detail in AddExperience ApI, request Body 
  * @return {Object} 
  */
-export function addExperience(data){
+export function addExperience(data, identity){
     const configObj = {
         method: 'POST',
         data,
     }
     console.log(data);
-    return getDataFromServer(apiUrl.EXPERIENCE, configObj);
+    let EXPERIENCE = apiUrl.EXPERIENCE;
+    if( identity === 'expert' ){
+        EXPERIENCE = apiUrl.EXPERT_EXPERIENCE;
+    }
+    return getDataFromServer(EXPERIENCE, configObj);
 }
 
 /**
@@ -105,13 +121,17 @@ export function addExperience(data){
  * @param {Object} data: detail in AddExperience ApI, request Body 
  * @return {Object} 
  */
-export function updateExperience(data){
+export function updateExperience(data, identity){
     const configObj = {
         method: 'PUT',
         data,
     }
     console.log(data);
-    return getDataFromServer(apiUrl.EXPERIENCE, configObj);
+    let EXPERIENCE = apiUrl.EXPERIENCE;
+    if( identity === 'expert' ){
+        EXPERIENCE = apiUrl.EXPERT_EXPERIENCE;
+    }
+    return getDataFromServer(EXPERIENCE, configObj);
 }
 
 
@@ -122,13 +142,17 @@ export function updateExperience(data){
  * @param {Object} data: detail in AddExperience ApI, request Body 
  * @return {Object} 
  */
-export function deleteExperience(data){
+export function deleteExperience(data, identity){
     const configObj = {
         method: 'DELETE',
         data,
     }
     console.log(data);
-    return getDataFromServer(apiUrl.EXPERIENCE, configObj);
+    let EXPERIENCE = apiUrl.EXPERIENCE;
+    if( identity === 'expert' ){
+        EXPERIENCE = apiUrl.EXPERT_EXPERIENCE;
+    }
+    return getDataFromServer(EXPERIENCE, configObj);
 }
 
 /**
@@ -138,13 +162,17 @@ export function deleteExperience(data){
  * @param {Object} data: detail in AddPublication ApI, request Body 
  * @return {Object} 
  */
-export function addPublication(data){
+export function addPublication(data, identity){
     const configObj = {
         method: 'POST',
         data,
     }
-    console.log(data);
-    return getDataFromServer(apiUrl.PUBlICATION, configObj);
+    // console.log('the data in final step:', data);
+    let PUBlICATION = apiUrl.PUBlICATION;
+    if( identity === 'expert' ){
+        PUBlICATION = apiUrl.EXPERT_PUBlICATION;
+    }
+    return getDataFromServer(PUBlICATION, configObj);
 }
 
 /**
@@ -154,13 +182,18 @@ export function addPublication(data){
  * @param {Object} data: detail in UpdatePublication ApI, request Body 
  * @return {Object} 
  */
-export function updatePublication(data){
+export function updatePublication(data, identity){
     const configObj = {
         method: 'PUT',
         data,
     }
     console.log(data);
-    return getDataFromServer(apiUrl.PUBlICATION, configObj);
+    console.log('identity in final step:', identity);
+    let PUBlICATION = apiUrl.PUBlICATION;
+    if( identity === 'expert' ){
+        PUBlICATION = apiUrl.EXPERT_PUBlICATION;
+    }
+    return getDataFromServer(PUBlICATION, configObj);
 }
 
 /**
@@ -170,13 +203,17 @@ export function updatePublication(data){
  * @param {Object} data: detail in deletePublication ApI, request Body 
  * @return {Object} 
  */
-export function deletePublication(data){
+export function deletePublication(data, identity){
     const configObj = {
         method: 'DELETE',
         data,
     }
     console.log(data);
-    return getDataFromServer(apiUrl.PUBlICATION, configObj);
+    let PUBlICATION = apiUrl.PUBlICATION;
+    if( identity === 'expert' ){
+        PUBlICATION = apiUrl.EXPERT_PUBlICATION;
+    }
+    return getDataFromServer(PUBlICATION, configObj);
 }
 
 /**
@@ -186,13 +223,17 @@ export function deletePublication(data){
  * @param {Object} data: detail in AddAward ApI, request Body 
  * @return {Object} 
  */
-export function addAward(data){
+export function addAward(data, identity){
     const configObj = {
         method: 'POST',
         data,
     }
     console.log(data);
-    return getDataFromServer(apiUrl.AWARD, configObj);
+    let AWARD = apiUrl.AWARD;
+    if( identity === 'expert' ){
+        AWARD = apiUrl.EXPERT_AWARD;
+    }
+    return getDataFromServer(AWARD, configObj);
 }
 
 /**
@@ -202,13 +243,17 @@ export function addAward(data){
  * @param {Object} data: detail in AddAward ApI, request Body 
  * @return {Object} 
  */
-export function updateAward(data){
+export function updateAward(data, identity){
     const configObj = {
         method: 'PUT',
         data,
     }
     console.log(data);
-    return getDataFromServer(apiUrl.AWARD, configObj);
+    let AWARD = apiUrl.AWARD;
+    if( identity === 'expert' ){
+        AWARD = apiUrl.EXPERT_AWARD;
+    }
+    return getDataFromServer(AWARD, configObj);
 }
 
 /**
@@ -218,29 +263,37 @@ export function updateAward(data){
  * @param {Object} data: detail in AddAward ApI, request Body 
  * @return {Object} 
  */
-export function deleteAward(data){
+export function deleteAward(data, identity){
     const configObj = {
         method: 'DELETE',
         data,
     }
     console.log(data);
-    return getDataFromServer(apiUrl.AWARD, configObj);
+    let AWARD = apiUrl.AWARD;
+    if( identity === 'expert' ){
+        AWARD = apiUrl.EXPERT_AWARD;
+    }
+    return getDataFromServer(AWARD, configObj);
 }
 
 /**
- * This method used for add Award
+ * This method used for add OtherMateria
  * Post method is implemented
  *
- * @param {Object} data: detail in AddAward ApI, request Body 
+ * @param {Object} data: detail in add OtherMateria ApI, request Body 
  * @return {Object} 
  */
-export function addOtherMaterial(data){
+export function addOtherMaterial(data, identity){
     const configObj = {
         method: 'POST',
         data,
     }
     console.log(data);
-    return getDataFromServer(apiUrl.OTHERMATERIAL, configObj);
+    let OTHERMATERIAL = apiUrl.OTHERMATERIAL;
+    if( identity === 'expert' ){
+        OTHERMATERIAL = apiUrl.EXPERT_OTHERMATERIAL;
+    }
+    return getDataFromServer(OTHERMATERIAL, configObj);
 }
 
 
@@ -248,16 +301,20 @@ export function addOtherMaterial(data){
  * This method used for update other material
  * Put method is implemented
  *
- * @param {Object} data: detail in AddAward ApI, request Body 
+ * @param {Object} data: detail in update OtherMaterial ApI, request Body 
  * @return {Object} 
  */
-export function updateOtherMaterial(data){
+export function updateOtherMaterial(data, identity){
     const configObj = {
         method: 'PUT',
         data,
     }
     console.log(data);
-    return getDataFromServer(apiUrl.OTHERMATERIAL, configObj);
+    let OTHERMATERIAL = apiUrl.OTHERMATERIAL;
+    if( identity === 'expert' ){
+        OTHERMATERIAL = apiUrl.EXPERT_OTHERMATERIAL;
+    }
+    return getDataFromServer(OTHERMATERIAL, configObj);
 }
 
 /**
@@ -267,13 +324,17 @@ export function updateOtherMaterial(data){
  * @param {Object} data: detail in AddAward ApI, request Body 
  * @return {Object} 
  */
-export function deleteOtherMaterial(data){
+export function deleteOtherMaterial(data, identity){
     const configObj = {
         method: 'DELETE',
         data,
     }
     console.log(data);
-    return getDataFromServer(apiUrl.OTHERMATERIAL, configObj);
+    let OTHERMATERIAL = apiUrl.OTHERMATERIAL;
+    if( identity === 'expert' ){
+        OTHERMATERIAL = apiUrl.EXPERT_OTHERMATERIAL;
+    }
+    return getDataFromServer(OTHERMATERIAL, configObj);
 }
 
 /**
@@ -497,6 +558,40 @@ export function deleteCV(){
         method: 'DELETE',
     }
     return getDataFromServer(apiUrl.CV, configObj);
+}
+
+/**
+ * This method used for uploading award file
+ * post method is implemented
+ *
+ * @param {Object} data: detail in uploadAwardFile ApI, request Body 
+ * @return {Object} 
+ */
+export function uploadAwardFile(data){
+    const configObj = {
+        method: 'POST',
+        data,
+    }
+    const AWARDFILE = apiUrl.AWARD + data.ID;
+    console.log(data);
+    return getDataFromServer(AWARDFILE, configObj);
+}
+
+/**
+ * This method used for deleteAwardFile
+ * post method is implemented
+ *
+ * @param {Object} data: detail in deleteAwardFile ApI, request Body 
+ * @return {Object} 
+ */
+export function deleteAwardFile(data){
+    const configObj = {
+        method: 'DELETE',
+        data,
+    }
+    const AWARDFILE = apiUrl.AWARD + data.ID;
+    console.log(data);
+    return getDataFromServer(AWARDFILE, configObj);
 }
 
 

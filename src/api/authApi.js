@@ -78,10 +78,9 @@ export function Logout(identity){
     const configObj = {
         method: 'POST'
     }
-    let api = (identity.toLowerCase() === 'student'? apiUrl.SIGNOUT : apiUrl.EXPERT_SIGNOUT)
-    console.log("Loginout Api is " + api)
 
-    return getDataFromServer(api, configObj);
+
+    return getDataFromServer(apiUrl.SIGNOUT, configObj);
 }
 
 

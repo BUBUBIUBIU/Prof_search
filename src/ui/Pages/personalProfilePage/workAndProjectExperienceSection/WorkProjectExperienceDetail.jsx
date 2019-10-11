@@ -137,6 +137,7 @@ class WorkAndProjectDetail extends Component {
                 handleClose={this.handleCloseModal} 
                 currentWorkExperience = {this.state.workExperienceWaitingForUpdate} 
                 handleUpdate = {this.handleUpdate}
+                identity = {this.props.identity}
             />
             </Modal>
             </div>

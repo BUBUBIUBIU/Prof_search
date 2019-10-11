@@ -110,11 +110,11 @@ class AwardDetail extends Component {
             aria-describedby="simple-modal-description"
             open={this.state.open}
             onClose={this.handleClose}
-        >
+            >
 
-        <UpdateModal handleClose={this.handleCloseModal} currentAward= {this.state.awardForUpdate}/>
-        </Modal>
-        </div>
+                <UpdateModal handleClose={this.handleCloseModal} currentAward= {this.state.awardForUpdate} identity={this.props.identity}/>
+            </Modal>
+            </div>
         )
 
     }

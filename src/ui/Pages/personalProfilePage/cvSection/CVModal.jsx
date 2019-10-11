@@ -74,12 +74,12 @@ const styles = theme => ({
 });
 
 class AwardModal extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
         };
     }
-
 
     handleChange = field => event => {
         this.setState({ [field]: event.target.value })
@@ -97,7 +97,6 @@ class AwardModal extends Component {
                 alert(err.message);
                 console.log(err)
             }
-            
             );
     }
 
@@ -119,7 +118,7 @@ class AwardModal extends Component {
                         <Typography variant="h1">
                             <div style={{ verticalAlign: "middle", height: "100%", float: "left" }}>
                                 Add CV
-                </div>
+                            </div>
                             <Button style={{ float: "right", verticalAlign: "middle", color: "#000000" }} size="small" onClick={this.props.handleClose}>
                                 <Close />
                             </Button>
@@ -127,21 +126,19 @@ class AwardModal extends Component {
                     </div>
                 </Paper>
 
-
-
                 <Paper className={classes.paper} style={{ padding: "20px 30px" }}>
 
-                {!this.state.file  &&
-                    <Typography variant = "h2" style = {{fontWeight:"normal", marginLeft:5}}  >
-                        Choose file to upload, supported file type: pdf, docx, doc
-                    </Typography>
+                    {!this.state.file  &&
+                        <Typography variant = "h2" style = {{fontWeight:"normal", marginLeft:5}}  >
+                            Choose file to upload, supported file type: pdf, docx, doc
+                        </Typography>
                     }
-                {this.state.file  &&
-                <div>
-                    <Typography variant = "h2" style = {{fontWeight:"normal", marginLeft:5, color: "red"}}  >
-                        {this.state.file.name + " has been uploaded, please click save"} 
-                    </Typography>
-                </div>
+                    {this.state.file  &&
+                    <div>
+                        <Typography variant = "h2" style = {{fontWeight:"normal", marginLeft:5, color: "red"}}  >
+                            {this.state.file.name + " has been uploaded, please click save"} 
+                        </Typography>
+                    </div>
                     }
 
                     <form onSubmit={this.uploadCV} id = "file-form">        
@@ -180,7 +177,6 @@ class AwardModal extends Component {
                                 Save
                             </Button> 
                         </label>
-
                     </div>
 
                     </form> 

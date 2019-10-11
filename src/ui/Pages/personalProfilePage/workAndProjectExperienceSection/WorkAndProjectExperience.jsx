@@ -126,6 +126,7 @@ class WorkAndProjectExperience extends Component {
           <WorkProjectExperienceDetail 
             workAndProjectExperiences = {workAndExperience} 
             UpdateFile = {this.props.UpdateFile}
+            identity = {this.props.identity}
           />
         }
         <Modal
@@ -135,7 +136,7 @@ class WorkAndProjectExperience extends Component {
           currentWorking={this.state.currentWorking}
           onClose={this.handleClose}
         >
-          <WorkExperienceModal handleClose={this.handleClose} />
+          <WorkExperienceModal handleClose={this.handleClose} identity = {this.props.identity}/>
         </Modal>
 
       </div>

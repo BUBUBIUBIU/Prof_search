@@ -106,7 +106,7 @@ class WorkAndProjectModal extends Component {
             console.log(data)
             const temp = this
 
-            addExperience(data)
+            addExperience(data, this.props.identity)
                 .then(function (response) {
                     temp.props.handleClose()
                 }, function (err) {

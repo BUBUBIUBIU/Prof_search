@@ -96,14 +96,14 @@ class OtherMaterialModal extends Component {
             && this.state.year !== 0) {
             const data = {
                 Title: this.state.title,
-                Year: 2018,
+                Year: parseInt(this.state.Year),
                 Description: this.state.briefDescription,
                 Url: this.state.url
             }
             console.log(data)
             
             const temp = this;
-            addOtherMaterial(data)
+            addOtherMaterial(data, this.props.identity)
                 .then(function (response) {
                     temp.props.handleClose()
                 }, function (err) {

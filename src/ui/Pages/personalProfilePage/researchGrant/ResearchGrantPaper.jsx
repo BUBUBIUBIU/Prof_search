@@ -85,8 +85,6 @@ class ResearchGrantPaper extends Component {
       expand: false,
       currentResearchGrants: this.props.researchGrants
     };
-    // console.log(this.props.educations)
-    console.log(77, this.state.currentResearchGrants)
   }
 
   componentDidUpdate(){

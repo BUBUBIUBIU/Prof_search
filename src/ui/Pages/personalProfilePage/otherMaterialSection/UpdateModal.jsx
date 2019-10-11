@@ -81,8 +81,7 @@ class OtherMaterialModal extends Component {
         super(props);
         this.state = this.props.currentMaterial
     }
-
-    
+  
     handleDialogOpen= () => {
         this.setState({ModalOpen:true})
     }
@@ -102,7 +101,7 @@ class OtherMaterialModal extends Component {
         }
         const temp = this
 
-        deleteOtherMaterial(data)
+        deleteOtherMaterial(data, this.props.identity)
         .then(function (response) {
             temp.props.handleClose()
         }, function (err) {
@@ -123,14 +122,14 @@ class OtherMaterialModal extends Component {
             const data = {
                 ID: this.state.ID,
                 Title: this.state.Title,
-                Year: this.state.Year,
+                Year: parseInt(this.state.Year),
                 Description: this.state.Description,
                 Url: this.state.Url
             }
             console.log(data)
             const temp = this
 
-            updateOtherMaterial(data)
+            updateOtherMaterial(data, this.props.identity)
                 .then(function (response) {
                     temp.props.handleClose()
                 }, function (err) {
@@ -141,9 +140,6 @@ class OtherMaterialModal extends Component {
         } else {
             alert("please fullfill all required files")
         }
-
-
-
     }
 
     handleChange = field => event => {
@@ -167,7 +163,6 @@ class OtherMaterialModal extends Component {
                     </div>
                 </Paper>
 
-
                 <Paper className={classes.paper} style={{ padding: "50px 30px" }}>
                     <BootstrapStyleSearchBox
                         label="Title"
@@ -180,6 +175,7 @@ class OtherMaterialModal extends Component {
                         styles={{ width: "600px" }}
                         items={years}
                         onChangeSelect={this.handleChange("Year")}
+                        value = {this.state.Year}
                     />
 
                     <BootstrapStyleSearchBox

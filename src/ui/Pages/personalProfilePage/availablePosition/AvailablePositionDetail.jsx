@@ -52,9 +52,39 @@ class AvailablePositionDetail extends Component {
             this.setState({ index, positionWaitingForUpdate: this.state.positions[index], open: true});
     }
 
-    handleCloseModal= () => {
+    handleCloseModal = () => {
         this.setState({open: false})
         this.props.UpdateFile()
+    }
+
+    parseMethodOne = (num) => {
+         if (num === 1){
+             return 'PHD position';
+         }else if (num === 2){
+             return 'Teaching Assisant';
+         }else if (num === 3){
+             return 'Research Assisant';
+         }else {
+             return 'Post Doc/Research Fellow';
+         }
+    }
+
+    parseMethodTwo = num => {
+        if (num === 1){
+            return 'Scholarship amount per year';
+        }else {
+            return 'Salary';
+        }
+    }
+
+    parseMethodThree = num => {
+        if (num === 1){
+            return 'Topic';
+        }else if (num === 2){
+            return 'Subject/Course';
+        }else{
+            return 'Project';
+        }
     }
     
     render(){
@@ -68,38 +98,36 @@ class AvailablePositionDetail extends Component {
                     <Grid item xs={11}>
 
                     <div style ={{margin:"10px"}}>
-                    <Typography variant ="h5">
-                        {position.Position}
+                    <Typography variant ="h1s">
+                        {this.parseMethodOne(position.Position)}
                     </Typography>
                     </div>
 
                     {/* subtitle */}
                     <div style ={{margin:"10px"}}>
-                    <Typography variant ="body2">
-                        Scholarship amount per year {position.Salary}
+                    <Typography variant ="h3s">
+                        {this.parseMethodTwo(position.Position)} <span style={{fontWeight: '300'}}>{position.Salary}</span>
                     </Typography>
                     </div>
 
                     {/* subtitle */}
                     <div style ={{margin:"10px"}}>
-                    <Typography variant ="body2">
-                        Topic {position.Content}
+                    <Typography variant ="h3s">
+                        {this.parseMethodThree(position.Position)} <span style={{fontWeight: '300'}}>{position.Content}</span>
                     </Typography>
                     </div>
 
                     {/* subtitle */}
                     <div style ={{margin:"10px"}}>
-                    <Typography variant ="body2">
+                    <Typography variant ="h3s">
                         Requirement 
                     </Typography>
                     </div>
 
-                    <br/>
-
                     {/* subtitle */}
                     <div style ={{margin:"10px"}}>
-                    <Typography variant ="body2">
-                        {position.requirement}
+                    <Typography variant ="p1">
+                        {position.Requirement}
                     </Typography>
                     </div>
 

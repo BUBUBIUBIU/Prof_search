@@ -100,7 +100,7 @@ class Publication extends Component {
             {/* Pop-up Modal */}
 
             {publication &&
-                <PublicationDetail publications = {publication} UpdateFile = {this.props.UpdateFile}/>
+                <PublicationDetail publications = {publication} UpdateFile = {this.props.UpdateFile} identity={this.props.identity}/>
             }
 
             <Modal
@@ -109,7 +109,7 @@ class Publication extends Component {
               open={this.state.open}
               onClose={this.handleClose}
               >
-                <PublicationModal handleClose = {this.handleClose}/>
+                <PublicationModal handleClose = {this.handleClose} identity = {this.props.identity}/>
                 
             </Modal>
 

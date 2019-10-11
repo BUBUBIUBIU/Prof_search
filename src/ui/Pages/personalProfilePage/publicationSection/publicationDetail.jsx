@@ -114,7 +114,7 @@ class EducationDetailComponent extends Component {
                     open={this.state.open}
                     onClose={this.handleClose}
                 >
-                    <PublicationUpdateModal handleClose={this.handleCloseModal} currentPublications = {this.state.publicationWaitingForUpdate}/>
+                    <PublicationUpdateModal handleClose={this.handleCloseModal} currentPublications = {this.state.publicationWaitingForUpdate} identity={this.props.identity}/>
                 </Modal>
             </div>
             
