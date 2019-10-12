@@ -228,7 +228,7 @@ export function addAward(data, identity){
         method: 'POST',
         data,
     }
-    console.log(data);
+    console.log('this is upload award step in api file: ', identity);
     let AWARD = apiUrl.AWARD;
     if( identity === 'expert' ){
         AWARD = apiUrl.EXPERT_AWARD;
@@ -237,10 +237,10 @@ export function addAward(data, identity){
 }
 
 /**
- * This method used for add Award
+ * This method used for update Award
  * Post method is implemented
  *
- * @param {Object} data: detail in AddAward ApI, request Body 
+ * @param {Object} data: detail in update Award ApI, request Body 
  * @return {Object} 
  */
 export function updateAward(data, identity){
@@ -260,7 +260,7 @@ export function updateAward(data, identity){
  * This method used for delete Award
  * Post method is implemented
  *
- * @param {Object} data: detail in AddAward ApI, request Body 
+ * @param {Object} data: detail in delete Award ApI, request Body 
  * @return {Object} 
  */
 export function deleteAward(data, identity){
@@ -274,6 +274,45 @@ export function deleteAward(data, identity){
         AWARD = apiUrl.EXPERT_AWARD;
     }
     return getDataFromServer(AWARD, configObj);
+}
+
+/**
+ * This method used for uploading award file
+ * post method is implemented
+ *
+ * @param {Object} data: detail in uploadAwardFile ApI, request Body 
+ * @return {Object} 
+ */
+export function uploadAwardFile(data, identity, id){
+    const configObj = {
+        method: 'POST',
+        data,
+    }
+    let AWARDFILE = apiUrl.AWARD;
+    if( identity === 'expert' ){
+        AWARDFILE = apiUrl.EXPERT_AWARD;
+    }
+    AWARDFILE = AWARDFILE + '/' + id;
+    console.log('awardFile in final step:', AWARDFILE);
+    console.log('file data in final step:', data);
+    return getDataFromServer(AWARDFILE, configObj);
+}
+
+/**
+ * This method used for deleteAwardFile
+ * post method is implemented
+ *
+ * @param {Object} data: detail in deleteAwardFile ApI, request Body 
+ * @return {Object} 
+ */
+export function deleteAwardFile(data){
+    const configObj = {
+        method: 'DELETE',
+        data,
+    }
+    const AWARDFILE = apiUrl.AWARD + data.ID;
+    console.log(data);
+    return getDataFromServer(AWARDFILE, configObj);
 }
 
 /**
@@ -321,7 +360,7 @@ export function updateOtherMaterial(data, identity){
  * This method used for delte other material
  * Delete method is implemented
  *
- * @param {Object} data: detail in AddAward ApI, request Body 
+ * @param {Object} data: detail in delete other material ApI, request Body 
  * @return {Object} 
  */
 export function deleteOtherMaterial(data, identity){
@@ -533,7 +572,7 @@ export function deleteAvailablePosition(data){
  * This method used for uploading CV
  * post method is implemented
  *
- * @param {Object} data: detail in AddAward ApI, request Body 
+ * @param {Object} data: detail in upload CV ApI, request Body 
  * @return {Object} 
  */
 export function uploadCV(data){
@@ -550,7 +589,7 @@ export function uploadCV(data){
  * This method used for uploading CV
  * post method is implemented
  *
- * @param {Object} data: detail in AddAward ApI, request Body 
+ * @param {Object} data: detail in delete CV ApI, request Body 
  * @return {Object} 
  */
 export function deleteCV(){
@@ -560,39 +599,6 @@ export function deleteCV(){
     return getDataFromServer(apiUrl.CV, configObj);
 }
 
-/**
- * This method used for uploading award file
- * post method is implemented
- *
- * @param {Object} data: detail in uploadAwardFile ApI, request Body 
- * @return {Object} 
- */
-export function uploadAwardFile(data){
-    const configObj = {
-        method: 'POST',
-        data,
-    }
-    const AWARDFILE = apiUrl.AWARD + data.ID;
-    console.log(data);
-    return getDataFromServer(AWARDFILE, configObj);
-}
-
-/**
- * This method used for deleteAwardFile
- * post method is implemented
- *
- * @param {Object} data: detail in deleteAwardFile ApI, request Body 
- * @return {Object} 
- */
-export function deleteAwardFile(data){
-    const configObj = {
-        method: 'DELETE',
-        data,
-    }
-    const AWARDFILE = apiUrl.AWARD + data.ID;
-    console.log(data);
-    return getDataFromServer(AWARDFILE, configObj);
-}
 
 
 
