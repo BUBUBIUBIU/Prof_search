@@ -8,48 +8,48 @@
 
 //search experts by expertise or name
 // export const SEARCHEXPERTS = `${publicIp}/api/search/experts`;
-export const SEARCHEXPERTS = '/api/search/experts';
+export const SEARCHEXPERTS = '/search/experts';
 
 
 //Authentication
-export const LOGIN ='/api/signin';
-export const CHECKLOGIN ='/api/checksignin';
-export const SIGNUP = '/api/student/signup';
-export const SIGNOUT = '/api/signout'
+export const LOGIN ='/signin';
+export const CHECKLOGIN ='/checksignin';
+export const SIGNUP = '/student/signup';
+export const SIGNOUT = '/signout'
 
 
 //profile
-export const PROFILE ='/api/profile';
+export const PROFILE ='/profile';
 
 //student Profile API
-export const UNIVERSITY ='/api/student/university';
-export const COMPANY = './api/student/company'
-export const EXPERIENCE  = '/api/student/company';
-export const PUBlICATION  = '/api/student/publication';
-export const AWARD  = '/api/student/award';
-export const OTHERMATERIAL  = '/api/student/material';
-export const AVATAR = 'api/student/avatar'
-export const CV = 'api/student/cv'
+export const UNIVERSITY ='/student/university';
+export const COMPANY = './student/company'
+export const EXPERIENCE  = '/student/company';
+export const PUBlICATION  = '/student/publication';
+export const AWARD  = '/student/award';
+export const OTHERMATERIAL  = '/student/material';
+export const AVATAR = '/student/avatar'
+export const CV = '/student/cv'
 
 //student contact List api
-export const CONTACTLIST = '/api/student/contactlist'
-export const APPLY = '/api/student/application'
-export const ACCEPT_OFFER = 'api/student/application/accept'
-export const REJECT_OFFER = 'api/student/application/reject'
+export const CONTACTLIST = '/student/contactlist'
+export const APPLY = '/student/application'
+export const ACCEPT_OFFER = '/student/application/accept'
+export const REJECT_OFFER = '/student/application/reject'
 
 // PROFESSOR Profile API
-export const EXPERT_PROFILE = '/api/expert/profile'
-export const EXPERT_CHECKLOGIN ='/api/expert/checksignin';
-export const EXPERT_SIGNOUT ='/api/expert/signout';
-export const EXPERT_PUBlICATION  = '/api/expert/publication';
-export const EXPERT_OTHERMATERIAL  = '/api/expert/material';
-export const EXPERT_UNIVERSITY  = '/api/expert/university';
-export const EXPERT_EXPERIENCE  = '/api/expert/company';
-export const EXPERT_AWARD = '/api/expert/award';
-export const ResearchInterest = 'api/';
-export const ResearchGrant  = 'api/expert/grant';
-export const OngoingProject  = 'api/expert/ongoing_project';
-export const AvailablePosition = 'api/expert/position'; 
+export const EXPERT_PROFILE = '/expert/profile'
+export const EXPERT_CHECKLOGIN ='/expert/checksignin';
+export const EXPERT_SIGNOUT ='/expert/signout';
+export const EXPERT_PUBlICATION  = '/expert/publication';
+export const EXPERT_OTHERMATERIAL  = '/expert/material';
+export const EXPERT_UNIVERSITY  = '/expert/university';
+export const EXPERT_EXPERIENCE  = '/expert/company';
+export const EXPERT_AWARD = '/expert/award';
+export const ResearchInterest = '';
+export const ResearchGrant  = '/expert/grant';
+export const OngoingProject  = '/expert/ongoing_project';
+export const AvailablePosition = '/expert/position'; 
 
 
 //professor Application API
