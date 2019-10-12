@@ -27,7 +27,6 @@ const styles = theme =>({
         paddingRight:100,
         paddingTop:10,
         paddingBottom: 20,
-        background:"#F8FCFF",
         margin:0,
     }, label: {
         fontSize: '14px',
@@ -154,6 +153,7 @@ class SearchExpertsSection extends Component{
         const request = this.state.expertExperties;
         const profiles = await searchExpert(request); //调用SearchExpert API向服务器请求数据 (api.jsx)
         // const response = await searchExpert(configObj);
+        console.info("Search result returned from Server")
         console.log(profiles)
 
         if (profiles != undefined && profiles != []) {

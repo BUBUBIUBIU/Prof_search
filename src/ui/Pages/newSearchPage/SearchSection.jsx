@@ -87,22 +87,13 @@ class SearchExpertsSection extends Component{
         const request = this.state.expertExperties;
         const profiles = await searchExpert(request); //调用SearchExpert API向服务器请求数据 (api.jsx)
         // const response = await searchExpert(configObj);
+        this.props.recieveScholorInformation(profiles)
+        this.setState({redirectToAdvancedPage: true})
 
-        if (profiles != undefined && profiles != []) {
-            this.props.setScholarProfileVisibility({
-                professorVisibility:this.state.professor,
-                associateProfessorVisibility:this.state.assProfessor,
-                doctorVisibility:this.state.doctor })
-            this.props.recieveScholorInformation(profiles) //this action listened by two reducer, for detail info, please see redux documentation
-            this.props.setSearchInfo({
-                searchText:this.state.expertExperties,
-                location:"University of Melbourne",
-                score:"",
-                scoreIn:"",
-                graduateUniversity:""
-            })
-            this.setState({redirectToAdvancedPage: true})
-        }
+        // if (profiles != undefined && profiles != []) {
+        //     this.props.recieveScholorInformation(profiles) //this action listened by two reducer, for detail info, please see redux documentation
+        //     this.setState({redirectToAdvancedPage: true})
+        // }
     };
 
     render(){
@@ -115,7 +106,7 @@ class SearchExpertsSection extends Component{
 
 
         return(
-            <div style = {{width:"100%",marginTop:0, height:800, background:"#F8FCFF"}}>
+            <div style = {{width:"100%",marginTop:0, height:800}}>
             
                 <div style = {{ padding:"100px  100px 0 100px"}} >
                     <Typography className ={classes.maxWidth}  
@@ -169,8 +160,6 @@ class SearchExpertsSection extends Component{
 
 const mapDispatchToProps = dispatch => ({
     recieveScholorInformation: (scholarProfileList) => dispatch(recieveScholorInformation(scholarProfileList)),
-    setScholarProfileVisibility: filter => dispatch(setScholarProfileVisibility(filter)),
-    setSearchInfo: searchInfo => dispatch(setSearchInfo(searchInfo)),
     dispatch
 });
 

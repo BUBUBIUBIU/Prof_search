@@ -30,14 +30,15 @@ import en_US from '../../locale/en_US.js';
 //Ui
 // import HomePage from '../../ui/page/HomePage.jsx';
 import NotFoundPage from '../Pages/notFoundPage/NotFoundPage';
-import SearchPhdPage from '../Pages/searchPhdPage/SearchPhdPage';
-import SearchResearchProjectsPage from '../Pages/searchResearchProjectsPage/SearchResearchProjectsPage'
-import SearchExpertPage from '../Pages/searchExpertPage/SearchExpertPage'
-import AdvancedSearchExpertPage from '../Pages/advanceSearchExpertPage/AdvancedSearchExpertPage'
-import AdvancedSearchPhdPage from '../Pages/advanceSearchPhdPage/AdvancedSearchPhdPage'
+// import SearchPhdPage from '../Pages/searchPhdPage/SearchPhdPage';
+// import SearchResearchProjectsPage from '../Pages/searchResearchProjectsPage/SearchResearchProjectsPage'
+// import SearchExpertPage from '../Pages/searchExpertPage/SearchExpertPage'
+// import AdvancedSearchExpertPage from '../Pages/advanceSearchExpertPage/AdvancedSearchExpertPage'
+// import AdvancedSearchPhdPage from '../Pages/advanceSearchPhdPage/AdvancedSearchPhdPage'
 import PersonalProfilePage from '../Pages/personalProfilePage/PersonalProfilePage'
 import ContactListPage from '../Pages/contactListPage/ContactListPage'
-import MessagePage from '../Pages/messagePage/MessagePage'
+// import MessagePage from '../Pages/messagePage/MessagePage'
+import BrowsePage from '../Pages/browsePage/BrowsePage'
 import LoginPage from '../Pages/authPage/LoginPage'
 import SignUpPage from '../Pages/authPage/SignUpPage'
 import ProjectFull from '../Pages/ProjectPage/ProjectFull'
@@ -45,7 +46,7 @@ import SetNewPasswd from '../Pages/authPage/SetNewPasswd'
 import NewSearchPage from '../Pages/newSearchPage/NewSearchPage'
 import ApplicationListPage from '../Pages/applicationList/ApplicationListPage'
 import CoodinatorPage from '../Pages/coordinatorPage/CoordinatorPage'
-
+import SearchResultPage from '../Pages/searchResult/SearchResultPage'
 
 //api
 import {LoginCheck} from '../../api/authApi'
@@ -227,10 +228,11 @@ class RenderRouter extends Component {
           {/* <Provider store={store}> */}
             <BrowserRouter >
             {/* we use switch keyword, so only one component below will be rendered */}
-              <Switch> 
+              <Switch>
                 <Route exact path="/" component={NewSearchPage} />
                 <Route exact path="/search" component={NewSearchPage} />
-                <Route exact path="/search/searchResult" component={AdvancedSearchExpertPage} />
+                <Route exact path="/browse" component={BrowsePage} />
+                <Route exact path="/search/searchResult" component={SearchResultPage} />
                 <Route exact path="/login" component={ props => <LoginPage authValue = "login"/>} />
                 <Route path="/studentProfile/:id" component= { props => <PersonalProfilePage identity = {"student"} editable = {false}/>}  />
                 <Route path="/expertProfile/:id" component= { props => <PersonalProfilePage identity = {"expert"} editable = {false}/>}  />

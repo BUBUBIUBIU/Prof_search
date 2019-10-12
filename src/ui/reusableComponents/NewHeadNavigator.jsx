@@ -137,11 +137,12 @@ class HeadNavigator extends Component {
 
     render() {
 
-        if(this.state.toAnotherPage === "home"){
+        if(this.state.toAnotherPage === "home" || this.state.toAnotherPage === "search"){
           if (window.location.pathname !== "/" && window.location.pathname != "/search"){
           return <Redirect push to ="/"/>
           }
         }
+
 
         if(this.state.toAnotherPage === "personalProfile"){
           if (window.location.pathname !== "/personalProfile" && window.location.pathname != "/search"){
@@ -159,9 +160,11 @@ class HeadNavigator extends Component {
           if (window.location.pathname !== "/applicationList")
             return <Redirect push to = "/applicationList" />
         }
+        if (this.state.toAnotherPage === "browse") {
+          if (window.location.pathname !== "/browse")
+            return <Redirect push to = "/browse" />
+        }
   
-
-
         if (this.state.authValue === "login") {
           return <Redirect to='../login' />
         }

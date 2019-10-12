@@ -14,7 +14,7 @@ class SearchExpertPage extends Component {
     }
     render(){
         return(
-            <div>
+            <div style = {{backgroundColor:"#F8FCFF"}}>
             <NewHeadNavigator tabValue = "SearchExpert"/>
             <SearchExpertsSection />
             </div>
