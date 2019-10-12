@@ -52,6 +52,11 @@ export const recieveScholorInformation = (scholarProfileList) => ({
     type:'LOG_OUT',
   })
 
+  export const updateContactList = (contactList) => ({
+    type: 'UPDATE_CONTACT_LIST',
+    contactList: contactList,
+  })
+
 
 
   

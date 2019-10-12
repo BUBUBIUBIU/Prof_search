@@ -6,7 +6,7 @@
 
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
-import { withStyles, Modal, } from '@material-ui/core';
+import { withStyles, Modal,Paper } from '@material-ui/core';
 
 
 
@@ -109,12 +109,13 @@ class ResearchGrantPaper extends Component {
     const { currentResearchGrants } = this.state;
     return (
       <div>
-        <CardHeader title={"Research Grant"} handleOpen={this.handleOpen} isCompulsory={false} buttonName={"Add Grant"} />
+        <Paper style = {{ boxShadow: "0 2px 4px 0 rgba(215, 215, 215, 0.5)"}}>
+          <CardHeader title={"Research Grant"} handleOpen={this.handleOpen} isCompulsory={false} buttonName={"Add Grant"} editable = {this.props.editable}/>
 
-        {currentResearchGrants &&
-          <ResearchGrantDetail researchGrantExperience={currentResearchGrants} UpdateFile = {this.props.UpdateFile}/>
-        }
-        
+          {currentResearchGrants &&
+            <ResearchGrantDetail researchGrantExperience={currentResearchGrants} UpdateFile = {this.props.UpdateFile} editable = {this.props.editable}/>
+          }
+        </Paper>
         <Modal
           aria-labelledby="simple-modal-title"
           aria-describedby="simple-modal-description"

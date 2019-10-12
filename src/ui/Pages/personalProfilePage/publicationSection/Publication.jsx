@@ -6,12 +6,10 @@
  */
 
 import React, { Component } from 'react'
-import { withStyles,ToolBar, Modal,FormControl,NativeSelect,InputBase  } from '@material-ui/core';
-import Icon from '@material-ui/core/Icon';
-import { Plus, Close } from 'mdi-material-ui';
+import { withStyles,Paper, Modal,} from '@material-ui/core';
+
 
 //UI
-import BootstrapStyleSearchBox from '../../../reusableComponents/BootstrapStyleSearchBox'
 import  CardHeader from '../CardHeader'
 import PublicationModal from './PublicationModal'
 import PublicationDetail from './publicationDetail'
@@ -96,12 +94,14 @@ class Publication extends Component {
         const {publication} = this.state
         return(
             <div>
-            <CardHeader title = {"Publication"} handleOpen ={this.handleOpen} isCompulsory= {false} buttonName = {"Add Publication"} editable = {this.props.editable}/>
-            {/* Pop-up Modal */}
+              <Paper style = {{ boxShadow: "0 2px 4px 0 rgba(215, 215, 215, 0.5)"}}>
+                <CardHeader title = {"Publication"} handleOpen ={this.handleOpen} isCompulsory= {false} buttonName = {"Add Publication"} editable = {this.props.editable}/>
+                {/* Pop-up Modal */}
 
-            {publication &&
-                <PublicationDetail publications = {publication} UpdateFile = {this.props.UpdateFile} identity={this.props.identity}/>
-            }
+                {publication &&
+                    <PublicationDetail publications = {publication} UpdateFile = {this.props.UpdateFile} identity={this.props.identity} editable = {this.props.editable} />
+                }
+            </Paper>
 
             <Modal
               aria-labelledby="simple-modal-title"

@@ -85,11 +85,12 @@ class AwardDetail extends Component {
                                 </Typography>
                             </div>
                         </Grid>
+                        {this.props.editable &&
                         <Grid item xs={1}>
                         <IconButton onClick={this.openUpdateModal(index)} >
                                 <Edit/>
                         </IconButton>
-                        </Grid>
+                        </Grid>}
                     </Grid>
                     {awards.length - 1 !== index && <Divider variant="inset" />}
                 </div>

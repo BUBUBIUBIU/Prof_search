@@ -70,16 +70,17 @@ class researchStudentSupervisedPaper extends Component {
   
         return(
             <div>
-            <CardHeader title = {"Research Students Supervised by Me"} handleOpen ={this.handleOpen} isCompulsory= {false} buttonName = {"Add Student"}/>
-            
-            <Modal
-            aria-labelledby="simple-modal-title"
-            aria-describedby="simple-modal-description"
-            open={this.state.open}
-            onClose={this.handleClose}
-            >   
-            <OtherMaterialModal handleClose ={this.handleClose}/>
-            </Modal>
+                <Paper style = {{ boxShadow: "0 2px 4px 0 rgba(215, 215, 215, 0.5)"}}>
+                    <CardHeader title = {"Research Students Supervised by Me"} handleOpen ={this.handleOpen} isCompulsory= {false} buttonName = {"Add Student"} editable = {this.props.editable}/>
+                </Paper>
+                <Modal
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description"
+                open={this.state.open}
+                onClose={this.handleClose}
+                >   
+                    <OtherMaterialModal handleClose ={this.handleClose}/>
+                </Modal>
             </div>
         )
     }

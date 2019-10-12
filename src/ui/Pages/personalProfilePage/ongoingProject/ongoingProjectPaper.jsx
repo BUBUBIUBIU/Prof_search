@@ -6,7 +6,7 @@
 
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
-import { withStyles, Modal, } from '@material-ui/core';
+import { withStyles, Modal, Paper} from '@material-ui/core';
 
 
 
@@ -107,13 +107,15 @@ class OngoingProjectPaper extends Component {
     const projects = this.state.currentProj;
     return (
       <div>
-        <CardHeader title={"OngoingProject"} handleOpen={this.handleOpen} isCompulsory={false} buttonName={"Add Project"} />
+        <Paper style = {{ boxShadow: "0 2px 4px 0 rgba(215, 215, 215, 0.5)"}}>
+        <CardHeader title={"OngoingProject"} handleOpen={this.handleOpen} isCompulsory={false} buttonName={"Add Project"} editable = {this.props.editable}/>
         
         {
           projects  &&
-          <OngoingProjectDetail ongoingProjects={projects} UpdateFile = {this.props.UpdateFile}/>
+          <OngoingProjectDetail ongoingProjects={projects} UpdateFile = {this.props.UpdateFile} editable = {this.props.editable}/ >
         }
         
+        </Paper>
         <Modal
           aria-labelledby="simple-modal-title"
           aria-describedby="simple-modal-description"

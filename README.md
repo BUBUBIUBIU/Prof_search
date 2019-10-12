@@ -12,6 +12,30 @@
 # Important dependencies
 
 ## Redux
+In redux, we mainly have two things:
+1. action
+2. Reducer
+
+Action is used to change the global state(i.e. reducer)
+Reducer is the global state
+
+In current project, only two reducers are still actively in use, userInfo and scholarProfileList
+- userInfo
+This is used to store the current userInfo, data structure:
+
+{
+  status: 0/1,
+  name:"Chenyang",  
+  identity: "student"/"expert"
+}
+
+- scholarProfileList
+This 
+
+
+
+
+
 
 ## React router
 Tutorial available at https://reacttraining.com/react-router/web/guides/quick-start.

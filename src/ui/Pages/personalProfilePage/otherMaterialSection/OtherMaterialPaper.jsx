@@ -6,9 +6,8 @@
 
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
-import { Paper,Typography,Collapse, Button, withStyles,ToolBar, Modal } from '@material-ui/core';
-import Icon from '@material-ui/core/Icon';
-import { Plus } from 'mdi-material-ui'
+import { Paper,withStyles, Modal } from '@material-ui/core';
+
 
 //UI 
 import  CardHeader from '../CardHeader'
@@ -69,11 +68,13 @@ class OtherMaterial extends Component {
   
         return(
             <div>
+            <Paper style = {{ boxShadow: "0 2px 4px 0 rgba(215, 215, 215, 0.5)"}}>
             <CardHeader title = {"Other Material"} handleOpen ={this.handleOpen} isCompulsory= {false} buttonName = {"Add Material"} editable = {this.props.editable}/>
             
             {otherMaterials &&
-                <OtherMaterialDetails otherMaterials = {otherMaterials} UpdateFile = {this.props.UpdateFile} identity={this.props.identity}/>
+                <OtherMaterialDetails otherMaterials = {otherMaterials} UpdateFile = {this.props.UpdateFile} identity={this.props.identity} editable = {this.props.editable}/>
             }
+            </Paper>
             <Modal
             aria-labelledby="simple-modal-title"
             aria-describedby="simple-modal-description"

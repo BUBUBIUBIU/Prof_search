@@ -6,7 +6,7 @@
 
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
-import { withStyles, Modal, } from '@material-ui/core';
+import { withStyles, Modal, Paper} from '@material-ui/core';
 
 
 
@@ -114,19 +114,21 @@ class EducationPaper extends Component {
     console.log(currentEducations)
     return (
       <div className='section-education'>
+        <Paper style = {{ boxShadow: "0 2px 4px 0 rgba(215, 215, 215, 0.5)"}}>
         <CardHeader title={"Education"} handleOpen={this.handleOpen} isCompulsory={true} buttonName={"Add Degree"} editable = {this.props.editable}/>
 
         
         {currentEducations &&
           <EducationDetail educationExperience={currentEducations} UpdateFile = {this.props.UpdateFile} identity = {this.props.identity}/>
         }
+        </Paper>
         <Modal
           aria-labelledby="simple-modal-title"
           aria-describedby="simple-modal-description"
           open={this.state.open}
           onClose={this.handleClose}
         >
-          <EducationModal handleClose={this.handleClose} identity = {this.props.identity}/>
+          <EducationModal handleClose={this.handleClose} identity = {this.props.identity} editable = {this.props.editable}/>
         </Modal>
       </div>
 

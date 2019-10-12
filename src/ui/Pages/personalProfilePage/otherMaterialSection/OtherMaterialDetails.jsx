@@ -102,12 +102,12 @@ class OtherMaterialDetails extends Component {
                                 </Typography>
                             </div>
                         </Grid>
-
+                        {this.props.editable &&
                         <Grid item xs={1}>
                         <IconButton onClick={this.openUpdateModal(index)} >
                                 <Edit/>
                         </IconButton>
-                        </Grid>
+                        </Grid>}
 
                     </Grid>
                     {otherMaterials.length - 1 !== index && <Divider variant="inset" />}
