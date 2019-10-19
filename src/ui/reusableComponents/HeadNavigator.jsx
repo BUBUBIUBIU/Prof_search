@@ -203,7 +203,7 @@ class HeadNavigator extends Component {
                     size="small"
                     aria-haspopup="true"
                     onClick={this.handleProfileClick}>
-                  {this.props.userInfo.name}
+                  {this.props.userInfo.firstName}
                   
                   </Button>
                 }
@@ -218,7 +218,7 @@ class HeadNavigator extends Component {
                       src = "https://scontent.fcbr1-1.fna.fbcdn.net/v/t1.0-0/p370x247/50229562_10157302245734739_2837044079051669504_n.jpg?_nc_cat=109&amp;_nc_ht=scontent.fcbr1-1.fna&amp;oh=9af7e41fe295e20bf12794a74726716b&amp;oe=5D53A962"> 
                     </Avatar>
                   <Typography variant="h3" >
-                    {this.props.userInfo.name}
+                    {this.props.userInfo.firstName}
                   </Typography>
 
                   </MenuItem>

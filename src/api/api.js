@@ -42,6 +42,7 @@ export function getDataFromServer(apiUrl, configObj) {
                     resolve(response.data);
                 }else {
                     console.log("未知错误")
+                    console.log(response)
                     reject(response.data.message);
                 }
             }else {

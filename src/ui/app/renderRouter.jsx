@@ -41,7 +41,7 @@ import ContactListPage from '../Pages/contactListPage/ContactListPage'
 import BrowsePage from '../Pages/browsePage/BrowsePage'
 import LoginPage from '../Pages/authPage/LoginPage'
 import SignUpPage from '../Pages/authPage/SignUpPage'
-import ProjectFull from '../Pages/ProjectPage/ProjectFull'
+import ProjectDetail from '../Pages/ProjectPage/ProjectDetail'
 import SetNewPasswd from '../Pages/authPage/SetNewPasswd'
 import NewSearchPage from '../Pages/newSearchPage/NewSearchPage'
 import ApplicationListPage from '../Pages/applicationList/ApplicationListPage'
@@ -173,16 +173,16 @@ class RenderRouter extends Component {
   }
 
   componentDidMount(){
-    // Check Login status
-    const loginSuccessful = (name, identity) => this.props.loginSuccess(name,identity);
-
+    const that = this;
     console.log("Check login")
     LoginCheck()
       .then(function(response){
-        let name = response.content.FirstName +" " + response.content.LastName;
+        // let name = response.content.FirstName +" " + response.content.LastName;
         console.log("Check log in ")
         console.log(response)
-        loginSuccessful(name, response.content.Identity);
+        const content = response.content
+        that.props.loginSuccess(content); // content includes, content.FirstName, content.LastName, content.Email, content.Identity
+        // loginSuccessful(name, response.content.Identity);
       },function(err){
         console.log("not logged in")
       }
@@ -220,7 +220,9 @@ class RenderRouter extends Component {
               ? <Component {...props} />
               : <Redirect to='/login' />
           )} />
-        )
+      )
+
+      
 
     return(
       <IntlProvider locale={locale} messages={messages}>
@@ -234,10 +236,10 @@ class RenderRouter extends Component {
                 <Route exact path="/browse" component={BrowsePage} />
                 <Route exact path="/search/searchResult" component={SearchResultPage} />
                 <Route exact path="/login" component={ props => <LoginPage authValue = "login"/>} />
+                <Route exact path="/personalProfile/projectDetail" component={ProjectDetail} />
                 <Route path="/studentProfile/:id" component= { props => <PersonalProfilePage identity = {"student"} editable = {false}/>}  />
                 <Route path="/expertProfile/:id" component= { props => <PersonalProfilePage identity = {"expert"} editable = {false}/>}  />
                 <Route exact path="/signup" component={ props => <SignUpPage authValue = "signup"/>} />
-                <Route exact path="/projectfull" component={ProjectFull} />
                 <Route exact path="/setnewpasswd" component={SetNewPasswd} />
                 <Route exact path="/personalProfile" component= { props => <PersonalProfilePage identity = {userInfo.identity} editable = {true}/>} />
                 <Route exact path="/contactList"  component={ContactListPage} />

@@ -4,59 +4,66 @@
  * Written by [Chenyang Lu, Shaochuan Luo], [date:10th Aug 2019]
  */
 
+    import {publicIp} from './apiIp';
+
 // 登录
 
 //search experts by expertise or name
-// export const SEARCHEXPERTS = `${publicIp}/api/search/experts`;
-export const SEARCHEXPERTS = '/search/experts';
+export const SEARCHEXPERTS = `${publicIp}/search/experts`;
+// export const SEARCHEXPERTS = '/search/experts';
 
 
 //Authentication
-export const LOGIN ='/signin';
-export const CHECKLOGIN ='/checksignin';
-export const SIGNUP = '/student/signup';
-export const SIGNOUT = '/signout'
+export const LOGIN =`${publicIp}/signin`;
+export const CHECKLOGIN =`${publicIp}/checksignin`;
+export const SIGNUP = `${publicIp}/student/signup`;
+export const SIGNOUT = `${publicIp}/signout`
 
 
 //profile
-export const PROFILE ='/profile';
+export const PROFILE =`${publicIp}/profile`;
 
 //student Profile API
-export const UNIVERSITY ='/student/university';
-export const COMPANY = './student/company'
-export const EXPERIENCE  = '/student/company';
-export const PUBlICATION  = '/student/publication';
-export const AWARD  = '/student/award';
-export const OTHERMATERIAL  = '/student/material';
-export const AVATAR = '/student/avatar'
-export const CV = '/student/cv'
+export const UNIVERSITY =`${publicIp}/student/university`;
+export const COMPANY = `${publicIp}/student/company`;
+export const EXPERIENCE  = `${publicIp}/student/company`;
+export const PUBlICATION  = `${publicIp}/student/publication`;
+export const AWARD  = `${publicIp}/student/award`;
+export const OTHERMATERIAL  = `${publicIp}/student/material`;
+export const AVATAR = `${publicIp}/student/avatar`;
+export const CV = `${publicIp}/student/cv`
+export const PROJECT_DETAIL = `${publicIp}/student/project_detail`
 
 //student contact List api
-export const CONTACTLIST = '/student/contactlist'
-export const APPLY = '/student/application'
-export const ACCEPT_OFFER = '/student/application/accept'
-export const REJECT_OFFER = '/student/application/reject'
+export const CONTACTLIST = `${publicIp}/student/contactlist`
+export const APPLY = `${publicIp}/student/application`
+export const ACCEPT_OFFER = `${publicIp}/student/application/accept`
+export const REJECT_OFFER = `${publicIp}/student/application/reject`
 
 // PROFESSOR Profile API
-export const EXPERT_PROFILE = '/expert/profile'
-export const EXPERT_CHECKLOGIN ='/expert/checksignin';
-export const EXPERT_SIGNOUT ='/expert/signout';
-export const EXPERT_PUBlICATION  = '/expert/publication';
-export const EXPERT_OTHERMATERIAL  = '/expert/material';
-export const EXPERT_UNIVERSITY  = '/expert/university';
-export const EXPERT_EXPERIENCE  = '/expert/company';
-export const EXPERT_AWARD = '/expert/award';
+export const EXPERT_PROFILE = `${publicIp}/expert/profile`;
+export const EXPERT_CHECKLOGIN =`${publicIp}/expert/checksignin`;
+export const EXPERT_SIGNOUT =`${publicIp}/expert/signout`;
+export const EXPERT_PUBlICATION  = `${publicIp}/expert/publication`;
+export const EXPERT_OTHERMATERIAL  = `${publicIp}/expert/material`;
+export const EXPERT_UNIVERSITY  = `${publicIp}/expert/university`;
+export const EXPERT_EXPERIENCE  = `${publicIp}/expert/company`;
+export const EXPERT_AWARD = `${publicIp}/expert/award`;
 export const ResearchInterest = '';
-export const ResearchGrant  = '/expert/grant';
-export const OngoingProject  = '/expert/ongoing_project';
-export const AvailablePosition = '/expert/position'; 
+export const ResearchGrant  = `${publicIp}/expert/grant`;
+export const OngoingProject  = `${publicIp}/expert/ongoing_project`;
+export const AvailablePosition = `${publicIp}/expert/position`; 
 
 
 //professor Application API
-export const APPLICATIONS = '/api/expert/application'
-export const ACCEPT_APPLICATION = '/api/expert/application/accept'
-export const REJECT_APPLICATION =  '/api/expert/application/reject'
+export const APPLICATIONS = `${publicIp}/expert/application`
+export const ACCEPT_APPLICATION = `${publicIp}/expert/application/accept`
+export const REJECT_APPLICATION =  `${publicIp}/expert/application/reject`
 
 //Get Student/ Expert profile
-export const GET_EXPERT_PROFILE=  '/api/profile/expert/'
-export const GET_STUDENT_PROFILE = '/api/profile/student/'
+export const GET_EXPERT_PROFILE=  `${publicIp}/profile/expert/`
+export const GET_STUDENT_PROFILE = `${publicIp}/profile/student/`
+
+
+//Static file
+export const BROWSE_TREE = `${publicIp}/static/tree`

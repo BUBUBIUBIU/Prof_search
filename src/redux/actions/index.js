@@ -1,4 +1,4 @@
-import { BottomNavigationAction } from "@material-ui/core";
+
 
 export const recieveScholorInformation = (scholarProfileList) => ({
     type: 'RECIEVE_SEARCH_INFORMATION',
@@ -37,10 +37,12 @@ export const recieveScholorInformation = (scholarProfileList) => ({
     language:language
   })
 
-  export const loginSuccess = (name, identity) => ({
+  export const loginSuccess = (content) => ({
     type:'LOGIN_SUCCESS',
-    name:name,
-    identity: identity
+    firstName:content.FirstName,
+    lastName:content.LastName,
+    email:content.Email,
+    identity: content.Identity
   })
 
   export const loginFail = () => ({

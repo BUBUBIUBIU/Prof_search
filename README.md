@@ -9,6 +9,30 @@
   - src/ui/reusableComponents: some reusable components
 
 
+# Coding style
+Through the project, though some coding style are inconsistent, but it is worth to standardize the the coding style
+
+### Naming Rule
+  1.  Methods/ Variable name:
+       - Inside JSX file， the variables and methods name should follow cammelCase
+       - All the api methods should follow PascalCase to distinguish from normal methods
+
+  2. API Address
+      -  All the API address should all in UPPERCASE and with underscore to separate each word
+  3. File name
+      - All the JSX file should be in PascalCase
+      - All the other files should use camelCase
+      - Folder name should use camelCase 
+
+### JSX File format
+  1. All the file should start with a copy write signature
+  2. Check protoType at the end for each JSX file
+
+
+### Api Writing rule
+
+
+
 # Important dependencies
 
 ## Redux
@@ -25,7 +49,9 @@ This is used to store the current userInfo, data structure:
 
 {
   status: 0/1,
-  name:"Chenyang",  
+  firstName:"Chenyang",  
+  lastName:"Lu",
+  email: "email"
   identity: "student"/"expert"
 }
 
@@ -150,7 +176,8 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 - For stateful react component, shouldComponentUpdate() should be introduced to improve performance.
 - For some reusable components, its better to make them stateless (create by function) to improve performance
 
-
+## Lack of using FormData
+In this project, nearly all the components are controlled [components](https://reactjs.org/docs/forms.html#controlled-components),thus, we hardly use from data to submit inputs to the server. It introduce a lot of redundancy codes. Still not sure if it is a good practice or not.
 
 
 
@@ -176,4 +203,7 @@ status 4: student accept
 status 5 : student reject 
 
 
-
+# CSS Layout
+CSS3 provide two powerful features for layout organization, in this project, we mainly use Flexbox but Grid is another way to do the layout organization
+- [Flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
+- [Grid](http://www.ruanyifeng.com/blog/2019/03/grid-layout-tutorial.html)

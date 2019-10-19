@@ -74,6 +74,9 @@ class SearchExpertsSection extends Component{
         this.setState({ [name]: event.target.value });
         console.log(this.state.expertExperties)
       };
+    toAnotherPage = () => {
+        this.setState({toAnotherPage: "browse"})
+    }
     
 
     componentDidMount() {
@@ -100,6 +103,9 @@ class SearchExpertsSection extends Component{
 
         if(this.state.redirectToAdvancedPage){
             return <Redirect push to ="/search/searchResult"/>
+        }
+        if(this.state.toAnotherPage === 'browse'){
+            return <Redirect push to ="/browse"/>
         }
 
         const {classes} = this.props;
@@ -147,6 +153,7 @@ class SearchExpertsSection extends Component{
                         root: classes.ButtonRoot, // override default root style
                         label: classes.ButtonLabel, //override default text style
                     }}
+                    onClick = {this.toAnotherPage}
                     >
                     or Browse By Project Topics <ArrowRightIcon/>
                 </Button>

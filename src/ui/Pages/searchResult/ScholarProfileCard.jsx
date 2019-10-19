@@ -79,6 +79,12 @@ class ScholarProfileCard extends Component {
         // this.setState({toContactList:true})
     }
 
+    viewProjectDetail = () =>{
+        const destinationURL = "/expertProfile/" + this.props.profile.ID;
+        this.setState({redirect:destinationURL})
+
+    }
+
     handleTab = (event,value) => {
         this.setState({value});
     }
@@ -87,6 +93,11 @@ class ScholarProfileCard extends Component {
             if(this.state.toContactList){
                 return <Redirect to ="/contactList"/>
             } 
+
+            if(this.state.redirect){
+                // let history = useHistory();
+                return <Redirect push to = {this.state.redirect}/>
+            }
 
             const {classes, profile} = this.props
             const {value} = this.state; 
@@ -101,7 +112,7 @@ class ScholarProfileCard extends Component {
                     <CardHeader 
                         disableTypography = "true"
                         avatar={ 
-                        <Avatar className={classes.bigAvatar}> {avatar} </Avatar>
+                        <Avatar className={classes.bigAvatar} onClick = {this.viewProjectDetail}> {avatar} </Avatar>
                         }
                         action={
                         <Button color="primary" className ={classes.button} variant="outlined" onClick={this.addToContectList}> 

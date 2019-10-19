@@ -155,6 +155,53 @@ export function deleteExperience(data, identity){
     return getDataFromServer(EXPERIENCE, configObj);
 }
 
+
+
+/**
+ * This method used for update or create project detail
+ * Put method is implemented
+ *
+ * @param {Object} data: 
+ * {
+    "FirstName": "can be omitted",
+    "LastName": "can be omitted",
+    "Username": "uni username",
+    "StudentID": "uni student id",
+    "DegreeName": 1,
+    "DegreeNameOther": "only fill if degree is other",
+    "SubjectCode": 2
+    "ProjectStart": 3
+    "ProjectComplete": 4
+    "ProjectCompleteOther": "only fill if project complete date is other"
+    "ProjectType": 5
+    "CreditPoints": 1
+}
+ * @return {Object} : promise
+ */
+export function PutProjectDetail(data){
+    const configObj = {
+        method: 'PUT',
+        data,
+    }
+    return getDataFromServer(apiUrl.PROJECT_DETAIL, configObj);
+}
+
+
+/**
+ * This method used for getting project detail
+ * GET method is implemented
+ *
+ * @return {Object} 
+ */
+export function GetProjectDetail(){
+    const configObj = {
+        method: 'GET',
+    }
+    return getDataFromServer(apiUrl.PROJECT_DETAIL, configObj);
+}
+
+
+
 /**
  * This method used for add publication
  * Post method is implemented
