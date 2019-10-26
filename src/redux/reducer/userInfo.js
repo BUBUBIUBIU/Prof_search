@@ -7,7 +7,7 @@
                 identity: student/expert     
  */
 
-const initialState = {status:0, name:"", identity:""}
+const initialState = {status:0, firstName:"", lastName:"",email:"",identity:""}
 
 const userInfo = (state = initialState, action) => {
     switch (action.type) {
@@ -16,8 +16,10 @@ const userInfo = (state = initialState, action) => {
             console.log(action)
             return Object.assign({},state,{
                 status:1,
-                name:action.name,
-                identity: action.identity
+                firstName:action.firstName,
+                lastName:action.lastName,
+                email:action.email,
+                identity: action.identity,
               })
             }
         case "LOGIN_FAIL": {

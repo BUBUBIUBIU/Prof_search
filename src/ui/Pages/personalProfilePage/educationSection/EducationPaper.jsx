@@ -119,7 +119,7 @@ class EducationPaper extends Component {
 
         
         {currentEducations &&
-          <EducationDetail educationExperience={currentEducations} UpdateFile = {this.props.UpdateFile} identity = {this.props.identity}/>
+          <EducationDetail educationExperience={currentEducations} UpdateFile = {this.props.UpdateFile} identity = {this.props.identity} editable = {this.props.editable}/>
         }
         </Paper>
         <Modal
@@ -128,7 +128,7 @@ class EducationPaper extends Component {
           open={this.state.open}
           onClose={this.handleClose}
         >
-          <EducationModal handleClose={this.handleClose} identity = {this.props.identity} editable = {this.props.editable}/>
+          <EducationModal handleClose={this.handleClose} identity = {this.props.identity}/>
         </Modal>
       </div>
 

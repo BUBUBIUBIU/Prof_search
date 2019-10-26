@@ -38,7 +38,8 @@ const styles = theme => ({
     background: 'linear-gradient(45deg, #D4145A 30%, #FBB03B 90%)',
     paddingLeft:100,
     paddingRight:100,
-    marginBottom: "30px"
+    marginBottom: "30px",
+    display:"block",
 
   },
   smallAvatar:{
@@ -134,6 +135,19 @@ class HeadNavigator extends Component {
 
     }
 
+    onMouseEnter = () => {
+      this.setState({
+        hover:true
+      })
+    }
+
+    onMouseLeave = () =>{
+      this.setState({
+        hover:false
+      })
+
+    }
+
 
     render() {
 
@@ -181,8 +195,15 @@ class HeadNavigator extends Component {
         return (
           <div>
               <AppBar position="static" className={classes.appBar}>
-                <Toolbar>
-                  <Typography variant="h4" color="inherit" className = {classes.grow} onClick = {this.backToHomePage} style = {{marginRight: "auto"}}>
+                <Toolbar style = {{minWidth:500, margin:"auto",maxWidth:1000, paddingLeft:50}}>
+                  <Typography variant="h4" 
+                  color="inherit" 
+                  className = {classes.grow} 
+                  onClick = {this.backToHomePage} 
+                  style = {{marginRight: "auto", cursor:(this.state.hover)? 'pointer': 'default'}}
+                  onMouseEnter={this.onMouseEnter} 
+                  onMouseLeave={this.onMouseEnter} 
+                  >
                   PROFSEARCH 
                   </Typography>
 
@@ -221,7 +242,7 @@ class HeadNavigator extends Component {
                     onClick={this.handleProfileClick}>
                     <div style={{align:"middle", display:"block",textAlign:"center"}}>
                     <Avatar style = {{width:27, height:27, marginBottom:6}}>
-                      {this.props.userInfo.name.substring(0,1)}
+                      {this.props.userInfo.firstName.substring(0,1) + this.props.userInfo.lastName.substring(0,1)}
                     </Avatar>
                       <p style={{padding:"0", margin:"0", fontSize:"12px"}}>
                         Me
@@ -237,10 +258,10 @@ class HeadNavigator extends Component {
 
                   <MenuItem onClick={this.jumpToProfilePage}>
                   <Avatar className={classes.smallAvatar}>
-                      {this.props.userInfo.name.substring(0,1)}
+                  {this.props.userInfo.firstName.substring(0,1) + this.props.userInfo.lastName.substring(0,1)}
                   </Avatar>
                   <Typography variant="h3" >
-                    {this.props.userInfo.name}
+                    {this.props.userInfo.firstName}
                   </Typography>
 
                   </MenuItem>
@@ -261,7 +282,7 @@ class HeadNavigator extends Component {
 
                 {/* only show the following in tabs in search pages */}
                 {this.displayTabs() &&
-                <Tabs value={value} onChange={this.handleChange}>
+                <Tabs value={value} onChange={this.handleChange} style = {{minWidth:500, margin:"auto",maxWidth:1000}}>
                   <Tab value="search" label= "Search" />
                   <Tab value="browse" label= "Browse" />
                 </Tabs>

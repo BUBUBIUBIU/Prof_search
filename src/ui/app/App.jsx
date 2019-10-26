@@ -17,7 +17,8 @@ import RenderRouter from './renderRouter'
 
 
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer
+    ,);
 
 class App extends Component {
     constructor(props) {

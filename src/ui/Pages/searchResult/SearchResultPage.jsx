@@ -21,7 +21,7 @@ class SearchResult extends Component {
     }
     render(){
         return(
-            <div>
+            <div style = {{minWidth:900}}>
             <NewHeadNavigator tabValue = "search"/>
             <SearchResultBody />
             </div>

@@ -13,6 +13,10 @@ import Sort from '@material-ui/icons/Sort'
 import { connect } from 'react-redux'
 import {setScholarProfileOrder} from '../../../redux/actions/index'
 
+//api
+// import {updateContactListInLocalStorage} from '../../../service/operateLocalStorage'
+// import {GetContactList} from '../../../api/contactAPI'
+
 //ui
 import ScholarProfileCard from './ScholarProfileCard'
 const styles = theme =>({ 
@@ -39,6 +43,7 @@ class SearchResultBody extends Component{
         }; 
     }
 
+
     handleClick = event => {
         this.setState({ anchorEl: event.currentTarget });
       };
@@ -50,6 +55,8 @@ class SearchResultBody extends Component{
 
 
     render(){
+        console.log("get search result:")
+        console.log(this.props.scholarProfileList)
         const {classes} = this.props;
         const { anchorEl } = this.state;
 
@@ -91,6 +98,7 @@ class SearchResultBody extends Component{
 const mapStateToProps = state => ({
     scholarProfileList: state.scholarProfileList,
 })
+
 
 
 

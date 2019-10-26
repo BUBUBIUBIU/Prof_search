@@ -141,7 +141,7 @@ class SetNewPasswd extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-    loginSuccess: (name, identity)=> dispatch(loginSuccess(name,identity)),
+    loginSuccess: (content)=> dispatch(loginSuccess(content)),
     dispatch
 });
 

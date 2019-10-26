@@ -33,15 +33,20 @@ import OtherMaterial from './otherMaterialSection/OtherMaterialPaper'
 import CompletenessModal from './modals/CompletenessModal'
 import ResearchInterest from './researchInterest/ResearchInterestPaper'
 import ResearchGrant from './researchGrant/ResearchGrantPaper'
+import CardHeader from './CardHeader'
 
 import OngoingProject from './ongoingProject/OngoingProjectPaper'
 import AvailablePosition from './availablePosition/AvailablePositionPaper'
 import Header from '../../reusableComponents/NewHeadNavigator'
 import ChangeAvatarModal from './modals/ChangeAvatarModal'
+import ProjectDetail from './projectDetail/ProjectDetailPaper'
 //api
 import {getProfile} from '../../../api/personalProfileApi'
 import {GetExpertProfile} from '../../../api/generalAPI'
 import {GetStudentProfile} from '../../../api/generalAPI'
+
+//Router
+import { Redirect } from 'react-router-dom'
 
 const styles = theme => ({
     bigAvatar: {
@@ -216,6 +221,11 @@ class PersonalProfilePage extends Component {
         }
 
     }
+    // Rediect to master project page
+    handleOpenMasterProjectPage = () =>{
+        this.setState({toMaterProject:true})
+    }
+
 
         // handle visibility logic for components that's only in both student and expert profile
     showCommonComponent = (componentName) =>{
@@ -233,12 +243,17 @@ class PersonalProfilePage extends Component {
     }
 
     render(){
+        if (this.state.toMaterProject){
+            return <Redirect push to = "/personalProfile/projectDetail" />
+
+        }
         const {profile} = this.state
         const {classes} = this.props
-        // console.log('this.state.id:', this.state.identity);
+        // console.log('this.state.id:', this.state.identity);s
         console.log('profile in PersonalProfilePage:', profile);
+        
         return(
-            <div style = {{backgroundColor: "#fdfdfd"}}>
+            <div style = {{backgroundColor: "#fdfdfd", marginBottom:200,minWidth:900}}>
                 <Header/>
                 <div style ={{maxWidth: 1000, margin: "auto"}}>
                     <Paper className = {classes.paper} style = {{ padding:25}}>
@@ -348,6 +363,13 @@ class PersonalProfilePage extends Component {
                         editable = {this.props.editable}
                         identity = {this.props.identity}
                     />
+
+
+                    {this.props.identity === 'student' && this.props.editable && 
+                    <ProjectDetail/>
+                    }
+
+
                 </div>
 
                 <Modal

@@ -1,4 +1,4 @@
-import { BottomNavigationAction } from "@material-ui/core";
+
 
 export const recieveScholorInformation = (scholarProfileList) => ({
     type: 'RECIEVE_SEARCH_INFORMATION',
@@ -37,10 +37,12 @@ export const recieveScholorInformation = (scholarProfileList) => ({
     language:language
   })
 
-  export const loginSuccess = (name, identity) => ({
+  export const loginSuccess = (content) => ({
     type:'LOGIN_SUCCESS',
-    name:name,
-    identity: identity
+    firstName:content.FirstName,
+    lastName:content.LastName,
+    email:content.Email,
+    identity: content.Identity
   })
 
   export const loginFail = () => ({
@@ -54,8 +56,21 @@ export const recieveScholorInformation = (scholarProfileList) => ({
 
   export const updateContactList = (contactList) => ({
     type: 'UPDATE_CONTACT_LIST',
-    contactList: contactList,
+    contactList: filterContactListToIdList(contactList)
   })
+
+  export const addToReduxContactList = (id) => ({
+    type: 'ADD_TO_CONTACT_LIST',
+    id: id
+  })
+
+  const filterContactListToIdList = (contactList) => {
+    let contactIDList = contactList.map( (item) => {
+      return item.Expert.ID
+    })
+    return contactIDList
+
+  }
 
 
 

@@ -79,12 +79,14 @@ class BootStrapStyleSearchBox extends Component{
             </Typography>
             <Paper className={classes.root} elevation={0}>
                     <InputBase placeholder={this.props.placeHolder} className={classes.input}
-                        onChange={this.onChangeInput} value = {this.state.value}/>
+                        onChange={this.onChangeInput} value = {this.state.value} disabled = {this.props.disabled}/>
             </Paper>
         </div>
         );
     }
 }
+
+
 
 
 

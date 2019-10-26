@@ -39,44 +39,6 @@ const styles = theme => ({
         left: "300px",
         borderRadius: "4px",
     },
-    inputLabel: {
-        margin: "28px 0 6px 0",
-        display: 'inline-block',
-    },
-    inlineWord: {
-        // margin: "18px 0 5px 0",
-        verticalAlign: "middle",
-        textAlign: "center",
-        paddingTop: "15px"
-
-    },
-    inputBoxroot: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        backgroundColor: theme.palette.common.white,
-        height: "40px",
-        padding: "0 5px 0 11px",
-        borderRadius: 4,
-        border: '1px solid #ced4da',
-    },
-    universityBox: {
-        width: "333px",
-    },
-    typeSelectBox: {
-        backgroundColor: theme.palette.common.white,
-        transition: theme.transitions.create(['border-color', 'box-shadow']),
-        '&:focus': {
-            borderRadius: 4,
-            borderColor: '#80bdff',
-            boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
-        },
-        height: "40px",
-        width: "128px",
-        padding: "0px 0 0px 11px",
-        borderRadius: 4,
-        border: '1px solid #cccccc',
-
-    },
 });
 
 class ResearchGrantModal extends Component {

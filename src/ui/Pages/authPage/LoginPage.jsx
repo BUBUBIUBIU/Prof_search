@@ -74,8 +74,8 @@ class LoginPage extends Component {
             //method from login API, if succcusss, then store cookie, otherwise don't  
             Login(data)
                 .then(function(response){
-                    let name = response.content.FirstName + response.content.LastName
-                    that.props.loginSuccess(name,response.content.Identity); //Redux action
+                    // let name = response.content.FirstName + response.content.LastName
+                    that.props.loginSuccess(response.content); //Redux action
                     // cookie.save('userId', response.content.id);
                     // cookie.save('token', response.content.token);
                     // cookie.save('identity', response.content.Identity)
@@ -162,7 +162,7 @@ class LoginPage extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-    loginSuccess: (name, identity)=> dispatch(loginSuccess(name,identity)),
+    loginSuccess: (content)=> dispatch(loginSuccess(content)),
     dispatch
 });
 

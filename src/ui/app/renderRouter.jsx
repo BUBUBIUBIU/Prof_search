@@ -13,7 +13,7 @@ import createBrowserHistory from 'history/createBrowserHistory';
 
 //Redux Dependencies
 import { connect } from 'react-redux'
-import {loginSuccess} from '../../redux/actions/index'
+import {loginSuccess,updateContactList} from '../../redux/actions/index'
 // import { createStore } from 'redux'
 // import { Provider } from "react-redux";
 // import {rootReducer} from '../../redux/reducer/index.js'
@@ -41,7 +41,7 @@ import ContactListPage from '../Pages/contactListPage/ContactListPage'
 import BrowsePage from '../Pages/browsePage/BrowsePage'
 import LoginPage from '../Pages/authPage/LoginPage'
 import SignUpPage from '../Pages/authPage/SignUpPage'
-import ProjectFull from '../Pages/ProjectPage/ProjectFull'
+import ProjectDetail from '../Pages/ProjectPage/ProjectDetail'
 import SetNewPasswd from '../Pages/authPage/SetNewPasswd'
 import NewSearchPage from '../Pages/newSearchPage/NewSearchPage'
 import ApplicationListPage from '../Pages/applicationList/ApplicationListPage'
@@ -50,7 +50,7 @@ import SearchResultPage from '../Pages/searchResult/SearchResultPage'
 
 //api
 import {LoginCheck} from '../../api/authApi'
-
+import {GetContactList} from '../../api/contactAPI'
 
 const theme = createMuiTheme({
   palette: { 
@@ -172,22 +172,37 @@ class RenderRouter extends Component {
     };
   }
 
-  componentDidMount(){
-    // Check Login status
-    const loginSuccessful = (name, identity) => this.props.loginSuccess(name,identity);
-
+  componentDidMount() {
+    const that = this;
     console.log("Check login")
     LoginCheck()
-      .then(function(response){
-        let name = response.content.FirstName +" " + response.content.LastName;
+      .then(function (response) {
+        // let name = response.content.FirstName +" " + response.content.LastName;
         console.log("Check log in ")
         console.log(response)
-        loginSuccessful(name, response.content.Identity);
-      },function(err){
+        const content = response.content
+        that.props.loginSuccess(content); // content includes, content.FirstName, content.LastName, content.Email, content.Identity
+        // loginSuccessful(name, response.content.Identity);
+      }, function (err) {
         console.log("not logged in")
-      }
+      })
+    console.log(this.props.contactList)
+    if (this.props.contactList.length === 0) {
+      GetContactList().then(
+        function (resolve) {
+          console.log("update contact List")
+          let contactList = resolve.content
+          that.props.updateContactList(contactList);
+        },
+        function (reject) {
+
+        }
       )
-      
+    }
+
+
+
+
   }
 
 
@@ -220,7 +235,9 @@ class RenderRouter extends Component {
               ? <Component {...props} />
               : <Redirect to='/login' />
           )} />
-        )
+      )
+
+      
 
     return(
       <IntlProvider locale={locale} messages={messages}>
@@ -234,10 +251,10 @@ class RenderRouter extends Component {
                 <Route exact path="/browse" component={BrowsePage} />
                 <Route exact path="/search/searchResult" component={SearchResultPage} />
                 <Route exact path="/login" component={ props => <LoginPage authValue = "login"/>} />
+                <Route exact path="/personalProfile/projectDetail" component={ProjectDetail} />
                 <Route path="/studentProfile/:id" component= { props => <PersonalProfilePage identity = {"student"} editable = {false}/>}  />
                 <Route path="/expertProfile/:id" component= { props => <PersonalProfilePage identity = {"expert"} editable = {false}/>}  />
                 <Route exact path="/signup" component={ props => <SignUpPage authValue = "signup"/>} />
-                <Route exact path="/projectfull" component={ProjectFull} />
                 <Route exact path="/setnewpasswd" component={SetNewPasswd} />
                 <Route exact path="/personalProfile" component= { props => <PersonalProfilePage identity = {userInfo.identity} editable = {true}/>} />
                 <Route exact path="/contactList"  component={ContactListPage} />
@@ -265,12 +282,13 @@ class RenderRouter extends Component {
 
 const mapStateToProps = state => ({
   language: state.language,
-  userInfo: state.userInfo
-
+  userInfo: state.userInfo,
+  contactList: state.contactList
 })
 
 const mapDispatchToProps = dispatch => ({
   loginSuccess: (name, identity)=> dispatch(loginSuccess(name,identity)),
+  updateContactList: (contactList) => dispatch(updateContactList(contactList)),
   dispatch
 });
 

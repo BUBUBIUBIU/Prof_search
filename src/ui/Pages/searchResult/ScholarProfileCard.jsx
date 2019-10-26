@@ -7,10 +7,13 @@ import { Card, Typography,AppBar,Tabs,Tab, CardContent, Avatar, withStyles, Card
 // RouterDependencies
 import { Redirect } from 'react-router-dom'
 
+//Redux
+import { connect } from 'react-redux'
+import {addToReduxContactList} from '../../../redux/actions/index'
 
 //api
-
 import {AddToContactList} from '../../../api/contactAPI'
+import { throwStatement } from '@babel/types';
 
 const styles = theme => ({
     pannel:{
@@ -70,14 +73,27 @@ class ScholarProfileCard extends Component {
     }
 
     componentDidMount(){
-        console.log("card mount")
-        console.log(this.props.profile)
+
     }
 
     addToContectList = () =>{
-        AddToContactList([this.props.profile.ID]);
-        // this.setState({toContactList:true})
+        AddToContactList([this.props.profile.ID]).then(
+            (resolve) => {
+                this.props.addToReduxContactList(this.props.professor.ID)
+            },
+            (reject) =>{
+
+            }
+        )
+
     }
+
+    viewProjectDetail = () =>{
+        const destinationURL = "/expertProfile/" + this.props.profile.ID;
+        this.setState({redirect:destinationURL})
+
+    }
+
 
     handleTab = (event,value) => {
         this.setState({value});
@@ -88,12 +104,20 @@ class ScholarProfileCard extends Component {
                 return <Redirect to ="/contactList"/>
             } 
 
+            if(this.state.redirect){
+                // let history = useHistory();
+                return <Redirect push to = {this.state.redirect}/>
+            }
+
             const {classes, profile} = this.props
             const {value} = this.state; 
             const publicationAndCount = profile.Publications? "publications(" + profile.Publications.length.toString()+ ")" : "publications(0)"
             const avatar = profile.FirstName.substring(0,1)
 
             let fullProfiles = profile.Biography;
+            let currentContactList =  this.props.contactList
+            let inConstactList = currentContactList.indexOf(this.props.profile.ID) !== -1
+            let buttonColor =inConstactList? "secondary":"primary"
             return(
                 <Card      classes={{
                     root: classes.card, // class name, e.g. `classes-nesting-root-x`
@@ -101,11 +125,12 @@ class ScholarProfileCard extends Component {
                     <CardHeader 
                         disableTypography = "true"
                         avatar={ 
-                        <Avatar className={classes.bigAvatar}> {avatar} </Avatar>
+                        <Avatar className={classes.bigAvatar} onClick = {this.viewProjectDetail}> {avatar} </Avatar>
                         }
                         action={
-                        <Button color="primary" className ={classes.button} variant="outlined" onClick={this.addToContectList}> 
-                            Add to list to contact
+                        <Button color= {buttonColor} className ={classes.button} variant="outlined" onClick={this.addToContectList} disabled = {inConstactList}> 
+                            {!inConstactList && "Add to list to contact"}
+                            {inConstactList && "Already Added"}
                         </Button>
                         }
 
@@ -157,4 +182,14 @@ class ScholarProfileCard extends Component {
     
 }
 
-export default withStyles(styles)(ScholarProfileCard);
+const mapStateToProps = state => ({
+    contactList: state.contactList,
+    userInfo: state.userInfo,
+})
+
+const mapDispatchToProps = dispatch => ({
+    addToReduxContactList: (id)=> dispatch(addToReduxContactList(id)),
+    dispatch
+  });
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(ScholarProfileCard));

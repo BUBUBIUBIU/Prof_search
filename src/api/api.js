@@ -41,8 +41,9 @@ export function getDataFromServer(apiUrl, configObj) {
                     console.log(response.data.message)
                     resolve(response.data);
                 }else {
-                    console.log("未知错误")
-                    reject(response.data.message);
+                    console.log("服务器返回非 200 OK")
+                    console.log(response)
+                    reject(response.data);
                 }
             }else {
                 console.log("服务器错误，未正常返回数据")

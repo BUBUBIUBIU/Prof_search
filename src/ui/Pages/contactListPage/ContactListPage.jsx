@@ -22,6 +22,10 @@ import MiniCard from './MiniCard'
 import SearchBox from '../../reusableComponents/textField/SearchBox'
 import MessageModal from './MessageModal'
 
+//Redux Dependencies
+import { connect } from 'react-redux'
+import {updateContactList} from '../../../redux/actions/index.js'
+
 
 //api
 import {GetContactList} from '../../../api/contactAPI'
@@ -69,8 +73,10 @@ class ContactList extends Component {
     refreshContactList = () =>{
         const that = this;
         GetContactList().then(function(response){
-            that.setState({contactList: response.content})   // [{Experts:{ID:0, Avatar:url, FirstName:"",LastName:""}, ID: 0, Status:0 },{}]
+            let contactList = response.content
+            that.setState({contactList})   // [{Experts:{ID:0, Avatar:url, FirstName:"",LastName:""}, ID: 0, Status:0 },{}]
             that.sortContactList(that.state.sortBy) // sort agin based on previous sort value
+            that.props.updateContactList(contactList);
             console.log("The contact List responsed from server:")
             console.log(response)
             let messageList = {} // use a dictionary to maintain the list that waiting for sending application message
@@ -234,7 +240,7 @@ class ContactList extends Component {
 
         
         return(
-            <div>
+            <div style = {{minWidth:900}}>
                 <Header/>
                 <div style = {{margin:"auto", maxWidth: 900}}>
                     <Typography variant = "h3" style = {{fontWeight:600, color: "#4a4a4a"}} >
@@ -304,4 +310,9 @@ class ContactList extends Component {
     }
 };
 
-export default withStyles(styles)(ContactList);
+const mapDispatchToProps = dispatch => ({
+    updateContactList: (contactList) => dispatch(updateContactList(contactList)),
+    dispatch
+});
+
+export default connect(null,mapDispatchToProps)(withStyles(styles)(ContactList));
