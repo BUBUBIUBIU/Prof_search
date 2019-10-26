@@ -14,7 +14,7 @@ class NewSearchPage extends Component {
     }
     render(){
         return(
-            <div style = {{background:"#fdfdfd"}}>
+            <div style = {{background:"#fdfdfd",minWidth:900}}>
             <NewHeadNavigator tabValue = "search"/>
             <SearchSection />
             </div>

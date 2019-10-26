@@ -6,9 +6,9 @@
 
 
 
+
 import * as apiUrl from './apiURL';
 import {getDataFromServer} from './api';
-
 
 /**
  * This method add expert to contact list
@@ -42,6 +42,7 @@ export function GetContactList(){
     }
     // PROFESSORPROFILE
     return getDataFromServer(apiUrl.CONTACTLIST, configObj);
+
 }
 
 /**

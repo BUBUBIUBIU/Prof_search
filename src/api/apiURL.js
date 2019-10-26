@@ -64,6 +64,5 @@ export const REJECT_APPLICATION =  `${publicIp}/expert/application/reject`
 export const GET_EXPERT_PROFILE=  `${publicIp}/profile/expert/`
 export const GET_STUDENT_PROFILE = `${publicIp}/profile/student/`
 
-
 //Static file
 export const BROWSE_TREE = `${publicIp}/static/tree`

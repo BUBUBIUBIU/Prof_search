@@ -7,10 +7,13 @@ import { Card, Typography,AppBar,Tabs,Tab, CardContent, Avatar, withStyles, Card
 // RouterDependencies
 import { Redirect } from 'react-router-dom'
 
+//Redux
+import { connect } from 'react-redux'
+import {addToReduxContactList} from '../../../redux/actions/index'
 
 //api
-
 import {AddToContactList} from '../../../api/contactAPI'
+import { throwStatement } from '@babel/types';
 
 const styles = theme => ({
     pannel:{
@@ -70,13 +73,19 @@ class ScholarProfileCard extends Component {
     }
 
     componentDidMount(){
-        console.log("card mount")
-        console.log(this.props.profile)
+
     }
 
     addToContectList = () =>{
-        AddToContactList([this.props.profile.ID]);
-        // this.setState({toContactList:true})
+        AddToContactList([this.props.profile.ID]).then(
+            (resolve) => {
+                this.props.addToReduxContactList(this.props.professor.ID)
+            },
+            (reject) =>{
+
+            }
+        )
+
     }
 
     viewProjectDetail = () =>{
@@ -84,6 +93,7 @@ class ScholarProfileCard extends Component {
         this.setState({redirect:destinationURL})
 
     }
+
 
     handleTab = (event,value) => {
         this.setState({value});
@@ -105,6 +115,9 @@ class ScholarProfileCard extends Component {
             const avatar = profile.FirstName.substring(0,1)
 
             let fullProfiles = profile.Biography;
+            let currentContactList =  this.props.contactList
+            let inConstactList = currentContactList.indexOf(this.props.profile.ID) !== -1
+            let buttonColor =inConstactList? "secondary":"primary"
             return(
                 <Card      classes={{
                     root: classes.card, // class name, e.g. `classes-nesting-root-x`
@@ -115,8 +128,9 @@ class ScholarProfileCard extends Component {
                         <Avatar className={classes.bigAvatar} onClick = {this.viewProjectDetail}> {avatar} </Avatar>
                         }
                         action={
-                        <Button color="primary" className ={classes.button} variant="outlined" onClick={this.addToContectList}> 
-                            Add to list to contact
+                        <Button color= {buttonColor} className ={classes.button} variant="outlined" onClick={this.addToContectList} disabled = {inConstactList}> 
+                            {!inConstactList && "Add to list to contact"}
+                            {inConstactList && "Already Added"}
                         </Button>
                         }
 
@@ -168,4 +182,14 @@ class ScholarProfileCard extends Component {
     
 }
 
-export default withStyles(styles)(ScholarProfileCard);
+const mapStateToProps = state => ({
+    contactList: state.contactList,
+    userInfo: state.userInfo,
+})
+
+const mapDispatchToProps = dispatch => ({
+    addToReduxContactList: (id)=> dispatch(addToReduxContactList(id)),
+    dispatch
+  });
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(ScholarProfileCard));

@@ -39,6 +39,7 @@ import OngoingProject from './ongoingProject/OngoingProjectPaper'
 import AvailablePosition from './availablePosition/AvailablePositionPaper'
 import Header from '../../reusableComponents/NewHeadNavigator'
 import ChangeAvatarModal from './modals/ChangeAvatarModal'
+import ProjectDetail from './projectDetail/ProjectDetailPaper'
 //api
 import {getProfile} from '../../../api/personalProfileApi'
 import {GetExpertProfile} from '../../../api/generalAPI'
@@ -252,7 +253,7 @@ class PersonalProfilePage extends Component {
         console.log('profile in PersonalProfilePage:', profile);
         
         return(
-            <div style = {{backgroundColor: "#fdfdfd", marginBottom:200}}>
+            <div style = {{backgroundColor: "#fdfdfd", marginBottom:200,minWidth:900}}>
                 <Header/>
                 <div style ={{maxWidth: 1000, margin: "auto"}}>
                     <Paper className = {classes.paper} style = {{ padding:25}}>
@@ -359,13 +360,12 @@ class PersonalProfilePage extends Component {
                         identity = {this.props.identity}
                     />
 
+
                     {this.props.identity === 'student' && this.props.editable && 
-                    <CardHeader title={"Detail for course work master project"} 
-                        handleOpen={this.handleOpenMasterProjectPage} 
-                        isCompulsory={false} 
-                        buttonName={"Fill Details"} 
-                        editable = {this.props.editable}/>
+                    <ProjectDetail/>
                     }
+
+
                 </div>
 
                 

@@ -7,7 +7,7 @@ import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 
 //Redux Dependencies
 import { connect } from 'react-redux'
-import {recieveScholorInformation,setScholarProfileVisibility, setSearchInfo} from '../../../redux/actions/index.js'
+import {recieveScholorInformation} from '../../../redux/actions/index.js'
 
 //Router dependencies
 import { Redirect } from 'react-router'
@@ -15,7 +15,9 @@ import { Redirect } from 'react-router'
 // UI
 import BootstrapStyleSearchBox from '../../reusableComponents/BootstrapStyleSearchBox'
 //API
-import {searchExpert} from '../../../api/api.js'
+// import {GetContactList} from '../../../api/contactAPI'
+import {SearchExpert} from '../../../api/searchApi'
+
 
 
 const styles = theme =>({
@@ -63,16 +65,8 @@ class SearchExpertsSection extends Component{
         this.setState({expertExperties: text});
     }
 
-    // handleAdvancedSearchClick = ()=> {
-    //     if(this.state.expandAdvancedSearch == true)
-    //     this.setState({expandAdvancedSearch: false});
-    //     else
-    //     this.setState({expandAdvancedSearch: true});
-    // }
-
     handleChange = name => event => {
         this.setState({ [name]: event.target.value });
-        console.log(this.state.expertExperties)
       };
     toAnotherPage = () => {
         this.setState({toAnotherPage: "browse"})
@@ -86,9 +80,11 @@ class SearchExpertsSection extends Component{
         );
       }
 
-    async handleOnclickSearch() {    
+    async handleOnclickSearch() {
+            
         const request = this.state.expertExperties;
-        const profiles = await searchExpert(request); //调用SearchExpert API向服务器请求数据 (api.jsx)
+        const that = this;
+        const profiles = await SearchExpert(request); //调用SearchExpert API向服务器请求数据 (api.jsx)
         // const response = await searchExpert(configObj);
         this.props.recieveScholorInformation(profiles)
         this.setState({redirectToAdvancedPage: true})
@@ -167,8 +163,11 @@ class SearchExpertsSection extends Component{
 
 const mapDispatchToProps = dispatch => ({
     recieveScholorInformation: (scholarProfileList) => dispatch(recieveScholorInformation(scholarProfileList)),
+    // updateContactList: (contactList) => dispatch(updateContactList(contactList)),
     dispatch
 });
+
+
 
 
 export default connect(null,mapDispatchToProps)(injectIntl(withStyles(styles)(SearchExpertsSection)));   

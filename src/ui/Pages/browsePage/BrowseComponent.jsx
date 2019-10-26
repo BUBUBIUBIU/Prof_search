@@ -11,6 +11,7 @@ import React, { Component } from 'react';
 import {Paper,Typography,ListItem,List, IconButton} from '@material-ui/core';
 import AddBox from '@material-ui/icons/AddBox';
 import ProfessorMiniCard from './professorMiniCard'
+import IndeterminateCheckBoxIcon from '@material-ui/icons/IndeterminateCheckBox';
 
 //Test data
 
@@ -43,8 +44,6 @@ class BrowseSection extends Component {
 
     render(){
         const {fields,level} = this.props
-        console.log(fields)
-        console.log(this.props.level)
         let width = 750 - level * 50
 
         // recursively display the component
@@ -56,9 +55,8 @@ class BrowseSection extends Component {
                         <Paper style={{marginTop:"5px",padding:"12px,0", width:width, marginLeft:"auto"}}>
                         <div style ={{display:"flex", alignItems:"center"}}>
                         <IconButton onClick = { () => this.expand(field.name)}>
-                        <AddBox>
-                            add_circle
-                        </AddBox>
+                        {!this.state.expand[field.name] && <AddBox color = "primary"/>}
+                        {this.state.expand[field.name] && <IndeterminateCheckBoxIcon color = "primary"/>}
                         </IconButton>
                             <Typography>
                                 {field.name}

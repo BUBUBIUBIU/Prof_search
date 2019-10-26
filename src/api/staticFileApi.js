@@ -1,4 +1,4 @@
-import axios from 'axios';
+
 import * as apiUrl from './apiURL';
 import {getDataFromServer} from './api';
 

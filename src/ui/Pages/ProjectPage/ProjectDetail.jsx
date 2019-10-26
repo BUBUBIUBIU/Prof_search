@@ -41,7 +41,7 @@ const styles = theme => ({
 
 
 
-class ProjectFull extends Component {
+class ProjectDetail extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -130,7 +130,12 @@ class ProjectFull extends Component {
             console.log(this.state)
             PutProjectDetail(data).then(function(resolve){
                 console.log(resolve)
-                    that.setState({backToPersonalProfile:true})
+                    // that.setState({backToPersonalProfile:true})
+                    if (that.props.handleClose){
+                        that.props.handleClose()
+                    }else{
+                        that.setState({backToPersonalProfile:true})
+                    }
             }, function(reject){
 
             })
@@ -147,10 +152,12 @@ class ProjectFull extends Component {
             function(resolve){
                 console.log(resolve.content)
                 const responsedProjectDetail = resolve.content;
+                console.log(that.props.userInfo)
 
                 that.setState({
-                    FirstName: responsedProjectDetail.FirstName,
-                    LastName: responsedProjectDetail.LastName,
+                    FirstName: that.props.userInfo.firstName,
+                    LastName: that.props.userInfo.lastName,
+                    Email:that.props.userInfo.email,
                     Username: responsedProjectDetail.Username,
                     StudentID: responsedProjectDetail.StudentID,
                     DegreeName: responsedProjectDetail.DegreeName,
@@ -168,9 +175,6 @@ class ProjectFull extends Component {
         )
 
     }
-    // componentDidUpdate(){
-    //     console.log(this.state)
-    // }
 
 
     render(){
@@ -179,157 +183,125 @@ class ProjectFull extends Component {
         }
 
         const {classes} = this.props
+        console.log(this.state)
 
         return(
-        <div>
-            <ThirdHeader />
-            <Paper className={classes.paper}>
+            <div>
+                {!this.props.isInsideModal && <ThirdHeader />}
+                <Paper className={classes.paper}>
 
-                       
-                <Typography variant="h1">
-                    <div style={{ verticalAlign: "middle", height: "100%",paddingBottom:40}}>
-                        Add Degree
-                    </div>
-                </Typography>
+                {!this.props.isInsideModal &&         
+                    <Typography variant="h1">
+                        <div style={{ verticalAlign: "middle", height: "100%",paddingBottom:40}}>
+                            Fill Details for Project Application
+                        </div>
+                    </Typography>}
 
-                <BootstrapStyleSearchBox label="Student's Unimelb Username" 
-                            compusory={true}
-                            onChangeInput={this.handleChange("Username")}
-                            value = {this.state.Username}
-                />
-                <BootstrapStyleSearchBox 
-                            label="First Name" 
-                            value = {this.state.FirstName}
-                            compusory={true}
-                            onChangeInput={this.handleChange("FirstName")} 
-                />
-                <BootstrapStyleSearchBox 
-                            label="Last Name" 
-                            value = {this.state.LastName}
-                            compusory={true}
-                            onChangeInput={this.handleChange("LastName")} 
-                />
-
-                <BootstrapStyleSearchBox 
-                    label="Student ID" 
-                    onChangeInput={this.handleChange("StudentID")} 
-                    value = {this.state.StudentID}
-                    compusory={true} />
-
-                <BootstrapStyleSearchBox 
-                    label="Email" 
-                    // placeHolder="xxx@gmail.com"
-                    onChangeInput={this.handleChange("Email")} 
-                    value = {this.state.Email}
-                    compusory={true} />
-            
-                <SelectorOne 
-                    style={{ flexGrow: 1, width:"120%"}}
-                    isCompulsory = {true}
-                    label= "Degree Name"
-                    items={degreeName} // Imported from config file
-                    onChangeSelect={this.handleChange("DegreeName")}
-                    value = {this.state.DegreeName}/>
-
-                <BootstrapStyleSearchBox 
-                    label="Degree Name(if other)" 
-                    onChangeInput={this.handleChange("DegreeNameOther")}
-                    value = {this.state.DegreeNameOther}
+                    <BootstrapStyleSearchBox label="Student's Unimelb Username" 
+                                compusory={true}
+                                onChangeInput={this.handleChange("Username")}
+                                value = {this.state.Username}
+                    />
+                    <BootstrapStyleSearchBox 
+                                label="First Name" 
+                                value = {this.state.FirstName}
+                                compusory={true}
+                                onChangeInput={this.handleChange("FirstName")} 
+                    />
+                    <BootstrapStyleSearchBox 
+                                label="Last Name" 
+                                value = {this.state.LastName}
+                                compusory={true}
+                                onChangeInput={this.handleChange("LastName")} 
                     />
 
-                <SelectorOne 
-                    style={{ flexGrow: 1, width:"120%"}}
-                    isCompulsory = {true}
-                    label= "Subject Code"
-                    items={subjectCode}
-                    onChangeSelect={this.handleChange("SubjectCode")}
-                    value = {this.state.SubjectCode}/>
+                    <BootstrapStyleSearchBox 
+                        label="Student ID" 
+                        onChangeInput={this.handleChange("StudentID")} 
+                        value = {this.state.StudentID}
+                        compusory={true} />
 
-                <div class="inline" style={{display:"flex", margin:"0 -5px"}}>
-                    <div style={{flexGrow:1, margin:"0 10px"}}>
+                
                     <SelectorOne 
-                    style={{ flexGrow: 1, width:"120%"}}
-                    isCompulsory = {true}
-                    label= "Project Start"
-                    items={projectStart}
-                    onChangeSelect={this.handleChange("ProjectStart")}
-                    value = {this.state.ProjectStart}/>
+                        style={{ flexGrow: 1, width:"120%"}}
+                        isCompulsory = {true}
+                        label= "Degree Name"
+                        items={degreeName} // Imported from config file
+                        onChangeSelect={this.handleChange("DegreeName")}
+                        value = {this.state.DegreeName}/>
+
+                    <BootstrapStyleSearchBox 
+                        label="Degree Name(if other)" 
+                        onChangeInput={this.handleChange("DegreeNameOther")}
+                        value = {this.state.DegreeNameOther}
+                        />
+
+                    <SelectorOne 
+                        style={{ flexGrow: 1, width:"120%"}}
+                        isCompulsory = {true}
+                        label= "Subject Code"
+                        items={subjectCode}
+                        onChangeSelect={this.handleChange("SubjectCode")}
+                        value = {this.state.SubjectCode}/>
+
+                    <div class="inline" style={{display:"flex", margin:"0 -5px"}}>
+                        <div style={{flexGrow:1, margin:"0 10px"}}>
+                        <SelectorOne 
+                        style={{ flexGrow: 1, width:"120%"}}
+                        isCompulsory = {true}
+                        label= "Project Start"
+                        items={projectStart}
+                        onChangeSelect={this.handleChange("ProjectStart")}
+                        value = {this.state.ProjectStart}/>
+                        </div>
+
+                        <div style={{flexGrow:1,margin:"0 10px"}}>
+                        <SelectorOne 
+                        style={{ flexGrow: 1, width:"120%"}}
+                        isCompulsory = {true}
+                        label= "Planned  Project Completion"
+                        items={plannedCompletion}
+                        onChangeSelect={this.handleChange("ProjectComplete")}
+                        value = {this.state.ProjectComplete}/>
+                        </div>
                     </div>
 
-                    <div style={{flexGrow:1,margin:"0 10px"}}>
+                    <BootstrapStyleSearchBox 
+                        label="Planned Project Completion (if other)" 
+                        onChangeInput={this.handleChange("PlannedCompleteOther")} 
+                        value = {this.state.PlannedCompleteOther}/>
+                    
                     <SelectorOne 
-                    style={{ flexGrow: 1, width:"120%"}}
-                    isCompulsory = {true}
-                    label= "Planned  Project Completion"
-                    items={plannedCompletion}
-                    onChangeSelect={this.handleChange("ProjectComplete")}
-                    value = {this.state.ProjectComplete}/>
+                        style={{ flexGrow: 1, width:"120%"}}
+                        isCompulsory = {true}
+                        label= "Project Type"
+                        items={projectType}
+                        onChangeSelect={this.handleChange("ProjectType")}
+                        value = {this.state.ProjectType}/>
+                    
+                    <SelectorOne 
+                        style={{ flexGrow: 1, width:"120%"}}
+                        isCompulsory = {true}
+                        label= "Credit Points"
+                        items={creditPoints}
+                        onChangeSelect={this.handleChange("CreditPoints")}
+                        value = {this.state.CreditPoints}/>
+                    
+                    <Typography variant= 'h4'style ={{fontWeight:"bold", margin:"5px 0 10px 0",fontSize:12,color:"#fbaf3b" }}>
+                    In the future, you can update the above information in the section “Details of<br/>
+                    Coursework Master Project” in your profile.
+                    </Typography>
+                    <div style ={{marginBottom:120}}>
+
+                        <Button variant="contained" color="primary" size="large" onClick={this.updateProjectDetail} style={{ float:"right"}}>
+                            {this.props.isInsideModal && "Submit"}
+                            {!this.props.isInsideModal && "Next"}
+                        </Button>
                     </div>
-                </div>
 
-                <BootstrapStyleSearchBox 
-                    label="Planned Project Completion (if other)" 
-                    onChangeInput={this.handleChange("PlannedCompleteOther")} 
-                    value = {this.state.PlannedCompleteOther}/>
-                
-                <SelectorOne 
-                    style={{ flexGrow: 1, width:"120%"}}
-                    isCompulsory = {true}
-                    label= "Project Type"
-                    items={projectType}
-                    onChangeSelect={this.handleChange("ProjectType")}
-                    value = {this.state.ProjectType}/>
-                
-                <SelectorOne 
-                    style={{ flexGrow: 1, width:"120%"}}
-                    isCompulsory = {true}
-                    label= "Credit Points"
-                    items={creditPoints}
-                    onChangeSelect={this.handleChange("CreditPoints")}
-                    value = {this.state.CreditPoints}/>
-                
-                {/* <SelectorOne 
-                    style={{ flexGrow: 1, width:"120%"}}
-                    isCompulsory = {true}
-                    label= "Superviser Name"
-                    items={supervisorName}
-                    onChangeSelect={this.handleChange("Superviser Name")}
-                    value = {this.state.supervisorName}/>
+                </Paper>
 
-                <BootstrapStyleSearchBox 
-                    label="Co-supervisor(if any)" 
-                    onChangeInput={this.handleChange("Co-supervisor(if any)")} /> */}
-
-{/*                     
-                <BootstrapStyleMultiBox 
-                    label="Other Information" 
-                    multiline
-                    rows="4"
-                    onChangeInput={this.handleChange("confirm_password")} /> */}
-{/* 
-                <TextField
-                    label="Other Information"
-                    multiline
-                    rows="4"
-                    defaultValue="Default Value"
-                    className={classes.textField}
-                    margin="normal"
-                    variant="filled"
-                /> */}
-                <Typography variant= 'h4'style ={{fontWeight:"bold", margin:"5px 0 10px 0",fontSize:12,color:"#fbaf3b" }}>
-                In the future, you can update the above information in the section “Details of<br/>
-                Coursework Master Project” in your profile.
-                </Typography>
-                <div style={{ paddingBottom:20,paddingLeft:750,marginTop:20}}>
-               
-                    <Button variant="contained" color="primary" size="large" onClick={this.updateProjectDetail}>
-                        submit
-                    </Button>
-                </div>
-
-            </Paper>
-
-        </div>
+            </div>
 
 
         )
@@ -344,4 +316,4 @@ const mapStateToProps = state => ({
   
 
 
-export default  connect(mapStateToProps, null)(withStyles(styles)(ProjectFull));
+export default  connect(mapStateToProps, null)(withStyles(styles)(ProjectDetail));

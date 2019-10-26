@@ -17,7 +17,8 @@ const scholarProfileListVisibility = (state = initialState, action) => {
     }
     case "BACK_TO_HOME":{
       return initialState
-    } default:{
+    } 
+    default:{
       return state
     }
   }

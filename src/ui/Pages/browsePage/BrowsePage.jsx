@@ -16,6 +16,7 @@ import BrowseComponent from './BrowseComponent'
 
 //api
 import {getBrowseTree} from '../../../api/staticFileApi'
+import { Typography } from '@material-ui/core';
 
 class BrowsePage extends Component {
     constructor(props) {
@@ -29,8 +30,6 @@ class BrowsePage extends Component {
         const that = this;
         getBrowseTree().then(function(response) {
             const fields = response["fields"]
-            console.info(fields)
-            console.info(response)
             that.setState({fields})
         },function(reject){
 
@@ -42,10 +41,15 @@ class BrowsePage extends Component {
 
     render(){
         return(
-            <div style = {{background:"#fdfdfd", minHeight:1500}}>
+            <div style = {{background:"#fdfdfd", minHeight:1500,minWidth:900}}>
                 <NewHeadNavigator tabValue = "browse"/>
+                {/* <div >
+                </div> */}
                 <div style = {{ maxWidth:750, margin:"auto"}} >
-                    <BrowseComponent  fields = {this.state.fields} level = {0}/>
+                    <Typography variant = 'h1' style = {{fontWeight:300, color:"#373a3c", margin:"35px 0"}}>
+                            Browse Projects/ Academics By Topics
+                        </Typography>
+                        <BrowseComponent  fields = {this.state.fields} level = {0}/>
                 </div>
             </div>
 

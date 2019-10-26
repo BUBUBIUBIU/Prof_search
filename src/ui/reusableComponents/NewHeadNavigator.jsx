@@ -38,7 +38,8 @@ const styles = theme => ({
     background: 'linear-gradient(45deg, #D4145A 30%, #FBB03B 90%)',
     paddingLeft:100,
     paddingRight:100,
-    marginBottom: "30px"
+    marginBottom: "30px",
+    display:"block",
 
   },
   smallAvatar:{
@@ -194,7 +195,7 @@ class HeadNavigator extends Component {
         return (
           <div>
               <AppBar position="static" className={classes.appBar}>
-                <Toolbar>
+                <Toolbar style = {{minWidth:500, margin:"auto",maxWidth:1000, paddingLeft:50}}>
                   <Typography variant="h4" 
                   color="inherit" 
                   className = {classes.grow} 
@@ -281,7 +282,7 @@ class HeadNavigator extends Component {
 
                 {/* only show the following in tabs in search pages */}
                 {this.displayTabs() &&
-                <Tabs value={value} onChange={this.handleChange}>
+                <Tabs value={value} onChange={this.handleChange} style = {{minWidth:500, margin:"auto",maxWidth:1000}}>
                   <Tab value="search" label= "Search" />
                   <Tab value="browse" label= "Browse" />
                 </Tabs>

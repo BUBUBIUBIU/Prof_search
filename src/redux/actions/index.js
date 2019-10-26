@@ -56,8 +56,21 @@ export const recieveScholorInformation = (scholarProfileList) => ({
 
   export const updateContactList = (contactList) => ({
     type: 'UPDATE_CONTACT_LIST',
-    contactList: contactList,
+    contactList: filterContactListToIdList(contactList)
   })
+
+  export const addToReduxContactList = (id) => ({
+    type: 'ADD_TO_CONTACT_LIST',
+    id: id
+  })
+
+  const filterContactListToIdList = (contactList) => {
+    let contactIDList = contactList.map( (item) => {
+      return item.Expert.ID
+    })
+    return contactIDList
+
+  }
 
 
 

@@ -131,9 +131,10 @@ class MessageModal extends Component {
                     </div>
                 </Paper>
 
-                <Paper className={classes.paper} style={{ padding: "50px 30px", height: 600 }}>
+                <Paper className={classes.paper} style={{ padding: "50px 30px", height: 600 , overflow:"auto"}}>
+                    <div style = {{maxHeight:200, overflow:"auto"}}>
                     {recieverList}
-
+                    </div>
                     <textarea className = {classes.textarea} value = {this.state.message} onChange = {this.handleChange("message")}
                     placeholder="Write your application description">
 

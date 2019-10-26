@@ -4,17 +4,19 @@
 - src/locale: multi-language support
 - src/redux: redux gobal store
 - src/ui: all the ui files
-  - src/ui/app: entry point and router
+  - src/ui/app: entry point and router, global theme is inside router file
   - src/ui/pages: main pages
   - src/ui/reusableComponents: some reusable components
 
+# Programming standard
 
-# Coding style
-Through the project, though some coding style are inconsistent, but it is worth to standardize the the coding style
+Through the project, although some coding style are inconsistent, but it is worth to standardize the the coding style
 
 ### Naming Rule
   1.  Methods/ Variable name:
-       - Inside JSX file， the variables and methods name should follow cammelCase
+       -  State, Props, variables Should be camelCase
+       - include PropTypeCheck in each of the class, [Click Here for Guidance](https://reactjs.org/docs/typechecking-with-proptypes.html)
+       - include defualt prop type!
        - All the api methods should follow PascalCase to distinguish from normal methods
 
   2. API Address
@@ -32,6 +34,15 @@ Through the project, though some coding style are inconsistent, but it is worth 
 ### Api Writing rule
 
 
+### JSS writing rule
+1. In this project, most css styles are directly write inside the html element (not sure if it is a good writing style)
+2. For highly reusable elements, we can directly override the global theme (to override, go to /src/ui/app/rendeRouter), check this [override](https://material-ui.com/customization/components/#global-css-override) document.
+      - for example, for "Paper" element, we basically use our customize style and define a style in every file, but it can actually be overridden, it's one drawback of this project
+      - Another example is MuiTypography, we override all the Typography style. (check /src/ui/app/rendeRouter)
+3. To achieve the layout provided by designer, two ways are highly recommended 
+      - [flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/). This is raw css3 new features, very powerful
+      - [Grid](https://material-ui.com/components/grid/). Material-ui provided a encapsulated version, but please note, this is a encapsulated version of original [css3 grid](https://css-tricks.com/snippets/css/complete-guide-grid/)
+
 
 # Important dependencies
 
@@ -46,7 +57,7 @@ Reducer is the global state
 In current project, only two reducers are still actively in use, userInfo and scholarProfileList
 - userInfo
 This is used to store the current userInfo, data structure:
-
+```
 {
   status: 0/1,
   firstName:"Chenyang",  
@@ -54,11 +65,22 @@ This is used to store the current userInfo, data structure:
   email: "email"
   identity: "student"/"expert"
 }
-
+```
 - scholarProfileList
 This 
+- contactList
+This is maintained for user's (only students identity's) contactList. It is mainly used for checking if  the professors in searching result already in contactList or not.
+  - Two actions are used in contactList state： updateContactList, and AddToContactList
+      - UpdateContactList is used in renderRouter page line 190-200, call this method only if there's the contactList Array is empty
+      - AddToContactList is used in src/browsePage/professorMiniCar and src/searchResult/ScholarProfileCard
 
 
+
+
+#### some pitfall for redux
+1. In reducer, when return a new state, never do any operation on original state, otherwise, the page will not render as expected.
+      - If your state is an object, use object.assign()
+      - If your state is an array, use concat (don't use push...)
 
 
 
@@ -89,7 +111,9 @@ if we use to, it means the current page will be replaced (so when we click back 
 
 
 ## Material-UI
-
+All the components are based on material-ui.
+We have also developed some other resuable components but they are also based on material-ui
+JSS (css based on javascript) is also based on material-ui
 
 
 # Authentication system

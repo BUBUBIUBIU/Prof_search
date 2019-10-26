@@ -8,7 +8,9 @@
 import React, { Component } from 'react';
 import { Paper ,withStyles, Typography,Divider,Button} from '@material-ui/core';
 
-//UI
+//Redux
+import { connect } from 'react-redux'
+import {addToReduxContactList} from '../../../redux/actions/index'
 
 //ENUM
 import {TitleDict} from '../../../config/enum'
@@ -49,7 +51,14 @@ class professorMiniCard extends Component {
     }
 
     addToContactList = () =>{
-        AddToContactList([this.props.professor.ID]);
+        AddToContactList([this.props.professor.ID]).then(
+            (resolve) => {
+                this.props.addToReduxContactList(this.props.professor.ID)
+            },
+            (reject) =>{
+
+            }
+        )
 
     }
 
@@ -67,6 +76,9 @@ class professorMiniCard extends Component {
         }
 
         const {classes,professor,width} = this.props
+        // console.log(this.props.contactList)
+        let inConstactList = this.props.contactList.indexOf(professor.ID) !== -1
+        let buttonColor = inConstactList? "secondary":"primary"
         return(
             <Paper className={classes.paper} style = {{width:width}}>
                  <div onClick = {this.navigateToDetailProfile}>
@@ -81,7 +93,10 @@ class professorMiniCard extends Component {
                                 <Divider />
                                 <div style = {{display:"flex", justifyContent:"Space-between"}}>
                                     <Button color= "primary" onClick = {this.viewProjectDetail}> View Projects</Button>
-                                    <Button color= "primary" onClick = {this.addToContactList}> Add to list to contact</Button>
+                                    <Button color= "primary" onClick = {this.addToContactList} disabled = {inConstactList} color= {buttonColor}>  
+                                        {!inConstactList && "Add to list to contact"}
+                                       {inConstactList && "Already Added"}
+                                    </Button>
                                     <Button color= "primary" onClick = {this.sendMessage}> Message </Button>
                                 </div>
                 </div>
@@ -90,4 +105,16 @@ class professorMiniCard extends Component {
     }
 };
 
-export default withStyles(styles)(professorMiniCard);
+const mapStateToProps = state => ({
+    contactList: state.contactList,
+})
+
+const mapDispatchToProps = dispatch => ({
+    addToReduxContactList: (id)=> dispatch(addToReduxContactList(id)),
+    dispatch
+  });
+
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(professorMiniCard));
