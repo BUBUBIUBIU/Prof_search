@@ -16,7 +16,7 @@ import ConfirmationDialog from '../../../reusableComponents/Dialog/ConfirmationD
 import SelectorOne from '../../../reusableComponents/textField/SelectorOne.jsx';
 
 //api
-import { updateResearchGrant, deleteResearchGrant } from '../../../../api/personalProfileApi'
+import { updateResearchGrant, deleteResearchGrant, deleteGrantFile, uploadGrantFile } from '../../../../api/personalProfileApi'
 
 //config
 import { years } from '../../../../config/years'
@@ -83,6 +83,7 @@ class ResearchGrantModal extends Component {
     constructor(props) {
         super(props);
         this.state = this.props.currentResearchGrant;
+        this.state.FileOrNot = false;
     }
 
     handleDialogOpen= () => {
@@ -127,11 +128,14 @@ class ResearchGrantModal extends Component {
             }
             
             console.log('data is:', data);
-            const temp = this;
+            const that = this;
             updateResearchGrant(data)
                 .then(function (response) {
-                    // console.log(response.message)
-                    temp.props.handleClose()
+                    if (that.state.FileOrNot) {
+                        that.uploadFile(that.state.ID);
+                    } else{
+                        that.props.handleClose(); 
+                    }
                 }, function (err) {
                     alert(err.message);
                     console.log(err);
@@ -165,14 +169,40 @@ class ResearchGrantModal extends Component {
         }
     }    
     
-
     handleChange = field => event => {
         this.setState({ [field]: event.target.value })
 
     }
 
+    handleDeleteFile = () => {
+        deleteGrantFile(this.state.ID);
+        this.setState( {AttachmentName:''} );
+    }
 
+    fileChoosen = (event) => {
+        let file = event.target.files[0];
+        let url = window.webkitURL.createObjectURL(file);
+        this.setState({file,url});
+        this.setState({FileOrNot: true, AttachmentName: file.name });
+    }
 
+    uploadFile = (id) =>{
+        const formObj =  document.getElementById("grantFile");
+        // console.log('the formObj is :', formObj);
+        const formData = new FormData(formObj);
+        // console.log('the formData is:', formData);
+        const that = this;
+        uploadGrantFile(formData, id).
+            then(function(response){
+                // console.log('uploadgrantFile is activated');
+                that.props.handleClose(); 
+            },
+            function(err){
+                alert(err.message);
+                console.log(err)
+            }
+            );
+    }
 
     render() {
         const { classes} = this.props
@@ -246,20 +276,58 @@ class ResearchGrantModal extends Component {
                         value = {this.state.Url}
                     />
 
-                    <Button style = {{color: 'red'}}>Add File</Button>
-                    <br/>
-                    <div style={{ float: "right" }}>
-                        <Button variant="contained" color="primary" size="small" onClick={this.submit} >
-                            Save
+                    {this.state.AttachmentName &&
+                        <Button 
+                            style={{ color: 'red' }}
+                            onClick={this.handleDeleteFile}
+                        >
+                            {this.state.AttachmentName}
                         </Button>
-                    </div>
+                    }
 
-                    <div style={{ float: "right" }}>
-                        <Button  size="small" onClick={this.handleDialogOpen} >
-                            Delete
-                        </Button>
-                    </div>
+                    <form id='grantFile' enctype="multipart/form-data">
+                        <div>
+                            <input
+                                accept=".doc, .docx, .pdf"
+                                style={{ display: 'none' }}
+                                id="raised-button-file"
+                                name='grant'
+                                type="file"
+                                onChange={this.fileChoosen}
+                            />
+                            <label htmlFor="raised-button-file">
+                                {! this.state.AttachmentName &&
+                                    <Button
+                                        color="primary"
+                                        component="span"
+                                    >
+                                        Add file
+                                    </Button>
+                                }
+                            </label>
+                        </div> 
 
+                        <div style={{ float: "right", marginLeft:20 }}>
+                            <label htmlFor="submit-file">
+                                <Button
+                                    color="primary"
+                                    style={{verticalAlign: "middle" }}
+                                    size="small"
+                                    onClick={this.submit}
+                                    component="span"
+                                    variant="contained"
+                                >
+                                    Save
+                                </Button>
+                            </label>
+                        </div>
+
+                        <div style={{ float: "right" }}>
+                            <Button  size="small" onClick={this.handleDialogOpen} >
+                                Delete
+                            </Button>
+                        </div>
+                    </form>
                 </Paper>
 
                 <ConfirmationDialog 

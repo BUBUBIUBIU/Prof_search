@@ -13,7 +13,7 @@ import BootstrapStyleSearchBox from '../../../reusableComponents/BootstrapStyleS
 import SelectorOne from '../../../reusableComponents/textField/SelectorOne.jsx';
 
 //api
-import { addResearchGrant } from '../../../../api/personalProfileApi';
+import { addResearchGrant, uploadGrantFile } from '../../../../api/personalProfileApi';
 
 //config
 import { years } from '../../../../config/years'
@@ -95,11 +95,14 @@ class ResearchGrantModal extends Component {
                 Url: this.state.Url
             }
             // console.log(data)
-            const temp = this;
-            addResearchGrant(data)
+            const that = this;
+            addResearchGrant(data, this.props.identity)
                 .then(function (response) {
-                    // console.log(response.message)
-                    temp.props.handleClose()
+                    if (that.state.FileOrNot) {
+                        that.uploadFile(response.content.id);
+                    } else{
+                        that.props.handleClose(); 
+                    }
                 }, function (err) {
                     alert(err.message);
                     console.log(err);
@@ -135,6 +138,31 @@ class ResearchGrantModal extends Component {
 
     handleChange = field => event => {
         this.setState({ [field]: event.target.value })
+    }
+
+    uploadFile = (id) =>{
+        const formObj =  document.getElementById("grantFile");
+        // console.log('the formObj is :', formObj);
+        const formData = new FormData(formObj);
+        // console.log('the formData is:', formData);
+        const that = this;
+        uploadGrantFile(formData, id).
+            then(function(response){
+                // console.log('uploadAwardFile is activated');
+                that.props.handleClose(); 
+            },
+            function(err){
+                alert(err.message);
+                console.log(err)
+            }
+            );
+    }
+
+    fileChoosen = (event) => {
+        let file = event.target.files[0];
+        let url = window.webkitURL.createObjectURL(file);
+        this.setState({file,url});
+        this.setState({FileOrNot: true});
     }
 
     render() {
@@ -205,13 +233,51 @@ class ResearchGrantModal extends Component {
                         compusory={false}
                     />
 
-                    <Button style = {{color: 'red'}}>Add File</Button>
-                    <br/>
-                    <div style={{ float: "right" }}>
-                        <Button variant="contained" color="primary" size="small" onClick={this.submit} >
-                            Save
-                        </Button>
-                    </div>
+
+                    {this.state.file &&
+                        <div>
+                            <Typography variant="h2" style={{ fontWeight: "normal", marginLeft: 5, color: "red" }}  >
+                                {this.state.file.name + " has been uploaded, please click save"}
+                            </Typography>
+                        </div>
+                    }
+
+                    <form id='grantFile' enctype="multipart/form-data">
+                        <div>
+                            <input
+                                accept=".doc, .docx, .pdf"
+                                style={{ display: 'none' }}
+                                id="raised-button-file"
+                                name='grant'
+                                type="file"
+                                onChange={this.fileChoosen}
+                            />
+                            <label htmlFor="raised-button-file">
+                                {!this.state.file &&
+                                    <Button
+                                        color="primary"
+                                        component="span"
+                                    >
+                                        Add file
+                                    </Button>}
+                            </label>
+                        </div>
+
+                        <div style={{ marginBottom: 20 }}>
+                            <label htmlFor="submit-file">
+                                <Button
+                                    color="primary"
+                                    style={{ marginRight: "20px", float: "right", verticalAlign: "middle" }}
+                                    size="small"
+                                    onClick={this.submit}
+                                    component="span"
+                                    variant="contained"
+                                >
+                                    Save
+                                </Button>
+                            </label>
+                        </div>
+                    </form>
 
                 </Paper>
             </div>

@@ -7,16 +7,14 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import { Paper, Typography, Button, withStyles, FormControl, NativeSelect, InputBase } from '@material-ui/core';
-import Icon from '@material-ui/core/Icon';
 import { Close } from 'mdi-material-ui';
-
 
 //Ui
 import BootstrapStyleSearchBox from '../../../reusableComponents/BootstrapStyleSearchBox'
 
 //api
-import { addAward } from '../../../../api/personalProfileApi'
-import { uploadCV } from '../../../../api/personalProfileApi'
+import { addAward } from '../../../../api/personalProfileApi';
+import { uploadAwardFile } from '../../../../api/personalProfileApi';
 
 const styles = theme => ({
     paper: {
@@ -83,7 +81,8 @@ class AwardModal extends Component {
             Name: '',
             Organization: '',
             Date: '',
-            Description: ''
+            Description: '',
+            FileOrNot: false
         };
     }
 
@@ -93,17 +92,23 @@ class AwardModal extends Component {
             && this.state.Date !== NaN
             && this.state.Description !== NaN) {
             const data = {
-                Name: this.state.Name,
-                Organization: this.state.Organization,
+                AwardName: this.state.Name,
+                AwardingOrganization: this.state.Organization,
                 Date: this.state.Date,
                 Description: this.state.Description
             }
-            console.log('this is award:', data)
-            const temp = this
+            // console.log('this is award:', data);
+            const that = this
 
             addAward(data, this.props.identity)
                 .then(function (response) {
-                    temp.props.handleClose()
+                    // console.log('This is response id:', response.content.id);  
+                    // console.log(that.state.FileOrNot);
+                    if (that.state.FileOrNot) {
+                        that.uploadFile(response.content.id);
+                    } else{
+                        that.props.handleClose(); 
+                    }
                 }, function (err) {
                     alert(err.message);
                     console.log(err);
@@ -118,31 +123,35 @@ class AwardModal extends Component {
         this.setState({ [field]: event.target.value })
     }
 
-    // uploadFile = (e) =>{
-    //     e.preventDefault();
-    //     let formData = new FormData(e.target);
-    //     const temp = this;
-    //     uploadFile(formData).
-    //         then(function(response){
-    //             temp.props.handleClose();
-    //         },
-    //         function(err){
-    //             alert(err.message);
-    //             console.log(err)
-    //         }
-    //         );
-    // }
+    uploadFile = (id) =>{
+        const formObj =  document.getElementById("awardFile");
+        // console.log('the formObj is :', formObj);
+        const formData = new FormData(formObj);
+        // console.log('the formData is:', formData);
+        const that = this;
+        uploadAwardFile(formData, this.props.identity, id).
+            then(function(response){
+                // console.log('uploadAwardFile is activated');
+                that.props.handleClose(); 
+            },
+            function(err){
+                alert(err.message);
+                console.log(err)
+            }
+            );
+    }
 
     fileChoosen = (event) => {
-        console.log(event.target.files[0]);
         let file = event.target.files[0];
-        let url = window.webkitURL.createObjectURL(file); 
-        this.setState({file,url})
+        let url = window.webkitURL.createObjectURL(file);
+        this.setState({file,url});
+        this.setState({FileOrNot: true});
     }
 
 
     render() {
         const { classes } = this.props
+
         return (
             <div className={classes.modal}>
                 <Paper className={classes.paper} style={{ padding: "20px 30px 0px 30px", marginBottom: "3px", height: "40px" }} >
@@ -154,7 +163,7 @@ class AwardModal extends Component {
                             <Button style={{ float: "right", verticalAlign: "middle", color: "#000000" }} size="small" onClick={this.props.handleClose}>
                                 <Close />
                             </Button>
-                        </Typography >
+                        </Typography>
                     </div>
                 </Paper>
 
@@ -183,107 +192,53 @@ class AwardModal extends Component {
                         onChangeInput={this.handleChange("Description")}
                     />
 
-                    {this.state.file  &&
+                    {this.state.file &&
                         <div>
-                            <Typography variant = "h2" style = {{fontWeight:"normal", marginLeft:5, color: "red"}}  >
-                                {this.state.file.name + " has been uploaded, please click save"} 
+                            <Typography variant="h2" style={{ fontWeight: "normal", marginLeft: 5, color: "red" }}  >
+                                {this.state.file.name + " has been uploaded, please click save"}
                             </Typography>
                         </div>
                     }
 
-                    <form onSubmit={this.uploadFile} id = "file-form">        
+                    <form id='awardFile' enctype="multipart/form-data">
                         <div>
                             <input
-                            accept=".doc,.docx, .pdf"
-                            style={{ display: 'none' }}
-                            id="raised-button-file"
-                            name="cv" 
-                            type="file"
-                            onChange = {this.fileChoosen}
+                                accept=".doc, .docx, .pdf"
+                                style={{ display: 'none' }}
+                                id="raised-button-file"
+                                name='award'
+                                type="file"
+                                onChange={this.fileChoosen}
                             />
-                        <label htmlFor="raised-button-file">
-                            <Button 
-                                color="primary" 
-                                component="span"
-                            >
-                                Add file
-                            </Button> 
-                        </label>
+                            <label htmlFor="raised-button-file">
+                                {!this.state.file &&
+                                    <Button
+                                        color="primary"
+                                        component="span"
+                                    >
+                                        Add file
+                                    </Button>}
+                            </label>
                         </div>
 
-
-                        <div style = {{marginBottom:20}}>
-                        <input type="submit" value="Upload" id="submit-file" style={{ display: 'none' }}/>
-                        <label htmlFor="submit-file">
-                            <Button 
-                                color="primary" 
-                                style= {{marginRight: "20px",float: "right",verticalAlign:"middle"}} 
-                                size="small" 
-                                onClick = {this.props.uploadFile}
-                                component="span"
-                                variant="contained"
-                            >
-                                Save
-                            </Button> 
-                        </label>
+                        <div style={{ marginBottom: 20 }}>
+                            <label htmlFor="submit-file">
+                                <Button
+                                    color="primary"
+                                    style={{ marginRight: "20px", float: "right", verticalAlign: "middle" }}
+                                    size="small"
+                                    onClick={this.handleSubmit}
+                                    component="span"
+                                    variant="contained"
+                                >
+                                    Save
+                                </Button>
+                            </label>
                         </div>
                     </form>
-                    {/* <Button style={{ color: 'red' }}>Add file</Button>  */}
-
-
-
-                    {/* <form onSubmit={this.uploadCV} id = "file-form">        
-                        <div style = {{marginTop:20}}>
-                            <input
-                            accept=".doc,.docx, .pdf"
-                            style={{ display: 'none' }}
-                            id="raised-button-file"
-                            name="cv" 
-                            type="file"
-                            onChange = {this.fileChoosen}
-                            />
-
-                        <label htmlFor="raised-button-file">
-                            <Button 
-                                color="primary" 
-                                size="small" 
-                                component="span"
-                            >
-                                Choose File
-                            </Button> 
-                        </label>
-                        </div>
-
-                        <div style = {{marginBottom:20}}>
-                        <input type="submit" value="Upload" id="submit-file" style={{ display: 'none' }}/>
-                        <label htmlFor="submit-file">
-                            <Button 
-                                color="primary" 
-                                style= {{marginRight: "20px",float: "right",verticalAlign:"middle"}} 
-                                size="small" 
-                                onClick = {this.props.uploadCV}
-                                component="span"
-                                variant="contained"
-                            >
-                                Save
-                            </Button> 
-                        </label>
-                        </div>
-                    </form>  */}
-
-
-
-
-
-                    {/* <div style={{ float: "right" }}>
-                        <Button variant="contained" color="primary" size="small" onClick={this.handleSubmit} >
-                            Save
-                    </Button> */}
-
 
                 </Paper>
             </div>
-
         )
     }
 

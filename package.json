@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@alifd/next": "^1.17.12",
     "@babel/runtime": "^7.3.4",
     "@material-ui/core": "^3.9.2",
     "@material-ui/icons": "^3.0.2",
@@ -16,6 +17,7 @@
     "jquery": "^3.4.1",
     "mdi-material-ui": "^5.11.0",
     "mocha": "^6.0.2",
+    "moment": "^2.24.0",
     "mui-datatables": "^2.12.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.4",

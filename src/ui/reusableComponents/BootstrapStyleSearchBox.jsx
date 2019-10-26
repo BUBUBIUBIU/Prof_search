@@ -44,7 +44,6 @@ class BootStrapStyleSearchBox extends Component{
             input: '',
             value: this.props.value
         }; 
-        
     }
 
     componentDidMount(){
@@ -54,7 +53,7 @@ class BootStrapStyleSearchBox extends Component{
 
 
     componentDidUpdate(){
-        if (this.props.value != this.state.value ) this.setState({value:this.props.value});
+        if (this.props.value !== this.state.value ) this.setState({value:this.props.value});
 
     }
 

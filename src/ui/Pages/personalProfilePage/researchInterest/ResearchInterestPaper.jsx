@@ -12,10 +12,9 @@ import { withStyles, Modal,Paper } from '@material-ui/core';
 
 //Ui
 
-import CardHeader from '../CardHeader'
-import ResearchInterestModal from './ResearchInterestModal'
-
-
+import CardHeader from '../CardHeader';
+import ResearchInterestModal from './ResearchInterestModal';
+import ResearchInterestDetail from './ResearchInterestDetials';
 
 
 const styles = theme => ({
@@ -82,16 +81,16 @@ class researchInterestPaper extends Component {
     super(props);
     this.state = {
       expand: false,
-      // currentEducations: this.props.educations
+      currentInterests: this.props.interests
     };
     // console.log(this.props.educations)
     // console.log(this.state.currentEducations)
   }
 
   componentDidUpdate(){
-    if (this.props.educations != this.state.currentEducations) {
+    if (this.props.interests !== this.state.currentInterests) {
       this.setState({
-        currentEducations: this.props.educations,
+        currentInterests: this.props.interests,
       })
     }
   }
@@ -102,19 +101,29 @@ class researchInterestPaper extends Component {
 
   handleClose = () => {
     this.setState({ open: false });
-    // this.props.UpdateFile();
+    this.props.UpdateFile();
   };
 
   render() {
-    // const { currentEducations } = this.state;
-    // console.log(currentEducations)
+    // const interests = this.props.interests;
+    
+    let interests;
+
+    if (this.props.interests){
+      interests = this.props.interests.split('\n');
+    }else{
+      interests = [];
+    }
+    // console.log('interests:', interests);
+
     return (
       <div>
         <Paper style = {{ boxShadow: "0 2px 4px 0 rgba(215, 215, 215, 0.5)"}}>
-        <CardHeader title={"Research Interest"} handleOpen={this.handleOpen} isCompulsory={false} buttonName={"Add Interest"} editable = {this.props.editable}/>
-        
-        {/* <ResearchInterestDetail educationExperience={currentEducations} UpdateFile = {this.props.UpdateFile}/> */}
-        
+          <CardHeader title={"Research Interest"} handleOpen={this.handleOpen} isCompulsory={false} buttonName={"Add Interest"} editable = {this.props.editable}/>
+          
+          {this.props.interests &&
+            <ResearchInterestDetail interests={interests} UpdateFile = {this.props.UpdateFile}/>
+          }
         </Paper>
         <Modal
           aria-labelledby="simple-modal-title"
@@ -122,7 +131,7 @@ class researchInterestPaper extends Component {
           open={this.state.open}
           onClose={this.handleClose}
         >
-          <ResearchInterestModal handleClose={this.handleClose} />
+          <ResearchInterestModal handleClose={this.handleClose} interests={interests} UpdateFile = {this.props.UpdateFile}/>
         </Modal>
       </div>
 

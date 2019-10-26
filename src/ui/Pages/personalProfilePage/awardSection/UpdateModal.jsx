@@ -16,7 +16,7 @@ import BootstrapStyleSearchBox from '../../../reusableComponents/BootstrapStyleS
 import ConfirmationDialog from '../../../reusableComponents/Dialog/ConfirmationDialog'
 
 //api
-import {updateAward, deleteAward} from '../../../../api/personalProfileApi'
+import {updateAward, deleteAward, deleteAwardFile, uploadAwardFile} from '../../../../api/personalProfileApi'
 
 const styles = theme => ({
     paper: {
@@ -80,27 +80,36 @@ class AwardModal extends Component {
     constructor(props) {
         super(props);
         this.state = this.props.currentAward
-        console.log(this.props.currentAward)
+        // console.log('state in UpdateModal:', this.state);
+        this.state.FileOrNot = false;
     }
     
+    handleDeleteAwardFile = () => {
+        deleteAwardFile(this.props.identity, this.state.ID);
+        this.setState( {AttachmentName:''} );
+    }
 
     handleSubmit = () => {
         //Check all requirement
-        if (this.state.Name.replace(/(^s*)|(s*$)/g, "").length !== 0 
+        if (this.state.AwardName.replace(/(^s*)|(s*$)/g, "").length !== 0 
             && this.state.Description !== NaN) {
             const data = {
                 ID: this.state.ID,
-                Name: this.state.Name,
-                Organization: this.state.Organization,
+                AwardName: this.state.AwardName,
+                AwardingOrganization: this.state.AwardingOrganization,
                 Date: this.state.Date,
                 Description: this.state.Description
             }
-            console.log(data)
-            const temp = this
+            // console.log(data)
+            const that = this
 
             updateAward(data, this.props.identity)
                 .then(function (response) {
-                    temp.props.handleClose()
+                    if (that.state.FileOrNot) {
+                        that.uploadFile(that.state.ID);
+                    } else{
+                        that.props.handleClose(); 
+                    }
                 }, function (err) {
                     alert(err.message);
                     console.log(err);
@@ -144,8 +153,34 @@ class AwardModal extends Component {
 
     }
 
+    fileChoosen = (event) => {
+        let file = event.target.files[0];
+        let url = window.webkitURL.createObjectURL(file);
+        this.setState({file,url});
+        this.setState({FileOrNot: true, AttachmentName: file.name });
+    }
+
+    uploadFile = (id) =>{
+        const formObj =  document.getElementById("awardFile");
+        console.log('the formObj is :', formObj);
+        const formData = new FormData(formObj);
+        // console.log('the formData is:', formData);
+        const that = this;
+        uploadAwardFile(formData, this.props.identity, id).
+            then(function(response){
+                // console.log('uploadAwardFile is activated');
+                that.props.handleClose(); 
+            },
+            function(err){
+                alert(err.message);
+                console.log(err)
+            }
+            );
+    }
+
     render() {
         const { classes } = this.props
+        
         return (
             <div className={classes.modal}>
                 <Paper className={classes.paper} style={{ padding: "20px 30px 0px 30px", marginBottom: "3px", height: "40px" }} >
@@ -165,16 +200,15 @@ class AwardModal extends Component {
                 <Paper className={classes.paper} style={{ padding: "50px 30px" }}>
                     <BootstrapStyleSearchBox
                         label="Award Name"
-                        onChangeInput = {this.handleChange("Name")}
+                        onChangeInput = {this.handleChange("AwardName")}
                         compusory={true}
-                        value = {this.state.Name}
+                        value = {this.state.AwardName}
                     />
 
                     <BootstrapStyleSearchBox
                         label="Award Organization"
-                        onChangeInput = {this.handleChange("Organization")}
-                    // compusory={true}
-                        value = {this.state.Organization}
+                        onChangeInput = {this.handleChange("AwardingOrganization")}
+                        value = {this.state.AwardingOrganization}
                     />
 
                     <BootstrapStyleSearchBox
@@ -190,22 +224,58 @@ class AwardModal extends Component {
                         value = {this.state.Description}
                     />
 
-                    <Button style={{ color: 'red' }}>Add file</Button>
-
-                    <div style ={{marginTop:30}}>
-                    <div style={{ float: "right", marginLeft:40 }}>
-                        <Button variant="contained" color="primary" size="small" onClick={this.handleSubmit} >
-                            Save
+                    {this.state.AttachmentName &&
+                        <Button 
+                            style={{ color: 'red' }}
+                            onClick={this.handleDeleteAwardFile}
+                        >
+                            {this.state.AttachmentName}
                         </Button>
-                    </div>
+                    }
 
-                    <div style={{ float: "right" }}>
-                        <Button  size="small" onClick={this.handleDialogOpen} >
-                            Delete
-                        </Button>
-                    </div>
-                </div>
+                    <form id='awardFile' enctype="multipart/form-data">
+                        <div>
+                            <input
+                                accept=".doc, .docx, .pdf"
+                                style={{ display: 'none' }}
+                                id="raised-button-file"
+                                name='award'
+                                type="file"
+                                onChange={this.fileChoosen}
+                            />
+                            <label htmlFor="raised-button-file">
+                                {! this.state.AttachmentName &&
+                                    <Button
+                                        color="primary"
+                                        component="span"
+                                    >
+                                        Add file
+                                    </Button>
+                                }
+                            </label>
+                        </div> 
 
+                        <div style={{ float: "right", marginLeft:20 }}>
+                            <label htmlFor="submit-file">
+                                <Button
+                                    color="primary"
+                                    style={{verticalAlign: "middle" }}
+                                    size="small"
+                                    onClick={this.handleSubmit}
+                                    component="span"
+                                    variant="contained"
+                                >
+                                    Save
+                                </Button>
+                            </label>
+                        </div>
+
+                        <div style={{ float: "right" }}>
+                            <Button  size="small" onClick={this.handleDialogOpen} >
+                                Delete
+                            </Button>
+                        </div>
+                    </form>
                 </Paper>
 
                 <ConfirmationDialog 

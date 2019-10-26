@@ -31,13 +31,12 @@ class Award extends Component {
         super(props);
         this.state = {
             expand: false,
-            // ？没有open这个property 啊
             award: this.props.awards
         };
     }
 
     handleOnclick = () =>{
-        if (this.state.expand == false){
+        if (this.state.expand === false){
             this.setState({expand:true})
         }else{
             this.setState({expand:false})
@@ -54,12 +53,12 @@ class Award extends Component {
     }
 
     componentDidUpdate() {
-        if (this.props.awards != this.state.award) {
+        if (this.props.awards !== this.state.award) {
           this.setState({
             award: this.props.awards,
           })
         }
-        console.log("WorkAndExp Paper update")
+        // console.log("WorkAndExp Paper update")
     }
 
     render(){
@@ -70,7 +69,7 @@ class Award extends Component {
                 <CardHeader title = {"Award"} handleOpen ={this.handleOpen} isCompulsory= {false} buttonName = {"Add Award"} editable = {this.props.editable}/>
 
                 {award &&
-                <AwardDetails awards = {award} UpdateFile = {this.props.UpdateFile} identity = {this.props.identity} editable = {this.props.editable}/>
+                    <AwardDetails awards = {award} UpdateFile = {this.props.UpdateFile} identity = {this.props.identity} editable = {this.props.editable}/>
                 }
             </Paper>
 

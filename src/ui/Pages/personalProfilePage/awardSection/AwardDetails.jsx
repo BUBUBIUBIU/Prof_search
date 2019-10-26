@@ -6,7 +6,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Grid, Paper, Typography, Button, withStyles, Modal,Avatar, List, ListItem, Divider,IconButton } from '@material-ui/core';
+import { Grid, Paper, Typography, withStyles, Modal, List, ListItem, Divider,IconButton } from '@material-ui/core';
 import { Edit } from '@material-ui/icons/';
 import UpdateModal from './UpdateModal'
 
@@ -58,29 +58,28 @@ class AwardDetail extends Component {
                         <Grid item xs={11}>
                             {/* subtitle */}
                             <div style={{ margin: "10px" }}>
-                                <Typography variant="h2">
-                                    {award.Name}
+                                <Typography variant="h1s">
+                                    {award.AwardName}
                                 </Typography>
                             </div>
 
                             {/* subtitle */}
                             <div style={{ margin: "10px" }}>
-                                <Typography variant="body2">
-                                    {award.Organization}
+                                <Typography variant="h3s">
+                                    {award.AwardingOrganization}
                                 </Typography>
                             </div>
 
-
                             {/* year and location */}
                             <div style={{ margin: "10px" }}>
-                                <Typography variant="body2">
+                                <Typography variant="h2s" style={{fontStyle: 'italic'}}>
                                     {award.Date}
                                 </Typography>
                             </div>
 
-                            <div style={{ margin: "25px 10px 25px 10px" }}>
+                            <div style={{ margin: "24px 10px 25px 10px" }}>
                                 {/* Describetion */}
-                                <Typography variant="body2">
+                                <Typography variant="p1">
                                     {award.Description}
                                 </Typography>
                             </div>

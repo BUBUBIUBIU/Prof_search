@@ -280,35 +280,20 @@ class PersonalProfilePage extends Component {
                         </div>
                     </Paper>
 
-                    {/* {this.props.identity === 'expert' &&   <ResearchInterest/> } */}
-                    
-                    {this.props.identity === 'expert' &&   <ResearchGrant 
-                        researchGrants = {profile.Grants}
+                    {this.props.identity === 'expert' &&  <ResearchInterest
+                        interests = {profile.ResearchInterest}
                         UpdateFile = {this.UpdateFile}
                         editable = {this.props.editable}
                     /> }
-
+                    
                     {this.props.identity === 'expert' &&   <OngoingProject
                         projects = {profile.OngoingProjects} 
                         UpdateFile = {this.UpdateFile}
                         editable = {this.props.editable}
                     /> }
 
-                    {this.props.identity === 'expert' &&   <AvailablePosition
-                        positions = {profile.AvailablePositions}
-                        UpdateFile = {this.UpdateFile}
-                        editable = {this.props.editable}
-                    />}
-
                     <EducationPaper 
                         educations = {profile.Universities}
-                        UpdateFile = {this.UpdateFile}
-                        editable = {this.props.editable}
-                        identity = {this.props.identity}
-                    />
-                    
-                    <WorkAndProjectExperience 
-                        workAndExp = {profile.Companies}
                         UpdateFile = {this.UpdateFile}
                         editable = {this.props.editable}
                         identity = {this.props.identity}
@@ -324,6 +309,19 @@ class PersonalProfilePage extends Component {
                         />
                     }
 
+                    <Publication 
+                        publications = {profile.Publications}
+                        UpdateFile = {this.UpdateFile}
+                        editable = {this.props.editable}
+                        identity = {this.props.identity}
+                    />
+
+                    {this.props.identity === 'expert' &&   <ResearchGrant 
+                        researchGrants = {profile.Grants}
+                        UpdateFile = {this.UpdateFile}
+                        editable = {this.props.editable}
+                    /> }
+
                     <Award 
                         awards = {profile.Awards}
                         UpdateFile = {this.UpdateFile}
@@ -331,12 +329,18 @@ class PersonalProfilePage extends Component {
                         identity = {this.props.identity}
                     />
 
-                    <Publication 
-                        publications = {profile.Publications}
+                    <WorkAndProjectExperience 
+                        workAndExp = {profile.Companies}
                         UpdateFile = {this.UpdateFile}
                         editable = {this.props.editable}
                         identity = {this.props.identity}
                     />
+
+                    {this.props.identity === 'expert' &&   <AvailablePosition
+                        positions = {profile.AvailablePositions}
+                        UpdateFile = {this.UpdateFile}
+                        editable = {this.props.editable}
+                    />}
 
                     <OtherMaterial 
                         otherMaterial = {profile.Materials}
@@ -346,14 +350,13 @@ class PersonalProfilePage extends Component {
                     />
                 </div>
 
-                
                 <Modal
                     aria-labelledby="completeness-modal"
                     aria-describedby="show-the-completion"
                     open={this.state.completenessModal}
                     onClose={this.handleClose("completenessModal")}
                 >   
-                <CompletenessModal handleClose ={this.handleClose("completenessModal")} />
+                    <CompletenessModal handleClose ={this.handleClose("completenessModal")} />
                 </Modal>
 
 

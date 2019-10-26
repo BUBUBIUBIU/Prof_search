@@ -35,7 +35,6 @@ export function UploadAvatar(data){
 }
 
 
-
 /**
  * This method used for add experience
  * Post method is implemented
@@ -293,8 +292,8 @@ export function uploadAwardFile(data, identity, id){
         AWARDFILE = apiUrl.EXPERT_AWARD;
     }
     AWARDFILE = AWARDFILE + '/' + id;
-    console.log('awardFile in final step:', AWARDFILE);
-    console.log('file data in final step:', data);
+    // console.log('awardFile in final step:', AWARDFILE);
+    // console.log('file data in final step:', data);
     return getDataFromServer(AWARDFILE, configObj);
 }
 
@@ -305,13 +304,16 @@ export function uploadAwardFile(data, identity, id){
  * @param {Object} data: detail in deleteAwardFile ApI, request Body 
  * @return {Object} 
  */
-export function deleteAwardFile(data){
+export function deleteAwardFile(identity, id){
     const configObj = {
-        method: 'DELETE',
-        data,
+        method: 'DELETE'
     }
-    const AWARDFILE = apiUrl.AWARD + data.ID;
-    console.log(data);
+    let AWARDFILE = apiUrl.AWARD;
+    if( identity === 'expert' ){
+        AWARDFILE = apiUrl.EXPERT_AWARD;
+    }
+    AWARDFILE = AWARDFILE + '/' + id;
+    // console.log(data);
     return getDataFromServer(AWARDFILE, configObj);
 }
 
@@ -377,6 +379,46 @@ export function deleteOtherMaterial(data, identity){
 }
 
 /**
+ * This method used for uploading otherMaterial file
+ * post method is implemented
+ *
+ * @param {Object} data: detail in uploadotherMaterialFile ApI, request Body 
+ * @return {Object} 
+ */
+export function uploadOtherMaterialFile(data, identity, id){
+    const configObj = {
+        method: 'POST',
+        data,
+    }
+    let OtherMaterialFILE = apiUrl.OTHERMATERIAL;
+    if( identity === 'expert' ){
+        OtherMaterialFILE = apiUrl.EXPERT_OTHERMATERIAL;
+    }
+    OtherMaterialFILE = OtherMaterialFILE + '/' + id;
+    return getDataFromServer(OtherMaterialFILE, configObj);
+}
+
+/**
+ * This method used for deleteOtherMaterialFile
+ * post method is implemented
+ *
+ * @param {Object} data: detail in deleteOtherMaterialFile ApI, request Body 
+ * @return {Object} 
+ */
+export function deleteOtherMaterialFile(identity, id){
+    const configObj = {
+        method: 'DELETE'
+    }
+    let OtherMaterialFILE = apiUrl.OTHERMATERIAL;
+    if( identity === 'expert' ){
+        OtherMaterialFILE = apiUrl.EXPERT_OTHERMATERIAL;
+    }
+    OtherMaterialFILE = OtherMaterialFILE + '/' + id;
+    // console.log(data);
+    return getDataFromServer(OtherMaterialFILE, configObj);
+}
+
+/**
  * This method used for add research interest
  * Post method is implemented
  *
@@ -388,39 +430,7 @@ export function addResearchInterest(data){
         method: 'POST',
         data,
     }
-    console.log(data);
-    return getDataFromServer(apiUrl.ResearchInterest, configObj);
-}
-
-/**
- * This method used for update research interest
- * Post method is implemented
- *
- * @param {Object} data: detail in UPdateResearchInterest ApI, request Body 
- * @return {Object} 
- */
-export function updateResearchInterest(data){
-    const configObj = {
-        method: 'PUT',
-        data,
-    }
-    console.log(data);
-    return getDataFromServer(apiUrl.ResearchInterest, configObj);
-}
-
-/**
- * This method used for delte other material
- * Delete method is implemented
- *
- * @param {Object} data: detail in AddAward ApI, request Body 
- * @return {Object} 
- */
-export function deleteResearchInterest(data){
-    const configObj = {
-        method: 'DELETE',
-        data,
-    }
-    console.log(data);
+    console.log('data in addInterests:', data);
     return getDataFromServer(apiUrl.ResearchInterest, configObj);
 }
 
@@ -470,6 +480,40 @@ export function deleteResearchGrant(data){
     }
     console.log(data);
     return getDataFromServer(apiUrl.ResearchGrant, configObj);
+}
+
+/**
+ * This method used for uploading grant file
+ * post method is implemented
+ *
+ * @param {Object} data: detail in uploadGrantFile ApI, request Body 
+ * @return {Object} 
+ */
+export function uploadGrantFile(data, id){
+    const configObj = {
+        method: 'POST',
+        data,
+    }
+
+    let GRANTFILE = apiUrl.ResearchGrant;
+    GRANTFILE = GRANTFILE + '/' + id;
+    return getDataFromServer(GRANTFILE, configObj);
+}
+
+/**
+ * This method used for deleting grant file
+ * post method is implemented
+ *
+ * @param {Object} data: detail in deleting grant ApI, request Body 
+ * @return {Object} 
+ */
+export function deleteGrantFile(id){
+    const configObj = {
+        method: 'DELETE',
+    }
+    let GRANTFILE = apiUrl.ResearchGrant;
+    GRANTFILE = GRANTFILE + '/' + id;
+    return getDataFromServer(GRANTFILE, configObj);
 }
 
 /**

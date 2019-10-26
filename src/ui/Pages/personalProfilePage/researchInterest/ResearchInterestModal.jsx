@@ -13,6 +13,7 @@ import BootstrapStyleSearchBox from '../../../reusableComponents/BootstrapStyleS
 
 //api
 import { addResearchInterest } from '../../../../api/personalProfileApi';
+import { updateResearchInterest } from '../../../../api/personalProfileApi';
 
 const styles = theme => ({
     paper: {
@@ -78,32 +79,25 @@ class ResearchInterestModal extends Component {
         super(props);
         this.state = {
             Interest: '',
-            Interests: []
+            Interests: this.props.interests
         };
     }
 
 
     handleSubmit = () => {
+        const data = {
+            ResearchInterest: this.state.Interests.join('\n')
+        };
 
-        //Check all requirement
-        if (this.state.Interests.length !== 0) {
-            const data = {
-                Interests: this.state.Interests
-            }
-            console.log(data)
-            const temp = this;
-            addResearchInterest(data)
-                .then(function (response) {
-                    console.log(response.message)
-                    temp.props.handleClose()
-                }, function (err) {
-                    alert(err.message);
-                    console.log(err);
-                })
+        const temp = this;
 
-        } else {
-            alert("Some error with your input")
-        }
+        addResearchInterest(data)
+            .then(function (response) {
+                temp.props.handleClose()
+            }, function (err) {
+                alert(err.message);
+                console.log(err);
+        })
     }
 
     handleChange = field => event => {
@@ -112,31 +106,42 @@ class ResearchInterestModal extends Component {
 
     handleAddInterests = () => {
         const Interests = this.state.Interests;
+        
+
+        // console.log('this is before push:', Interests);
         Interests.push(this.state.Interest)
-        this.setState({ Interests })
-        console.log(this.state.Interests);
+        this.setState({Interests})
+        this.setState({Interest:''})
+        // console.log('this is after add interest:', this.state.Interests);
+
     }
 
-    handleDeleteInterests = (index) => {
-        const Interests = this.state.Interests;
-        Interests.splice(index, 1);
-        this.setState({Interests});
-        console.log(this.state.Interests);
+    handleDeleteInterest = (interest) => {
+        const Interests = [...this.state.Interests];
+        const interestIndex = this.state.Interests.findIndex(i => {
+            return i === interest;
+        });
+        Interests.splice(interestIndex, 1);
+        this.setState({Interests: Interests});
     }
 
     render() {
         const { classes } = this.props
 
-        const researchInterestList = this.state.Interests.map((interest, index) =>
-            <ListItem key={interest+index.toString()} style = {{width: "auto", paddingLeft: "0"}} >
-                <div style={{width: "100%" }}>
-                    {/* ?颜色 */}
-                    <Button variant="outlined" color="primary" onClick={this.handleDeleteInterests(index)}>
-                        {interest}
-                    </Button>
-                </div>
-            </ListItem>
-        );
+        let researchInterestList;
+
+        if (this.state.Interests) {
+            researchInterestList = this.state.Interests.map((interest, index) =>
+                <ListItem key={interest+index.toString()} style = {{width: "auto", paddingLeft: "0"}} >
+                    <div style={{width: "100%" }}>
+                        {/* ?颜色 */}
+                        <Button variant="outlined" color="primary" onClick={() => this.handleDeleteInterest(interest)}>
+                            {interest}
+                        </Button>
+                    </div>
+                </ListItem>
+            );
+        }
 
         return (
             <div className={classes.modal}>
@@ -154,14 +159,17 @@ class ResearchInterestModal extends Component {
                 </Paper>
 
                 <Paper className={classes.paper} style={{ padding: "0px 30px 50px 30px" }}>
+                    {this.state.Interests &&
+                        <List style = {{display: 'flex', flexDirection:'row', justifyContent:"flex-start", flexWrap: 'wrap'}}>
+                            {researchInterestList}
+                        </List>
+                    }
 
-                    <List style = {{display: 'flex', flexDirection:'row', justifyContent:"flex-start", flexWrap: 'wrap'}}>
-                        {researchInterestList}
-                    </List>
 
                     {/* 判断一次不可为空 */}
                     <BootstrapStyleSearchBox
                         onChangeInput={this.handleChange("Interest")}
+                        value = {this.state.Interest}
                     />
 
                     <Button style={{ color: 'red' }} onClick={this.handleAddInterests}>

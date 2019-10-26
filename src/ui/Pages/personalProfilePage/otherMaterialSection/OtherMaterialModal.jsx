@@ -88,7 +88,7 @@ class OtherMaterialModal extends Component {
         };
     }
 
-    handleSubmit = () => {
+    submit = () => {
         //Check all requirement
         if (this.state.title.replace(/(^s*)|(s*$)/g, "").length !== 0
             && this.state.briefDescription.replace(/(^s*)|(s*$)/g, "").length !== 0
@@ -102,10 +102,14 @@ class OtherMaterialModal extends Component {
             }
             console.log(data)
             
-            const temp = this;
+            const that = this;
             addOtherMaterial(data, this.props.identity)
                 .then(function (response) {
-                    temp.props.handleClose()
+                    if (that.state.FileOrNot) {
+                        that.uploadFile(response.content.id);
+                    } else{
+                        that.props.handleClose(); 
+                    }
                 }, function (err) {
                     alert(err.message);
                     console.log(err);
@@ -115,12 +119,17 @@ class OtherMaterialModal extends Component {
             alert("please fullfill all required files")
         }
 
-
-
     }
 
     handleChange = field => event => {
         this.setState({ [field]: event.target.value })
+    }
+
+    fileChoosen = (event) => {
+        let file = event.target.files[0];
+        let url = window.webkitURL.createObjectURL(file);
+        this.setState({file,url});
+        this.setState({FileOrNot: true});
     }
 
     render() {
@@ -152,6 +161,7 @@ class OtherMaterialModal extends Component {
                         label="Year"
                         styles={{ width: "600px" }}
                         items={years}
+                        isCompulsory={true}
                         onChangeSelect={this.handleChange("year")}
                     />
 
@@ -167,14 +177,50 @@ class OtherMaterialModal extends Component {
                         onChangeInput={this.handleChange("url")}
                     />
 
-                    <Button style={{ color: 'red' }}>Add file</Button>
-                    <br />
-                    <div style={{ float: "right" }}>
-                        <Button variant="contained" color="primary" size="small" onClick={this.handleSubmit}>
-                            Save
-                </Button>
-                    </div>
+                    {this.state.file &&
+                        <div>
+                            <Typography variant="h2" style={{ fontWeight: "normal", marginLeft: 5, color: "red" }}  >
+                                {this.state.file.name + " has been uploaded, please click save"}
+                            </Typography>
+                        </div>
+                    }
 
+                    <form id='otherMaterialFile' enctype="multipart/form-data">
+                        <div>
+                            <input
+                                accept=".doc, .docx, .pdf"
+                                style={{ display: 'none' }}
+                                id="raised-button-file"
+                                name='otherMaterial'
+                                type="file"
+                                onChange={this.fileChoosen}
+                            />
+                            <label htmlFor="raised-button-file">
+                                {!this.state.file &&
+                                    <Button
+                                        color="primary"
+                                        component="span"
+                                    >
+                                        Add file
+                                    </Button>}
+                            </label>
+                        </div>
+
+                        <div style={{ marginBottom: 20 }}>
+                            <label htmlFor="submit-file">
+                                <Button
+                                    color="primary"
+                                    style={{ marginRight: "20px", float: "right", verticalAlign: "middle" }}
+                                    size="small"
+                                    onClick={this.submit}
+                                    component="span"
+                                    variant="contained"
+                                >
+                                    Save
+                                </Button>
+                            </label>
+                        </div>
+                    </form>
                 </Paper>
             </div>
 
