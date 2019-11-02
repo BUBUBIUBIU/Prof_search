@@ -154,7 +154,44 @@ export function deleteExperience(data, identity){
     return getDataFromServer(EXPERIENCE, configObj);
 }
 
+/**
+ * This method used for uploading Experience file
+ * post method is implemented
+ *
+ * @param {Object} data: detail in uploadExperienceFile ApI, request Body 
+ * @return {Object} 
+ */
+export function uploadExperienceFile(data, identity, id){
+    const configObj = {
+        method: 'POST',
+        data,
+    }
+    let ExperienceFILE = apiUrl.EXPERIENCE;
+    if( identity === 'expert' ){
+        ExperienceFILE = apiUrl.EXPERT_EXPERIENCE;
+    }
+    ExperienceFILE = ExperienceFILE + '/' + id;
+    return getDataFromServer(ExperienceFILE, configObj);
+}
 
+/**
+ * This method used for deleting Experience file
+ * post method is implemented
+ *
+ * @param {Object} data: detail in deleting ExperienceFile ApI, request Body 
+ * @return {Object} 
+ */
+export function deleteExperienceFile(identity, id){
+    const configObj = {
+        method: 'DELETE',
+    }
+    let ExperienceFILE = apiUrl.EXPERIENCE;
+    if( identity === 'expert' ){
+        ExperienceFILE = apiUrl.EXPERT_EXPERIENCE;
+    }
+    ExperienceFILE = ExperienceFILE + '/' + id;
+    return getDataFromServer(ExperienceFILE, configObj);
+}
 
 /**
  * This method used for update or create project detail
@@ -376,7 +413,7 @@ export function addOtherMaterial(data, identity){
         method: 'POST',
         data,
     }
-    console.log(data);
+    console.log('otherMaterial is:', data);
     let OTHERMATERIAL = apiUrl.OTHERMATERIAL;
     if( identity === 'expert' ){
         OTHERMATERIAL = apiUrl.EXPERT_OTHERMATERIAL;

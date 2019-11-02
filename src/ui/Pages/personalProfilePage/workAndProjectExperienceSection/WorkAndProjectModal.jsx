@@ -84,6 +84,7 @@ class WorkAndProjectModal extends Component {
         this.state = {
             currentWorking: false,
         };
+        this.state.FileOrNot = false;
     }
 
     handleSubmit = () => {
@@ -272,11 +273,50 @@ class WorkAndProjectModal extends Component {
                     // compusory={true}
                     />
 
-                    <div style={{ float: "right" }}>
-                        <Button variant="contained" color="primary" size="small" onClick={this.handleSubmit} >
-                            Submit
-                        </Button>
-                    </div>
+                {this.state.file &&
+                        <div>
+                            <Typography variant="h2" style={{ fontWeight: "normal", marginLeft: 5, color: "red" }}  >
+                                {this.state.file.name + " has been uploaded, please click save"}
+                            </Typography>
+                        </div>
+                    }
+
+                    <form id='otherMaterialFile' enctype="multipart/form-data">
+                        <div>
+                            <input
+                                accept=".doc, .docx, .pdf"
+                                style={{ display: 'none' }}
+                                id="raised-button-file"
+                                name='material'
+                                type="file"
+                                onChange={this.fileChoosen}
+                            />
+                            <label htmlFor="raised-button-file">
+                                {!this.state.file &&
+                                    <Button
+                                        color="primary"
+                                        component="span"
+                                    >
+                                        Add file
+                                    </Button>}
+                            </label>
+                        </div>
+
+                        <div style={{ marginBottom: 20 }}>
+                            <label htmlFor="submit-file">
+                                <Button
+                                    color="primary"
+                                    style={{ marginRight: "20px", float: "right", verticalAlign: "middle" }}
+                                    size="small"
+                                    onClick={this.submit}
+                                    component="span"
+                                    variant="contained"
+                                >
+                                    Save
+                                </Button>
+                            </label>
+                        </div>
+                    </form>
 
                 </Paper>
             </div>

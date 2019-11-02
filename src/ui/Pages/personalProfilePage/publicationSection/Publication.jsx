@@ -12,7 +12,7 @@ import { withStyles,Paper, Modal,} from '@material-ui/core';
 //UI
 import  CardHeader from '../CardHeader'
 import PublicationModal from './PublicationModal'
-import PublicationDetail from './publicationDetail'
+import PublicationDetail from './PublicationDetail'
 
 const styles = theme => ({
     paper:{

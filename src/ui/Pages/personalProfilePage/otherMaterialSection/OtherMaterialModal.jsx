@@ -17,7 +17,7 @@ import { years } from '../../../../config/years'
 import BootstrapStyleSearchBox from '../../../reusableComponents/BootstrapStyleSearchBox'
 
 //api
-import {addOtherMaterial} from '../../../../api/personalProfileApi'
+import {addOtherMaterial, uploadOtherMaterialFile} from '../../../../api/personalProfileApi'
 
 const styles = theme => ({
     paper: {
@@ -42,25 +42,21 @@ const styles = theme => ({
 class OtherMaterialModal extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            title: '',
-            year: 0,
-            briefDescription: '',
-            url: ''
-        };
+        this.state = {};
+        this.state.FileOrNot = false;
     }
 
     submit = () => {
         //Check all requirement
-        if (this.state.title.replace(/(^s*)|(s*$)/g, "").length !== 0
-            && this.state.briefDescription.replace(/(^s*)|(s*$)/g, "").length !== 0
-            && this.state.url !== NaN
-            && this.state.year !== 0) {
+        if (this.state.Title.replace(/(^s*)|(s*$)/g, "").length !== 0
+            && this.state.Description.replace(/(^s*)|(s*$)/g, "").length !== 0
+            && this.state.Url !== NaN
+            && this.state.Year !== 0) {
             const data = {
-                Title: this.state.title,
+                Title: this.state.Title,
                 Year: parseInt(this.state.Year),
-                Description: this.state.briefDescription,
-                Url: this.state.url
+                Description: this.state.Description,
+                Url: this.state.Url
             }
             console.log(data)
             
@@ -94,6 +90,23 @@ class OtherMaterialModal extends Component {
         this.setState({FileOrNot: true});
     }
 
+    uploadFile = (id) =>{
+        const formObj =  document.getElementById("otherMaterialFile");
+        // console.log('the formObj is :', formObj);
+        const formData = new FormData(formObj);
+        // console.log('the formData is:', formData);
+        const that = this;
+        uploadOtherMaterialFile(formData, this.props.identity, id).
+            then(function(response){
+                that.props.handleClose(); 
+            },
+            function(err){
+                alert(err.message);
+                console.log(err)
+            }
+            );
+    }
+
     render() {
         const { classes } = this.props
         return (
@@ -111,11 +124,10 @@ class OtherMaterialModal extends Component {
                     </div>
                 </Paper>
 
-
                 <Paper className={classes.paper} style={{ padding: "50px 30px" }}>
                     <BootstrapStyleSearchBox
                         label="Title"
-                        onChangeInput = {this.handleChange("title")}
+                        onChangeInput = {this.handleChange("Title")}
                     // compusory = {true}
                     />
 
@@ -124,19 +136,19 @@ class OtherMaterialModal extends Component {
                         styles={{ width: "600px" }}
                         items={years}
                         isCompulsory={true}
-                        onChangeSelect={this.handleChange("year")}
+                        onChangeSelect={this.handleChange("Year")}
                     />
 
                     <BootstrapStyleSearchBox
                         label="Brief Description"
                         compusory={true}
-                        onChangeInput={this.handleChange("briefDescription")}
+                        onChangeInput={this.handleChange("Description")}
                     />
 
                     <BootstrapStyleSearchBox
                         label="URL"
                         compusory={false}
-                        onChangeInput={this.handleChange("url")}
+                        onChangeInput={this.handleChange("Url")}
                     />
 
                     {this.state.file &&
@@ -153,7 +165,7 @@ class OtherMaterialModal extends Component {
                                 accept=".doc, .docx, .pdf"
                                 style={{ display: 'none' }}
                                 id="raised-button-file"
-                                name='otherMaterial'
+                                name='material'
                                 type="file"
                                 onChange={this.fileChoosen}
                             />

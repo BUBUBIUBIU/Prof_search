@@ -16,7 +16,7 @@ import { years } from '../../../../config/years'
 import BootstrapStyleSearchBox from '../../../reusableComponents/BootstrapStyleSearchBox'
 import ConfirmationDialog from '../../../reusableComponents/Dialog/ConfirmationDialog'
 //api
-import {updateOtherMaterial, deleteOtherMaterial} from '../../../../api/personalProfileApi'
+import {updateOtherMaterial, deleteOtherMaterial, deleteOtherMaterialFile, uploadOtherMaterialFile } from '../../../../api/personalProfileApi'
 
 const styles = theme => ({
     paper: {
@@ -79,7 +79,8 @@ const styles = theme => ({
 class OtherMaterialModal extends Component {
     constructor(props) {
         super(props);
-        this.state = this.props.currentMaterial
+        this.state = this.props.currentMaterial;
+        this.state.FileOrNot = false;
     }
   
     handleDialogOpen= () => {
@@ -113,7 +114,7 @@ class OtherMaterialModal extends Component {
 
 
 
-    handleSubmit = () => {
+    submit = () => {
         //Check all requirement
         if (this.state.Title.replace(/(^s*)|(s*$)/g, "").length !== 0
             && this.state.Description.replace(/(^s*)|(s*$)/g, "").length !== 0
@@ -126,12 +127,15 @@ class OtherMaterialModal extends Component {
                 Description: this.state.Description,
                 Url: this.state.Url
             }
-            console.log(data)
-            const temp = this
+            const that = this
 
             updateOtherMaterial(data, this.props.identity)
                 .then(function (response) {
-                    temp.props.handleClose()
+                    if (that.state.FileOrNot) {
+                        that.uploadFile(that.state.ID);
+                    } else{
+                        that.props.handleClose(); 
+                    }
                 }, function (err) {
                     alert(err.message);
                     console.log(err);
@@ -144,6 +148,33 @@ class OtherMaterialModal extends Component {
 
     handleChange = field => event => {
         this.setState({ [field]: event.target.value })
+    }
+
+    handleDeleteFile = () => {
+        deleteOtherMaterialFile(this.props.identity, this.state.ID);
+        this.setState( {AttachmentName:''} );
+    }
+
+    fileChoosen = (event) => {
+        let file = event.target.files[0];
+        let url = window.webkitURL.createObjectURL(file);
+        this.setState({file,url});
+        this.setState({FileOrNot: true, AttachmentName: file.name });
+    }
+
+    uploadFile = (id) =>{
+        const formObj =  document.getElementById("otherMaterialFile");
+        const formData = new FormData(formObj);
+        const that = this;
+        uploadOtherMaterialFile(formData, this.props.identity, id).
+            then(function(response){
+                that.props.handleClose(); 
+            },
+            function(err){
+                alert(err.message);
+                console.log(err)
+            }
+            );
     }
 
     render() {
@@ -174,6 +205,7 @@ class OtherMaterialModal extends Component {
                         label="Year"
                         styles={{ width: "600px" }}
                         items={years}
+                        isCompulsory={true}
                         onChangeSelect={this.handleChange("Year")}
                         value = {this.state.Year}
                     />
@@ -191,14 +223,51 @@ class OtherMaterialModal extends Component {
                         onChangeInput={this.handleChange("Url")}
                         value ={this.state.Url}
                     />
+                    
+                    {this.state.AttachmentName &&
+                        <Button 
+                            style={{ color: 'red' }}
+                            onClick={this.handleDeleteFile}
+                        >
+                            {this.state.AttachmentName}
+                        </Button>
+                    }
 
-                    <Button style={{ color: 'red' }}>Add file</Button>
+                    <form id='otherMaterialFile' enctype="multipart/form-data">
+                        <div>
+                            <input
+                                accept=".doc, .docx, .pdf"
+                                style={{ display: 'none' }}
+                                id="raised-button-file"
+                                name='material'
+                                type="file"
+                                onChange={this.fileChoosen}
+                            />
+                            <label htmlFor="raised-button-file">
+                                {! this.state.AttachmentName &&
+                                    <Button
+                                        color="primary"
+                                        component="span"
+                                    >
+                                        Add file
+                                    </Button>
+                                }
+                            </label>
+                        </div> 
 
-                    <div style ={{marginTop:30}}>
-                        <div style={{ float: "right", marginLeft:40 }}>
-                            <Button variant="contained" color="primary" size="small" onClick={this.handleSubmit} >
-                                Save
-                            </Button>
+                        <div style={{ float: "right", marginLeft:20 }}>
+                            <label htmlFor="submit-file">
+                                <Button
+                                    color="primary"
+                                    style={{verticalAlign: "middle" }}
+                                    size="small"
+                                    onClick={this.submit}
+                                    component="span"
+                                    variant="contained"
+                                >
+                                    Save
+                                </Button>
+                            </label>
                         </div>
 
                         <div style={{ float: "right" }}>
@@ -206,7 +275,7 @@ class OtherMaterialModal extends Component {
                                 Delete
                             </Button>
                         </div>
-                    </div>
+                    </form>
 
                 </Paper>
                 <ConfirmationDialog 
